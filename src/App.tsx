@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 
+// TODO: try to remove .eslintrc and devDependencies
 const App: React.FC = () => <>App</>;
 
 export default App;

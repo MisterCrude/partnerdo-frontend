@@ -4,13 +4,15 @@
     "paths": {
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
+      "@containers/*": ["./containers/*"],
       "@config/*": ["./config/*"],
       "@hooks/*": ["./hooks/*"],
+      "@models/*": ["./models/*"],
       "@routing/*": ["./routing/*"],
       "@screens/*": ["./screens/*"],
-      "@typing/*": ["./typing/*"],
-      "@utils/*": ["./utils/*"],
+      "@services/*": ["./services/*"],
       "@store/*": ["./store/*"],
+      "@slices/*": ["./slices/*"],
       "@src/*": ["./*"]
     }
   }

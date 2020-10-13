@@ -38,7 +38,8 @@
     "eject": "react-scripts eject",
     "format": "pretty-quick --staged",
     "lint": "eslint src/ --ext .ts,.tsx,.js",
-    "cypress:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy": "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"

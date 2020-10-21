@@ -1,4 +1,4 @@
-# Front-end part of _partnerdo_ application
+# Front-end _partnerdo.pl_
 
 ## Available commands
 
@@ -8,10 +8,10 @@
 - `$ yarnd format`
 - `$ yarnd lint`
 
-## Docs content
+### Documentation
 
+- [Tools](docs/tools.md)
+- [Application architecture](docs/application.md)
 - [Development](docs/development.md)
 - [Deployment](docs/deployment.md)
 - [Testing](docs/testing.md)
-- [Application architecture](docs/application.md)
-- [Tools](docs/tools.md)

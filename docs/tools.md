@@ -38,7 +38,7 @@ Isolated React component development environment with a living style guide
 Toolset for efficient Redux development
 ```
 
-### Articles
+### Useful links
 
 - [Redux toolkit wiht TypesScript](https://www.mattbutton.com/redux-made-easy-with-redux-toolkit-and-typescript/)
 
@@ -50,7 +50,7 @@ Toolset for efficient Redux development
 Integration / e2e / unit automation testing framework
 ```
 
-### Articles
+### Useful links
 
 - [Cypress react testing](https://blog.sapegin.me/all/react-testing-4-cypress/)
 
@@ -58,7 +58,7 @@ Integration / e2e / unit automation testing framework
 
 - [Cypress best practies](https://docs.cypress.io/examples/examples/tutorials.html#Best-Practices)
 
-### Application examples
+### Projects examples
 
 - [Cypress realword app](https://github.com/cypress-io/cypress-realworld-app)
 

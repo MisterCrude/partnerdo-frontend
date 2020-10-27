@@ -1,13 +1,13 @@
 # Application structure
 
-### `/`
+## `/`
 
 - `cypress` - ...
 - `public` - ...
 - `docs` - linked documentation files with README.md
 - `src` - source dir for project
 
-### `src/`
+## `src/`
 
 - `assets` - svg and text files, images, etc
 - `components` - holds reusable React components

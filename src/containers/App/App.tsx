@@ -15,7 +15,13 @@ const App: React.FC = () => {
     dispatchLoadAppAsync(true);
   });
 
-  return <>App {selectIsAppload ? 'loaded' : 'unloaded'}</>;
+  return (
+    <>
+      <h1 style={{ textAlign: 'center', marginTop: '100px' }}>Cześć Kornelia :)</h1>
+      <br />
+      <h3 style={{ textAlign: 'center' }}>{selectIsAppload ? 'loaded' : 'unloaded'}</h3>
+    </>
+  );
 };
 
 export default App;

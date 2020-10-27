@@ -1,3 +1,4 @@
 tsconfig.json
+src/styles/main.css
 build
 coverage

@@ -13,6 +13,7 @@
       "@services/*": ["./services/*"],
       "@store/*": ["./store/*"],
       "@slices/*": ["./slices/*"],
+      "@styles/*": ["./styles/*"],
       "@src/*": ["./*"]
     }
   }

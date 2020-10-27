@@ -7,5 +7,5 @@ import { Logo } from './Logo';
 it('Should render Login component', () => {
   render(<Logo />);
 
-  expect(screen().getByTestId('logo')).toBeInTheDocument();
+  expect(screen.getByTestId('login')).toBeInTheDocument();
 });

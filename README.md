@@ -2,11 +2,11 @@
 
 ## Available commands
 
-- `$ yarnd start`
-- `$ yarnd build`
-- `$ yarnd test`
-- `$ yarnd format`
-- `$ yarnd lint`
+- `$ yarn start`
+- `$ yarn build`
+- `$ yarn test`
+- `$ yarn format`
+- `$ yarn lint`
 
 ### Documentation
 

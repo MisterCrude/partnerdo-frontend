@@ -1,1 +1,3 @@
 # Development
+
+- `$ yarn update --latest`

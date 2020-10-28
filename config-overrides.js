@@ -14,6 +14,7 @@ module.exports = function override(config) {
     '@services': path.resolve(__dirname, 'src/services/'),
     '@store': path.resolve(__dirname, 'src/store/'),
     '@slices': path.resolve(__dirname, 'src/slices/'),
+    '@styles': path.resolve(__dirname, 'src/styles/'),
     '@src': path.resolve(__dirname, 'src/'),
   };
 

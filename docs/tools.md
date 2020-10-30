@@ -63,11 +63,3 @@ Integration / e2e / unit automation testing framework
 - [Cypress realword app](https://github.com/cypress-io/cypress-realworld-app)
 
 - [Cypress with CI/CD](https://github.com/cypress-io/cypress-example-kitchensink)
-
-<br/>
-
-## [Cypress-react-unit-test](https://github.com/bahmutov/cypress-react-unit-test)
-
-```
-Helper to unit test React components
-```

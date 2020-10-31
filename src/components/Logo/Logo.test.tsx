@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { Logo } from './Logo';
 
 it('Should render Login component', () => {
-  render(<Logo />);
+    render(<Logo />);
 
-  expect(screen.getByTestId('login')).toBeInTheDocument();
+    expect(screen.getByTestId('login')).toBeInTheDocument();
 });

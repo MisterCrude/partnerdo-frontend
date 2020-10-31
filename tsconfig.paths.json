@@ -1,20 +1,21 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@assets/*": ["./assets/*"],
-      "@components/*": ["./components/*"],
-      "@containers/*": ["./containers/*"],
-      "@config/*": ["./config/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@models/*": ["./models/*"],
-      "@routing/*": ["./routing/*"],
-      "@screens/*": ["./screens/*"],
-      "@services/*": ["./services/*"],
-      "@store/*": ["./store/*"],
-      "@slices/*": ["./slices/*"],
-      "@styles/*": ["./styles/*"],
-      "@src/*": ["./*"]
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@assets/*": ["./assets/*"],
+            "@components/*": ["./components/*"],
+            "@containers/*": ["./containers/*"],
+            "@config/*": ["./config/*"],
+            "@hooks/*": ["./hooks/*"],
+            "@models/*": ["./models/*"],
+            "@routing/*": ["./routing/*"],
+            "@pages/*": ["./pages/*"],
+            "@services/*": ["./services/*"],
+            "@store/*": ["./store/*"],
+            "@slices/*": ["./slices/*"],
+            "@layouts/*": ["./layouts/*"],
+            "@styles/*": ["./styles/*"],
+            "@src/*": ["./*"]
+        }
     }
-  }
 }

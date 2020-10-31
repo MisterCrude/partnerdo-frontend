@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import useDispatch from '@hooks/dispatch';
-import { getIsAppload, appLoadAsync } from '@slices/appSlice';
+import { getIsAppload, appLoadAsync } from '@slices/homeSlice';
+import Home from '@screens/Home';
 
 // TODO: try to remove .eslintrc and devDependencies
 
@@ -17,7 +18,7 @@ const App: React.FC = () => {
 
     return (
         <>
-            <h1 style={{ textAlign: 'center', marginTop: '100px' }}>Cześć Kornelia :)</h1>
+            <Home />
             <br />
             <h3 style={{ textAlign: 'center' }}>{selectIsAppload ? 'loaded' : 'unloaded'}</h3>
         </>

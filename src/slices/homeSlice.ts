@@ -46,6 +46,6 @@ export const appLoadAsync = (isLoad: boolean): AppThunk => async (dispatch: AppD
 /**
  * Selectors
  */
-export const getIsAppload = (state: RootState) => state.app.isLoaded;
+export const getIsAppload = (state: RootState) => state.home.isLoaded;
 
 export default appSlice.reducer;

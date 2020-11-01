@@ -6,6 +6,12 @@
 Modular and accessible component library
 ```
 
+## [Framer motion](https://www.framer.com/motion/)
+
+```
+A production-ready motion library for React
+```
+
 <br/>
 
 ## [Lodash](https://lodash.com/)
@@ -20,14 +26,6 @@ Modern JavaScript utility library delivering modularity
 
 ```
 Custom hooks library
-```
-
-<br/>
-
-## [React-styleguidist](https://react-styleguidist.js.org/)
-
-```
-Isolated React component development environment with a living style guide
 ```
 
 <br/>

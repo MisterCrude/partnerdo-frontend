@@ -24,14 +24,6 @@ Custom hooks library
 
 <br/>
 
-## [React-styleguidist](https://react-styleguidist.js.org/)
-
-```
-Isolated React component development environment with a living style guide
-```
-
-<br/>
-
 ## [Redux-toolkit](https://redux-toolkit.js.org/)
 
 ```

@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import appReducer from '@slices/appSlice';
+import homeReducer from '@slices/homeSlice';
 
 const rootReducer = combineReducers({
-  app: appReducer,
+    home: homeReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

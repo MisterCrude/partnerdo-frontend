@@ -7,20 +7,20 @@ import '@styles/main.css';
 import store from '@store/index';
 
 const render = () => {
-  const App = require('@containers/App').default;
+    const App = require('./App').default;
 
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+    ReactDOM.render(
+        <React.StrictMode>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
 };
 
 render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('@containers/App', render);
+    module.hot.accept('./App', render);
 }

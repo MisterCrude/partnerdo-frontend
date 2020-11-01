@@ -6,6 +6,12 @@
 Modular and accessible component library
 ```
 
+## [Framer motion](https://www.framer.com/motion/)
+
+```
+A production-ready motion library for React
+```
+
 <br/>
 
 ## [Lodash](https://lodash.com/)

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Footer from '@components/Footer';
-import Header from '@components/Footer';
+import Header from '@components/Header';
 
-export const Main: React.FC = () => {
+export const Main: React.FC = ({ children }) => {
     return (
         <>
             <Header />
-            <div>Main layout</div>
+            {children}
             <Footer />
         </>
     );

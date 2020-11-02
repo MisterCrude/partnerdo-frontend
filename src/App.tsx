@@ -18,8 +18,8 @@ const App: React.FC = () => {
 
     return (
         <>
+            {/* Main router here */}
             <Home />
-            <br />
             <h3 style={{ textAlign: 'center' }}>{selectIsAppload ? 'loaded' : 'unloaded'}</h3>
         </>
     );

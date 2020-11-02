@@ -12,6 +12,7 @@
             "@models/*": ["./models/*"],
             "@store/*": ["./store/*"],
             "@layouts/*": ["./layouts/*"],
+            "@theme/*": ["./theme/*"],
             "@src/*": ["./*"]
         }
     }

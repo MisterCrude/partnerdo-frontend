@@ -180,8 +180,12 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
                         </Button>
                     ) : (
                         <>
-                            <Button variant="outline">Zaloguj się</Button>
-                            <Button colorScheme="orange">Zarejestruj się</Button>
+                            <Button size="lg" variant="outline">
+                                Zaloguj się
+                            </Button>
+                            <Button size="lg" colorScheme="orange">
+                                Zarejestruj się
+                            </Button>
                         </>
                     )}
                 </HStack>

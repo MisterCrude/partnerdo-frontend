@@ -73,10 +73,14 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
 export const NotLoggedinSet: React.FC = () => (
     <>
         <Flex alignItems="center" borderRadius={0} paddingY={2} justifyContent="flex-end" variant="link">
-            <Button variant="outline">Zaloguj się</Button>
+            <Button size="lg" variant="outline">
+                Zaloguj się
+            </Button>
         </Flex>
         <Flex alignItems="flex" borderRadius={0} paddingY={2} justifyContent="flex-start" variant="link">
-            <Button colorScheme="orange">Zarejestruj się</Button>
+            <Button size="lg" colorScheme="orange">
+                Zarejestruj się
+            </Button>
         </Flex>
     </>
 );

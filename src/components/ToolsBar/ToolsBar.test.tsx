@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { ToolsBar } from './ToolsBar';
 
 it('Should render ToolsBar component', () => {
-    render(<ToolsBar />);
+    render(<ToolsBar hasMessages isLoggedin mobileOnly />);
 
     expect(true).toBeTruthy();
 });

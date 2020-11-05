@@ -21,12 +21,12 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             alignItems="center"
             borderRadius={0}
             color="gray.700"
-            paddingY={2}
+            paddingY={3}
             justifyContent="center"
             flexDirection="column"
             variant="link"
         >
-            <PlusIcon fontSize={36} />
+            <PlusIcon fontSize={30} />
         </Flex>
         <Flex
             as={Button}
@@ -38,7 +38,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             flexDirection="column"
             variant="link"
         >
-            <SearchIcon fontSize={36} />
+            <SearchIcon fontSize={30} />
         </Flex>
         <Flex
             as={Button}
@@ -51,7 +51,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             variant="link"
         >
             <Box as="span" position="relative">
-                <ChatIcon fontSize={36} />
+                <ChatIcon fontSize={30} />
                 {hasMessages && <Circle position="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
             </Box>
         </Flex>
@@ -65,20 +65,24 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             flexDirection="column"
             variant="link"
         >
-            <ProfileIcon fontSize={36} />
+            <ProfileIcon fontSize={30} />
         </Flex>
     </SimpleGrid>
 );
 
 export const NotLoggedinSet: React.FC = () => (
     <Flex justifyContent="center">
-        <Flex alignItems="center" borderRadius={0} justifyContent="flex-end" paddingY={2} marginX={3} variant="link">
-            <Button size="lg" variant="outline">
-                Zaloguj się
-            </Button>
+        <Flex alignItems="center" borderRadius={0} justifyContent="flex-end" paddingY={3} marginX={2} variant="link">
+            <Button>Zaloguj się</Button>
         </Flex>
-        <Flex alignItems="flex" borderRadius={0} justifyContent="flex-start" paddingY={2} marginX={3} variant="link">
-            <Button size="lg" colorScheme="orange">
+        <Flex alignItems="flex" borderRadius={0} justifyContent="flex-start" paddingY={3} marginX={2} variant="link">
+            <Button
+                backgroundColor="gray.800"
+                color="white"
+                variant="solid"
+                _active={{ backgroundColor: 'gray.900' }}
+                _hover={{ backgroundColor: 'gray.600' }}
+            >
                 Zarejestruj się
             </Button>
         </Flex>
@@ -87,6 +91,7 @@ export const NotLoggedinSet: React.FC = () => (
 
 export const ToolsBar: React.FC<IProps> = ({ hasMessages, isLoggedin, mobileOnly }) => (
     <Box
+        as="section"
         boxShadow="xs"
         bottom={0}
         backgroundColor="white"

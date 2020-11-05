@@ -13,8 +13,8 @@ export const Footer: React.FC = () => (
         padding={8}
         paddingBottom={{ base: 24, md: 8 }}
     >
-        <Flex alignItems="center" flexDirection="column" marginBottom={{ base: 6, md: 0 }}>
-            <Heading as="h2" color="gray.400" marginBottom={2} size="lg" textAlign="center">
+        <Flex alignItems="center" flexDirection="column" marginBottom={{ base: 7, md: 0 }}>
+            <Heading as="h2" color="gray.400" marginBottom={4} size="lg" textAlign="center">
                 PartnerDo
             </Heading>
             <SimpleGrid as="nav" columns={3} spacing={4} maxWidth="10rem">

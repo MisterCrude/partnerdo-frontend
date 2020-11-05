@@ -88,7 +88,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                             <>
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -96,7 +96,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                 </Link>
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -105,7 +105,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                 <Divider />
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -114,7 +114,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                 <Divider />
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -125,7 +125,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                             <>
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -133,7 +133,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                 </Link>
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -141,7 +141,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                 </Link>
                                 <Link
                                     href="#"
-                                    paddingY={6}
+                                    paddingY={4}
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -158,9 +158,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
 
 export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
     <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
-        <Heading as="h2" size="lg">
-            PartnerDo
-        </Heading>
+        <Heading as="h2">PartnerDo</Heading>
 
         <HStack spacing={isLoggedin ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
             <HStack spacing={2}>
@@ -174,15 +172,17 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
             </HStack>
             <HStack spacing={4}>
                 {isLoggedin ? (
-                    <Button size="lg" colorScheme="orange">
-                        Dadaj partnerstwo
-                    </Button>
+                    <Button colorScheme="orange">Dadaj partnerstwo</Button>
                 ) : (
                     <>
-                        <Button size="lg" variant="outline">
-                            Zaloguj się
-                        </Button>
-                        <Button size="lg" colorScheme="orange">
+                        <Button>Zaloguj się</Button>
+                        <Button
+                            backgroundColor="gray.800"
+                            color="white"
+                            variant="solid"
+                            _active={{ backgroundColor: 'gray.900' }}
+                            _hover={{ backgroundColor: 'gray.600' }}
+                        >
                             Zarejestruj się
                         </Button>
                     </>

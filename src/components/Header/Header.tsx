@@ -25,7 +25,7 @@ import {
     VStack,
 } from '@chakra-ui/core';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon } from '@theme/customIcons';
-import { BAND_NAME } from '@src/config';
+import { BRAND_NAME } from '@src/config';
 
 interface IProps {
     hasMessages: boolean;
@@ -80,7 +80,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                 <ModalOverlay />
                 <Box as={ModalContent} borderRadius={0} minHeight="100vh" margin={0}>
                     <ModalHeader alignItems="center" display="flex" justifyContent="space-between" padding={8}>
-                        {BAND_NAME} <CloseButton onClick={onClose} fontSize={18} />
+                        {BRAND_NAME} <CloseButton onClick={onClose} fontSize={18} />
                     </ModalHeader>
                     <Divider />
                     <VStack as="nav" align="stretch" spacing={0}>
@@ -109,7 +109,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
-                                    Jak działa {BAND_NAME}?
+                                    Jak działa {BRAND_NAME}?
                                 </Link>
                                 <Divider />
                                 <Link
@@ -129,7 +129,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
-                                    Jak działa {BAND_NAME}?
+                                    Jak działa {BRAND_NAME}?
                                 </Link>
                                 <Link
                                     href="#"
@@ -157,43 +157,41 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
 };
 
 export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
-    <header>
-        <Flex alignItems="center" justifyContent="space-between" p={8}>
-            <Heading as="h2" size="lg">
-                PartnerDo
-            </Heading>
+    <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
+        <Heading as="h2" size="lg">
+            PartnerDo
+        </Heading>
 
-            <HStack spacing={isLoggedin ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
-                <HStack spacing={2}>
-                    <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<DangerIcon fontSize={28} />} />
-                    {isLoggedin && (
-                        <>
-                            <MessageMenuItem hasMessages={hasMessages} />
-                            <ProfileMenuItem />
-                        </>
-                    )}
-                </HStack>
-                <HStack spacing={4}>
-                    {isLoggedin ? (
-                        <Button size="lg" colorScheme="orange">
-                            Dadaj partnerstwo
-                        </Button>
-                    ) : (
-                        <>
-                            <Button size="lg" variant="outline">
-                                Zaloguj się
-                            </Button>
-                            <Button size="lg" colorScheme="orange">
-                                Zarejestruj się
-                            </Button>
-                        </>
-                    )}
-                </HStack>
+        <HStack spacing={isLoggedin ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
+            <HStack spacing={2}>
+                <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<DangerIcon fontSize={28} />} />
+                {isLoggedin && (
+                    <>
+                        <MessageMenuItem hasMessages={hasMessages} />
+                        <ProfileMenuItem />
+                    </>
+                )}
             </HStack>
+            <HStack spacing={4}>
+                {isLoggedin ? (
+                    <Button size="lg" colorScheme="orange">
+                        Dadaj partnerstwo
+                    </Button>
+                ) : (
+                    <>
+                        <Button size="lg" variant="outline">
+                            Zaloguj się
+                        </Button>
+                        <Button size="lg" colorScheme="orange">
+                            Zarejestruj się
+                        </Button>
+                    </>
+                )}
+            </HStack>
+        </HStack>
 
-            <Box display={{ base: 'flex', md: 'none' }} alignItems="center">
-                <MobileMenu isLoggedin={isLoggedin} />
-            </Box>
-        </Flex>
-    </header>
+        <Box display={{ base: 'flex', md: 'none' }} alignItems="center">
+            <MobileMenu isLoggedin={isLoggedin} />
+        </Box>
+    </Flex>
 );

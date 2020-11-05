@@ -1,1 +1,1 @@
-export const BAND_NAME = 'PartnerDo';
+export const BRAND_NAME = 'PartnerDo';

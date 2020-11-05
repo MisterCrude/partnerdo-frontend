@@ -5,7 +5,7 @@ import Footer from '@components/Footer';
 import Header from '@components/Header';
 import ToolsBar from '@components/ToolsBar';
 
-const isLoggedin = false;
+const isLoggedin = true;
 const hasMessages = true;
 
 export const Main: React.FC = ({ children }) => {

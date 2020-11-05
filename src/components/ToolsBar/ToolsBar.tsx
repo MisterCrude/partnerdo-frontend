@@ -11,10 +11,11 @@ interface IProps {
 
 interface IPropsLoggedinSet {
     hasMessages: boolean;
+    mobileOnly: boolean;
 }
 
 export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
-    <>
+    <SimpleGrid templateColumns="repeat(4, 1fr)">
         <Flex
             as={Button}
             alignItems="center"
@@ -26,7 +27,6 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             variant="link"
         >
             <PlusIcon fontSize={36} />
-            {/* <Text fontSize="xs">Wiadomości</Text> */}
         </Flex>
         <Flex
             as={Button}
@@ -67,37 +67,35 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
         >
             <ProfileIcon fontSize={36} />
         </Flex>
-    </>
+    </SimpleGrid>
 );
 
 export const NotLoggedinSet: React.FC = () => (
-    <>
-        <Flex alignItems="center" borderRadius={0} paddingY={2} justifyContent="flex-end" variant="link">
+    <Flex justifyContent="center">
+        <Flex alignItems="center" borderRadius={0} justifyContent="flex-end" paddingY={2} marginX={3} variant="link">
             <Button size="lg" variant="outline">
                 Zaloguj się
             </Button>
         </Flex>
-        <Flex alignItems="flex" borderRadius={0} paddingY={2} justifyContent="flex-start" variant="link">
+        <Flex alignItems="flex" borderRadius={0} justifyContent="flex-start" paddingY={2} marginX={3} variant="link">
             <Button size="lg" colorScheme="orange">
                 Zarejestruj się
             </Button>
         </Flex>
-    </>
+    </Flex>
 );
 
 export const ToolsBar: React.FC<IProps> = ({ hasMessages, isLoggedin, mobileOnly }) => (
-    <SimpleGrid
-        bottom={0}
+    <Box
         boxShadow="xs"
+        bottom={0}
         backgroundColor="white"
         display={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
         data-testid="toolsBar"
         position="fixed"
-        spacing={isLoggedin ? 0 : 4}
-        templateColumns={`repeat(${isLoggedin ? 4 : 2}, 1fr)`}
         width="100vw"
         zIndex="docked"
     >
-        {isLoggedin ? <LoggedinSet hasMessages={hasMessages} /> : <NotLoggedinSet />}
-    </SimpleGrid>
+        {isLoggedin ? <LoggedinSet hasMessages={hasMessages} mobileOnly={mobileOnly} /> : <NotLoggedinSet />}
+    </Box>
 );

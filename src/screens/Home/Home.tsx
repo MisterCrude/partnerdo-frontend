@@ -4,6 +4,7 @@ import { Heading } from '@chakra-ui/core';
 import Main from '@layouts/Main';
 import SearchBar from './components/SearchBar';
 import MainCategories from './components/MainCategories';
+import NowOffers from './components/NewOffers';
 
 export const Home: React.FC = () => {
     return (
@@ -13,136 +14,7 @@ export const Home: React.FC = () => {
             </Heading>
             <SearchBar />
             <MainCategories />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
-            Home
-            <br />
+            <NowOffers />
         </Main>
     );
 };

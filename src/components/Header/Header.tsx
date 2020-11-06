@@ -172,7 +172,15 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
             </HStack>
             <HStack spacing={4}>
                 {isLoggedin ? (
-                    <Button colorScheme="orange">Dadaj partnerstwo</Button>
+                    <Button
+                        backgroundColor="gray.800"
+                        color="white"
+                        variant="solid"
+                        _active={{ backgroundColor: 'gray.900' }}
+                        _hover={{ backgroundColor: 'gray.600' }}
+                    >
+                        Dodaj partnerstwo
+                    </Button>
                 ) : (
                     <>
                         <Button>Zaloguj się</Button>

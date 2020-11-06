@@ -117,15 +117,15 @@ const cities = [
 ];
 
 export const MobileSearch: React.FC = () => (
-    <Box display={{ base: 'flex', md: 'none' }} paddingX={8} flexDirection="column">
-        <Select icon={<LocationIcon fontSize={24} />} placeholder="Miasto" size="lg" marginBottom={4}>
+    <Box d={{ base: 'flex', md: 'none' }} px={8} flexDir="column">
+        <Select icon={<LocationIcon fontSize={24} />} placeholder="Miasto" size="lg" mb={4}>
             {cities.map((city: string) => (
                 <option key={city} value={city}>
                     {city}
                 </option>
             ))}
         </Select>
-        <InputGroup marginBottom={4}>
+        <InputGroup mb={4}>
             <Input type="phone" size="lg" placeholder="Jakie partnerstwa szukasz?" />
             <InputRightElement pointerEvents="none" height="100%" children={<SearchIcon fontSize={24} />} />
         </InputGroup>
@@ -160,7 +160,7 @@ export const DesktopSearch: React.FC = () => (
 );
 
 export const SearchBar: React.FC = () => (
-    <Box as="section" marginBottom={24}>
+    <Box as="section" mb={{ base: 32, md: 48 }}>
         <MobileSearch />
         <DesktopSearch />
     </Box>

@@ -6,7 +6,7 @@ import { IProposalCategory } from '@models/proposal';
 
 export const MainCategories: React.FC = () => (
     <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 32, md: 48 }} px={8}>
-        <Heading px={8} py={15} mb={{ base: 5, md: 10 }} lineHeight="3rem">
+        <Heading px={8} py={15} mb={{ base: 5, md: 10 }} align="center" lineHeight="3rem">
             Kategorie
         </Heading>
         <SimpleGrid

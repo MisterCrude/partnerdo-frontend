@@ -139,20 +139,21 @@ export const DesktopSearch: React.FC = () => (
     <Box as={Flex} paddingX={8} display={{ base: 'none', md: 'flex' }} justifyContent="center">
         <Grid gridTemplateColumns="2fr minmax(23ch, 1fr) minmax(8ch, 12ch)" maxWidth="100%" width="70rem">
             <InputGroup>
-                <InputLeftElement pointerEvents="none" height="100%" children={<SearchIcon fontSize={24} />} />
+                <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} />} />
                 <Input
                     borderBottomRightRadius="none"
                     borderTopRightRadius="none"
+                    borderWidth={2}
+                    h="4rem"
                     placeholder="Jakie partnerstwa szukasz?"
-                    size="lg"
                     type="phone"
                 />
             </InputGroup>
-            <InputGroup left="-1px">
+            <InputGroup left="-2px">
                 <InputLeftElement pointerEvents="none" height="100%" children={<LocationIcon fontSize={24} />} />
-                <Input borderRadius="none" type="phone" size="lg" placeholder="Miasto" />
+                <Input borderRadius="none" borderWidth={2} h="4rem" type="phone" size="lg" placeholder="Miasto" />
             </InputGroup>
-            <Button borderLeftRadius="none" variant="outline" left="-2px" paddingX={4} size="lg">
+            <Button borderLeftRadius="none" borderWidth={2} h="4rem" variant="outline" left="-4px" px={4} size="lg">
                 Szukaj
             </Button>
         </Grid>

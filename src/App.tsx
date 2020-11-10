@@ -9,15 +9,15 @@ import { ROUTES } from '@src/config';
 
 import Conversations from '@screens/Home';
 import Browser from '@screens/Browser';
-import Faq from '@screens/Home';
+import Faq from '@screens/Faq';
 import Home from '@screens/Home';
-import Login from '@screens/Home';
-import Profile from '@screens/Home';
-import PageNotFound from '@screens/Home';
-import Proposal from '@screens/Home';
-import Register from '@screens/Home';
-import RemindPassword from '@screens/Home';
-import UserProfile from '@screens/Home';
+import Login from '@screens/Login';
+import Profile from '@screens/Profile';
+import PageNotFound from '@screens/PageNotFound';
+import Proposal from '@screens/Proposal';
+import Register from '@screens/Register';
+import RemindPassword from '@screens/RemindPassword';
+import UserProfile from '@screens/UserProfile';
 
 // TODO: try to remove .eslintrc and devDependencies
 

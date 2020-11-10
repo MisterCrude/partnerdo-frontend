@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import {
     Box,
@@ -25,7 +26,7 @@ import {
     VStack,
 } from '@chakra-ui/core';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon } from '@theme/customIcons';
-import { BRAND_NAME } from '@src/config';
+import { BRAND_NAME, ROUTES } from '@src/config';
 
 interface IProps {
     hasMessages: boolean;
@@ -183,8 +184,12 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
                     </Button>
                 ) : (
                     <>
-                        <Button>Zaloguj się</Button>
+                        <Button as={RouterLink} to={ROUTES.LOGIN}>
+                            Zaloguj się
+                        </Button>
                         <Button
+                            as={RouterLink}
+                            to={ROUTES.REGISTER}
                             backgroundColor="gray.800"
                             color="white"
                             variant="solid"

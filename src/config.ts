@@ -44,3 +44,17 @@ export const CATEGORIES_DATA: IProposalCategory[] = [
         bgColor: 'teal.300',
     },
 ];
+
+export const ROUTES = {
+    BROWSER: '/',
+    HOME: '/home',
+    NOT_FOUND: '/404',
+    FAQ: '/faq',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    REMIND_PASSWORD: '/remind-password',
+    CONVERSATIONS: '/conversations',
+    PROPOSAL: '/proposal',
+    USER: '/user',
+    PROFILE: '/profile',
+};

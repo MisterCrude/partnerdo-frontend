@@ -18,7 +18,7 @@ const property = {
 export const OfferCard: React.FC = () => (
     <Box
         as="a"
-        boxShadow={{ base: 'md', lg: '2xl' }}
+        boxShadow={{ base: 'md', lg: 'xl' }}
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"
@@ -39,7 +39,7 @@ export const OfferCard: React.FC = () => (
             <Flex align="center" justify="space-between" mb={3}>
                 <Tag borderRadius="full" variant="outline" colorScheme="orange">
                     <TagLeftIcon as={CategoryIcon} />
-                    <TagLabel>Podróże</TagLabel>
+                    <TagLabel>Sport</TagLabel>
                 </Tag>
             </Flex>
 

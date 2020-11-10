@@ -9,7 +9,7 @@ import NowOffers from './components/NewOffers';
 export const Home: React.FC = () => {
     return (
         <Main>
-            <Heading px={8} py={15} my={10} size="xl" align="center" lineHeight="3rem">
+            <Heading px={8} my={{ base: 10, md: 20 }} size="xl" align="center" lineHeight="3rem">
                 Zajebisty portal jakiego jeszcze nie widziałeś
             </Heading>
             <SearchBar />

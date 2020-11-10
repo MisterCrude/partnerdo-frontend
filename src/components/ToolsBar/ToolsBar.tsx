@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/core';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
+import { ROUTES } from '@src/config';
 
 interface IProps {
     hasMessages: boolean;
@@ -73,12 +75,16 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
 export const NotLoggedinSet: React.FC = () => (
     <Flex justifyContent="center">
         <Flex alignItems="center" borderRadius={0} justifyContent="flex-end" paddingY={3} marginX={2} variant="link">
-            <Button>Zaloguj się</Button>
+            <Button as={Link} to={ROUTES.LOGIN}>
+                Zaloguj się
+            </Button>
         </Flex>
         <Flex alignItems="flex" borderRadius={0} justifyContent="flex-start" paddingY={3} marginX={2} variant="link">
             <Button
+                as={Link}
                 backgroundColor="gray.800"
                 color="white"
+                to={ROUTES.REGISTER}
                 variant="solid"
                 _active={{ backgroundColor: 'gray.900' }}
                 _hover={{ backgroundColor: 'gray.600' }}

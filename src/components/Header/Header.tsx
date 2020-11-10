@@ -159,7 +159,9 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
 
 export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
     <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
-        <Heading as="h2">PartnerDo</Heading>
+        <Heading as={RouterLink} to={ROUTES.HOME}>
+            {BRAND_NAME}
+        </Heading>
 
         <HStack spacing={isLoggedin ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
             <HStack spacing={2}>

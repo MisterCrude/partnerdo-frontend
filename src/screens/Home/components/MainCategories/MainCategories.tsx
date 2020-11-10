@@ -11,27 +11,31 @@ export const MainCategories: React.FC = () => (
         </Heading>
         <SimpleGrid
             as="nav"
-            gap={{ base: 4, sm: 6, md: 8 }}
-            templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)' }}
+            gap={{ base: 4, sm: 5, md: 8 }}
+            templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
         >
-            {CATEGORIES_DATA.map(({ name, iconUrl, bgColor }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ name, iconUrl }: IProposalCategory) => (
                 <Flex
                     as={Link}
                     alignItems="center"
                     justify="center"
-                    backgroundColor={bgColor}
                     borderRadius="md"
-                    boxShadow="2xl"
+                    borderWidth={1}
+                    boxShadow="xl"
                     maxW={`${100 / 7}vw`}
                     minW={20}
                     key={name}
                     p="2vw"
                     direction="column"
-                    _hover={{ textDecoration: 'none', transform: { base: 'scale(1)', md: 'scale(1.05)' } }}
+                    _hover={{
+                        textDecoration: 'none',
+                        transform: { base: 'scale(1)', md: 'scale(1.02)' },
+                        boxShadow: '2xl',
+                    }}
                 >
                     {/* <Icon fontSize={{ base: 70, md: 110 }} color="orange.700" /> */}
                     <Image src={iconUrl} w="50%" mb={{ base: 2, md: 4 }} />
-                    <Text color="white" fontSize={{ base: 15, sm: 18, md: 22 }} lineHeight={1.2} align="center">
+                    <Text fontSize={{ base: 15, sm: 18, md: 22 }} lineHeight={1.2} align="center">
                         {name}
                     </Text>
                 </Flex>

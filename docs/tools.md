@@ -42,6 +42,14 @@ Toolset for efficient Redux development
 
 <br/>
 
+## [Axios](https://github.com/axios/axios)
+
+```
+Promise based HTTP client for the browser and node.js
+```
+
+<br/>
+
 ## [Cypress](https://www.cypress.io/)
 
 ```

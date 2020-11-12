@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { Header } from './Header';
 
 it('Should render Header component', () => {
-    render(<Header />);
+    render(<Header hasMessages isLoggedin />);
 
     expect(screen.getByTestId('header')).toBeInTheDocument();
 });

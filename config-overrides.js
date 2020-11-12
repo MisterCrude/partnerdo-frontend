@@ -13,6 +13,7 @@ module.exports = function override(config) {
         '@slices': path.resolve(__dirname, 'src/slices/'),
         '@store': path.resolve(__dirname, 'src/store/'),
         '@layouts': path.resolve(__dirname, 'src/layouts/'),
+        '@theme': path.resolve(__dirname, 'src/theme/'),
         '@src': path.resolve(__dirname, 'src/'),
     };
 

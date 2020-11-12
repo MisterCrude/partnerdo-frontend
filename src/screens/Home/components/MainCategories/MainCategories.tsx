@@ -11,7 +11,7 @@ export const MainCategories: React.FC = () => (
         </Heading>
         <SimpleGrid
             as="nav"
-            gap={{ base: 4, sm: 5, md: 8 }}
+            // gap={{ base: 4, sm: 5, md: 8 }}
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
         >
             {CATEGORIES_DATA.map(({ name, iconUrl }: IProposalCategory) => (
@@ -20,8 +20,8 @@ export const MainCategories: React.FC = () => (
                     alignItems="center"
                     justify="center"
                     borderRadius="md"
-                    borderWidth={1}
-                    boxShadow="xl"
+                    // borderWidth={1}
+                    // boxShadow="xl"
                     maxW={`${100 / 7}vw`}
                     minW={20}
                     key={name}
@@ -30,7 +30,7 @@ export const MainCategories: React.FC = () => (
                     _hover={{
                         textDecoration: 'none',
                         transform: { base: 'scale(1)', md: 'scale(1.02)' },
-                        boxShadow: '2xl',
+                        boxShadow: 'md',
                     }}
                 >
                     {/* <Icon fontSize={{ base: 70, md: 110 }} color="orange.700" /> */}

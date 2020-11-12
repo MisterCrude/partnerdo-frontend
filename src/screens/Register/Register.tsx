@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Main from '@layouts/Main';
 import { Button, Container, Divider, Flex, Heading, Input, Text } from '@chakra-ui/core';
+import Main from '@layouts/Main';
 import { FacebookIcon } from '@theme/customIcons';
+import PasswordField from '@components/PasswordField';
 
 export const Register: React.FC = () => {
     return (
@@ -17,12 +18,14 @@ export const Register: React.FC = () => {
 
                 <Flex align="center" my={8}>
                     <Divider />
-                    <Text px={4}>lub </Text>
+                    <Text px={4}>lub</Text>
                     <Divider />
                 </Flex>
 
+                <Input mb={{ base: 4, md: 8 }} type="text" size="lg" placeholder="username" />
                 <Input mb={{ base: 4, md: 8 }} type="email" size="lg" placeholder="email" />
-                <Input mb={{ base: 4, md: 8 }} type="password" size="lg" placeholder="hasło" />
+                <PasswordField placeholder="hasło" />
+                <PasswordField placeholder="powtórz hasło" />
 
                 <Button
                     backgroundColor="gray.800"

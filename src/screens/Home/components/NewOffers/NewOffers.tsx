@@ -18,7 +18,7 @@ const property = {
 export const OfferCard: React.FC = () => (
     <Box
         as="a"
-        boxShadow={{ base: 'md', lg: 'xl' }}
+        boxShadow="md"
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"

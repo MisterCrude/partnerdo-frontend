@@ -3,6 +3,7 @@ import React from 'react';
 import Main from '@layouts/Main';
 import { Button, Container, Divider, Flex, Heading, Input, Link, Text } from '@chakra-ui/core';
 import { FacebookIcon } from '@theme/customIcons';
+import PasswordField from '@components/PasswordField';
 
 export const Login: React.FC = () => {
     return (
@@ -22,7 +23,7 @@ export const Login: React.FC = () => {
                 </Flex>
 
                 <Input mb={{ base: 4, md: 8 }} type="email" size="lg" placeholder="email" />
-                <Input mb={{ base: 4, md: 8 }} type="password" size="lg" placeholder="hasło" />
+                <PasswordField placeholder="hasło" />
 
                 <Button
                     backgroundColor="gray.800"

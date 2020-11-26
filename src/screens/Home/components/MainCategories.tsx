@@ -4,7 +4,7 @@ import { Flex, Heading, Image, Link, SimpleGrid, Text } from '@chakra-ui/core';
 import { CATEGORIES_DATA } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
 
-export const MainCategories: React.FC = () => (
+const MainCategories: React.FC = () => (
     <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 32, md: 48 }} px={8}>
         <Heading px={8} py={15} mb={{ base: 5, md: 10 }} align="center" lineHeight="3rem">
             Kategorie
@@ -43,3 +43,5 @@ export const MainCategories: React.FC = () => (
         </SimpleGrid>
     </Flex>
 );
+
+export default MainCategories;

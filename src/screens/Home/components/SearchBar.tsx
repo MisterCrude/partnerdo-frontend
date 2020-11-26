@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { CITIES } from '@config/app';
+
 import {
     Box,
     Button,
@@ -13,113 +15,10 @@ import {
 } from '@chakra-ui/core';
 import { SearchIcon, LocationIcon } from '@theme/customIcons';
 
-const cities = [
-    'Warszawa',
-    'Kraków',
-    'Łódź',
-    'Wrocław',
-    'Poznań',
-    'Gdańsk',
-    'Szczecin',
-    'Bydgoszcz',
-    'Lublin',
-    'Białystok',
-    'Katowice',
-    'Gdynia',
-    'Częstochowa',
-    'Radom',
-    'Toruń',
-    'Sosnowiec',
-    'Kielce',
-    'Rzeszów',
-    'Gliwice',
-    'Zabrze',
-    'Olsztyn',
-    'Bielsko-Biała',
-    'Bytom',
-    'Zielona Góra',
-    'Rybnik',
-    'Ruda Śląska',
-    'Opole',
-    'Tychy',
-    'Gorzów Wielkopolski',
-    'Dąbrowa Górnicza',
-    'Elbląg',
-    'Płock',
-    'Wałbrzych',
-    'Włocławek',
-    'Tarnów',
-    'Chorzów',
-    'Koszalin',
-    'Kalisz',
-    'Legnica',
-    'Grudziądz',
-    'Jaworzno',
-    'Słupsk',
-    'Jastrzębie-Zdrój',
-    'Nowy Sącz',
-    'Jelenia Góra',
-    'Siedlce',
-    'Mysłowice',
-    'Konin',
-    'Piotrków Trybunalski',
-    'Piła',
-    'Inowrocław',
-    'Lubin',
-    'Ostrów Wielkopolski',
-    'Suwałki',
-    'Ostrowiec Świętokrzyski',
-    'Gniezno',
-    'Stargard',
-    'Głogów',
-    'Siemianowice Śląskie',
-    'Pabianice',
-    'Leszno',
-    'Zamość',
-    'Łomża',
-    'Chełm',
-    'Tomaszów Mazowiecki',
-    'Żory',
-    'Ełk',
-    'Pruszków',
-    'Tarnowskie Góry',
-    'Przemyśl',
-    'Stalowa Wola',
-    'Kędzierzyn-Koźle',
-    'Mielec',
-    'Tczew',
-    'Bełchatów',
-    'Biała Podlaska',
-    'Świdnica',
-    'Będzin',
-    'Zgierz',
-    'Piekary Śląskie',
-    'Racibórz',
-    'Legionowo',
-    'Ostrołęka',
-    'Świętochłowice',
-    'Wejherowo',
-    'Zawiercie',
-    'Rumia',
-    'Starachowice',
-    'Skierniewice',
-    'Wodzisław Śląski',
-    'Piaseczno',
-    'Starogard Gdański',
-    'Puławy',
-    'Tarnobrzeg',
-    'Krosno',
-    'Kołobrzeg',
-    'Radomsko',
-    'Dębica',
-    'Skarżysko-Kamienna',
-    'Otwock',
-];
-
 export const MobileSearch: React.FC = () => (
     <Box d={{ base: 'flex', md: 'none' }} px={8} flexDir="column">
         <Select icon={<LocationIcon fontSize={24} />} placeholder="Miasto" size="lg" mb={4}>
-            {cities.map((city: string) => (
+            {CITIES.map((city: string) => (
                 <option key={city} value={city}>
                     {city}
                 </option>
@@ -166,3 +65,5 @@ export const SearchBar: React.FC = () => (
         <DesktopSearch />
     </Box>
 );
+
+export default SearchBar;

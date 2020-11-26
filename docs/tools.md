@@ -42,6 +42,14 @@ Toolset for efficient Redux development
 
 <br/>
 
+## [React-hook-form](https://react-hook-form.com/get-started#SchemaValidation)
+
+```
+Simple form validation with React Hook Form
+```
+
+<br/>
+
 ## [Axios](https://github.com/axios/axios)
 
 ```

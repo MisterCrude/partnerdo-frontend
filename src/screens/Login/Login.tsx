@@ -1,11 +1,12 @@
 import React from 'react';
 
-import Main from '@layouts/Main';
 import useDispatch from '@hooks/dispatch';
 import { userLoginAsync } from '@slices/userSlice';
-import { Button, Container, Divider, Flex, Heading, Input, Link, Text } from '@chakra-ui/core';
+
+import { Button, Container, Divider, Flex, Heading, Link, Text } from '@chakra-ui/core';
 import { FacebookIcon } from '@theme/customIcons';
-import PasswordField from '@components/PasswordField';
+import Main from '@layouts/Main';
+import LoginForm from './components/LoginForm';
 
 export const Login: React.FC = () => {
     const handleSendForm = useDispatch(userLoginAsync);
@@ -26,27 +27,7 @@ export const Login: React.FC = () => {
                     <Divider />
                 </Flex>
 
-                <Input mb={{ base: 4, md: 8 }} type="email" size="lg" placeholder="email" />
-                <PasswordField placeholder="hasło" />
-
-                <Button
-                    backgroundColor="gray.800"
-                    color="white"
-                    onClick={() =>
-                        handleSendForm({
-                            password: 'admin',
-                            username: 'admin',
-                        })
-                    }
-                    variant="solid"
-                    width="100%"
-                    size="lg"
-                    mb={4}
-                    _active={{ backgroundColor: 'gray.900' }}
-                    _hover={{ backgroundColor: 'gray.600' }}
-                >
-                    Zaloguj się
-                </Button>
+                <LoginForm onSubmit={handleSendForm} />
 
                 <Link>Przypomnij hasło</Link>
             </Container>

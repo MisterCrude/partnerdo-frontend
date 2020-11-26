@@ -82,3 +82,5 @@ export const NewOffers: React.FC = () => (
         </Button>
     </Flex>
 );
+
+export default NewOffers;

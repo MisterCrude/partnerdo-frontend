@@ -1,8 +1,6 @@
 export interface IUser {
     isLogged: boolean;
     data: IUserData | null;
-    accessToken: string;
-    refreshToken: string;
 }
 
 export interface IUserData {

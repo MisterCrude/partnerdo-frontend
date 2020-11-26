@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/core';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
-import { ROUTES } from '@src/config';
+import { ROUTES } from '@config/app';
 
 interface IProps {
     hasMessages: boolean;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Flex, Heading, Image, Link, SimpleGrid, Text } from '@chakra-ui/core';
-import { CATEGORIES_DATA } from '@src/config';
+import { CATEGORIES_DATA } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
 
 export const MainCategories: React.FC = () => (

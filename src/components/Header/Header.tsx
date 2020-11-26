@@ -26,7 +26,7 @@ import {
     VStack,
 } from '@chakra-ui/core';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon } from '@theme/customIcons';
-import { BRAND_NAME, ROUTES } from '@src/config';
+import { BRAND_NAME, ROUTES } from '@config/app';
 
 interface IProps {
     hasMessages: boolean;

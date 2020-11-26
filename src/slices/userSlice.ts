@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
 
+import { BACKEND_ROUTING } from '@config/api';
+import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
-import { camelCaseResponce } from '@utils/api';
-import { IUser } from '@models/user';
 import { RootState } from '@store/rootReducer';
+import { IUser } from '@models/user';
 
 const initialState: IUser = {
     isLogged: false,
     data: null,
-    accessToken: '',
-    refreshToken: '',
 };
 
 /**
@@ -23,17 +21,10 @@ const userSlice = createSlice({
         setUser(state, action: PayloadAction<any>) {
             state.isLogged = true;
             state.data = action.payload.user;
-            state.accessToken = action.payload.accessToken;
-            state.refreshToken = action.payload.refreshToken;
         },
     },
 });
-// {
-//     "username": "",
-//     "email": "",
-//     "password1": "",
-//     "password2": ""
-// }
+
 /**
  * Sync actions
  */
@@ -42,19 +33,11 @@ export const { setUser } = userSlice.actions;
 /**
  * Async actions
  */
-export const userRegisterAsync = (): AppThunk => async (dispatch: AppDispatch) => {
+export const userLoginAsync = (credentials: Record<string, unknown>): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        const { data: userData }: any = await axios.post('http://127.0.0.1:8000/api/v1.0/auth/registration/', {
-            username: 'namename11wsssw111',
-            email: 'name@mil11s1wssw11.com',
-            password1: 'qweqweqwe!!',
-            password2: 'qweqweqwe!!',
-        });
-        const normalizedData = camelCaseResponce(userData);
-        console.log('normalizedData ', normalizedData);
-        console.log('userData ', userData);
+        const { data: userData }: any = await apiService.post(BACKEND_ROUTING.AUTH.LOGIN, credentials);
 
-        dispatch(setUser(normalizedData));
+        dispatch(setUser(userData));
     } catch (err) {
         console.error(err);
     }

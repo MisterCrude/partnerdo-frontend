@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 // import useDispatch from '@hooks/dispatch';
 // import { getIsAppload, appLoadAsync } from '@slices/homeSlice';
 // import { getIsAppload } from '@slices/homeSlice';
-import { ROUTES } from '@src/config';
+import { ROUTES } from '@config/app';
 
 import Conversations from '@screens/Home';
 import Browser from '@screens/Browser';

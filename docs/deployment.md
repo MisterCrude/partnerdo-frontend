@@ -12,7 +12,7 @@ For holding common structure of pages (header, main, footer, etc.)
 
 ### 4. Why we need `pages`?
 
-For spleeting aplicatons by pages
+For spleeting aplicatons by screens
 
 ### 5. Why we need `containers`?
 

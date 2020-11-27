@@ -22,7 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
-    const { errors, handleSubmit } = useForm<Inputs>({
+    const { register, errors, handleSubmit } = useForm<Inputs>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -33,6 +33,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
                     name="username"
                     mb={1}
+                    ref={register}
                     type="text"
                     size="lg"
                     placeholder="username"
@@ -49,7 +50,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
                     borderColor={errors.password ? 'tomato' : 'gray.200'}
                     name="password"
                     mb={1}
-                    type="text"
+                    ref={register}
                     size="lg"
                     placeholder="hasło"
                 />

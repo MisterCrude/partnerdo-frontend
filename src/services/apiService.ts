@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { compose, each, toPairs } from 'lodash/fp';
 import { BACKENTD_BASE_URL } from '@config/api';
@@ -13,7 +13,19 @@ const instace = axios.create({
 
         return payload;
     },
-    transformResponse: (data) => toCamelCase(data),
+    transformResponse: (data) => {
+        const payload = JSON.parse(data);
+
+        return toCamelCase(payload);
+    },
+});
+
+instace.interceptors.request.use((config: AxiosRequestConfig) => {
+    const token = localStorage.getItem('token');
+
+    if (token) config.headers.Authorization = `token ${token}`;
+
+    return config;
 });
 
 export default instace;

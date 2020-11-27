@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { compose, set, unset } from 'lodash/fp';
 import { BACKEND_ROUTING } from '@config/api';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState } from '@store/rootReducer';
-import { IUser } from '@models/user';
+import { IUserState, IUser, ILoginResponce, IUserResponce } from '@models/user';
 
-const initialState: IUser = {
+const initialState: IUserState = {
     isLogged: false,
     data: null,
 };
@@ -18,9 +19,13 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser(state, action: PayloadAction<any>) {
+        setUser(state, { payload }: PayloadAction<{ token: ILoginResponce; user: IUser }>) {
+            localStorage.setItem('token', payload.token.key);
             state.isLogged = true;
-            state.data = action.payload.user;
+            state.data = payload.user;
+        },
+        removeUser(state, { payload }: PayloadAction<any>) {
+            localStorage.removeItem('token');
         },
     },
 });
@@ -35,9 +40,14 @@ export const { setUser } = userSlice.actions;
  */
 export const userLoginAsync = (credentials: Record<string, unknown>): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        const { data: userData }: any = await apiService.post(BACKEND_ROUTING.AUTH.LOGIN, credentials);
+        const { data: token }: { data: ILoginResponce } = await apiService.post(
+            BACKEND_ROUTING.AUTH.LOGIN,
+            credentials
+        );
+        const { data: user }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
-        dispatch(setUser(userData));
+        dispatch(setUser({ token, user: normalizedUser }));
     } catch (err) {
         console.error(err);
     }

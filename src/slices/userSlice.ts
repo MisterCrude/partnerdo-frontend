@@ -24,9 +24,9 @@ const userSlice = createSlice({
             state.isLogged = true;
             state.data = payload.user;
         },
-        removeUser(state, { payload }: PayloadAction<any>) {
-            localStorage.removeItem('token');
-        },
+        // removeUser(state, { payload }: PayloadAction<any>) {
+        //     localStorage.removeItem('token');
+        // },
     },
 });
 

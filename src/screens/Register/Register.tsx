@@ -1,52 +1,40 @@
 import React from 'react';
 
-import { Button, Container, Divider, Flex, Heading, Input, Text } from '@chakra-ui/core';
-import PasswordField from '@components/PasswordField';
+import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/core';
 import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
+import RegisterFrom from './components/RegisterForm';
 
-export const Register: React.FC = () => (
-    <Main>
-        <Container my={20} px={8}>
-            <Heading align="center" mb={10}>
-                Zarejestruj się
-            </Heading>
-            <Button colorScheme="blue" width="100%" size="lg" rightIcon={<FacebookIcon />}>
-                Przez facebook
-            </Button>
+export const Register: React.FC = () => {
+    const handleSendForm = (data: Record<string, unknown>) => console.log(data);
 
-            <Flex align="center" my={8}>
-                <Divider />
-                <Text px={4}>lub</Text>
-                <Divider />
-            </Flex>
+    return (
+        <Main>
+            <Container my={20} px={8}>
+                <Heading align="center" mb={10}>
+                    Zarejestruj się
+                </Heading>
+                <Button colorScheme="blue" width="100%" size="lg" rightIcon={<FacebookIcon />}>
+                    Przez facebook
+                </Button>
 
-            <Input mb={{ base: 4, md: 8 }} type="text" size="lg" placeholder="username" />
-            <Input mb={{ base: 4, md: 8 }} type="email" size="lg" placeholder="email" />
-            <PasswordField placeholder="hasło" />
-            <PasswordField placeholder="powtórz hasło" />
+                <Flex align="center" my={8}>
+                    <Divider />
+                    <Text px={4}>lub</Text>
+                    <Divider />
+                </Flex>
 
-            <Button
-                backgroundColor="gray.800"
-                color="white"
-                mb={{ base: 4, md: 8 }}
-                // onClick={() => {}}
-                size="lg"
-                variant="solid"
-                width="100%"
-                _active={{ backgroundColor: 'gray.900' }}
-                _hover={{ backgroundColor: 'gray.600' }}
-            >
-                Zarejestruj się
-            </Button>
+                <RegisterFrom onSubmit={handleSendForm} />
 
-            <Text fontSize="sm" color="gray.500">
-                <Text as="span" color="red.600" mr={1}>
-                    *
+                <Text fontSize="sm" color="gray.500">
+                    <Text as="span" color="red.600" mr={1}>
+                        *
+                    </Text>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda id sit nihil obcaecati fugit
+                    nisi mollitia iusto tempora quasi, sed recusandae, et dolor est harum inventore dolore eius
+                    laudantium iste.
                 </Text>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda id sit nihil obcaecati fugit nisi
-                mollitia iusto tempora quasi, sed recusandae, et dolor est harum inventore dolore eius laudantium iste.
-            </Text>
-        </Container>
-    </Main>
-);
+            </Container>
+        </Main>
+    );
+};

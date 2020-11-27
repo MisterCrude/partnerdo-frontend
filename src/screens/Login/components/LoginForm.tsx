@@ -1,10 +1,9 @@
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import { Button, Box, Input, Text } from '@chakra-ui/core';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 
 import PasswordField from '@components/PasswordField';
 
@@ -23,7 +22,7 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
-    const { register, errors, handleSubmit } = useForm<Inputs>({
+    const { errors, handleSubmit } = useForm<Inputs>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -34,7 +33,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
                     name="username"
                     mb={1}
-                    ref={register({ required: true })}
+                    type="text"
                     size="lg"
                     placeholder="username"
                 />
@@ -50,7 +49,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
                     borderColor={errors.password ? 'tomato' : 'gray.200'}
                     name="password"
                     mb={1}
-                    ref={register({ required: true })}
+                    type="text"
                     size="lg"
                     placeholder="hasło"
                 />

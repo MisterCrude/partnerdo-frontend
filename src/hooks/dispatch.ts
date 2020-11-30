@@ -3,7 +3,7 @@ import { useDispatch as useDispatchRedux } from 'react-redux';
 
 type actionFn = (...args: any[]) => void;
 
-const useDispatch = <K extends actionFn, T>(action: K) => {
+const useDispatch = <T>(action: actionFn) => {
     const dispatch = useDispatchRedux();
 
     return useCallback(

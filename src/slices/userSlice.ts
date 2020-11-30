@@ -21,11 +21,18 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setTokenUser(state, { payload }: PayloadAction<{ token: ILoginResponce; user: IUser }>) {
+        loginUser(state, { payload }: PayloadAction<{ token: ILoginResponce; user: IUser }>) {
             localStorage.setItem('token', payload.token.key);
 
             state.data = payload.user;
             state.isLogged = true;
+            state.fetching = false;
+            state.error = '';
+        },
+        logoutUser(state) {
+            localStorage.removeItem('token');
+
+            state.data = {} as IUser;
             state.fetching = false;
             state.error = '';
         },
@@ -46,7 +53,7 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setTokenUser, setUser, setError } = userSlice.actions;
+export const { loginUser, logoutUser, setUser, setError } = userSlice.actions;
 
 /**
  * Async actions
@@ -57,7 +64,7 @@ export const loginUserAsync = (credentials: Record<string, unknown>): AppThunk =
         const user: IUserResponce = await apiService.get(BACKEND_ROUTING.AUTH.USER);
         const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
-        dispatch(setTokenUser({ token, user: normalizedUser }));
+        dispatch(loginUser({ token, user: normalizedUser }));
     } catch (error) {
         dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
     }

@@ -31,6 +31,7 @@ import { BRAND_NAME, ROUTES } from '@config/app';
 interface IProps {
     hasMessages: boolean;
     isLoggedin: boolean;
+    onLogout: () => void;
 }
 
 interface IPropsMessageMenuItem {
@@ -39,9 +40,10 @@ interface IPropsMessageMenuItem {
 
 interface IPropsMobileMenu {
     isLoggedin: boolean;
+    onLogout: () => void;
 }
 
-export const ProfileMenuItem: React.FC = () => (
+export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }) => (
     <Menu>
         <MenuButton
             as={IconButton}
@@ -56,7 +58,7 @@ export const ProfileMenuItem: React.FC = () => (
             <MenuItem>Moje partnerstwa</MenuItem>
             <MenuItem>Zrealizowane partnerstwa</MenuItem>
             <MenuDivider />
-            <MenuItem>Wyloguj się</MenuItem>
+            <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
         </MenuList>
     </Menu>
 );
@@ -70,7 +72,7 @@ export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }
     </Box>
 );
 
-export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
+export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin, onLogout }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
     return (
@@ -113,14 +115,14 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
                                     Jak działa {BRAND_NAME}?
                                 </Link>
                                 <Divider />
-                                <Link
-                                    href="#"
+                                <Button
                                     paddingY={4}
                                     paddingX={8}
+                                    onClick={onLogout}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
                                     Wyloguj się
-                                </Link>
+                                </Button>
                             </>
                         ) : (
                             <>
@@ -157,7 +159,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin }) => {
     );
 };
 
-export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
+export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin, onLogout }) => (
     <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
         <Heading as={RouterLink} to={ROUTES.HOME}>
             {BRAND_NAME}
@@ -169,7 +171,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
                 {isLoggedin && (
                     <>
                         <MessageMenuItem hasMessages={hasMessages} />
-                        <ProfileMenuItem />
+                        <ProfileMenuItem onLogout={onLogout} />
                     </>
                 )}
             </HStack>
@@ -206,7 +208,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin }) => (
         </HStack>
 
         <Box display={{ base: 'flex', md: 'none' }} alignItems="center">
-            <MobileMenu isLoggedin={isLoggedin} />
+            <MobileMenu isLoggedin={isLoggedin} onLogout={onLogout} />
         </Box>
     </Flex>
 );

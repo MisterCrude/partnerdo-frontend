@@ -9,7 +9,7 @@ import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
 
 export const Login: React.FC = () => {
-    const handleSendForm = useDispatch(loginUserAsync);
+    const handleSendForm = useDispatch<Record<string, unknown>>(loginUserAsync);
 
     return (
         <Main>

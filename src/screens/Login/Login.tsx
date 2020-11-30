@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useDispatch from '@hooks/dispatch';
-import { userLoginAsync } from '@slices/userSlice';
+import { loginUserAsync } from '@slices/userSlice';
 
 import { Button, Container, Divider, Flex, Heading, Link, Text } from '@chakra-ui/core';
 import { FacebookIcon } from '@theme/customIcons';
@@ -9,7 +9,7 @@ import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
 
 export const Login: React.FC = () => {
-    const handleSendForm = useDispatch(userLoginAsync);
+    const handleSendForm = useDispatch(loginUserAsync);
 
     return (
         <Main>

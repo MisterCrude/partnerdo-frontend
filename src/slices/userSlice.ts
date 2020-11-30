@@ -8,8 +8,10 @@ import { RootState } from '@store/rootReducer';
 import { IUserState, IUser, ILoginResponce, IUserResponce } from '@models/user';
 
 const initialState: IUserState = {
-    isLogged: false,
-    data: null,
+    isLogged: !!localStorage.getItem('token') ?? false,
+    data: {} as IUser,
+    fetching: true,
+    error: '',
 };
 
 /**
@@ -19,37 +21,45 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser(state, { payload }: PayloadAction<{ token: ILoginResponce; user: IUser }>) {
+        setTokenUser(state, { payload }: PayloadAction<{ token: ILoginResponce; user: IUser }>) {
             localStorage.setItem('token', payload.token.key);
-            state.isLogged = true;
+
             state.data = payload.user;
+            state.isLogged = true;
+            state.fetching = false;
+            state.error = '';
         },
-        // removeUser(state, { payload }: PayloadAction<any>) {
-        //     localStorage.removeItem('token');
-        // },
+        setUser(state, { payload }: PayloadAction<{ user: IUser }>) {
+            state.data = payload.user;
+            state.isLogged = true;
+            state.fetching = false;
+            state.error = '';
+        },
+        setError(state, { payload }: PayloadAction<{ error: string }>) {
+            state.data = {} as IUser;
+            state.fetching = false;
+            state.error = payload.error;
+        },
     },
 });
 
 /**
  * Sync actions
  */
-export const { setUser } = userSlice.actions;
+export const { setTokenUser, setUser, setError } = userSlice.actions;
 
 /**
  * Async actions
  */
-export const userLoginAsync = (credentials: Record<string, unknown>): AppThunk => async (dispatch: AppDispatch) => {
+export const loginUserAsync = (credentials: Record<string, unknown>): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        const { data: token }: { data: ILoginResponce } = await apiService.post(
-            BACKEND_ROUTING.AUTH.LOGIN,
-            credentials
-        );
-        const { data: user }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const token: ILoginResponce = await apiService.post(BACKEND_ROUTING.AUTH.LOGIN, credentials);
+        const user: IUserResponce = await apiService.get(BACKEND_ROUTING.AUTH.USER);
         const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
-        dispatch(setUser({ token, user: normalizedUser }));
-    } catch (err) {
-        console.error(err);
+        dispatch(setTokenUser({ token, user: normalizedUser }));
+    } catch (error) {
+        dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
     }
 };
 
@@ -57,5 +67,6 @@ export const userLoginAsync = (credentials: Record<string, unknown>): AppThunk =
  * Selectors
  */
 export const getUserData = (state: RootState) => state.user.data;
+export const getIsLogged = (state: RootState) => state.user.isLogged;
 
 export default userSlice.reducer;

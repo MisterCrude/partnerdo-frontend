@@ -1,6 +1,8 @@
 export interface IUserState {
+    data: IUser;
     isLogged: boolean;
-    data: IUser | null;
+    fetching: boolean;
+    error: string;
 }
 
 export interface IUser {

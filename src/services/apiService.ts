@@ -13,8 +13,8 @@ const instace = axios.create({
 
         return payload;
     },
-    transformResponse: (data) => {
-        const payload = JSON.parse(data);
+    transformResponse: (reps) => {
+        const payload = JSON.parse(reps.data);
 
         return toCamelCase(payload);
     },

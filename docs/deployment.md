@@ -4,7 +4,7 @@
 
 ### 1. Where dispatch triggered and where we connect to the store?
 
-In any types of HOC - `containers`, `pages`, `layouts`
+In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`
 
 ### 2. Why we need `layouts`?
 
@@ -16,4 +16,4 @@ For spleeting aplicatons by screens
 
 ### 5. Why we need `containers`?
 
-For holding some business logic and combine dump components to logical blocks
+For spliting screens to logical blocks

@@ -5,7 +5,7 @@ import { BACKEND_ROUTING } from '@config/api';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState } from '@store/rootReducer';
-import { IUserState, IUser, ILoginResponce, IUserResponce } from '@models/user';
+import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
 
 const initialState: IUserState = {
     isLogged: !!localStorage.getItem('token') ?? false,
@@ -21,7 +21,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        loginUser(state, { payload }: PayloadAction<{ token: ILoginResponce; user: IUser }>) {
+        loginUser(state, { payload }: PayloadAction<{ token: ITokenResponce; user: IUser }>) {
             localStorage.setItem('token', payload.token.key);
 
             state.data = payload.user;
@@ -60,12 +60,20 @@ export const { loginUser, logoutUser, setUser, setError } = userSlice.actions;
  */
 export const loginUserAsync = (credentials: Record<string, unknown>): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        const token: ILoginResponce = await apiService.post(BACKEND_ROUTING.AUTH.LOGIN, credentials);
-        const user: IUserResponce = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const { data: token }: { data: ITokenResponce } = await apiService.post(
+            BACKEND_ROUTING.AUTH.LOGIN,
+            credentials
+        );
+        const { data: user }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+            headers: {
+                Authorization: `token ${token.key}`,
+            },
+        });
         const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
         dispatch(loginUser({ token, user: normalizedUser }));
     } catch (error) {
+        console.error(error);
         dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
     }
 };

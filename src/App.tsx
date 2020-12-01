@@ -34,13 +34,13 @@ const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path={ROUTES.BROWSER} component={Browser} exact />
-                <Route path={ROUTES.FAQ} component={Faq} />
-                <Route path={ROUTES.LOGIN} component={Login} />
-                <Route path={ROUTES.REGISTER} component={Register} />
-                <Route path={ROUTES.REMIND_PASSWORD} component={RemindPassword} exact />
-                <GuardedRoute isLogged={isLogged} component={Conversations} path={ROUTES.CONVERSATIONS} exact />
-                <GuardedRoute isLogged={!isLogged} component={Home} path={ROUTES.HOME} />
+                <Route component={Browser} exact path={ROUTES.BROWSER} />
+                <Route component={Faq} path={ROUTES.FAQ} />
+                <Route component={Login} path={ROUTES.LOGIN} />
+                <Route component={Register} path={ROUTES.REGISTER} />
+                <Route component={Home} path={ROUTES.HOME} />
+                <Route component={RemindPassword} exact path={ROUTES.REMIND_PASSWORD} />
+                <GuardedRoute isLogged={isLogged} exact component={Conversations} path={ROUTES.CONVERSATIONS} />
                 <GuardedRoute isLogged={isLogged} component={Proposal} path={ROUTES.PROPOSAL} />
                 <GuardedRoute isLogged={isLogged} component={UserProfile} path={ROUTES.USER} />
                 <GuardedRoute isLogged={isLogged} component={Profile} path={ROUTES.PROFILE} />

@@ -13,7 +13,7 @@ export interface IUser {
     lastName: string;
 }
 
-export interface ILoginResponce {
+export interface ITokenResponce {
     key: string;
 }
 

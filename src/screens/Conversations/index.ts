@@ -1,3 +1,1 @@
-import { Conversations } from './Conversations';
-
-export default Conversations;
+export { Conversations as default } from './Conversations';

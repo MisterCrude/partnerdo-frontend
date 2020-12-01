@@ -24,4 +24,8 @@ render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept('./App', render);
+    module.hot.accept('@store/rootReducer', () => {
+        const newRootReducer = require('@store/rootReducer').default;
+        store.replaceReducer(newRootReducer);
+    });
 }

@@ -1,3 +1,1 @@
-import { ToolsBar } from './ToolsBar';
-
-export default ToolsBar;
+export { ToolsBar as default } from './ToolsBar';

@@ -1,3 +1,1 @@
-import { Browser } from './Browser';
-
-export default Browser;
+export { Browser as default } from './Browser';

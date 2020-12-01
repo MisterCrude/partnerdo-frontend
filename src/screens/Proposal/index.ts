@@ -1,3 +1,1 @@
-import { Proposal } from './Proposal';
-
-export default Proposal;
+export { Proposal as default } from './Proposal';

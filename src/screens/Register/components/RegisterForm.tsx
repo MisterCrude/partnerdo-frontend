@@ -7,12 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import PasswordField from '@components/PasswordField';
 
-type Inputs = {
+interface IInputs {
     username: string;
     email: string;
     password1: string;
     password2: string;
-};
+}
 
 interface IProps {
     onSubmit: (formData: Record<string, unknown>) => void;
@@ -29,7 +29,7 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
-    const { register, errors, handleSubmit } = useForm<Inputs>({
+    const { register, errors, handleSubmit } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
 

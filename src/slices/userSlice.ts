@@ -61,14 +61,12 @@ export const { loginUser, logoutUser, setUser, setError, startFetching } = userS
 /**
  * Async actions
  */
-interface loginUserParams {
+interface IUserParams {
     credentials: Record<string, unknown>;
     history: History;
 }
 
-export const loginUserAsync = ({ credentials, history }: loginUserParams): AppThunk => async (
-    dispatch: AppDispatch
-) => {
+export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
     try {
         dispatch(startFetching());
 
@@ -90,6 +88,31 @@ export const loginUserAsync = ({ credentials, history }: loginUserParams): AppTh
     } catch (error) {
         console.error(error);
         dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
+    }
+};
+
+export const registerUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(startFetching());
+
+        const { data: token }: { data: ITokenResponce } = await apiService.post(
+            BACKEND_ROUTING.AUTH.REGISTER,
+            credentials
+        );
+        const { data: user }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+            headers: {
+                Authorization: `token ${token.key}`,
+            },
+        });
+        const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
+
+        localStorage.setItem('token', token.key);
+        history.push(ROUTES.BROWSER);
+
+        dispatch(loginUser({ user: normalizedUser }));
+    } catch (error) {
+        console.error(error);
+        dispatch(setError({ error: 'Kurde, rejestracja jebnęła' }));
     }
 };
 

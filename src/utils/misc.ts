@@ -5,7 +5,8 @@ export const objCaseSwitcher = (caseSwitcher: typeof camelCase | typeof snakeCas
         keys(data).reduce(
             (acc: any, curr: any) => ({
                 ...acc,
-                [caseSwitcher(curr)]: isObject(data[curr]) ? foo(data[curr]) : data[curr],
+                // if property name has numbers, don't do nothing
+                [curr.match(/\d/g) ? curr : caseSwitcher(curr)]: isObject(data[curr]) ? foo(data[curr]) : data[curr],
             }),
             {}
         );

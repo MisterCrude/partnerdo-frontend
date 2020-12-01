@@ -6,7 +6,7 @@ import { History } from 'history';
 import { getIsAuth, logoutUserAsync } from '@slices/userSlice';
 import useDispatch from '@hooks/dispatch';
 
-import { Box } from '@chakra-ui/core';
+import { Flex } from '@chakra-ui/core';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
 import ToolsBar from '@components/ToolsBar';
@@ -21,12 +21,12 @@ export const Main: React.FC = ({ children }) => {
     const handleLogout = () => logout(history);
 
     return (
-        <Box as="main">
+        <Flex as="main" minH="100vh" flexDir="column">
             <Header isAuth={isAuth} hasMessages={hasMessages} onLogout={handleLogout} />
             {children}
             <Footer />
             <ToolsBar hasMessages={hasMessages} isAuth={isAuth} mobileOnly={true} />
-        </Box>
+        </Flex>
     );
 };
 

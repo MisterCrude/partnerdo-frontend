@@ -10,20 +10,20 @@ import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
 
-interface loginUserParams {
+interface ILoginUserParams {
     credentials: Record<string, unknown>;
     history: History;
 }
 
 export const Login: React.FC = () => {
     const history = useHistory();
-    const sendForm = useDispatch<loginUserParams>(loginUserAsync);
+    const sendForm = useDispatch<ILoginUserParams>(loginUserAsync);
 
     const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
 
     return (
         <Main>
-            <Container my={20} px={8}>
+            <Container flexGrow={1} my={20} px={8}>
                 <Heading align="center" mb={10}>
                     Zaloguj się
                 </Heading>

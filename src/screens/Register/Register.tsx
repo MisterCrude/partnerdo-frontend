@@ -1,4 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
+import useDispatch from '@hooks/dispatch';
+import { registerUserAsync } from '@slices/userSlice';
 
 import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/core';
 import { FacebookIcon } from '@theme/customIcons';
@@ -6,7 +10,10 @@ import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';
 
 export const Register: React.FC = () => {
-    const handleSendForm = (data: Record<string, unknown>) => console.log(data);
+    const history = useHistory();
+    const sendForm = useDispatch(registerUserAsync);
+
+    const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
 
     return (
         <Main>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { History } from 'history';
 
 import useDispatch from '@hooks/dispatch';
 import { loginUserAsync } from '@slices/userSlice';
@@ -8,8 +10,16 @@ import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
 
+interface loginUserParams {
+    credentials: Record<string, unknown>;
+    history: History;
+}
+
 export const Login: React.FC = () => {
-    const handleSendForm = useDispatch<Record<string, unknown>>(loginUserAsync);
+    const history = useHistory();
+    const sendForm = useDispatch<loginUserParams>(loginUserAsync);
+
+    const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
 
     return (
         <Main>
@@ -23,7 +33,7 @@ export const Login: React.FC = () => {
 
                 <Flex align="center" my={8}>
                     <Divider />
-                    <Text px={4}>lub </Text>
+                    <Text px={4}>lub</Text>
                     <Divider />
                 </Flex>
 

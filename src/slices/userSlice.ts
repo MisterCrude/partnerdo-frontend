@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { History } from 'history';
 import { compose, set, unset } from 'lodash/fp';
+
 import { BACKEND_ROUTING } from '@config/api';
+import { ROUTES } from '@config/app';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState } from '@store/rootReducer';
@@ -10,7 +12,7 @@ import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
 const initialState: IUserState = {
     isAuth: !!localStorage.getItem('token') ?? false,
     data: {} as IUser,
-    fetching: true,
+    fetching: false,
     error: '',
 };
 
@@ -21,18 +23,19 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        loginUser(state, { payload }: PayloadAction<{ token: ITokenResponce; user: IUser }>) {
-            localStorage.setItem('token', payload.token.key);
-
+        startFetching(state) {
+            state.fetching = true;
+            state.error = '';
+        },
+        loginUser(state, { payload }: PayloadAction<{ user: IUser }>) {
             state.data = payload.user;
             state.isAuth = true;
             state.fetching = false;
             state.error = '';
         },
         logoutUser(state) {
-            localStorage.removeItem('token');
-
             state.data = {} as IUser;
+            state.isAuth = false;
             state.fetching = false;
             state.error = '';
         },
@@ -53,13 +56,22 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { loginUser, logoutUser, setUser, setError } = userSlice.actions;
+export const { loginUser, logoutUser, setUser, setError, startFetching } = userSlice.actions;
 
 /**
  * Async actions
  */
-export const loginUserAsync = (credentials: Record<string, unknown>): AppThunk => async (dispatch: AppDispatch) => {
+interface loginUserParams {
+    credentials: Record<string, unknown>;
+    history: History;
+}
+
+export const loginUserAsync = ({ credentials, history }: loginUserParams): AppThunk => async (
+    dispatch: AppDispatch
+) => {
     try {
+        dispatch(startFetching());
+
         const { data: token }: { data: ITokenResponce } = await apiService.post(
             BACKEND_ROUTING.AUTH.LOGIN,
             credentials
@@ -71,11 +83,21 @@ export const loginUserAsync = (credentials: Record<string, unknown>): AppThunk =
         });
         const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
-        dispatch(loginUser({ token, user: normalizedUser }));
+        localStorage.setItem('token', token.key);
+        history.push(ROUTES.BROWSER);
+
+        dispatch(loginUser({ user: normalizedUser }));
     } catch (error) {
         console.error(error);
         dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
     }
+};
+
+export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
+    localStorage.removeItem('token');
+    history.push(ROUTES.HOME);
+
+    dispatch(logoutUser());
 };
 
 /**

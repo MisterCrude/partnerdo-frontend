@@ -161,7 +161,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
 
 export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
     <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
-        <Heading as={RouterLink} to={ROUTES.HOME}>
+        <Heading as={RouterLink} to={isAuth ? ROUTES.BROWSER : ROUTES.HOME}>
             {BRAND_NAME}
         </Heading>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 // import useDispatch from '@hooks/dispatch';
@@ -6,6 +7,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 // import { getIsAppload } from '@slices/homeSlice';
 import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
+import { getIsAuth } from '@slices/userSlice';
 
 import Conversations from '@screens/Home';
 import Browser from '@screens/Browser';
@@ -23,6 +25,8 @@ import UserProfile from '@screens/UserProfile';
 
 // TODO: add  "pre-push": "yarn test" to package.json
 const App: React.FC = () => {
+    const isAuth = useSelector(getIsAuth);
+
     // useEffect(() => {
     // dispatchLoadAppAsync(true);
     // });
@@ -30,16 +34,22 @@ const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route component={Browser} exact path={ROUTES.BROWSER} />
+                {!isAuth && (
+                    <>
+                        <Route component={Login} path={ROUTES.LOGIN} />
+                        <Route component={Register} path={ROUTES.REGISTER} />
+                        <Route component={RemindPassword} path={ROUTES.REMIND_PASSWORD} exact />
+                        <Route component={Home} path={ROUTES.HOME} />
+                    </>
+                )}
+                <Route component={Browser} path={ROUTES.BROWSER} exact />
                 <Route component={Faq} path={ROUTES.FAQ} />
-                <Route component={Login} path={ROUTES.LOGIN} />
-                <Route component={Register} path={ROUTES.REGISTER} />
-                <Route component={Home} path={ROUTES.HOME} />
-                <Route component={RemindPassword} exact path={ROUTES.REMIND_PASSWORD} />
-                <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} />
-                <GuardedRoute component={Proposal} path={ROUTES.PROPOSAL} />
-                <GuardedRoute component={UserProfile} path={ROUTES.USER} />
-                <GuardedRoute component={Profile} path={ROUTES.PROFILE} />
+
+                <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
+                <GuardedRoute component={Proposal} path={ROUTES.PROPOSAL} isAuth={isAuth} />
+                <GuardedRoute component={UserProfile} path={ROUTES.USER} isAuth={isAuth} />
+                <GuardedRoute component={Profile} path={ROUTES.PROFILE} isAuth={isAuth} />
+
                 <Route component={PageNotFound} path={ROUTES.NOT_FOUND} />
                 <Redirect from="/*" to={ROUTES.NOT_FOUND} />
             </Switch>

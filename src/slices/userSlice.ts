@@ -8,7 +8,7 @@ import { RootState } from '@store/rootReducer';
 import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
 
 const initialState: IUserState = {
-    isLogged: !!localStorage.getItem('token') ?? false,
+    isAuth: !!localStorage.getItem('token') ?? false,
     data: {} as IUser,
     fetching: true,
     error: '',
@@ -25,7 +25,7 @@ const userSlice = createSlice({
             localStorage.setItem('token', payload.token.key);
 
             state.data = payload.user;
-            state.isLogged = true;
+            state.isAuth = true;
             state.fetching = false;
             state.error = '';
         },
@@ -38,7 +38,7 @@ const userSlice = createSlice({
         },
         setUser(state, { payload }: PayloadAction<{ user: IUser }>) {
             state.data = payload.user;
-            state.isLogged = true;
+            state.isAuth = true;
             state.fetching = false;
             state.error = '';
         },
@@ -82,6 +82,6 @@ export const loginUserAsync = (credentials: Record<string, unknown>): AppThunk =
  * Selectors
  */
 export const getUserData = (state: RootState) => state.user.data;
-export const getIsLogged = (state: RootState) => state.user.isLogged;
+export const getIsAuth = (state: RootState) => state.user.isAuth;
 
 export default userSlice.reducer;

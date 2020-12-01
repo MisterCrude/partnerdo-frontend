@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 // import useDispatch from '@hooks/dispatch';
@@ -7,7 +6,6 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 // import { getIsAppload } from '@slices/homeSlice';
 import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
-import { getIsLogged } from '@slices/userSlice';
 
 import Conversations from '@screens/Home';
 import Browser from '@screens/Browser';
@@ -25,8 +23,6 @@ import UserProfile from '@screens/UserProfile';
 
 // TODO: add  "pre-push": "yarn test" to package.json
 const App: React.FC = () => {
-    const isLogged = useSelector(getIsLogged);
-
     // useEffect(() => {
     // dispatchLoadAppAsync(true);
     // });
@@ -40,10 +36,10 @@ const App: React.FC = () => {
                 <Route component={Register} path={ROUTES.REGISTER} />
                 <Route component={Home} path={ROUTES.HOME} />
                 <Route component={RemindPassword} exact path={ROUTES.REMIND_PASSWORD} />
-                <GuardedRoute isLogged={isLogged} exact component={Conversations} path={ROUTES.CONVERSATIONS} />
-                <GuardedRoute isLogged={isLogged} component={Proposal} path={ROUTES.PROPOSAL} />
-                <GuardedRoute isLogged={isLogged} component={UserProfile} path={ROUTES.USER} />
-                <GuardedRoute isLogged={isLogged} component={Profile} path={ROUTES.PROFILE} />
+                <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} />
+                <GuardedRoute component={Proposal} path={ROUTES.PROPOSAL} />
+                <GuardedRoute component={UserProfile} path={ROUTES.USER} />
+                <GuardedRoute component={Profile} path={ROUTES.PROFILE} />
                 <Route component={PageNotFound} path={ROUTES.NOT_FOUND} />
                 <Redirect from="/*" to={ROUTES.NOT_FOUND} />
             </Switch>

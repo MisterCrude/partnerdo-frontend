@@ -1,6 +1,6 @@
 export interface IUserState {
     data: IUser;
-    isLogged: boolean;
+    isAuth: boolean;
     fetching: boolean;
     error: string;
 }

@@ -30,7 +30,7 @@ import { BRAND_NAME, ROUTES } from '@config/app';
 
 interface IProps {
     hasMessages: boolean;
-    isLoggedin: boolean;
+    isAuth: boolean;
     onLogout: () => void;
 }
 
@@ -39,7 +39,7 @@ interface IPropsMessageMenuItem {
 }
 
 interface IPropsMobileMenu {
-    isLoggedin: boolean;
+    isAuth: boolean;
     onLogout: () => void;
 }
 
@@ -72,7 +72,7 @@ export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }
     </Box>
 );
 
-export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin, onLogout }) => {
+export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
     return (
@@ -87,7 +87,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin, onLogout })
                     </ModalHeader>
                     <Divider />
                     <VStack as="nav" align="stretch" spacing={0}>
-                        {isLoggedin ? (
+                        {isAuth ? (
                             <>
                                 <Link
                                     href="#"
@@ -159,16 +159,16 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isLoggedin, onLogout })
     );
 };
 
-export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin, onLogout }) => (
+export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
     <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
         <Heading as={RouterLink} to={ROUTES.HOME}>
             {BRAND_NAME}
         </Heading>
 
-        <HStack spacing={isLoggedin ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
+        <HStack spacing={isAuth ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
             <HStack spacing={2}>
                 <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<DangerIcon fontSize={28} />} />
-                {isLoggedin && (
+                {isAuth && (
                     <>
                         <MessageMenuItem hasMessages={hasMessages} />
                         <ProfileMenuItem onLogout={onLogout} />
@@ -176,7 +176,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin, onLogout }) 
                 )}
             </HStack>
             <HStack spacing={4}>
-                {isLoggedin ? (
+                {isAuth ? (
                     <Button
                         backgroundColor="gray.800"
                         color="white"
@@ -208,7 +208,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isLoggedin, onLogout }) 
         </HStack>
 
         <Box display={{ base: 'flex', md: 'none' }} alignItems="center">
-            <MobileMenu isLoggedin={isLoggedin} onLogout={onLogout} />
+            <MobileMenu isAuth={isAuth} onLogout={onLogout} />
         </Box>
     </Flex>
 );

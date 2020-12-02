@@ -67,9 +67,9 @@ interface IUserParams {
 }
 
 export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-    try {
-        dispatch(startFetching());
+    dispatch(startFetching());
 
+    try {
         const { data: token }: { data: ITokenResponce } = await apiService.post(
             BACKEND_ROUTING.AUTH.LOGIN,
             credentials
@@ -92,9 +92,9 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
 };
 
 export const registerUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-    try {
-        dispatch(startFetching());
+    dispatch(startFetching());
 
+    try {
         const { data: token }: { data: ITokenResponce } = await apiService.post(
             BACKEND_ROUTING.AUTH.REGISTER,
             credentials

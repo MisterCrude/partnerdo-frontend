@@ -34,14 +34,12 @@ const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
-                {!isAuth && (
-                    <>
-                        <Route component={Login} path={ROUTES.LOGIN} />
-                        <Route component={Register} path={ROUTES.REGISTER} />
-                        <Route component={RemindPassword} path={ROUTES.REMIND_PASSWORD} exact />
-                        <Route component={Home} path={ROUTES.HOME} />
-                    </>
-                )}
+                {!isAuth && [
+                    <Route component={Login} key="Login" path={ROUTES.LOGIN} />,
+                    <Route component={Register} key="Register" path={ROUTES.REGISTER} />,
+                    <Route component={RemindPassword} key="RemindPassword" path={ROUTES.REMIND_PASSWORD} exact />,
+                    <Route component={Home} key="Home" path={ROUTES.HOME} />,
+                ]}
                 <Route component={Browser} path={ROUTES.BROWSER} exact />
                 <Route component={Faq} path={ROUTES.FAQ} />
 

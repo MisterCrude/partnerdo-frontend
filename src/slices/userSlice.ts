@@ -4,16 +4,16 @@ import { compose, set, unset } from 'lodash/fp';
 
 import { BACKEND_ROUTING } from '@config/api';
 import { ROUTES } from '@config/app';
+import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState } from '@store/rootReducer';
-import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
+import { setAlert } from './alertSlice';
 
 const initialState: IUserState = {
     isAuth: !!localStorage.getItem('token') ?? false,
     data: {} as IUser,
     fetching: false,
-    error: '',
 };
 
 /**
@@ -25,30 +25,21 @@ const userSlice = createSlice({
     reducers: {
         startFetching(state) {
             state.fetching = true;
-            state.error = '';
         },
         loginUser(state, { payload }: PayloadAction<{ user: IUser }>) {
             state.data = payload.user;
             state.isAuth = true;
             state.fetching = false;
-            state.error = '';
         },
         logoutUser(state) {
             state.data = {} as IUser;
             state.isAuth = false;
             state.fetching = false;
-            state.error = '';
         },
         setUser(state, { payload }: PayloadAction<{ user: IUser }>) {
             state.data = payload.user;
             state.isAuth = true;
             state.fetching = false;
-            state.error = '';
-        },
-        setError(state, { payload }: PayloadAction<{ error: string }>) {
-            state.data = {} as IUser;
-            state.fetching = false;
-            state.error = payload.error;
         },
     },
 });
@@ -56,7 +47,7 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { loginUser, logoutUser, setUser, setError, startFetching } = userSlice.actions;
+export const { loginUser, logoutUser, setUser, startFetching } = userSlice.actions;
 
 /**
  * Async actions
@@ -87,7 +78,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         dispatch(loginUser({ user: normalizedUser }));
     } catch (error) {
         console.error(error);
-        dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
+        // dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
     }
 };
 
@@ -111,8 +102,13 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
 
         dispatch(loginUser({ user: normalizedUser }));
     } catch (error) {
-        console.error(error);
-        dispatch(setError({ error: 'Kurde, rejestracja jebnęła' }));
+        dispatch(
+            setAlert({
+                status: 'error',
+                title: 'Błąd rejestracji',
+                message: 'Kurde, rejestracja jebnęła',
+            })
+        );
     }
 };
 

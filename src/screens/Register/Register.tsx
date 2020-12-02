@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import useDispatch from '@hooks/dispatch';
 import { registerUserAsync } from '@slices/userSlice';
+import { getAlert } from '@slices/alertSlice';
+import { isEmpty } from 'lodash/fp';
 
-import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/core';
+import { Button, Container, Divider, Flex, Heading, Text, useToast } from '@chakra-ui/core';
 import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';
 
 export const Register: React.FC = () => {
     const history = useHistory();
+    const toast = useToast();
     const sendForm = useDispatch(registerUserAsync);
+    const alert = useSelector(getAlert, shallowEqual);
 
     const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
+
+    useEffect(() => {
+        if (!isEmpty(alert)) {
+            toast({
+                position: 'top-right',
+                title: alert.title,
+                description: alert.message,
+                status: alert.status,
+                duration: 3000,
+                isClosable: true,
+            });
+        }
+    }, [alert, toast]);
 
     return (
         <Main>

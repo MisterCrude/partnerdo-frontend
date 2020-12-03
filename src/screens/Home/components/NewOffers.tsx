@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Button, Divider, Flex, Heading, Tag, TagLeftIcon, TagLabel } from '@chakra-ui/core';
+import { Box, Button, Divider, Flex, Heading, Tag, TagLeftIcon, TagLabel } from '@chakra-ui/react';
 import { CategoryIcon, LocationIcon, ShowIcon, CalendarIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
 

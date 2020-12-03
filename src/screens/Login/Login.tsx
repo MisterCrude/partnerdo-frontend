@@ -5,7 +5,7 @@ import { History } from 'history';
 import useDispatch from '@hooks/useDispatch';
 import { loginUserAsync } from '@slices/userSlice';
 
-import { Button, Container, Divider, Flex, Heading, Link, Text } from '@chakra-ui/core';
+import { Button, Container, Divider, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';

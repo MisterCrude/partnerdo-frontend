@@ -12,7 +12,7 @@ import {
     Flex,
     Grid,
     Select,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { SearchIcon, LocationIcon } from '@theme/customIcons';
 
 export const MobileSearch: React.FC = () => (

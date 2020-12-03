@@ -6,7 +6,7 @@ import { History } from 'history';
 import { getIsAuth, logoutUserAsync } from '@slices/userSlice';
 import useDispatch from '@hooks/useDispatch';
 
-import { Flex } from '@chakra-ui/core';
+import { Flex } from '@chakra-ui/react';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
 import ToolsBar from '@components/ToolsBar';

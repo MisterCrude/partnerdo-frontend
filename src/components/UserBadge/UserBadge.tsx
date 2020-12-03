@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Avatar, Box, Flex, Text } from '@chakra-ui/core';
+import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
 interface IProps {
     avatarUrl: string;

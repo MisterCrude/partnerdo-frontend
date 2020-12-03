@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Heading, Image, Link, SimpleGrid, Text } from '@chakra-ui/core';
+import { Flex, Heading, Image, Link, SimpleGrid, Text } from '@chakra-ui/react';
 import { CATEGORIES_DATA } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
 

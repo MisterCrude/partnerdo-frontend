@@ -1,4 +1,4 @@
-import { useToast as useToasChakra } from '@chakra-ui/core';
+import { useToast as useToasChakra } from '@chakra-ui/react';
 
 import { IAlert } from '@models/app';
 import { TOAST_DURATION } from '@config/app';

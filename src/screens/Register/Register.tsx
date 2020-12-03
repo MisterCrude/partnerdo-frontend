@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import useDispatch from '@hooks/useDispatch';
 import { registerUserAsync } from '@slices/userSlice';
 
-import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/core';
+import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';

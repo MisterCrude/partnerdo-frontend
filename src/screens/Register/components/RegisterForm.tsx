@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { Button, Box, Input, Text } from '@chakra-ui/core';
+import { Button, Box, Input, Text } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import PasswordField from '@components/PasswordField';

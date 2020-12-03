@@ -3,7 +3,7 @@ import { useDispatch as useDispatchRedux } from 'react-redux';
 
 type actionFn = (...args: any[]) => void;
 
-// TODO What return
+// TODO What return?
 const useDispatch = <T>(action: actionFn) => {
     const dispatch = useDispatchRedux();
 

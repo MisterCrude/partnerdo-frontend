@@ -24,7 +24,7 @@ import {
     useDisclosure,
     UseDisclosureProps,
     VStack,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon } from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 

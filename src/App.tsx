@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
@@ -7,9 +7,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 // import { getIsAppload } from '@slices/homeSlice';
 import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
-import useToast from '@hooks/useToast';
 import { getIsAuth } from '@slices/userSlice';
-import { getAlert } from '@slices/alertSlice';
 
 import Conversations from '@screens/Home';
 import Browser from '@screens/Browser';
@@ -27,13 +25,7 @@ import UserProfile from '@screens/UserProfile';
 
 // TODO: add  "pre-push": "yarn test" to package.json
 const App: React.FC = () => {
-    const alert = useSelector(getAlert);
     const isAuth = useSelector(getIsAuth);
-    const toast = useToast();
-
-    useEffect(() => {
-        toast(alert);
-    }, [alert, toast]);
 
     return (
         <BrowserRouter>

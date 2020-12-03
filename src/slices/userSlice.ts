@@ -7,8 +7,7 @@ import { ROUTES } from '@config/app';
 import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
-import { RootState } from '@store/rootReducer';
-import { setAlert } from './alertSlice';
+import { RootState, storeToast } from '@store/rootReducer';
 
 const initialState: IUserState = {
     isAuth: !!localStorage.getItem('token') ?? false,
@@ -76,21 +75,17 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         history.push(ROUTES.BROWSER);
 
         dispatch(loginUser({ user: normalizedUser }));
-        dispatch(
-            setAlert({
-                status: 'success',
-                title: 'Logowanie',
-                message: `${capitalize(user.username)}, witamy w naszym serwisie ponownie`,
-            })
-        );
+        storeToast({
+            status: 'success',
+            title: 'Logowanie',
+            message: `${capitalize(user.username)}, witamy w naszym serwisie ponownie`,
+        });
     } catch (error) {
-        dispatch(
-            setAlert({
-                status: 'error',
-                title: 'Logowanie',
-                message: 'Coś poszło nie tak spróbuj ponownie',
-            })
-        );
+        storeToast({
+            status: 'error',
+            title: 'Logowanie',
+            message: 'Coś poszło nie tak spróbuj ponownie',
+        });
     }
 };
 
@@ -113,21 +108,18 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         history.push(ROUTES.BROWSER);
 
         dispatch(loginUser({ user: normalizedUser }));
-        dispatch(
-            setAlert({
-                status: 'success',
-                title: 'Rejestracja',
-                message: `${capitalize(user.username)}, miło cię widzieć w naszym serwisie`,
-            })
-        );
+
+        storeToast({
+            status: 'success',
+            title: 'Rejestracja',
+            message: `${capitalize(user.username)}, miło cię widzieć w naszym serwisie`,
+        });
     } catch (error) {
-        dispatch(
-            setAlert({
-                status: 'error',
-                title: 'Rejestracja',
-                message: 'Kurde, rejestracja jebnęła',
-            })
-        );
+        storeToast({
+            status: 'error',
+            title: 'Rejestracja',
+            message: 'Kurde, rejestracja jebnęła',
+        });
     }
 };
 
@@ -137,13 +129,11 @@ export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDis
 
     dispatch(logoutUser());
 
-    dispatch(
-        setAlert({
-            status: 'success',
-            title: 'Wylogowanie',
-            message: 'Do zobaczenia',
-        })
-    );
+    storeToast({
+        status: 'success',
+        title: 'Wylogowanie',
+        message: 'Do zobaczenia',
+    });
 };
 
 /**

@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 
-import useDispatch from '@hooks/dispatch';
+import useDispatch from '@hooks/useDispatch';
 import { loginUserAsync } from '@slices/userSlice';
 
 import { Button, Container, Divider, Flex, Heading, Link, Text } from '@chakra-ui/core';

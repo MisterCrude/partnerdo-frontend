@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
-import { compose, set, unset } from 'lodash/fp';
+import { compose, capitalize, set, unset } from 'lodash/fp';
 
 import { BACKEND_ROUTING } from '@config/api';
 import { ROUTES } from '@config/app';
@@ -76,9 +76,21 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         history.push(ROUTES.BROWSER);
 
         dispatch(loginUser({ user: normalizedUser }));
+        dispatch(
+            setAlert({
+                status: 'success',
+                title: 'Logowanie',
+                message: `${capitalize(user.username)}, witamy w naszym serwisie ponownie`,
+            })
+        );
     } catch (error) {
-        console.error(error);
-        // dispatch(setError({ error: 'Coś poszło nie tak spróbuj ponownie' }));
+        dispatch(
+            setAlert({
+                status: 'error',
+                title: 'Logowanie',
+                message: 'Coś poszło nie tak spróbuj ponownie',
+            })
+        );
     }
 };
 
@@ -101,11 +113,18 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         history.push(ROUTES.BROWSER);
 
         dispatch(loginUser({ user: normalizedUser }));
+        dispatch(
+            setAlert({
+                status: 'success',
+                title: 'Rejestracja',
+                message: `${capitalize(user.username)}, miło cię widzieć w naszym serwisie`,
+            })
+        );
     } catch (error) {
         dispatch(
             setAlert({
                 status: 'error',
-                title: 'Błąd rejestracji',
+                title: 'Rejestracja',
                 message: 'Kurde, rejestracja jebnęła',
             })
         );
@@ -117,6 +136,14 @@ export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDis
     history.push(ROUTES.HOME);
 
     dispatch(logoutUser());
+
+    dispatch(
+        setAlert({
+            status: 'success',
+            title: 'Wylogowanie',
+            message: 'Do zobaczenia',
+        })
+    );
 };
 
 /**

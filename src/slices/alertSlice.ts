@@ -2,14 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState } from '@store/rootReducer';
-import { TStatuses } from '@models/alerts';
+import { IAlert } from '@models/app';
 
-interface IAlertState {
-    status: TStatuses;
-    title: string;
-    message: string;
-    timestamp: number;
-}
+type IAlertState = IAlert;
 
 const initialState: IAlertState = {} as IAlertState;
 

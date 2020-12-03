@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 
 import { getIsAuth, logoutUserAsync } from '@slices/userSlice';
-import useDispatch from '@hooks/dispatch';
+import useDispatch from '@hooks/useDispatch';
 
 import { Flex } from '@chakra-ui/core';
 import Footer from '@components/Footer';

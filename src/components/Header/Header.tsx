@@ -115,14 +115,14 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                     Jak działa {BRAND_NAME}?
                                 </Link>
                                 <Divider />
-                                <Button
+                                <Link
                                     paddingY={4}
                                     paddingX={8}
                                     onClick={onLogout}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
                                     Wyloguj się
-                                </Button>
+                                </Link>
                             </>
                         ) : (
                             <>

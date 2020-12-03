@@ -45,6 +45,8 @@ export const CATEGORIES_DATA: IProposalCategory[] = [
     },
 ];
 
+export const TOAST_DURATION = 5000;
+
 export const ROUTES = {
     BROWSER: '/',
     HOME: '/home',

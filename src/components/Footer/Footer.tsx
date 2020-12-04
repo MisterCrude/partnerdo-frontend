@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Heading, IconButton, Flex, Link, SimpleGrid } from '@chakra-ui/core';
-import { BRAND_NAME } from '@src/config';
+import { Heading, IconButton, Flex, Link, SimpleGrid } from '@chakra-ui/react';
+import { BRAND_NAME } from '@config/app';
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from '@theme/customIcons';
 
 export const Footer: React.FC = () => (

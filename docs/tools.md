@@ -42,6 +42,22 @@ Toolset for efficient Redux development
 
 <br/>
 
+## [React-hook-form](https://react-hook-form.com/get-started#SchemaValidation)
+
+```
+Simple form validation with React Hook Form
+```
+
+<br/>
+
+## [Axios](https://github.com/axios/axios)
+
+```
+Promise based HTTP client for the browser and node.js
+```
+
+<br/>
+
 ## [Cypress](https://www.cypress.io/)
 
 ```

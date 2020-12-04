@@ -1,11 +1,22 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { Button, Container, Divider, Flex, Heading, Input, Text } from '@chakra-ui/core';
-import Main from '@layouts/Main';
+import useDispatch from '@hooks/useDispatch';
+import { registerUserAsync, getIsFetching } from '@slices/userSlice';
+
+import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
-import PasswordField from '@components/PasswordField';
+import Main from '@layouts/Main';
+import RegisterFrom from './components/RegisterForm';
 
 export const Register: React.FC = () => {
+    const sendForm = useDispatch(registerUserAsync);
+    const history = useHistory();
+    const isFetching = useSelector(getIsFetching);
+
+    const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
+
     return (
         <Main>
             <Container my={20} px={8}>
@@ -22,23 +33,7 @@ export const Register: React.FC = () => {
                     <Divider />
                 </Flex>
 
-                <Input mb={{ base: 4, md: 8 }} type="text" size="lg" placeholder="username" />
-                <Input mb={{ base: 4, md: 8 }} type="email" size="lg" placeholder="email" />
-                <PasswordField placeholder="hasło" />
-                <PasswordField placeholder="powtórz hasło" />
-
-                <Button
-                    backgroundColor="gray.800"
-                    color="white"
-                    variant="solid"
-                    width="100%"
-                    size="lg"
-                    mb={{ base: 4, md: 8 }}
-                    _active={{ backgroundColor: 'gray.900' }}
-                    _hover={{ backgroundColor: 'gray.600' }}
-                >
-                    Zarejestruj się
-                </Button>
+                <RegisterFrom onSubmit={handleSendForm} isFetching={isFetching} />
 
                 <Text fontSize="sm" color="gray.500">
                     <Text as="span" color="red.600" mr={1}>

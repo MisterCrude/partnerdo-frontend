@@ -4,9 +4,8 @@ import Main from '@layouts/Main';
 
 export const Browser: React.FC = () => {
     return (
-        <div>
-            <Main />
-            Browser
-        </div>
+        <Main>
+            <span>Browser</span>
+        </Main>
     );
 };

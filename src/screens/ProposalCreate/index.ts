@@ -1,3 +1,1 @@
-import { ProposalCreate } from './ProposalCreate';
-
-export default ProposalCreate;
+export { ProposalCreate as default } from './ProposalCreate';

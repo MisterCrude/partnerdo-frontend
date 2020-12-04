@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/core';
+import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/react';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
-import { ROUTES } from '@src/config';
+import { ROUTES } from '@config/app';
 
 interface IProps {
     hasMessages: boolean;
     mobileOnly: boolean;
-    isLoggedin: boolean;
+    isAuth: boolean;
 }
 
 interface IPropsLoggedinSet {
@@ -95,7 +95,7 @@ export const NotLoggedinSet: React.FC = () => (
     </Flex>
 );
 
-export const ToolsBar: React.FC<IProps> = ({ hasMessages, isLoggedin, mobileOnly }) => (
+export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) => (
     <Box
         as="section"
         boxShadow="xs"
@@ -107,6 +107,6 @@ export const ToolsBar: React.FC<IProps> = ({ hasMessages, isLoggedin, mobileOnly
         width="100vw"
         zIndex="docked"
     >
-        {isLoggedin ? <LoggedinSet hasMessages={hasMessages} mobileOnly={mobileOnly} /> : <NotLoggedinSet />}
+        {isAuth ? <LoggedinSet hasMessages={hasMessages} mobileOnly={mobileOnly} /> : <NotLoggedinSet />}
     </Box>
 );

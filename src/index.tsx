@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ChakraProvider } from '@chakra-ui/core';
+import { ChakraProvider } from '@chakra-ui/react';
 
 import store from '@store/index';
 
@@ -24,4 +24,8 @@ render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept('./App', render);
+    module.hot.accept('@store/rootReducer', () => {
+        const newRootReducer = require('@store/rootReducer').default;
+        store.replaceReducer(newRootReducer);
+    });
 }

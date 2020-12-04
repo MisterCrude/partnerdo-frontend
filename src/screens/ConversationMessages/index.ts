@@ -1,3 +1,1 @@
-import { ConversationMessages } from './ConversationMessages';
-
-export default ConversationMessages;
+export { ConversationMessages as default } from './ConversationMessages';

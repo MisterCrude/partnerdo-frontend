@@ -4,9 +4,11 @@
         "paths": {
             "@assets/*": ["./assets/*"],
             "@components/*": ["./components/*"],
+            "@config/*": ["./config/*"],
             "@hooks/*": ["./hooks/*"],
             "@routing/*": ["./routing/*"],
             "@screens/*": ["./screens/*"],
+            "@services/*": ["./services/*"],
             "@utils/*": ["./utils/*"],
             "@slices/*": ["./slices/*"],
             "@models/*": ["./models/*"],

@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
-// import { useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 // import useDispatch from '@hooks/dispatch';
 // import { getIsAppload, appLoadAsync } from '@slices/homeSlice';
 // import { getIsAppload } from '@slices/homeSlice';
-import { ROUTES } from '@src/config';
+import { ROUTES } from '@config/app';
+import GuardedRoute from '@services/GuardeRoute';
+import { getIsAuth } from '@slices/userSlice';
 
 import Conversations from '@screens/Home';
 import Browser from '@screens/Browser';
@@ -23,27 +25,26 @@ import UserProfile from '@screens/UserProfile';
 
 // TODO: add  "pre-push": "yarn test" to package.json
 const App: React.FC = () => {
-    // const dispatchLoadAppAsync = useDispatch<typeof appLoadAsync, boolean>(appLoadAsync);
-    // const selectIsAppload: boolean = useSelector(getIsAppload);
-
-    useEffect(() => {
-        // dispatchLoadAppAsync(true);
-    });
+    const isAuth = useSelector(getIsAuth);
 
     return (
         <BrowserRouter>
             <Switch>
-                <Route path={ROUTES.BROWSER} component={Browser} exact />
-                <Route path={ROUTES.HOME} component={Home} />
-                <Route path={ROUTES.FAQ} component={Faq} />
-                <Route path={ROUTES.LOGIN} component={Login} />
-                <Route path={ROUTES.REGISTER} component={Register} />
-                <Route path={ROUTES.REMIND_PASSWORD} component={RemindPassword} exact />
-                <Route path={ROUTES.CONVERSATIONS} component={Conversations} exact />
-                <Route path={ROUTES.PROPOSAL} component={Proposal} />
-                <Route path={ROUTES.USER} component={UserProfile} />
-                <Route path={ROUTES.PROFILE} component={Profile} />
-                <Route path={ROUTES.NOT_FOUND} component={PageNotFound} />
+                {!isAuth && [
+                    <Route component={Login} key="Login" path={ROUTES.LOGIN} />,
+                    <Route component={Register} key="Register" path={ROUTES.REGISTER} />,
+                    <Route component={RemindPassword} key="RemindPassword" path={ROUTES.REMIND_PASSWORD} exact />,
+                    <Route component={Home} key="Home" path={ROUTES.HOME} />,
+                ]}
+                <Route component={Browser} path={ROUTES.BROWSER} exact />
+                <Route component={Faq} path={ROUTES.FAQ} />
+
+                <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
+                <GuardedRoute component={Proposal} path={ROUTES.PROPOSAL} isAuth={isAuth} />
+                <GuardedRoute component={UserProfile} path={ROUTES.USER} isAuth={isAuth} />
+                <GuardedRoute component={Profile} path={ROUTES.PROFILE} isAuth={isAuth} />
+
+                <Route component={PageNotFound} path={ROUTES.NOT_FOUND} />
                 <Redirect from="/*" to={ROUTES.NOT_FOUND} />
             </Switch>
         </BrowserRouter>

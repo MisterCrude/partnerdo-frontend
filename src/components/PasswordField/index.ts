@@ -1,3 +1,1 @@
-import { PasswordField } from './PasswordField';
-
-export default PasswordField;
+export { PasswordField as default } from './PasswordField';

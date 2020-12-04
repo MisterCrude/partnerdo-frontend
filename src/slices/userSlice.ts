@@ -25,20 +25,13 @@ const userSlice = createSlice({
         setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
             state.fetching = isFetching;
         },
-        loginUser(state, { payload }: PayloadAction<{ user: IUser }>) {
-            state.data = payload.user;
-            state.isAuth = true;
-            state.fetching = false;
-        },
-        logoutUser(state) {
+        removeUser(state) {
             state.data = {} as IUser;
             state.isAuth = false;
-            state.fetching = false;
         },
         setUser(state, { payload }: PayloadAction<{ user: IUser }>) {
             state.data = payload.user;
             state.isAuth = true;
-            state.fetching = false;
         },
     },
 });
@@ -46,7 +39,7 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { loginUser, logoutUser, setUser, setFetching } = userSlice.actions;
+export const { setUser, removeUser, setFetching } = userSlice.actions;
 
 /**
  * Async actions
@@ -74,7 +67,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         localStorage.setItem('token', token.key);
         history.push(ROUTES.BROWSER);
 
-        dispatch(loginUser({ user: normalizedUser }));
+        dispatch(setUser({ user: normalizedUser }));
         storeToast({
             status: 'success',
             title: 'Logowanie',
@@ -109,7 +102,7 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         localStorage.setItem('token', token.key);
         history.push(ROUTES.BROWSER);
 
-        dispatch(loginUser({ user: normalizedUser }));
+        dispatch(setUser({ user: normalizedUser }));
 
         storeToast({
             status: 'success',
@@ -131,13 +124,36 @@ export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDis
     localStorage.removeItem('token');
     history.push(ROUTES.HOME);
 
-    dispatch(logoutUser());
+    dispatch(removeUser());
 
     storeToast({
         status: 'success',
         title: 'Wylogowanie',
         message: 'Do zobaczenia',
     });
+};
+
+export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setFetching(true));
+
+    try {
+        const { data: user }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
+
+        dispatch(setUser({ user: normalizedUser }));
+    } catch (error) {
+        localStorage.removeItem('token');
+
+        dispatch(removeUser());
+
+        storeToast({
+            status: 'error',
+            title: 'Logowanie',
+            message: 'Coś poszło nie tak, wyjebało Cię z tej wspaniałej apki',
+        });
+    }
+
+    dispatch(setFetching(false));
 };
 
 /**

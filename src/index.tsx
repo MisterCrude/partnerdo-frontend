@@ -4,6 +4,11 @@ import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import store from '@store/index';
+import { fetchUserAsync } from '@slices/userSlice';
+
+const fetchInitialData = () => {
+    localStorage.getItem('token') && store.dispatch(fetchUserAsync());
+};
 
 const render = () => {
     const App = require('./App').default;
@@ -20,6 +25,7 @@ const render = () => {
     );
 };
 
+fetchInitialData();
 render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {

@@ -44,23 +44,25 @@ interface IPropsMobileMenu {
 }
 
 export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }) => (
-    <Menu>
-        <MenuButton
-            as={IconButton}
-            color="gray"
-            variant="unstyled"
-            aria-label="User profile"
-            icon={<ProfileIcon fontSize={28} />}
-        />
-        <MenuList>
-            <MenuItem>Profil</MenuItem>
-            <MenuDivider />
-            <MenuItem>Moje partnerstwa</MenuItem>
-            <MenuItem>Zrealizowane partnerstwa</MenuItem>
-            <MenuDivider />
-            <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
-        </MenuList>
-    </Menu>
+    <Box as="span">
+        <Menu>
+            <MenuButton
+                as={IconButton}
+                color="gray"
+                variant="unstyled"
+                aria-label="User profile"
+                icon={<ProfileIcon fontSize={28} />}
+            />
+            <MenuList>
+                <MenuItem>Profil</MenuItem>
+                <MenuDivider />
+                <MenuItem>Moje partnerstwa</MenuItem>
+                <MenuItem>Zrealizowane partnerstwa</MenuItem>
+                <MenuDivider />
+                <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
+            </MenuList>
+        </Menu>
+    </Box>
 );
 
 export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }) => (
@@ -77,11 +79,11 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
 
     return (
         <>
-            <MenuIcon fontSize={36} onClick={() => onOpen()} />
+            <MenuIcon fontSize={36} onClick={onOpen} />
 
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="full">
                 <ModalOverlay />
-                <Box as={ModalContent} borderRadius={0} minHeight="100vh" margin={0}>
+                <Box as={ModalContent} borderRadius={0} minHeight="100vh">
                     <ModalHeader alignItems="center" display="flex" justifyContent="space-between" padding={8}>
                         {BRAND_NAME} <CloseButton onClick={onClose} fontSize={18} />
                     </ModalHeader>

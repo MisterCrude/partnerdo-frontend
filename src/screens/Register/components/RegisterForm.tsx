@@ -15,6 +15,7 @@ interface IInputs {
 }
 
 interface IProps {
+    isFetching: boolean;
     onSubmit: (formData: Record<string, unknown>) => void;
 }
 
@@ -28,7 +29,7 @@ const validationSchema = yup.object().shape({
         .oneOf([yup.ref('password1')], 'Hasło się nie zgadza'),
 });
 
-export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
+export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
     const { register, errors, handleSubmit } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
@@ -109,6 +110,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
                 type="submit"
                 variant="solid"
                 width="100%"
+                isLoading={isFetching}
                 _active={{ backgroundColor: 'gray.900' }}
                 _hover={{ backgroundColor: 'gray.600' }}
             >

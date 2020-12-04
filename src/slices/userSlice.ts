@@ -22,8 +22,8 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        startFetching(state) {
-            state.fetching = true;
+        setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
+            state.fetching = isFetching;
         },
         loginUser(state, { payload }: PayloadAction<{ user: IUser }>) {
             state.data = payload.user;
@@ -46,7 +46,7 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { loginUser, logoutUser, setUser, startFetching } = userSlice.actions;
+export const { loginUser, logoutUser, setUser, setFetching } = userSlice.actions;
 
 /**
  * Async actions
@@ -57,7 +57,7 @@ interface IUserParams {
 }
 
 export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(startFetching());
+    dispatch(setFetching(true));
 
     try {
         const { data: token }: { data: ITokenResponce } = await apiService.post(
@@ -87,10 +87,12 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
             message: 'Coś poszło nie tak spróbuj ponownie',
         });
     }
+
+    dispatch(setFetching(false));
 };
 
 export const registerUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(startFetching());
+    dispatch(setFetching(true));
 
     try {
         const { data: token }: { data: ITokenResponce } = await apiService.post(
@@ -112,7 +114,7 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         storeToast({
             status: 'success',
             title: 'Rejestracja',
-            message: `${capitalize(user.username)}, miło cię widzieć w naszym serwisie`,
+            message: `${capitalize(user.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
     } catch (error) {
         storeToast({
@@ -121,6 +123,8 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
             message: 'Kurde, rejestracja jebnęła',
         });
     }
+
+    dispatch(setFetching(false));
 };
 
 export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
@@ -141,5 +145,6 @@ export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDis
  */
 export const getUserData = (state: RootState) => state.user.data;
 export const getIsAuth = (state: RootState) => state.user.isAuth;
+export const getIsFetching = (state: RootState) => state.user.fetching;
 
 export default userSlice.reducer;

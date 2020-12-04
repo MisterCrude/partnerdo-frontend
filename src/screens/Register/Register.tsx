@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import useDispatch from '@hooks/useDispatch';
-import { registerUserAsync } from '@slices/userSlice';
+import { registerUserAsync, getIsFetching } from '@slices/userSlice';
 
 import { Button, Container, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
@@ -12,6 +13,7 @@ import RegisterFrom from './components/RegisterForm';
 export const Register: React.FC = () => {
     const sendForm = useDispatch(registerUserAsync);
     const history = useHistory();
+    const isFetching = useSelector(getIsFetching);
 
     const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
 
@@ -31,7 +33,7 @@ export const Register: React.FC = () => {
                     <Divider />
                 </Flex>
 
-                <RegisterFrom onSubmit={handleSendForm} />
+                <RegisterFrom onSubmit={handleSendForm} isFetching={isFetching} />
 
                 <Text fontSize="sm" color="gray.500">
                     <Text as="span" color="red.600" mr={1}>

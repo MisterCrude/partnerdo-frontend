@@ -1,9 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
+import { useSelector } from 'react-redux';
 
 import useDispatch from '@hooks/useDispatch';
-import { loginUserAsync } from '@slices/userSlice';
+import { loginUserAsync, getIsFetching } from '@slices/userSlice';
 
 import { Button, Container, Divider, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
@@ -18,6 +19,7 @@ interface ILoginUserParams {
 export const Login: React.FC = () => {
     const history = useHistory();
     const sendForm = useDispatch<ILoginUserParams>(loginUserAsync);
+    const isFetching = useSelector(getIsFetching);
 
     const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
 
@@ -37,7 +39,7 @@ export const Login: React.FC = () => {
                     <Divider />
                 </Flex>
 
-                <LoginForm onSubmit={handleSendForm} />
+                <LoginForm onSubmit={handleSendForm} isFetching={isFetching} />
 
                 <Link>Przypomnij hasło</Link>
             </Container>

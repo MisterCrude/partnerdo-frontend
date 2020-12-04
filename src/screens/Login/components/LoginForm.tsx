@@ -13,6 +13,7 @@ type Inputs = {
 };
 
 interface IProps {
+    isFetching: boolean;
     onSubmit: (formData: Record<string, unknown>) => void;
 }
 
@@ -21,7 +22,7 @@ const validationSchema = yup.object().shape({
     password: yup.string().required('To pole jest wymagane'),
 });
 
-export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
+export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
     const { register, errors, handleSubmit } = useForm<Inputs>({
         resolver: yupResolver(validationSchema),
     });
@@ -69,6 +70,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit }) => {
                 width="100%"
                 size="lg"
                 mb={4}
+                isLoading={isFetching}
                 _active={{ backgroundColor: 'gray.900' }}
                 _hover={{ backgroundColor: 'gray.600' }}
             >

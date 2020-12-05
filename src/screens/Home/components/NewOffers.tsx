@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { Box, Button, Divider, Flex, Heading, Tag, TagLeftIcon, TagLabel } from '@chakra-ui/react';
+import { ROUTES } from '@config/app';
+
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Button, Divider, Flex, Grid, Heading, Tag, TagLeftIcon, TagLabel } from '@chakra-ui/react';
 import { CategoryIcon, LocationIcon, ShowIcon, CalendarIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
 
@@ -16,17 +19,7 @@ const property = {
 };
 
 export const OfferCard: React.FC = () => (
-    <Box
-        as="a"
-        boxShadow="md"
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        href="#"
-        maxW="100%"
-        mx={{ base: 0, lg: 6 }}
-        mb={{ base: 8, lg: 0 }}
-    >
+    <Box as="a" boxShadow="md" borderWidth={1} borderRadius="lg" overflow="hidden" href="#" maxW="100%">
         <UserBadge
             avatarUrl="https://bit.ly/sage-adebayo"
             name="Jan Baraban"
@@ -64,20 +57,24 @@ export const OfferCard: React.FC = () => (
 );
 
 export const NewOffers: React.FC = () => (
-    <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 24, lg: 48 }} px={8}>
-        <Heading align="center" px={8} py={15} mb={{ base: 5, md: 10 }} lineHeight="3rem">
+    <Flex as="section" align="center" flexDir="column" justify="center" mb={24}>
+        <Heading align="center" px={8} mb={{ base: 8, md: 10 }} lineHeight={1.2}>
             Najnowsze oferty
         </Heading>
 
-        <Flex direction={{ base: 'column', lg: 'row' }} maxW="100%">
+        <Grid
+            templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
+            templateRows={{ base: 'repeat(3, 1fr)', md: '1fr' }}
+            gap={{ base: 4, md: 8 }}
+        >
             {Array(3)
                 .fill('')
                 .map((_, i) => (
                     <OfferCard key={i} />
                 ))}
-        </Flex>
+        </Grid>
 
-        <Button colorScheme="orange" size="lg" mt={{ base: 14, lg: 20 }}>
+        <Button as={RouterLink} colorScheme="orange" size="lg" mt={{ base: 14, lg: 20 }} to={ROUTES.BROWSER}>
             Zobacz wszystkie
         </Button>
     </Flex>

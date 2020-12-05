@@ -16,7 +16,7 @@ import {
 import { SearchIcon, LocationIcon } from '@theme/customIcons';
 
 export const MobileSearch: React.FC = () => (
-    <Box d={{ base: 'flex', md: 'none' }} px={8} flexDir="column">
+    <Box d={{ base: 'flex', md: 'none' }} flexDir="column">
         <Select icon={<LocationIcon fontSize={24} />} placeholder="Miasto" size="lg" mb={4}>
             {CITIES.map((city: string) => (
                 <option key={city} value={city}>
@@ -35,8 +35,8 @@ export const MobileSearch: React.FC = () => (
 );
 
 export const DesktopSearch: React.FC = () => (
-    <Box as={Flex} paddingX={8} display={{ base: 'none', md: 'flex' }} justifyContent="center">
-        <Grid gridTemplateColumns="2fr minmax(23ch, 1fr) minmax(8ch, 12ch)" maxWidth="100%" width="70rem">
+    <Box as={Flex} display={{ base: 'none', md: 'flex' }} justifyContent="center">
+        <Grid gridTemplateColumns="2fr minmax(23ch, 1fr) minmax(8ch, 12ch)" w="100%">
             <InputGroup>
                 <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} />} />
                 <Input

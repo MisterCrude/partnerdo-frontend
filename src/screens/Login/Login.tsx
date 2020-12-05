@@ -25,7 +25,7 @@ export const Login: React.FC = () => {
 
     return (
         <Main>
-            <Container flexGrow={1} my={20} px={8}>
+            <Container as="section" flexGrow={1} my={20} px={8} maxW="xl">
                 <Heading align="center" mb={10}>
                     Zaloguj się
                 </Heading>

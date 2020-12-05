@@ -19,7 +19,7 @@ export const Register: React.FC = () => {
 
     return (
         <Main>
-            <Container my={20} px={8}>
+            <Container as="section" flexGrow={1} my={20} px={8} maxW="xl">
                 <Heading align="center" mb={10}>
                     Zarejestruj się
                 </Heading>

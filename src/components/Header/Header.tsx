@@ -83,7 +83,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
 
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="full">
                 <ModalOverlay />
-                <Box as={ModalContent} borderRadius={0} minHeight="100vh">
+                <Box as={ModalContent} borderRadius={0} minHeight="100vh" m={0}>
                     <ModalHeader alignItems="center" display="flex" justifyContent="space-between" padding={8}>
                         {BRAND_NAME} <CloseButton onClick={onClose} fontSize={18} />
                     </ModalHeader>
@@ -170,7 +170,15 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
         <HStack spacing={isAuth ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
             <HStack spacing={2}>
                 <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<DangerIcon fontSize={28} />} />
-                <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<SearchIcon fontSize={28} />} />
+                <IconButton
+                    as={RouterLink}
+                    aria-label="faq"
+                    color="gray"
+                    d="flex"
+                    icon={<SearchIcon fontSize={28} />}
+                    to={ROUTES.BROWSER}
+                    variant="unstyled"
+                />
                 {isAuth && (
                     <>
                         <MessageMenuItem hasMessages={hasMessages} />

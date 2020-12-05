@@ -109,7 +109,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                 size="lg"
                 type="submit"
                 variant="solid"
-                width="100%"
+                w="100%"
                 isLoading={isFetching}
                 _active={{ backgroundColor: 'gray.900' }}
                 _hover={{ backgroundColor: 'gray.600' }}

@@ -5,14 +5,16 @@ import { CATEGORIES_DATA } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
 
 const MainCategories: React.FC = () => (
-    <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 32, md: 48 }} px={8}>
-        <Heading px={8} py={15} mb={{ base: 5, md: 10 }} align="center" lineHeight="3rem">
+    <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 32, md: 48 }}>
+        <Heading py={15} mb={{ base: 8, md: 10 }} align="center" lineHeight={1.2}>
             Kategorie
         </Heading>
+
         <SimpleGrid
             as="nav"
-            // gap={{ base: 4, sm: 5, md: 8 }}
+            gap={{ base: 4, md: 8 }}
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
+            w="100%"
         >
             {CATEGORIES_DATA.map(({ name, iconUrl }: IProposalCategory) => (
                 <Flex
@@ -20,9 +22,7 @@ const MainCategories: React.FC = () => (
                     alignItems="center"
                     justify="center"
                     borderRadius="md"
-                    // borderWidth={1}
-                    // boxShadow="xl"
-                    maxW={`${100 / 7}vw`}
+                    borderWidth={1}
                     minW={20}
                     key={name}
                     p="2vw"
@@ -33,7 +33,6 @@ const MainCategories: React.FC = () => (
                         boxShadow: 'md',
                     }}
                 >
-                    {/* <Icon fontSize={{ base: 70, md: 110 }} color="orange.700" /> */}
                     <Image src={iconUrl} w="50%" mb={{ base: 2, md: 4 }} />
                     <Text fontSize={{ base: 15, sm: 18, md: 22 }} lineHeight={1.2} align="center">
                         {name}

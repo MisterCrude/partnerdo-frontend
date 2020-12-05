@@ -104,7 +104,7 @@ export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) 
         display={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
         data-testid="toolsBar"
         position="fixed"
-        width="100vw"
+        w="100vw"
         zIndex="docked"
     >
         {isAuth ? <LoggedinSet hasMessages={hasMessages} mobileOnly={mobileOnly} /> : <NotLoggedinSet />}

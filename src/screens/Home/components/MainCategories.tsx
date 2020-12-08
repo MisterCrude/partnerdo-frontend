@@ -20,17 +20,17 @@ const MainCategories: React.FC = () => (
                 <Flex
                     as={Link}
                     alignItems="center"
+                    direction="column"
                     justify="center"
                     borderRadius="md"
-                    borderWidth={1}
                     minW={20}
                     key={name}
                     p="2vw"
-                    direction="column"
+                    shadow="base"
                     _hover={{
                         textDecoration: 'none',
                         transform: { base: 'scale(1)', md: 'scale(1.02)' },
-                        boxShadow: 'md',
+                        boxShadow: 'lg',
                     }}
                 >
                     <Image src={iconUrl} w="50%" mb={{ base: 2, md: 4 }} />

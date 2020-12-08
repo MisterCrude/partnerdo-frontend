@@ -19,7 +19,7 @@ const property = {
 };
 
 export const OfferCard: React.FC = () => (
-    <Box as="a" boxShadow="md" borderWidth={1} borderRadius="lg" overflow="hidden" href="#" maxW="100%">
+    <Box as="a" shadow="base" borderRadius="lg" overflow="hidden" href="#" maxW="100%">
         <UserBadge
             avatarUrl="https://bit.ly/sage-adebayo"
             name="Jan Baraban"

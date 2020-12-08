@@ -2,68 +2,40 @@ import React from 'react';
 
 import { CITIES } from '@config/app';
 
-import {
-    Box,
-    Button,
-    InputGroup,
-    InputLeftElement,
-    InputRightElement,
-    Input,
-    Flex,
-    Grid,
-    Select,
-} from '@chakra-ui/react';
-import { SearchIcon, LocationIcon } from '@theme/customIcons';
+import { Button, InputGroup, InputLeftElement, Input, Grid, Select } from '@chakra-ui/react';
+import { SearchIcon } from '@theme/customIcons';
 
-export const MobileSearch: React.FC = () => (
-    <Box d={{ base: 'flex', md: 'none' }} flexDir="column">
-        <Select icon={<LocationIcon fontSize={24} />} placeholder="Miasto" size="lg" mb={4}>
+export const SearchBar: React.FC = () => (
+    <Grid
+        gap={4}
+        mb={{ base: 12, md: 28 }}
+        templateColumns={{ base: '1fr', md: 'minmax(auto, 45rem) auto 100px' }}
+        templateRows={{ base: 'repeat(1fr, 3)', md: '1fr' }}
+        w="100%"
+    >
+        <InputGroup>
+            <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} color="gray.300" />} />
+            <Input
+                borderWidth={0}
+                backgroundColor="white"
+                placeholder="Jakiego partnerstwa szukasz?"
+                size="lg"
+                shadow="base"
+            />
+        </InputGroup>
+
+        <Select borderWidth={0} backgroundColor="white" placeholder="Miasto" size="lg" shadow="base">
             {CITIES.map((city: string) => (
                 <option key={city} value={city}>
                     {city}
                 </option>
             ))}
         </Select>
-        <InputGroup mb={4}>
-            <Input type="phone" size="lg" placeholder="Jakie partnerstwa szukasz?" />
-            <InputRightElement pointerEvents="none" height="100%" children={<SearchIcon fontSize={24} />} />
-        </InputGroup>
-        <Button colorScheme="orange" variat="outline" size="lg">
+
+        <Button borderWidth={0} colorScheme="orange" size="lg" shadow="base">
             Szukaj
         </Button>
-    </Box>
-);
-
-export const DesktopSearch: React.FC = () => (
-    <Box as={Flex} display={{ base: 'none', md: 'flex' }} justifyContent="center">
-        <Grid gridTemplateColumns="2fr minmax(23ch, 1fr) minmax(8ch, 12ch)" w="100%">
-            <InputGroup>
-                <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} />} />
-                <Input
-                    borderBottomRightRadius="none"
-                    borderTopRightRadius="none"
-                    borderWidth={2}
-                    h="4rem"
-                    placeholder="Jakie partnerstwa szukasz?"
-                    type="phone"
-                />
-            </InputGroup>
-            <InputGroup left="-2px">
-                <InputLeftElement pointerEvents="none" height="100%" children={<LocationIcon fontSize={24} />} />
-                <Input borderRadius="none" borderWidth={2} h="4rem" type="phone" size="lg" placeholder="Miasto" />
-            </InputGroup>
-            <Button borderLeftRadius="none" borderWidth={2} h="4rem" variant="outline" left="-4px" px={4} size="lg">
-                Szukaj
-            </Button>
-        </Grid>
-    </Box>
-);
-
-export const SearchBar: React.FC = () => (
-    <Box as="section" mb={{ base: 32, md: 48 }}>
-        <MobileSearch />
-        <DesktopSearch />
-    </Box>
+    </Grid>
 );
 
 export default SearchBar;

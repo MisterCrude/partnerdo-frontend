@@ -7,7 +7,36 @@
 -   Remove `node_modules\` and `yarn.lock`
 -   `$ yarn update --latest`
 
-## Don't change this package version
+## Style guide
 
--   `autoprefixer`: "^9.8.6",
--   `react-scripts`: "3.4.4",
+### Typography
+
+Secondary text
+
+```jsx
+<Text color="gray.500" fontSize="sm" />
+```
+
+Main text
+
+```jsx
+<Text />
+```
+
+## FAQ
+
+### 1. Where dispatch triggered and where we connect to the store?
+
+In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`
+
+### 2. Why we need `layouts`?
+
+For holding common structure of pages (header, main, footer, etc.)
+
+### 4. Why we need `pages`?
+
+For spleeting aplicatons by screens
+
+### 5. Why we need `containers`?
+
+For spliting screens to logical blocks

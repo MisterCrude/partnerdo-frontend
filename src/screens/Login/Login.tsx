@@ -29,7 +29,7 @@ export const Login: React.FC = () => {
                 <Heading align="center" mb={10}>
                     Zaloguj się
                 </Heading>
-                <Button colorScheme="blue" width="100%" size="lg" rightIcon={<FacebookIcon />}>
+                <Button colorScheme="blue" width="100%" size="lg" shadow="base" rightIcon={<FacebookIcon />}>
                     Przez facebook
                 </Button>
 

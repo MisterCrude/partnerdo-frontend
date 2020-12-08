@@ -4,7 +4,7 @@ import { Container, Center, Heading } from '@chakra-ui/react';
 import Main from '@layouts/Main';
 import SearchBar from './components/SearchBar';
 import MainCategories from './components/MainCategories';
-import NowOffers from './components/NewOffers';
+import NewProposals from './components/NewProposals';
 
 export const Home: React.FC = () => {
     return (
@@ -22,7 +22,7 @@ export const Home: React.FC = () => {
                     <SearchBar />
                 </Center>
                 <MainCategories />
-                <NowOffers />
+                <NewProposals />
             </Container>
         </Main>
     );

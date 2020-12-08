@@ -4,17 +4,17 @@ import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
 interface IProps {
     avatarUrl: string;
-    name: string;
-    slogan: string;
+    title: string;
+    subtitle: string | React.ReactNode;
 }
 
-export const UserBadge: React.FC<IProps> = ({ avatarUrl, name, slogan }) => (
-    <Flex p="6">
+export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle }) => (
+    <Flex>
         <Avatar src={avatarUrl} />
         <Box ml="3" overflow="hidden">
-            <Text fontWeight="bold">{name}</Text>
+            <Text fontWeight="bold">{title}</Text>
             <Text fontSize="sm" isTruncated>
-                {slogan}
+                {subtitle}
             </Text>
         </Box>
     </Flex>

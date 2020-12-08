@@ -26,11 +26,10 @@ const MainCategories: React.FC = () => (
                     minW={20}
                     key={name}
                     p="2vw"
-                    shadow="base"
                     _hover={{
                         textDecoration: 'none',
                         transform: { base: 'scale(1)', md: 'scale(1.02)' },
-                        boxShadow: 'lg',
+                        boxShadow: 'base',
                     }}
                 >
                     <Image src={iconUrl} w="50%" mb={{ base: 2, md: 4 }} />

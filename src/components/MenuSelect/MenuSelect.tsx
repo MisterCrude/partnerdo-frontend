@@ -36,7 +36,7 @@ export const MenuSelect: React.FC<IProps> = ({ isRadio, options, palceholder }) 
             >
                 {palceholder}
             </MenuButton>
-            <MenuList overflow="auto" maxH={isRadio ? '32vh' : 'auto'} w="100%">
+            <MenuList overflow="auto" maxH={isRadio ? '300px' : 'auto'} w="100%">
                 {!isRadio && (
                     <>
                         <MenuItem p={0}>

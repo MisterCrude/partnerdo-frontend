@@ -1,16 +1,19 @@
 import React from 'react';
 
 import { CITIES } from '@config/app';
+import { IOption } from '@models/app';
 
-import { Button, InputGroup, InputLeftElement, Input, Grid, Select } from '@chakra-ui/react';
+import { Button, InputGroup, InputLeftElement, Input, Grid } from '@chakra-ui/react';
 import { SearchIcon } from '@theme/customIcons';
+import MenuSelect from '@components/MenuSelect';
+
+const cities: IOption[] = CITIES.map((city: string) => ({ value: city, label: city }));
 
 export const SearchBar: React.FC = () => (
     <Grid
         gap={4}
         mb={{ base: 12, md: 28 }}
-        templateColumns={{ base: '1fr', md: 'minmax(auto, 45rem) auto 100px' }}
-        templateRows={{ base: 'repeat(1fr, 3)', md: '1fr' }}
+        templateColumns={{ base: '1fr', md: 'minmax(auto, 45rem) minmax(auto, 25rem) 100px' }}
         w="100%"
     >
         <InputGroup>
@@ -24,13 +27,7 @@ export const SearchBar: React.FC = () => (
             />
         </InputGroup>
 
-        <Select borderWidth={0} backgroundColor="white" placeholder="Miasto" size="lg" shadow="base">
-            {CITIES.map((city: string) => (
-                <option key={city} value={city}>
-                    {city}
-                </option>
-            ))}
-        </Select>
+        <MenuSelect isRadio options={cities} palceholder="Miasto" />
 
         <Button borderWidth={0} colorScheme="orange" size="lg" shadow="base">
             Szukaj

@@ -11,7 +11,12 @@ export const Home: React.FC = () => {
         <Main>
             <Container as="section" px={8} maxW="7xl">
                 <Center as="section" flexDirection="column" minH="87vh">
-                    <Heading align="center" lineHeight="4.5rem" mb={{ base: 12, md: 20 }} size="3xl">
+                    <Heading
+                        align="center"
+                        lineHeight={{ base: '3.5rem', md: '4.5rem' }}
+                        mb={{ base: 12, md: 20 }}
+                        fontSize={{ base: '2.5rem', md: '3.5rem' }}
+                    >
                         Zajebisty portal jakiego jeszcze nie widziałeś
                     </Heading>
                     <SearchBar />

@@ -62,11 +62,7 @@ export const NewOffers: React.FC = () => (
             Najnowsze oferty
         </Heading>
 
-        <Grid
-            templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
-            templateRows={{ base: 'repeat(3, 1fr)', md: '1fr' }}
-            gap={{ base: 4, md: 8 }}
-        >
+        <Grid templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }} gap={{ base: 4, md: 8 }}>
             {Array(3)
                 .fill('')
                 .map((_, i) => (

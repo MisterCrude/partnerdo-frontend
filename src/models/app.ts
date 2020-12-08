@@ -8,3 +8,8 @@ export interface IToast {
     message: string;
     timestamp: number;
 }
+
+export interface IOption {
+    value: string;
+    label: string;
+}

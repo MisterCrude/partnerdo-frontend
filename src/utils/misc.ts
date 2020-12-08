@@ -1,6 +1,8 @@
-import { camelCase, snakeCase, keys, isObject } from 'lodash/fp';
+import { IOption } from '@models/app';
+import { camelCase, snakeCase, keys, isObject, isArray } from 'lodash/fp';
 
 export const objCaseSwitcher = (caseSwitcher: typeof camelCase | typeof snakeCase) => {
+    // TODO replace any type
     const foo: any = (data: any) =>
         keys(data).reduce(
             (acc: any, curr: any) => ({
@@ -14,6 +16,12 @@ export const objCaseSwitcher = (caseSwitcher: typeof camelCase | typeof snakeCas
     return foo;
 };
 
-// TODO add types here
-export const toCamelCase: any = objCaseSwitcher(camelCase);
-export const toSnakeCase: any = objCaseSwitcher(snakeCase);
+export const toCamelCase = objCaseSwitcher(camelCase);
+
+export const toSnakeCase = objCaseSwitcher(snakeCase);
+
+export const toOptions = (valuesHolder: string[] | Record<string, string>): IOption[] => {
+    return isArray(valuesHolder)
+        ? valuesHolder.map((value: string) => ({ value, label: value }))
+        : keys(valuesHolder).map((value: string) => ({ value, label: valuesHolder[value] }));
+};

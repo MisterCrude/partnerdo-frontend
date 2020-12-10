@@ -6,14 +6,14 @@ import { History } from 'history';
 import { getIsAuth, logoutUserAsync } from '@slices/userSlice';
 import useDispatch from '@hooks/useDispatch';
 
-import { Flex } from '@chakra-ui/react';
+import { BoxProps, Container, Flex } from '@chakra-ui/react';
 import Footer from '@components/Footer';
 import Header from '@components/Header';
 import ToolsBar from '@components/ToolsBar';
 
 const hasMessages = true;
 
-export const Main: React.FC = ({ children }) => {
+export const Main: React.FC<BoxProps> = (props) => {
     const history = useHistory();
     const isAuth = useSelector(getIsAuth);
     const logout = useDispatch<History>(logoutUserAsync);
@@ -23,7 +23,7 @@ export const Main: React.FC = ({ children }) => {
     return (
         <Flex as="main" minH="100vh" flexDir="column">
             <Header isAuth={isAuth} hasMessages={hasMessages} onLogout={handleLogout} />
-            {children}
+            <Container {...props}>{props.children}</Container>
             <Footer />
             <ToolsBar hasMessages={hasMessages} isAuth={isAuth} mobileOnly={true} />
         </Flex>

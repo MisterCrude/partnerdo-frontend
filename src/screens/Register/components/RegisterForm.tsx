@@ -39,12 +39,14 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.username ? 1 : 0}
                     mb={1}
                     name="username"
                     ref={register}
                     type="text"
                     placeholder="username"
                     size="lg"
+                    shadow="base"
                 />
                 {errors.username && (
                     <Text color="tomato" fontSize={15}>
@@ -55,13 +57,15 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
 
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
-                    borderColor={errors.email ? 'tomato' : 'gray.200'}
+                    borderColor={errors.username ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.username ? 1 : 0}
                     mb={1}
                     name="email"
                     ref={register}
                     type="text"
                     placeholder="email"
                     size="lg"
+                    shadow="base"
                 />
                 {errors.email && (
                     <Text color="tomato" fontSize={15}>
@@ -72,12 +76,14 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
 
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
-                    borderColor={errors.password1 ? 'tomato' : 'gray.200'}
+                    borderColor={errors.username ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.username ? 1 : 0}
                     mb={1}
                     name="password1"
                     ref={register}
                     placeholder="hasło"
                     size="lg"
+                    shadow="base"
                 />
                 {errors.password1 && (
                     <Text color="tomato" fontSize={15}>
@@ -88,12 +94,14 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
 
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
-                    borderColor={errors.password2 ? 'tomato' : 'gray.200'}
+                    borderColor={errors.username ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.username ? 1 : 0}
                     mb={1}
                     name="password2"
                     ref={register}
                     placeholder="powtórz hasło"
                     size="lg"
+                    shadow="base"
                 />
                 {errors.password2 && (
                     <Text color="tomato" fontSize={15}>
@@ -107,9 +115,10 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                 color="white"
                 mb={{ base: 4, md: 8 }}
                 size="lg"
+                shadow="base"
                 type="submit"
                 variant="solid"
-                width="100%"
+                w="100%"
                 isLoading={isFetching}
                 _active={{ backgroundColor: 'gray.900' }}
                 _hover={{ backgroundColor: 'gray.600' }}

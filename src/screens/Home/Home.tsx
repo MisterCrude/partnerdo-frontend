@@ -1,20 +1,27 @@
 import React from 'react';
 
-import { Heading } from '@chakra-ui/react';
+import { Center, Heading } from '@chakra-ui/react';
 import Main from '@layouts/Main';
 import SearchBar from './components/SearchBar';
 import MainCategories from './components/MainCategories';
-import NowOffers from './components/NewOffers';
+import NewProposals from './components/NewProposals';
 
 export const Home: React.FC = () => {
     return (
-        <Main>
-            <Heading px={8} my={{ base: 10, md: 20 }} size="xl" align="center" lineHeight="3rem">
-                Zajebisty portal jakiego jeszcze nie widziałeś
-            </Heading>
-            <SearchBar />
+        <Main as="section" px={8} maxW="7xl">
+            <Center as="section" flexDirection="column" minH="87vh">
+                <Heading
+                    align="center"
+                    lineHeight={{ base: '3.5rem', md: '4.5rem' }}
+                    mb={{ base: 12, md: 20 }}
+                    fontSize={{ base: '2.5rem', md: '3.5rem' }}
+                >
+                    Zajebisty portal jakiego jeszcze nie widziałeś
+                </Heading>
+                <SearchBar />
+            </Center>
             <MainCategories />
-            <NowOffers />
+            <NewProposals />
         </Main>
     );
 };

@@ -14,7 +14,7 @@ interface IProps {
 
 const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
     <>
-        <InputGroup mb={6}>
+        <InputGroup mb={{ base: 4, md: 8 }}>
             <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} color="gray.300" />} />
             <Input
                 borderWidth={0}
@@ -25,7 +25,7 @@ const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
             />
         </InputGroup>
 
-        <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }} gap={6}>
+        <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }} gap={{ base: 4, md: 8 }}>
             <MenuSelect options={categories} palceholder="Kategorii" />
             <MenuSelect isRadio options={cities} palceholder="Miasto" />
             <MenuSelect isRadio options={cities} palceholder="Dzielnica" />

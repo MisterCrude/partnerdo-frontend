@@ -11,10 +11,16 @@
 
 ### Typography
 
-Secondary text
+Main text
 
 ```jsx
 <Text color="gray.500" fontSize="sm" />
+```
+
+Secondary text
+
+```jsx
+<Text color="gray.800" />
 ```
 
 Main text
@@ -22,6 +28,10 @@ Main text
 ```jsx
 <Text />
 ```
+
+Spacing
+
+Base space between elements `base: 4, md: 8`
 
 ## FAQ
 

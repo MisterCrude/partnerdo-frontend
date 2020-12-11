@@ -23,7 +23,9 @@ export const Main: React.FC<BoxProps> = (props) => {
     return (
         <Flex as="main" minH="100vh" flexDir="column">
             <Header isAuth={isAuth} hasMessages={hasMessages} onLogout={handleLogout} />
-            <Container {...props}>{props.children}</Container>
+            <Container as="section" px={8} maxW="7xl" {...props}>
+                {props.children}
+            </Container>
             <Footer />
             <ToolsBar hasMessages={hasMessages} isAuth={isAuth} mobileOnly={true} />
         </Flex>

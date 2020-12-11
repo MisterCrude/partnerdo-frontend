@@ -54,7 +54,9 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
                 icon={<ProfileIcon fontSize={28} />}
             />
             <MenuList>
-                <MenuItem>Profil</MenuItem>
+                <MenuItem as={RouterLink} to={ROUTES.PROFILE}>
+                    Profil
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem>Moje partnerstwa</MenuItem>
                 <MenuItem>Zrealizowane partnerstwa</MenuItem>
@@ -192,7 +194,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                         backgroundColor="gray.800"
                         color="white"
                         variant="solid"
-                        _active={{ backgroundColor: 'gray.900' }}
+                        _active={{ backgroundColor: 'gray.800' }}
                         _hover={{ backgroundColor: 'gray.600' }}
                     >
                         Dodaj partnerstwo
@@ -208,7 +210,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                             backgroundColor="gray.800"
                             color="white"
                             variant="solid"
-                            _active={{ backgroundColor: 'gray.900' }}
+                            _active={{ backgroundColor: 'gray.800' }}
                             _hover={{ backgroundColor: 'gray.600' }}
                         >
                             Zarejestruj się

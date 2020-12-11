@@ -35,15 +35,14 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     borderWidth={errors.username ? 1 : 0}
                     backgroundColor="white"
                     name="username"
-                    mb={1}
                     ref={register}
                     type="text"
                     size="lg"
                     shadow="base"
-                    placeholder="username"
+                    placeholder="Nazwa użytkownika *"
                 />
                 {errors.username && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize={15} mt={1}>
                         {errors.username.message}
                     </Text>
                 )}
@@ -54,14 +53,13 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
                     borderWidth={errors.username ? 1 : 0}
                     name="password"
-                    mb={1}
                     ref={register}
                     size="lg"
                     shadow="base"
-                    placeholder="hasło"
+                    placeholder="Hasło *"
                 />
                 {errors.password && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize={15} mt={1}>
                         {errors.password.message}
                     </Text>
                 )}
@@ -77,7 +75,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                 shadow="base"
                 mb={4}
                 isLoading={isFetching}
-                _active={{ backgroundColor: 'gray.900' }}
+                _active={{ backgroundColor: 'gray.800' }}
                 _hover={{ backgroundColor: 'gray.600' }}
             >
                 Zaloguj się

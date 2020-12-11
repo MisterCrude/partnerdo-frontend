@@ -24,7 +24,7 @@ export const Login: React.FC = () => {
     const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
 
     return (
-        <Main flexGrow={1} my={20} px={8} maxW="xl">
+        <Main flexGrow={1} my={20} maxW="xl">
             <Heading align="center" mb={10}>
                 Zaloguj się
             </Heading>

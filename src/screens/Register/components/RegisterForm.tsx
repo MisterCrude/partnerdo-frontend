@@ -43,7 +43,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     name="username"
                     ref={register}
                     type="text"
-                    placeholder="Nazwa użytkownika *"
+                    placeholder="Nazwa użytkownika"
                     size="lg"
                     shadow="base"
                 />
@@ -61,7 +61,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     name="email"
                     ref={register}
                     type="text"
-                    placeholder="Email *"
+                    placeholder="Email"
                     size="lg"
                     shadow="base"
                 />
@@ -78,7 +78,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     borderWidth={errors.username ? 1 : 0}
                     name="password1"
                     ref={register}
-                    placeholder="Hasło *"
+                    placeholder="Hasło"
                     size="lg"
                     shadow="base"
                 />
@@ -95,7 +95,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     borderWidth={errors.username ? 1 : 0}
                     name="password2"
                     ref={register}
-                    placeholder="Powtórz hasło *"
+                    placeholder="Powtórz hasło"
                     size="lg"
                     shadow="base"
                 />

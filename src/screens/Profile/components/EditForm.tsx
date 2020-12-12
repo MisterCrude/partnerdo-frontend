@@ -6,7 +6,7 @@ import { EditIcon } from '@theme/customIcons';
 const EditForm: React.FC = () => {
     return (
         <Box d={{ base: 'block', md: 'flex' }}>
-            <Box mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }} w={300} maxW="100%">
+            <Box mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }} mx={{ base: 'auto' }} w={300} maxW="100%">
                 <Box position="relative">
                     <AspectRatio maxW="100%" mb={{ base: 4, md: 8 }} ration={1}>
                         <Image
@@ -20,11 +20,15 @@ const EditForm: React.FC = () => {
                     <IconButton
                         aria-label="Edit"
                         d="flex"
-                        fontSize={28}
-                        icon={<EditIcon />}
+                        backgroundColor="gray.800"
+                        fontSize={20}
+                        size="sm"
+                        icon={<EditIcon color="white" />}
                         position="absolute"
                         top={2}
                         right={2}
+                        _active={{ backgroundColor: 'gray.800' }}
+                        _hover={{ backgroundColor: 'gray.600' }}
                     />
                 </Box>
 
@@ -57,7 +61,7 @@ const EditForm: React.FC = () => {
                         type="text"
                         size="lg"
                         shadow="base"
-                        placeholder="Nazwa użytkownika *"
+                        placeholder="Nazwa użytkownika"
                     />
                     {/* {errors.username && (
                     <Text color="tomato" fontSize={15}>

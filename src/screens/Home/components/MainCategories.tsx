@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Heading, Image, Link, SimpleGrid, Text } from '@chakra-ui/react';
+import { Flex, Heading, Link, SimpleGrid, Text } from '@chakra-ui/react';
 import { CATEGORIES_DATA } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
 
@@ -16,13 +16,14 @@ const MainCategories: React.FC = () => (
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
             w="100%"
         >
-            {CATEGORIES_DATA.map(({ name, iconUrl }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ bgColor, name, iconUrl: IconUrl }: IProposalCategory) => (
                 <Flex
                     as={Link}
                     alignItems="center"
+                    backgroundColor={bgColor}
+                    borderRadius="md"
                     direction="column"
                     justify="center"
-                    borderRadius="md"
                     minW={20}
                     key={name}
                     p="2vw"
@@ -32,8 +33,8 @@ const MainCategories: React.FC = () => (
                         boxShadow: 'base',
                     }}
                 >
-                    <Image src={iconUrl} w="50%" mb={{ base: 2, md: 4 }} />
-                    <Text fontSize={{ base: 15, sm: 18, md: 22 }} lineHeight={1.2} align="center">
+                    <IconUrl w="50%" h="auto" mb={{ base: 2, md: 4 }} color="white" />
+                    <Text align="center" fontSize={{ base: 15, sm: 18, md: 22 }} lineHeight={1.2} color="white">
                         {name}
                     </Text>
                 </Flex>

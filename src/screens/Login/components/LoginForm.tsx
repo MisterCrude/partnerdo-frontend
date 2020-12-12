@@ -39,7 +39,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     type="text"
                     size="lg"
                     shadow="base"
-                    placeholder="Nazwa użytkownika *"
+                    placeholder="Nazwa użytkownika"
                 />
                 {errors.username && (
                     <Text color="tomato" fontSize={15} mt={1}>
@@ -56,7 +56,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
                     ref={register}
                     size="lg"
                     shadow="base"
-                    placeholder="Hasło *"
+                    placeholder="Hasło"
                 />
                 {errors.password && (
                     <Text color="tomato" fontSize={15} mt={1}>

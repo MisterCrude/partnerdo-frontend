@@ -58,9 +58,6 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
                     Profil
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem>Moje partnerstwa</MenuItem>
-                <MenuItem>Zrealizowane partnerstwa</MenuItem>
-                <MenuDivider />
                 <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
             </MenuList>
         </Menu>

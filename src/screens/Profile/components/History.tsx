@@ -1,12 +1,16 @@
 import React from 'react';
 
-import Main from '@layouts/Main';
+import Card from '@components/Card';
+import { VStack } from '@chakra-ui/react';
 
-export const ProfileHistory: React.FC = () => {
+const History: React.FC = () => {
     return (
-        <div>
-            <Main />
-            ProfileHistory
-        </div>
+        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }} mb={4}>
+            <Card />
+            <Card />
+            <Card />
+        </VStack>
     );
 };
+
+export default History;

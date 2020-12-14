@@ -9,38 +9,47 @@ import {
     Modal,
     ModalOverlay,
     ModalHeader,
+    IconButton,
     useDisclosure,
     UseDisclosureProps,
 } from '@chakra-ui/react';
 
 export interface IProps {
-    triggerTitle: string;
     modalTitle: string;
     onAction: any;
     actionTitle?: string;
     buttonProps?: ButtonProps;
+    size?: string;
+    triggerTitle?: string;
+    triggerIcon?: React.ReactElement;
 }
 
 export const ModalFrame: React.FC<IProps> = ({
-    triggerTitle,
     children,
     modalTitle,
     onAction,
     actionTitle = 'Zapisz zmiany',
     buttonProps = {},
+    size = 'md',
+    triggerTitle,
+    triggerIcon,
 }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
     return (
         <>
-            <Button onClick={onOpen} {...buttonProps}>
-                {triggerTitle}
-            </Button>
+            {triggerTitle && (
+                <Button onClick={onOpen} {...buttonProps}>
+                    {triggerTitle}
+                </Button>
+            )}
 
-            <Modal isOpen={isOpen} isCentered onClose={onClose}>
+            {triggerIcon && <IconButton aria-label="button" onClick={onOpen} icon={triggerIcon} {...buttonProps} />}
+
+            <Modal isOpen={isOpen} onClose={onClose} size={size}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader px={8} align="center">
+                    <ModalHeader px={8} py={6} align="center">
                         {modalTitle}
                     </ModalHeader>
 

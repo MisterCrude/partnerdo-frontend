@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Box, Divider, Flex, Heading, Tag, Text, IconButton, HStack, SimpleGrid } from '@chakra-ui/react';
+import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
 import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
+import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
+import ProposalEdit from '@components/ProposalEdit';
 
 interface IProps {
     isEditable?: boolean;
@@ -22,26 +24,42 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
             />
             {isEditable && (
                 <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
-                    <IconButton
-                        aria-label="Edit"
-                        d="flex"
-                        backgroundColor="red.500"
-                        fontSize={20}
-                        size="sm"
-                        icon={<DeleteIcon color="white" />}
-                        _active={{ backgroundColor: 'red.500' }}
-                        _hover={{ backgroundColor: 'red.400' }}
-                    />
-                    <IconButton
-                        aria-label="Edit"
-                        d="flex"
-                        backgroundColor="gray.800"
-                        fontSize={20}
-                        size="sm"
-                        icon={<EditIcon color="white" />}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
-                    />
+                    <ModalFrame
+                        actionTitle="Tak, usuń"
+                        triggerIcon={<DeleteIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'red.500',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'red.500' },
+                            _hover: { backgroundColor: 'red.400' },
+                        }}
+                        modalTitle="Usuwanie partnerstwa"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
+                    </ModalFrame>
+                    <ModalFrame
+                        triggerIcon={<EditIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'gray.800',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'gray.800' },
+                            _hover: { backgroundColor: 'gray.600' },
+                        }}
+                        modalTitle="Edycja partnerstwa"
+                        size="xl"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <ProposalEdit />
+                    </ModalFrame>
                 </HStack>
             )}
         </Flex>
@@ -69,8 +87,8 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
                 <Flex as="span" align="center" color="gray.500" fontSize="sm">
                     34 <ShowIcon ml={1} fontSize="md" />
                 </Flex>
-                <Flex as="span" align="center" color="gray.500" fontSize="sm">
-                    <Box as="span">
+                <Flex as="span" align="center">
+                    <Box as="span" color="gray.500" fontSize="sm">
                         01.12.2020 <CalendarIcon ml={1} fontSize="md" />
                     </Box>
                 </Flex>
@@ -80,26 +98,42 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
         {isEditable && (
             <Box d={{ base: 'block', md: 'none' }} px={6} pb={4}>
                 <SimpleGrid spacing={6} d={{ base: 'grid', md: 'none' }} templateColumns="repeat(2, 1fr)">
-                    <IconButton
-                        aria-label="Edit"
-                        d="flex"
-                        backgroundColor="red.500"
-                        fontSize={20}
-                        size="sm"
-                        icon={<DeleteIcon color="white" />}
-                        _active={{ backgroundColor: 'red.500' }}
-                        _hover={{ backgroundColor: 'red.300' }}
-                    />
-                    <IconButton
-                        aria-label="Edit"
-                        d="flex"
-                        backgroundColor="gray.800"
-                        fontSize={20}
-                        size="sm"
-                        icon={<EditIcon color="white" />}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
-                    />
+                    <ModalFrame
+                        actionTitle="Tak, usuń"
+                        triggerIcon={<DeleteIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'red.500',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'red.500' },
+                            _hover: { backgroundColor: 'red.400' },
+                        }}
+                        modalTitle="Usuwanie partnerstwa"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
+                    </ModalFrame>
+                    <ModalFrame
+                        triggerIcon={<EditIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'gray.800',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'gray.800' },
+                            _hover: { backgroundColor: 'gray.600' },
+                        }}
+                        modalTitle="Edycja partnerstwa"
+                        size="xl"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <ProposalEdit />
+                    </ModalFrame>
                 </SimpleGrid>
             </Box>
         )}

@@ -1,7 +1,27 @@
 import React from 'react';
 
-import { AspectRatio, Box, Button, Textarea, Input, IconButton, Image, Flex } from '@chakra-ui/react';
+import {
+    AspectRatio,
+    Box,
+    Button,
+    ButtonProps,
+    Flex,
+    Textarea,
+    Text,
+    Input,
+    IconButton,
+    Image,
+} from '@chakra-ui/react';
 import { EditIcon } from '@theme/customIcons';
+import ModalFrame from '@components/ModalFrame';
+
+export interface IModalProps {
+    buttonProps: ButtonProps;
+    buttonTitle: string;
+    modalTitle: string;
+    onAction: any;
+    actionTitle?: string;
+}
 
 const EditForm: React.FC = () => {
     return (
@@ -32,22 +52,82 @@ const EditForm: React.FC = () => {
                     />
                 </Box>
 
-                <Button
-                    backgroundColor="gray.800"
-                    d={{ base: 'none', md: 'block' }}
-                    color="white"
-                    w="100%"
-                    mb={{ base: 4, md: 8 }}
-                    variant="solid"
-                    _active={{ backgroundColor: 'gray.800' }}
-                    _hover={{ backgroundColor: 'gray.600' }}
+                <ModalFrame
+                    actionTitle="Zapisz hasło"
+                    buttonProps={{
+                        backgroundColor: 'gray.800',
+                        d: { base: 'none', md: 'block' },
+                        color: 'white',
+                        w: '100%',
+                        mb: { base: 4, md: 8 },
+                        variant: 'solid',
+                        _active: { backgroundColor: 'gray.800' },
+                        _hover: { backgroundColor: 'gray.600' },
+                    }}
+                    modalTitle="Zmiana hasła"
+                    triggerTitle="Zmień hasło"
+                    onAction={() => {
+                        console.log(1);
+                    }}
                 >
-                    Zmień hasło
-                </Button>
+                    <>
+                        <Box mb={{ base: 4, md: 8 }}>
+                            <Input
+                                // borderColor={errors.username ? 'tomato' : 'gray.200'}
+                                // borderWidth={errors.username ? 1 : 0}
+                                borderWidth={0}
+                                backgroundColor="white"
+                                name="username"
+                                // ref={register}
+                                type="text"
+                                size="lg"
+                                shadow="base"
+                                placeholder="Podaj nowe hasło"
+                            />
+                            {/* {errors.username && (
+                    <Text color="tomato" fontSize={15}>
+                        {errors.username.message}
+                    </Text>
+                )} */}
+                        </Box>
+                        <Box>
+                            <Input
+                                // borderColor={errors.username ? 'tomato' : 'gray.200'}
+                                // borderWidth={errors.username ? 1 : 0}
+                                borderWidth={0}
+                                backgroundColor="white"
+                                name="username"
+                                // ref={register}
+                                type="text"
+                                size="lg"
+                                shadow="base"
+                                placeholder="Powtórz nowe hasło"
+                            />
+                            {/* {errors.username && (
+                    <Text color="tomato" fontSize={15}>
+                        {errors.username.message}
+                    </Text>
+                )} */}
+                        </Box>
+                    </>
+                </ModalFrame>
 
-                <Button d={{ base: 'none', md: 'block' }} colorScheme="red" variant="link" fontWeight={300}>
-                    Usuń konto
-                </Button>
+                <ModalFrame
+                    actionTitle="Tak, usuń"
+                    buttonProps={{
+                        d: { base: 'none', md: 'block' },
+                        colorScheme: 'red',
+                        variant: 'link',
+                        fontWeight: 300,
+                    }}
+                    modalTitle="Usuwanie konta"
+                    triggerTitle="Usuń konto"
+                    onAction={() => {
+                        console.log(1);
+                    }}
+                >
+                    <Text>Czy napawne checesz usunąć swoje konto?</Text>
+                </ModalFrame>
             </Box>
             <Box flexGrow={1}>
                 <Box mb={{ base: 4, md: 8 }}>

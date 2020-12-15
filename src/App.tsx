@@ -14,6 +14,7 @@ import Login from '@screens/Login';
 import Profile from '@screens/Profile';
 import PageNotFound from '@screens/PageNotFound';
 import Proposal from '@screens/Proposal';
+import ProposalCreate from '@screens/ProposalCreate';
 import Register from '@screens/Register';
 import RemindPassword from '@screens/RemindPassword';
 import UserProfile from '@screens/UserProfile';
@@ -37,7 +38,8 @@ const App: React.FC = () => {
                 <Route component={Faq} path={ROUTES.FAQ} />
 
                 <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
-                <GuardedRoute component={Proposal} path={ROUTES.PROPOSAL} isAuth={isAuth} />
+                <GuardedRoute exact component={Proposal} path={ROUTES.PROPOSAL} isAuth={isAuth} />
+                <GuardedRoute component={ProposalCreate} path={ROUTES.PROPOSAL_CREATE} isAuth={isAuth} />
                 <GuardedRoute component={UserProfile} path={ROUTES.USER} isAuth={isAuth} />
                 <GuardedRoute component={Profile} path={ROUTES.PROFILE} isAuth={isAuth} />
 

@@ -188,6 +188,8 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
             <HStack spacing={4}>
                 {isAuth ? (
                     <Button
+                        as={RouterLink}
+                        to={ROUTES.PROPOSAL_CREATE}
                         backgroundColor="gray.800"
                         color="white"
                         variant="solid"

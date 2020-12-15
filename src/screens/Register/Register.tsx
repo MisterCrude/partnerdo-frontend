@@ -11,11 +11,11 @@ import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';
 
 export const Register: React.FC = () => {
-    const sendForm = useDispatch(registerUserAsync);
+    const submitForm = useDispatch(registerUserAsync);
     const history = useHistory();
     const isFetching = useSelector(getIsFetching);
 
-    const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
+    const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
 
     return (
         <Main flexGrow={1} my={20} maxW="xl">
@@ -32,7 +32,7 @@ export const Register: React.FC = () => {
                 <Divider />
             </Flex>
 
-            <RegisterFrom onSubmit={handleSendForm} isFetching={isFetching} />
+            <RegisterFrom onSubmit={handleSubmitForm} isFetching={isFetching} />
 
             <Text fontSize="sm" color="gray.500">
                 <Text as="span" color="red.600" mr={1}>

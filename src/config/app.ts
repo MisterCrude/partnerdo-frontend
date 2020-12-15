@@ -18,43 +18,35 @@ export const CATEGORIES_DATA: IProposalCategory[] = [
     // https://www.flaticon.com/packs/retail-10?k=1607802870403
     {
         name: 'Sport',
-        iconUrl: SportIcon,
-        bgColor: 'green.500',
+        icon: SportIcon,
     },
     {
         name: 'Muzyka',
-        iconUrl: MusicIcon,
-        bgColor: 'pink.500',
+        icon: MusicIcon,
     },
     {
         name: 'Nauka',
-        iconUrl: LearningIcon,
-        bgColor: 'yellow.500',
+        icon: LearningIcon,
     },
     {
         name: 'Dzieci',
-        iconUrl: ChildrenIcon,
-        bgColor: 'cyan.500',
+        icon: ChildrenIcon,
     },
     {
         name: 'Podróże',
-        iconUrl: TravelIcon,
-        bgColor: 'yellow.600',
+        icon: TravelIcon,
     },
     {
         name: 'Gry',
-        iconUrl: GameIcon,
-        bgColor: 'purple.500',
+        icon: GameIcon,
     },
     {
         name: 'Rozrywka',
-        iconUrl: EventIcon,
-        bgColor: 'teal.500',
+        icon: EventIcon,
     },
     {
         name: 'Biznes',
-        iconUrl: BusinessIcon,
-        bgColor: 'red.400',
+        icon: BusinessIcon,
     },
 ];
 
@@ -70,6 +62,7 @@ export const ROUTES = {
     REMIND_PASSWORD: '/remind-password',
     CONVERSATIONS: '/conversations',
     PROPOSAL: '/proposal',
+    PROPOSAL_CREATE: '/proposal/add',
     USER: '/user',
     PROFILE: '/profile',
 };

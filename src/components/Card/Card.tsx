@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
 import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
+import { Link as BrowserLink } from 'react-router-dom';
 import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
@@ -67,12 +68,14 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
         <Divider />
 
         <Box px={6} py={4}>
-            <Tag borderRadius="full" backgroundColor="green.500" px={3} variant="solid" mb={2}>
-                Sport
-            </Tag>
-            <Heading as="h4" mb={2} size="md">
-                Poszukuję partnera do głębokiego lenistwa
-            </Heading>
+            <Box mb={2}>
+                <Tag borderRadius="full" backgroundColor="orange.500" px={3} variant="solid" mr={2}>
+                    Sport
+                </Tag>
+                <Heading as={BrowserLink} size="md" to="/">
+                    Poszukuję partnera do głębokiego lenistwa
+                </Heading>
+            </Box>
 
             <Text mb={2} fontSize="sm">
                 Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera

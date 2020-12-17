@@ -13,9 +13,10 @@ interface IProps {
     onCancel: () => void;
     onGo: (dec?: boolean) => void;
     // onSubmit: (formData: Record<string, unknown>) => void;
+    onSubmit: () => void;
 }
 
-export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onCancel, onGo }) => {
+export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, onCancel, onGo }) => {
     return (
         <>
             <Box as="form" alignItems="center" d="flex" my={{ base: 16 }} minH={{ base: 0, md: 260 }}>
@@ -36,7 +37,9 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onCancel, o
                 )}
 
                 {currentStep === lastStep ? (
-                    <Button colorScheme="orange">Utwórz</Button>
+                    <Button colorScheme="orange" onClick={onSubmit}>
+                        Utwórz
+                    </Button>
                 ) : (
                     <Button
                         backgroundColor="gray.800"

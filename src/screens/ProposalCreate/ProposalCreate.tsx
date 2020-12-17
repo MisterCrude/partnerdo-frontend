@@ -32,9 +32,9 @@ export const ProposalCreate: React.FC = () => {
         setStep((prevState) => (dec ? --prevState : ++prevState));
     };
 
-    const handleSubmitForm = () => {
-        return null;
-    };
+    // const handleSubmitForm = () => {
+    //     return null;
+    // };
 
     return (
         <Main d="flex" flexDir="column" flexGrow={1} my={20} maxW="3xl">
@@ -51,7 +51,7 @@ export const ProposalCreate: React.FC = () => {
             <StepsForm
                 currentStep={step}
                 lastStep={STEPS.length - 1}
-                onSubmit={handleSubmitForm}
+                // onSubmit={handleSubmitForm}
                 onCancel={hangleCancel}
                 onGo={handleStep}
             />

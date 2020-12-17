@@ -6,7 +6,7 @@ import { IProposalCategory } from '@models/proposal';
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 
-export const Categories = () => {
+export const StepOne = () => {
     const [chosenName, setChosenName] = useState<string>();
 
     const handleChose = (categoryName: string) => setChosenName(categoryName);
@@ -46,4 +46,4 @@ export const Categories = () => {
     );
 };
 
-export default Categories;
+export default StepOne;

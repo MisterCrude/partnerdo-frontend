@@ -25,6 +25,7 @@ import {
     UseDisclosureProps,
     VStack,
 } from '@chakra-ui/react';
+import { SmallAddIcon } from '@chakra-ui/icons';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon, SearchIcon } from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 
@@ -193,6 +194,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                         backgroundColor="gray.800"
                         color="white"
                         variant="solid"
+                        rightIcon={<SmallAddIcon />}
                         _active={{ backgroundColor: 'gray.800' }}
                         _hover={{ backgroundColor: 'gray.600' }}
                     >

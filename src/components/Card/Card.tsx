@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ROUTES } from '@config/app';
+
 import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
 import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
 import { Link as BrowserLink } from 'react-router-dom';
@@ -69,10 +71,10 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
 
         <Box px={6} py={4}>
             <Box mb={2}>
-                <Tag borderRadius="full" backgroundColor="orange.500" px={3} variant="solid" mr={2}>
+                <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid" mr={4}>
                     Sport
                 </Tag>
-                <Heading as={BrowserLink} size="md" to="/">
+                <Heading as={BrowserLink} size="md" to={`${ROUTES.PROPOSAL}/some-proposal-id`}>
                     Poszukuję partnera do głębokiego lenistwa
                 </Heading>
             </Box>

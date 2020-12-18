@@ -16,7 +16,7 @@ const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.t
 
 export const Browser: React.FC = () => {
     return (
-        <Main my={{ base: 0, md: 10 }}>
+        <Main>
             <Box mb={10}>
                 <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
             </Box>

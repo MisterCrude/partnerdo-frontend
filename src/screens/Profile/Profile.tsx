@@ -9,7 +9,7 @@ import MyProposals from './components/MyProposals';
 
 export const Profile: React.FC = () => {
     return (
-        <Main flexGrow={1} my={{ base: 0, md: 10 }}>
+        <Main flexGrow={1}>
             <Tabs colorScheme="orange">
                 <TabList overflowX="auto" overflowY="hidden" mx={{ base: -8, md: 0 }}>
                     <Tab

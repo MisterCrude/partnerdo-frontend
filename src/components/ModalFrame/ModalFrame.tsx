@@ -49,7 +49,7 @@ export const ModalFrame: React.FC<IProps> = ({
             <Modal isOpen={isOpen} onClose={onClose} size={size}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader px={8} py={6} align="center">
+                    <ModalHeader px={8} py={6} lineHeight={1.3}>
                         {modalTitle}
                     </ModalHeader>
 

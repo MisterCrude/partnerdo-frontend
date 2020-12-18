@@ -38,8 +38,8 @@ const App: React.FC = () => {
                 <Route component={Faq} path={ROUTES.FAQ} />
 
                 <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
-                <GuardedRoute exact component={Proposal} path={ROUTES.PROPOSAL} isAuth={isAuth} />
                 <GuardedRoute component={ProposalCreate} path={ROUTES.PROPOSAL_CREATE} isAuth={isAuth} />
+                <GuardedRoute component={Proposal} path={ROUTES.PROPOSAL} isAuth={isAuth} />
                 <GuardedRoute component={UserProfile} path={ROUTES.USER} isAuth={isAuth} />
                 <GuardedRoute component={Profile} path={ROUTES.PROFILE} isAuth={isAuth} />
 

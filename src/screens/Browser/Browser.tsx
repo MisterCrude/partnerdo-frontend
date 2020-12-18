@@ -16,22 +16,22 @@ const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.t
 
 export const Browser: React.FC = () => {
     return (
-        <Main as="section" flexGrow={1} px={8} maxW="7xl">
-            <Box my={10}>
+        <Main my={{ base: 0, md: 10 }}>
+            <Box mb={10}>
                 <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
             </Box>
 
-            <Text fontSize="md">
+            <Text fontSize="md" mb={10}>
                 Znaleziono <strong>245,667</strong> partnerstw pasujących do Ciebie
             </Text>
 
-            <Box my={10}>
-                <Results />
-            </Box>
+            <Results />
 
-            <Text align="center" color="gray.600" fontSize="lg" mb={12}>
-                <strong>240</strong> partnerstw z <strong>245,09</strong>
-            </Text>
+            <Box mt={10} mb={{ base: 10, md: 0 }}>
+                <Text align="center" color="gray.600" fontSize="lg">
+                    <strong>240</strong> partnerstw z <strong>245,09</strong>
+                </Text>
+            </Box>
         </Main>
     );
 };

@@ -16,7 +16,7 @@ export const NewOffers: React.FC = () => (
             {Array(3)
                 .fill('')
                 .map((_, i) => (
-                    <Card key={i} isSimple />
+                    <Card key={i} />
                 ))}
         </Grid>
 

@@ -1,22 +1,18 @@
 import React from 'react';
 
-import { Box, Divider, Flex, Heading, Tag, TagLabel, TagLeftIcon, Text, BoxProps } from '@chakra-ui/react';
-import { CategoryIcon, CalendarIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
+import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
+import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
+import { Link as BrowserLink } from 'react-router-dom';
+import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
+import ProposalEdit from '@components/ProposalEdit';
 
-export const CategoryBadge: React.FC<BoxProps> = (props) => (
-    <Tag borderRadius="full" variant="outline" colorScheme="orange" {...props}>
-        <TagLeftIcon as={CategoryIcon} />
-        <TagLabel>Sport</TagLabel>
-    </Tag>
-);
-
-interface ICardProps {
-    isSimple?: boolean;
+interface IProps {
+    isEditable?: boolean;
 }
 
-export const Card: React.FC<ICardProps> = ({ isSimple }) => (
-    <Box as="a" borderWidth={1} borderRadius="lg" overflow="hidden" href="#" maxW="100%">
+export const Card: React.FC<IProps> = ({ isEditable }) => (
+    <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
         <Flex align="center" px={6} py={4} justify="space-between">
             <UserBadge
                 avatarUrl="https://bit.ly/sage-adebayo"
@@ -27,27 +23,59 @@ export const Card: React.FC<ICardProps> = ({ isSimple }) => (
                     </Box>
                 }
             />
-            {!isSimple && (
-                <Box d={{ base: 'none', md: 'flex' }}>
-                    <CategoryBadge />
-                </Box>
+            {isEditable && (
+                <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
+                    <ModalFrame
+                        actionTitle="Tak, usuń"
+                        triggerIcon={<DeleteIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'red.500',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'red.500' },
+                            _hover: { backgroundColor: 'red.400' },
+                        }}
+                        modalTitle="Usuwanie partnerstwa"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
+                    </ModalFrame>
+                    <ModalFrame
+                        triggerIcon={<EditIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'gray.800',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'gray.800' },
+                            _hover: { backgroundColor: 'gray.600' },
+                        }}
+                        modalTitle="Edycja partnerstwa"
+                        size="xl"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <ProposalEdit />
+                    </ModalFrame>
+                </HStack>
             )}
         </Flex>
 
         <Divider />
 
         <Box px={6} py={4}>
-            {isSimple ? (
-                <CategoryBadge mb={2} />
-            ) : (
-                <Box d={{ base: 'flex', md: 'none' }} mb={2}>
-                    <CategoryBadge />
-                </Box>
-            )}
-
-            <Heading as="h4" mb={2} size="md">
-                Poszukuję partnera do głębokiego lenistwa
-            </Heading>
+            <Box mb={2}>
+                <Tag borderRadius="full" backgroundColor="orange.500" px={3} variant="solid" mr={2}>
+                    Sport
+                </Tag>
+                <Heading as={BrowserLink} size="md" to="/">
+                    Poszukuję partnera do głębokiego lenistwa
+                </Heading>
+            </Box>
 
             <Text mb={2} fontSize="sm">
                 Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera
@@ -62,10 +90,55 @@ export const Card: React.FC<ICardProps> = ({ isSimple }) => (
                 <Flex as="span" align="center" color="gray.500" fontSize="sm">
                     34 <ShowIcon ml={1} fontSize="md" />
                 </Flex>
-                <Flex as="span" align="center" color="gray.500" fontSize="sm">
-                    01.12.2020 <CalendarIcon ml={1} fontSize="md" />
+                <Flex as="span" align="center">
+                    <Box as="span" color="gray.500" fontSize="sm">
+                        01.12.2020 <CalendarIcon ml={1} fontSize="md" />
+                    </Box>
                 </Flex>
             </Flex>
         </Box>
+
+        {isEditable && (
+            <Box d={{ base: 'block', md: 'none' }} px={6} pb={4}>
+                <SimpleGrid spacing={6} d={{ base: 'grid', md: 'none' }} templateColumns="repeat(2, 1fr)">
+                    <ModalFrame
+                        actionTitle="Tak, usuń"
+                        triggerIcon={<DeleteIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'red.500',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'red.500' },
+                            _hover: { backgroundColor: 'red.400' },
+                        }}
+                        modalTitle="Usuwanie partnerstwa"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
+                    </ModalFrame>
+                    <ModalFrame
+                        triggerIcon={<EditIcon color="white" />}
+                        buttonProps={{
+                            backgroundColor: 'gray.800',
+                            d: 'flex',
+                            fontSize: 20,
+                            size: 'sm',
+                            _active: { backgroundColor: 'gray.800' },
+                            _hover: { backgroundColor: 'gray.600' },
+                        }}
+                        modalTitle="Edycja partnerstwa"
+                        size="xl"
+                        onAction={() => {
+                            console.log(1);
+                        }}
+                    >
+                        <ProposalEdit />
+                    </ModalFrame>
+                </SimpleGrid>
+            </Box>
+        )}
     </Box>
 );

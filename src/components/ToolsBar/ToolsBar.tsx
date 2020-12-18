@@ -86,7 +86,7 @@ export const NotLoggedinSet: React.FC = () => (
                 color="white"
                 to={ROUTES.REGISTER}
                 variant="solid"
-                _active={{ backgroundColor: 'gray.900' }}
+                _active={{ backgroundColor: 'gray.800' }}
                 _hover={{ backgroundColor: 'gray.600' }}
             >
                 Zarejestruj się

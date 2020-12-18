@@ -13,7 +13,7 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle }) => (
         <Avatar src={avatarUrl} />
         <Box ml="3" overflow="hidden">
             <Text fontWeight="bold">{title}</Text>
-            <Text fontSize="sm" isTruncated>
+            <Text fontSize="sm" isTruncated d="flex">
                 {subtitle}
             </Text>
         </Box>

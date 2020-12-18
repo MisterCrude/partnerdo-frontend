@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, Heading, Image, Link, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, SimpleGrid, Link, Text } from '@chakra-ui/react';
 import { CATEGORIES_DATA } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
 
@@ -12,28 +12,28 @@ const MainCategories: React.FC = () => (
 
         <SimpleGrid
             as="nav"
-            gap={{ base: 4, md: 8 }}
+            rowGap={12}
+            gridGap={5}
+            justifyItems="center"
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
             w="100%"
         >
-            {CATEGORIES_DATA.map(({ name, iconUrl }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ name, icon: Icon }: IProposalCategory) => (
                 <Flex
                     as={Link}
                     alignItems="center"
+                    borderRadius="md"
                     direction="column"
                     justify="center"
-                    borderRadius="md"
                     minW={20}
+                    maxW={30}
                     key={name}
-                    p="2vw"
-                    _hover={{
-                        textDecoration: 'none',
-                        transform: { base: 'scale(1)', md: 'scale(1.02)' },
-                        boxShadow: 'base',
-                    }}
                 >
-                    <Image src={iconUrl} w="50%" mb={{ base: 2, md: 4 }} />
-                    <Text fontSize={{ base: 15, sm: 18, md: 22 }} lineHeight={1.2} align="center">
+                    {/* <Box justify="center" borderRadius="300px" backgroundColor="gray.50" color="orange.500" mb={3}> */}
+                    <Box justify="center" borderRadius="300px" backgroundColor="gray.50" mb={3}>
+                        <Icon w="100%" h="auto" maxW={200} />
+                    </Box>
+                    <Text align="center" lineHeight={1.2}>
                         {name}
                     </Text>
                 </Flex>

@@ -1,47 +1,52 @@
 import { IProposalCategory } from '@models/proposal';
 
+import {
+    BusinessIcon,
+    MusicIcon,
+    TravelIcon,
+    LearningIcon,
+    SportIcon,
+    EventIcon,
+    GameIcon,
+    ChildrenIcon,
+} from '@theme/customIcons';
+
 export const BRAND_NAME = 'PartnerDo';
 
 export const CATEGORIES_DATA: IProposalCategory[] = [
+    // https://www.flaticon.com/search/2?word=music
+    // https://www.flaticon.com/packs/retail-10?k=1607802870403
     {
         name: 'Sport',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3160/3160174.svg',
-        bgColor: 'green.300',
+        icon: SportIcon,
     },
     {
         name: 'Muzyka',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3655/3655247.svg',
-        bgColor: 'purple.400',
+        icon: MusicIcon,
     },
     {
         name: 'Nauka',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3528/3528211.svg',
-        bgColor: 'blue.400',
+        icon: LearningIcon,
     },
     {
         name: 'Dzieci',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3658/3658919.svg',
-        bgColor: 'orange.400',
+        icon: ChildrenIcon,
     },
     {
         name: 'Podróże',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3644/3644078.svg',
-        bgColor: 'blue.300',
+        icon: TravelIcon,
     },
     {
         name: 'Gry',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3658/3658828.svg',
-        bgColor: 'purple.300',
+        icon: GameIcon,
     },
     {
         name: 'Rozrywka',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3655/3655258.svg',
-        bgColor: 'red.300',
+        icon: EventIcon,
     },
     {
         name: 'Biznes',
-        iconUrl: 'https://www.flaticon.com/svg/static/icons/svg/3165/3165489.svg',
-        bgColor: 'teal.300',
+        icon: BusinessIcon,
     },
 ];
 
@@ -57,6 +62,7 @@ export const ROUTES = {
     REMIND_PASSWORD: '/remind-password',
     CONVERSATIONS: '/conversations',
     PROPOSAL: '/proposal',
+    PROPOSAL_CREATE: '/proposal/add',
     USER: '/user',
     PROFILE: '/profile',
 };

@@ -25,6 +25,7 @@ import {
     UseDisclosureProps,
     VStack,
 } from '@chakra-ui/react';
+import { SmallAddIcon } from '@chakra-ui/icons';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon, SearchIcon } from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 
@@ -54,10 +55,9 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
                 icon={<ProfileIcon fontSize={28} />}
             />
             <MenuList>
-                <MenuItem>Profil</MenuItem>
-                <MenuDivider />
-                <MenuItem>Moje partnerstwa</MenuItem>
-                <MenuItem>Zrealizowane partnerstwa</MenuItem>
+                <MenuItem as={RouterLink} to={ROUTES.PROFILE}>
+                    Profil
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
             </MenuList>
@@ -189,10 +189,13 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
             <HStack spacing={4}>
                 {isAuth ? (
                     <Button
+                        as={RouterLink}
+                        to={ROUTES.PROPOSAL_CREATE}
                         backgroundColor="gray.800"
                         color="white"
                         variant="solid"
-                        _active={{ backgroundColor: 'gray.900' }}
+                        rightIcon={<SmallAddIcon />}
+                        _active={{ backgroundColor: 'gray.800' }}
                         _hover={{ backgroundColor: 'gray.600' }}
                     >
                         Dodaj partnerstwo
@@ -208,7 +211,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                             backgroundColor="gray.800"
                             color="white"
                             variant="solid"
-                            _active={{ backgroundColor: 'gray.900' }}
+                            _active={{ backgroundColor: 'gray.800' }}
                             _hover={{ backgroundColor: 'gray.600' }}
                         >
                             Zarejestruj się

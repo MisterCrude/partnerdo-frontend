@@ -8,7 +8,7 @@ import NewProposals from './components/NewProposals';
 
 export const Home: React.FC = () => {
     return (
-        <Main as="section" px={8} maxW="7xl">
+        <Main>
             <Center as="section" flexDirection="column" minH="87vh">
                 <Heading
                     align="center"

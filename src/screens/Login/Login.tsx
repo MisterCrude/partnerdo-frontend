@@ -18,13 +18,13 @@ interface ILoginUserParams {
 
 export const Login: React.FC = () => {
     const history = useHistory();
-    const sendForm = useDispatch<ILoginUserParams>(loginUserAsync);
+    const submitForm = useDispatch<ILoginUserParams>(loginUserAsync);
     const isFetching = useSelector(getIsFetching);
 
-    const handleSendForm = (credentials: Record<string, unknown>) => sendForm({ credentials, history });
+    const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
 
     return (
-        <Main flexGrow={1} my={20} px={8} maxW="xl">
+        <Main flexGrow={1} my={20} maxW="xl">
             <Heading align="center" mb={10}>
                 Zaloguj się
             </Heading>
@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
                 <Divider />
             </Flex>
 
-            <LoginForm onSubmit={handleSendForm} isFetching={isFetching} />
+            <LoginForm onSubmit={handleSubmitForm} isFetching={isFetching} />
 
             <Link>Przypomnij hasło</Link>
         </Main>

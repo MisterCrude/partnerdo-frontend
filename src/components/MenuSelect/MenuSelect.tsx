@@ -9,9 +9,10 @@ interface IProps {
     isRadio?: boolean;
     palceholder: string;
     options: IOption[];
+    height?: string;
 }
 
-export const MenuSelect: React.FC<IProps> = ({ isRadio, options, palceholder }) => {
+export const MenuSelect: React.FC<IProps> = ({ isRadio, options, palceholder, height = '48px' }) => {
     return (
         <Menu closeOnSelect={false}>
             <MenuButton
@@ -24,6 +25,7 @@ export const MenuSelect: React.FC<IProps> = ({ isRadio, options, palceholder }) 
                 pl={4}
                 pr={3}
                 rightIcon={<ChevronDownIcon />}
+                h={height}
                 _active={{
                     backgroundColor: 'white',
                 }}

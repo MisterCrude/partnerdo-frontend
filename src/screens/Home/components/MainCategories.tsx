@@ -29,7 +29,6 @@ const MainCategories: React.FC = () => (
                     maxW={30}
                     key={name}
                 >
-                    {/* <Box justify="center" borderRadius="300px" backgroundColor="gray.50" color="orange.500" mb={3}> */}
                     <Box justify="center" borderRadius="300px" backgroundColor="gray.50" mb={3}>
                         <Icon w="100%" h="auto" maxW={200} />
                     </Box>

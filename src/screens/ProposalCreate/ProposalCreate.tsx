@@ -52,7 +52,7 @@ export const ProposalCreate: React.FC = () => {
                         {step + 1}. {STEPS[step].title}
                     </Text>
 
-                    <Progress value={STEPS[step].percentage} colorScheme="orange" rounded="md" />
+                    <Progress value={STEPS[step].percentage} colorScheme="orange" size="sm" rounded="md" />
                     <StepsForm
                         currentStep={step}
                         lastStep={STEPS.length - 1}

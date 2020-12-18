@@ -27,7 +27,7 @@ export const Browser: React.FC = () => {
 
             <Results />
 
-            <Box mt={10} mb={{ base: 10, md: 0 }}>
+            <Box mt={10}>
                 <Text align="center" color="gray.600" fontSize="lg">
                     <strong>240</strong> partnerstw z <strong>245,09</strong>
                 </Text>

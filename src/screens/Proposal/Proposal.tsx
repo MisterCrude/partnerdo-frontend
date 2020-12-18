@@ -1,16 +1,26 @@
 import React from 'react';
 
-import { AspectRatio, Box, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
+import { ROUTES } from '@config/app';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
 
-export const Proposal: React.FC = () => {
+interface IProps {
+    isAuth: boolean;
+}
+
+export const Proposal: React.FC<IProps> = ({ isAuth }) => {
+    const history = useHistory();
+
+    const handleBack = () => history.goBack();
+
     return (
         <Main flexGrow={1}>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
-                <Box w={150} maxW="100%">
-                    <AspectRatio maxW="100%" mb={4} ration={1}>
+                <Box w={200} maxW="100%">
+                    <AspectRatio maxW="100%" mb={3} ration={1}>
                         <Image
                             alt="Jan Baraban"
                             borderRadius={6}
@@ -19,7 +29,7 @@ export const Proposal: React.FC = () => {
                             fallbackSrc="https://via.placeholder.com/300"
                         />
                     </AspectRatio>
-                    <Heading as="h3" size="sm" color="gray.600" fontWeight={400}>
+                    <Heading as="h3" size="sm" color="orange.500" fontWeight={400}>
                         Jan Baraban
                     </Heading>
                 </Box>
@@ -46,51 +56,66 @@ export const Proposal: React.FC = () => {
                     amet consectetur adipisic
                 </Text>
 
-                <Flex
-                    align={{ base: 'stretch', dm: 'center' }}
-                    direction={{ base: 'column', md: 'row' }}
-                    justify="space-between"
-                    mt={8}
-                >
-                    <Box as="span" color="gray.500" fontSize="sm" mb={{ base: 2 }}>
+                <Flex justify="flex-end" my={4}>
+                    <Box as="span" color="gray.500" fontSize="sm">
                         <CalendarIcon mr={1} mt={-1} fontSize="md" /> 01.12.2020
                     </Box>
-                    <ModalFrame
-                        actionTitle="Wyślij"
-                        buttonProps={{
-                            backgroundColor: 'gray.800',
-                            color: 'white',
-                            variant: 'solid',
-                            _active: { backgroundColor: 'gray.800' },
-                            _hover: { backgroundColor: 'gray.600' },
-                        }}
-                        modalTitle="Poszukuję partnera do głębokiego lenistwa"
-                        triggerTitle="Złóż ofertę"
-                        onAction={() => {
-                            console.log(1);
-                        }}
-                    >
-                        <>
-                            Napisz do
-                            <Heading as="span" size="sm" color="orange.500" fontWeight={400} mx={1}>
-                                Jan Baraban
-                            </Heading>
-                            <Box color="gray.500" mb={4}>
-                                <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
-                            </Box>
-                            <Textarea
-                                borderWidth={0}
-                                h={40}
-                                name="surname"
-                                // ref={register}
-                                resize="none"
-                                type="text"
-                                placeholder="Twoja odpowiedź"
-                                size="lg"
-                                shadow="base"
-                            />
-                        </>
-                    </ModalFrame>
+                </Flex>
+
+                <Flex align={{ base: 'stretch', dm: 'center' }} justify="space-between">
+                    <Button onClick={handleBack}>Wróć</Button>
+
+                    {isAuth ? (
+                        <ModalFrame
+                            actionTitle="Wyślij"
+                            buttonProps={{
+                                backgroundColor: 'gray.800',
+                                color: 'white',
+                                variant: 'solid',
+                                _active: { backgroundColor: 'gray.800' },
+                                _hover: { backgroundColor: 'gray.600' },
+                            }}
+                            modalTitle="Poszukuję partnera do głębokiego lenistwa"
+                            onAction={() => {
+                                console.log(1);
+                            }}
+                            size="3xl"
+                            triggerTitle="Złóż ofertę"
+                        >
+                            <>
+                                Napisz do
+                                <Heading as="span" size="sm" color="orange.500" fontWeight={400} mx={1}>
+                                    Jan Baraban
+                                </Heading>
+                                <Box color="gray.500" mb={4}>
+                                    <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
+                                </Box>
+                                <Textarea
+                                    borderWidth={0}
+                                    h={40}
+                                    name="surname"
+                                    // ref={register}
+                                    resize="none"
+                                    type="text"
+                                    placeholder="Twoja odpowiedź"
+                                    size="lg"
+                                    shadow="base"
+                                />
+                            </>
+                        </ModalFrame>
+                    ) : (
+                        <Button
+                            as={RouterLink}
+                            to={ROUTES.LOGIN}
+                            backgroundColor="gray.800"
+                            color="white"
+                            variant="solid"
+                            _active={{ backgroundColor: 'gray.800' }}
+                            _hover={{ backgroundColor: 'gray.600' }}
+                        >
+                            Złóż ofertę
+                        </Button>
+                    )}
                 </Flex>
             </Box>
         </Main>

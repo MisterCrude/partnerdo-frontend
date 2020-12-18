@@ -56,7 +56,7 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
                             _hover: { backgroundColor: 'gray.600' },
                         }}
                         modalTitle="Edycja partnerstwa"
-                        size="xl"
+                        size="4xl"
                         onAction={() => {
                             console.log(1);
                         }}
@@ -132,7 +132,7 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
                             _hover: { backgroundColor: 'gray.600' },
                         }}
                         modalTitle="Edycja partnerstwa"
-                        size="xl"
+                        size="4xl"
                         onAction={() => {
                             console.log(1);
                         }}

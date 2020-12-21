@@ -40,7 +40,7 @@ export const ProposalCreate: React.FC = () => {
     };
 
     return (
-        <Main d="flex" flexDir="column" flexGrow={1} my={20} maxW="3xl">
+        <Main d="flex" flexDir="column" flexGrow={1} maxW="3xl">
             <Heading align="center" mb={10}>
                 Dodaj nowe partnerstwo
             </Heading>

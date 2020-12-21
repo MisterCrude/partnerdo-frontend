@@ -16,7 +16,7 @@ export const RemindPasswordNew: React.FC = () => {
         return null;
     };
     return (
-        <Main flexGrow={1} my={20} maxW="xl">
+        <Main flexGrow={1} maxW="xl">
             <Heading align="center" mb={10}>
                 Podaj nowe hasło
             </Heading>

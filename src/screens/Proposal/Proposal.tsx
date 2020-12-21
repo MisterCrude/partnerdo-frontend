@@ -9,10 +9,10 @@ import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
 
 interface IProps {
-    isAuth: boolean;
+    isAuth?: boolean;
 }
 
-export const Proposal: React.FC<IProps> = ({ isAuth }) => {
+export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const history = useHistory();
 
     const handleBack = () => history.goBack();

@@ -52,7 +52,9 @@ const App: React.FC = () => {
                 <GuardedRoute component={UserProfile} path={ROUTES.USER} isAuth={isAuth} />
                 <GuardedRoute component={Profile} path={ROUTES.PROFILE} isAuth={isAuth} />
 
-                <Route component={PageNotFound} path={ROUTES.NOT_FOUND} />
+                <Route path={ROUTES.NOT_FOUND}>
+                    <PageNotFound isAuth={isAuth} />
+                </Route>
                 <Redirect from="/*" to={ROUTES.NOT_FOUND} />
             </Switch>
         </BrowserRouter>

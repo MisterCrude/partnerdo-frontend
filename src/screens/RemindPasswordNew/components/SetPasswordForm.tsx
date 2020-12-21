@@ -2,15 +2,15 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { Button, Box, Input, Text } from '@chakra-ui/react';
+import { Button, Box, Text } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import PasswordField from '@components/PasswordField';
 
-type IInputs = {
-    username: string;
-    password: string;
-};
+interface IInputs {
+    password1: string;
+    password2: string;
+}
 
 interface IProps {
     onSubmit: (formData: Record<string, unknown>) => void;
@@ -18,11 +18,14 @@ interface IProps {
 }
 
 const validationSchema = yup.object().shape({
-    username: yup.string().required('To pole jest wymagane'),
-    password: yup.string().required('To pole jest wymagane'),
+    password1: yup.string().required('To pole jest wymagane').max(128, 'Za długie hasło').min(8, 'Za krótkie hasło'),
+    password2: yup
+        .string()
+        .required('To pole jest wymagane')
+        .oneOf([yup.ref('password1')], 'Hasło się nie zgadza'),
 });
 
-const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
+const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
     const { register, errors, handleSubmit } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
@@ -30,37 +33,35 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
     return (
         <Box as="form" onSubmit={handleSubmit(onSubmit)}>
             <Box mb={{ base: 4, md: 8 }}>
-                <Input
-                    borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
-                    backgroundColor="white"
-                    name="username"
+                <PasswordField
+                    borderColor={errors.password1 ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.password1 ? 1 : 0}
+                    name="password1"
                     ref={register}
-                    type="text"
+                    placeholder="Hasło"
                     size="lg"
                     shadow="base"
-                    placeholder="Nazwa użytkownika"
                 />
-                {errors.username && (
+                {errors.password1 && (
                     <Text color="tomato" fontSize={15} mt={1}>
-                        {errors.username.message}
+                        {errors.password1.message}
                     </Text>
                 )}
             </Box>
 
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
-                    borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
-                    name="password"
+                    borderColor={errors.password2 ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.password2 ? 1 : 0}
+                    name="password2"
                     ref={register}
+                    placeholder="Powtórz hasło"
                     size="lg"
                     shadow="base"
-                    placeholder="Hasło"
                 />
-                {errors.password && (
+                {errors.password2 && (
                     <Text color="tomato" fontSize={15} mt={1}>
-                        {errors.password.message}
+                        {errors.password2.message}
                     </Text>
                 )}
             </Box>
@@ -78,10 +79,10 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
                 _active={{ backgroundColor: 'gray.800' }}
                 _hover={{ backgroundColor: 'gray.600' }}
             >
-                Zaloguj się
+                Wyślij
             </Button>
         </Box>
     );
 };
 
-export default LoginForm;
+export default SetPasswordForm;

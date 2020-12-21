@@ -3,10 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import { useSelector } from 'react-redux';
 
+import { Link as RouterLink } from 'react-router-dom';
 import useDispatch from '@hooks/useDispatch';
 import { loginUserAsync, getIsFetching } from '@slices/userSlice';
+import { ROUTES } from '@config/app';
 
-import { Button, Divider, Flex, Heading, Link, Text } from '@chakra-ui/react';
+import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
@@ -40,7 +42,7 @@ export const Login: React.FC = () => {
 
             <LoginForm onSubmit={handleSubmitForm} isFetching={isFetching} />
 
-            <Link>Przypomnij hasło</Link>
+            <RouterLink to={ROUTES.REMIND_PASSWORD}>Przypomnij hasło</RouterLink>
         </Main>
     );
 };

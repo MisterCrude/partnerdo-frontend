@@ -60,6 +60,7 @@ export const ROUTES = {
     LOGIN: '/login',
     REGISTER: '/register',
     REMIND_PASSWORD: '/remind-password',
+    REMIND_PASSWORD_NEW: '/remind-password/new',
     CONVERSATIONS: '/conversations',
     PROPOSAL: '/proposal',
     PROPOSAL_CREATE: '/proposal/add',

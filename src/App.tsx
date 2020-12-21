@@ -17,6 +17,7 @@ import Proposal from '@screens/Proposal';
 import ProposalCreate from '@screens/ProposalCreate';
 import Register from '@screens/Register';
 import RemindPassword from '@screens/RemindPassword';
+import RemindPasswordNew from '@screens/RemindPasswordNew';
 import UserProfile from '@screens/UserProfile';
 
 // TODO: try to remove .eslintrc and devDependencies
@@ -32,6 +33,12 @@ const App: React.FC = () => {
                     <Route component={Login} key="Login" path={ROUTES.LOGIN} />,
                     <Route component={Register} key="Register" path={ROUTES.REGISTER} />,
                     <Route component={RemindPassword} key="RemindPassword" path={ROUTES.REMIND_PASSWORD} exact />,
+                    <Route
+                        component={RemindPasswordNew}
+                        key="RemindPasswordNew"
+                        path={ROUTES.REMIND_PASSWORD_NEW}
+                        exact
+                    />,
                     <Route component={Home} key="Home" path={ROUTES.HOME} />,
                 ]}
                 <Route component={Browser} path={ROUTES.BROWSER} exact />

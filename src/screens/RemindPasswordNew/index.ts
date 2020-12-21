@@ -1,1 +1,1 @@
-export { RemindPassword as default } from './RemindPassword';
+export { RemindPasswordNew as default } from './RemindPasswordNew';

@@ -49,7 +49,7 @@ const App: React.FC = () => {
                 <Route path={ROUTES.PROPOSAL}>
                     <Proposal isAuth={isAuth} />
                 </Route>
-                <GuardedRoute component={UserProfile} path={ROUTES.USER} isAuth={isAuth} />
+                <GuardedRoute component={UserProfile} path={ROUTES.USER_PROFILE} isAuth={isAuth} />
                 <GuardedRoute component={Profile} path={ROUTES.PROFILE} isAuth={isAuth} />
 
                 <Route path={ROUTES.NOT_FOUND}>

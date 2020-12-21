@@ -4,7 +4,6 @@ import { ROUTES } from '@config/app';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
-import NormalLink from '@components/NormalLink';
 import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
 
@@ -20,7 +19,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     return (
         <Main flexGrow={1}>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
-                <Box w={200} maxW="100%">
+                <Box w={200}>
                     <AspectRatio maxW="100%" mb={3} ration={1}>
                         <Image
                             alt="Jan Baraban"
@@ -30,9 +29,15 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                             fallbackSrc="https://via.placeholder.com/300"
                         />
                     </AspectRatio>
-                    <NormalLink color="orange.500" to="/">
+                    <Heading
+                        size="md"
+                        as={RouterLink}
+                        to={`${ROUTES.USER_PROFILE}/some-user-id`}
+                        mx={1}
+                        _hover={{ textDecor: 'underline' }}
+                    >
                         Jan baraban
-                    </NormalLink>
+                    </Heading>
                 </Box>
                 <Box>
                     <Heading as="h2" size="lg" mb={1}>
@@ -86,14 +91,22 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                             <>
                                 <Heading size="sm" mb={2} fontWeight={400}>
                                     Napisz do
-                                    <NormalLink color="orange.500" to="/">
+                                    <Text
+                                        as={RouterLink}
+                                        to="/"
+                                        mx={1}
+                                        size="md"
+                                        fontWeight="bold"
+                                        _hover={{ textDecor: 'underline' }}
+                                    >
                                         Jan baraban
-                                    </NormalLink>
+                                    </Text>
                                 </Heading>
                                 <Textarea
                                     borderWidth={0}
                                     h={40}
                                     name="surname"
+                                    mb={1}
                                     // ref={register}
                                     resize="none"
                                     type="text"

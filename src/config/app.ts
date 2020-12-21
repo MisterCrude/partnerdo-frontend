@@ -64,7 +64,7 @@ export const ROUTES = {
     CONVERSATIONS: '/conversations',
     PROPOSAL: '/proposal',
     PROPOSAL_CREATE: '/proposal/add',
-    USER: '/user',
+    USER_PROFILE: '/user',
     PROFILE: '/profile',
 };
 

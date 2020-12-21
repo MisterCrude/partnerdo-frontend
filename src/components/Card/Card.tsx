@@ -10,74 +10,51 @@ import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
 
 interface IProps {
+    isHeadLess?: boolean;
     isEditable?: boolean;
 }
 
-export const Card: React.FC<IProps> = ({ isEditable }) => (
-    <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
-        <Flex align="center" px={6} py={4} justify="space-between">
-            <UserBadge
-                avatarUrl="https://bit.ly/sage-adebayo"
-                title="Jan Baraban"
-                subtitle={
-                    <Box as="span" color="gray.500">
-                        <LocationIcon mr={1} /> Warszawa, Bemowo
-                    </Box>
-                }
-            />
-            {isEditable && (
-                <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
-                    <ModalFrame
-                        actionTitle="Tak, usuń"
-                        triggerIcon={<DeleteIcon color="white" />}
-                        buttonProps={{
-                            backgroundColor: 'red.500',
-                            d: 'flex',
-                            fontSize: 20,
-                            size: 'sm',
-                            _active: { backgroundColor: 'red.500' },
-                            _hover: { backgroundColor: 'red.400' },
-                        }}
-                        modalTitle="Usuwanie partnerstwa"
-                        onAction={() => {
-                            console.log(1);
-                        }}
-                    >
-                        <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
-                    </ModalFrame>
-                    <ModalFrame
-                        triggerIcon={<EditIcon color="white" />}
-                        buttonProps={{
-                            backgroundColor: 'gray.800',
-                            d: 'flex',
-                            fontSize: 20,
-                            size: 'sm',
-                            _active: { backgroundColor: 'gray.800' },
-                            _hover: { backgroundColor: 'gray.600' },
-                        }}
-                        modalTitle="Edycja partnerstwa"
-                        size="4xl"
-                        onAction={() => {
-                            console.log(1);
-                        }}
-                    >
-                        <ProposalEdit />
-                    </ModalFrame>
-                </HStack>
-            )}
-        </Flex>
+export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false }) => (
+    <Box
+        as={RouterLink}
+        borderWidth={1}
+        borderRadius="lg"
+        d="block"
+        maxW="100%"
+        overflow="hidden"
+        to={`${ROUTES.PROPOSAL}/some-proposal-id`}
+    >
+        {!isHeadLess && (
+            <Flex align="center" px={6} py={4} justify="space-between">
+                <UserBadge
+                    avatarUrl="https://bit.ly/sage-adebayo"
+                    title="Jan Baraban"
+                    subtitle={
+                        <Box as="span" color="gray.500">
+                            <LocationIcon /> Warszawa, Bemowo
+                        </Box>
+                    }
+                />
+            </Flex>
+        )}
 
         <Divider />
 
         <Box px={6} py={4}>
-            <Box mb={2}>
-                <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid" mr={4}>
-                    Sport
-                </Tag>
-                <Heading as={RouterLink} size="md" to={`${ROUTES.PROPOSAL}/some-proposal-id`}>
+            <Box mb={isHeadLess ? 1 : 2}>
+                <Heading d="inline" size="md" mr={3}>
                     Poszukuję partnera do głębokiego lenistwa
                 </Heading>
+                <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                    Sport
+                </Tag>
             </Box>
+
+            {isHeadLess && (
+                <Box as="span" d="inline-block" color="gray.500" mb={2}>
+                    <LocationIcon /> Warszawa, Bemowo
+                </Box>
+            )}
 
             <Text mb={2} fontSize="sm">
                 Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera
@@ -89,14 +66,57 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
 
         <Box px={6} py={4}>
             <Flex align="center" justify="space-between">
-                <Flex as="span" align="center" color="gray.500" fontSize="sm">
-                    34 <ShowIcon ml={1} fontSize="md" />
+                <Flex flexGrow={1} justify="space-between" mr={isEditable ? 6 : 0}>
+                    <Flex as="span" align="center" color="gray.500" fontSize="sm">
+                        34 <ShowIcon ml={1} fontSize="md" />
+                    </Flex>
+                    <Flex as="span" align="center">
+                        <Box as="span" color="gray.500" fontSize="sm">
+                            01.12.2020 <CalendarIcon ml={1} fontSize="md" />
+                        </Box>
+                    </Flex>
                 </Flex>
-                <Flex as="span" align="center">
-                    <Box as="span" color="gray.500" fontSize="sm">
-                        01.12.2020 <CalendarIcon ml={1} fontSize="md" />
-                    </Box>
-                </Flex>
+
+                {isEditable && (
+                    <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
+                        <ModalFrame
+                            actionTitle="Tak, usuń"
+                            triggerIcon={<DeleteIcon color="white" />}
+                            buttonProps={{
+                                backgroundColor: 'red.500',
+                                d: 'flex',
+                                fontSize: 20,
+                                size: 'sm',
+                                _active: { backgroundColor: 'red.500' },
+                                _hover: { backgroundColor: 'red.400' },
+                            }}
+                            modalTitle="Usuwanie partnerstwa"
+                            onAction={() => {
+                                console.log(1);
+                            }}
+                        >
+                            <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
+                        </ModalFrame>
+                        <ModalFrame
+                            triggerIcon={<EditIcon color="white" />}
+                            buttonProps={{
+                                backgroundColor: 'gray.800',
+                                d: 'flex',
+                                fontSize: 20,
+                                size: 'sm',
+                                _active: { backgroundColor: 'gray.800' },
+                                _hover: { backgroundColor: 'gray.600' },
+                            }}
+                            modalTitle="Edycja partnerstwa"
+                            size="4xl"
+                            onAction={() => {
+                                console.log(1);
+                            }}
+                        >
+                            <ProposalEdit />
+                        </ModalFrame>
+                    </HStack>
+                )}
             </Flex>
         </Box>
 

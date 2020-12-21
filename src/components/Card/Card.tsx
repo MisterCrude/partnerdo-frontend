@@ -4,7 +4,7 @@ import { ROUTES } from '@config/app';
 
 import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
 import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
-import { Link as BrowserLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
@@ -74,7 +74,7 @@ export const Card: React.FC<IProps> = ({ isEditable }) => (
                 <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid" mr={4}>
                     Sport
                 </Tag>
-                <Heading as={BrowserLink} size="md" to={`${ROUTES.PROPOSAL}/some-proposal-id`}>
+                <Heading as={RouterLink} size="md" to={`${ROUTES.PROPOSAL}/some-proposal-id`}>
                     Poszukuję partnera do głębokiego lenistwa
                 </Heading>
             </Box>

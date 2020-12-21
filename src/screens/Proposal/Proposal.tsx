@@ -4,6 +4,7 @@ import { ROUTES } from '@config/app';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
+import NormalLink from '@components/NormalLink';
 import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
 
@@ -29,9 +30,9 @@ export const Proposal: React.FC<IProps> = ({ isAuth }) => {
                             fallbackSrc="https://via.placeholder.com/300"
                         />
                     </AspectRatio>
-                    <Heading as="h3" size="sm" color="orange.500" fontWeight={400}>
-                        Jan Baraban
-                    </Heading>
+                    <NormalLink color="orange.500" to="/">
+                        Jan baraban
+                    </NormalLink>
                 </Box>
                 <Box>
                     <Heading as="h2" size="lg" mb={1}>
@@ -83,13 +84,12 @@ export const Proposal: React.FC<IProps> = ({ isAuth }) => {
                             triggerTitle="Złóż ofertę"
                         >
                             <>
-                                Napisz do
-                                <Heading as="span" size="sm" color="orange.500" fontWeight={400} mx={1}>
-                                    Jan Baraban
+                                <Heading size="sm" mb={2} fontWeight={400}>
+                                    Napisz do
+                                    <NormalLink color="orange.500" to="/">
+                                        Jan baraban
+                                    </NormalLink>
                                 </Heading>
-                                <Box color="gray.500" mb={4}>
-                                    <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
-                                </Box>
                                 <Textarea
                                     borderWidth={0}
                                     h={40}
@@ -101,6 +101,9 @@ export const Proposal: React.FC<IProps> = ({ isAuth }) => {
                                     size="lg"
                                     shadow="base"
                                 />
+                                <Box color="gray.500" mb={4}>
+                                    <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
+                                </Box>
                             </>
                         </ModalFrame>
                     ) : (

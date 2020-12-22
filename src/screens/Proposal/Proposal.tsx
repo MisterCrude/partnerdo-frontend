@@ -19,7 +19,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     return (
         <Main flexGrow={1}>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
-                <Box w={200}>
+                <Box w={200} maxW="100%">
                     <AspectRatio maxW="100%" mb={3} ration={1}>
                         <Image
                             alt="Jan Baraban"

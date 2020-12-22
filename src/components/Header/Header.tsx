@@ -25,7 +25,7 @@ import {
     UseDisclosureProps,
     VStack,
 } from '@chakra-ui/react';
-import { SmallAddIcon } from '@chakra-ui/icons';
+import { SmallAddIcon, SettingsIcon } from '@chakra-ui/icons';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon, SearchIcon } from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 
@@ -56,6 +56,7 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
             />
             <MenuList>
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE}>
+                    <SettingsIcon mr={2} />
                     Profil
                 </MenuItem>
                 <MenuDivider />

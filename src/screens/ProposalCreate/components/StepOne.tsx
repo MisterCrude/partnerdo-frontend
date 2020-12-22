@@ -18,7 +18,7 @@ export const StepOne = () => {
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
             w="100%"
         >
-            {CATEGORIES_DATA.map(({ name, icon: Icon }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ name, iconStroked: Icon }: IProposalCategory) => (
                 <Flex
                     alignItems="center"
                     borderRadius="md"

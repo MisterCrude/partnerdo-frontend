@@ -20,7 +20,12 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle }) => {
         <Flex>
             <Avatar src={avatarUrl} />
             <Box ml="3" overflow="hidden">
-                <Text d="inline" fontWeight="bold" onClick={handleClick} _hover={{ textDecor: 'underline' }}>
+                <Text
+                    d="inline"
+                    fontWeight="bold"
+                    onClick={handleClick}
+                    _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                >
                     {title}
                 </Text>
                 <Text fontSize="sm" isTruncated d="flex">

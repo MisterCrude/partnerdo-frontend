@@ -15,15 +15,7 @@ interface IProps {
 }
 
 export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false }) => (
-    <Box
-        as={RouterLink}
-        borderWidth={1}
-        borderRadius="lg"
-        d="block"
-        maxW="100%"
-        overflow="hidden"
-        to={`${ROUTES.PROPOSAL}/some-proposal-id`}
-    >
+    <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
         {!isHeadLess && (
             <Flex align="center" px={6} py={4} justify="space-between">
                 <UserBadge
@@ -42,7 +34,14 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
 
         <Box px={6} py={4}>
             <Box mb={isHeadLess ? 1 : 2}>
-                <Heading d="inline" size="md" mr={3}>
+                <Heading
+                    as={RouterLink}
+                    d="inline"
+                    size="md"
+                    mr={3}
+                    to={`${ROUTES.PROPOSAL}/some-proposal-id`}
+                    _hover={{ textDecor: 'underline' }}
+                >
                     Poszukuję partnera do głębokiego lenistwa
                 </Heading>
                 <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">

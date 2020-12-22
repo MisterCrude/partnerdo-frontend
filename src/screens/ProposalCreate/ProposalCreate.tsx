@@ -48,7 +48,7 @@ export const ProposalCreate: React.FC = () => {
                 <Final />
             ) : (
                 <>
-                    <Text align="center" mb={4} fontWeight={300} fontSize="lg">
+                    <Text mb={4} fontWeight={300} fontSize="lg">
                         {step + 1}. {STEPS[step].title}
                     </Text>
 

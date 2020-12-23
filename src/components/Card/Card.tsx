@@ -38,12 +38,11 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                     as={RouterLink}
                     d="inline"
                     size="md"
-                    mr={3}
                     to={`${ROUTES.PROPOSAL}/some-proposal-id`}
                     _hover={{ textDecor: 'underline' }}
                 >
                     Poszukuję partnera do głębokiego lenistwa
-                </Heading>
+                </Heading>{' '}
                 <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
                     Sport
                 </Tag>
@@ -80,14 +79,11 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                     <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
                         <ModalFrame
                             actionTitle="Tak, usuń"
-                            triggerIcon={<DeleteIcon color="white" />}
+                            triggerIcon={<DeleteIcon color="red.500" />}
                             buttonProps={{
-                                backgroundColor: 'red.500',
                                 d: 'flex',
                                 fontSize: 20,
                                 size: 'sm',
-                                _active: { backgroundColor: 'red.500' },
-                                _hover: { backgroundColor: 'red.400' },
                             }}
                             modalTitle="Usuwanie partnerstwa"
                             onAction={() => {
@@ -97,14 +93,11 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                             <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
                         </ModalFrame>
                         <ModalFrame
-                            triggerIcon={<EditIcon color="white" />}
+                            triggerIcon={<EditIcon color="gray.800" />}
                             buttonProps={{
-                                backgroundColor: 'gray.800',
                                 d: 'flex',
                                 fontSize: 20,
                                 size: 'sm',
-                                _active: { backgroundColor: 'gray.800' },
-                                _hover: { backgroundColor: 'gray.600' },
                             }}
                             modalTitle="Edycja partnerstwa"
                             size="4xl"
@@ -124,14 +117,11 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                 <SimpleGrid spacing={6} d={{ base: 'grid', md: 'none' }} templateColumns="repeat(2, 1fr)">
                     <ModalFrame
                         actionTitle="Tak, usuń"
-                        triggerIcon={<DeleteIcon color="white" />}
+                        triggerIcon={<DeleteIcon color="red.500" />}
                         buttonProps={{
-                            backgroundColor: 'red.500',
                             d: 'flex',
                             fontSize: 20,
                             size: 'sm',
-                            _active: { backgroundColor: 'red.500' },
-                            _hover: { backgroundColor: 'red.400' },
                         }}
                         modalTitle="Usuwanie partnerstwa"
                         onAction={() => {
@@ -141,14 +131,11 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                         <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
                     </ModalFrame>
                     <ModalFrame
-                        triggerIcon={<EditIcon color="white" />}
+                        triggerIcon={<EditIcon color="gray.800" />}
                         buttonProps={{
-                            backgroundColor: 'gray.800',
                             d: 'flex',
                             fontSize: 20,
                             size: 'sm',
-                            _active: { backgroundColor: 'gray.800' },
-                            _hover: { backgroundColor: 'gray.600' },
                         }}
                         modalTitle="Edycja partnerstwa"
                         size="4xl"

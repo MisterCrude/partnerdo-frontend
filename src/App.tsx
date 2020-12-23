@@ -6,7 +6,8 @@ import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
 import { getIsAuth } from '@slices/userSlice';
 
-import Conversations from '@screens/Home';
+import Conversations from '@screens/Conversations';
+import ConversationMessages from '@screens/ConversationMessages';
 import Browser from '@screens/Browser';
 import Faq from '@screens/Faq';
 import Home from '@screens/Home';
@@ -49,7 +50,12 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
             <Route component={Faq} path={ROUTES.FAQ} />
 
             <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
-            <GuardedRoute component={ProposalCreate} path={ROUTES.PROPOSAL_CREATE} isAuth={isAuth} />
+            <GuardedRoute
+                component={ConversationMessages}
+                path={`${ROUTES.CONVERSATIONS}/:conversationId`}
+                isAuth={isAuth}
+            />
+            <GuardedRoute component={ProposalCreate} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
             <Route path={ROUTES.PROPOSAL}>
                 <Proposal isAuth={isAuth} />
             </Route>

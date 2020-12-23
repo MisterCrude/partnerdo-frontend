@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ROUTES } from '@config/app';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
+
 import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
@@ -89,19 +90,6 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                             triggerTitle="Złóż ofertę"
                         >
                             <>
-                                <Heading size="sm" mb={2} fontWeight={400}>
-                                    Napisz do
-                                    <Text
-                                        as={RouterLink}
-                                        to="/"
-                                        mx={1}
-                                        size="md"
-                                        fontWeight="bold"
-                                        _hover={{ textDecor: 'underline' }}
-                                    >
-                                        Jan baraban
-                                    </Text>
-                                </Heading>
                                 <Textarea
                                     borderWidth={0}
                                     h={40}

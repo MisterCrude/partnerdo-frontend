@@ -89,19 +89,6 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                             triggerTitle="Złóż ofertę"
                         >
                             <>
-                                <Heading size="sm" mb={2} fontWeight={400}>
-                                    Napisz do
-                                    <Text
-                                        as={RouterLink}
-                                        to="/"
-                                        mx={1}
-                                        size="md"
-                                        fontWeight="bold"
-                                        _hover={{ textDecor: 'underline' }}
-                                    >
-                                        Jan baraban
-                                    </Text>
-                                </Heading>
                                 <Textarea
                                     borderWidth={0}
                                     h={40}

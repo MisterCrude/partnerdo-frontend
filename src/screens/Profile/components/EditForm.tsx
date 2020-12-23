@@ -40,15 +40,12 @@ const EditForm: React.FC = () => {
                     <IconButton
                         aria-label="Edit"
                         d="flex"
-                        backgroundColor="gray.800"
                         fontSize={20}
                         size="sm"
-                        icon={<EditIcon color="white" />}
+                        icon={<EditIcon color="gray.800" />}
                         position="absolute"
                         top={2}
                         right={2}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
                     />
                 </Box>
 

@@ -6,7 +6,7 @@ import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
 import { getIsAuth } from '@slices/userSlice';
 
-import Conversations from '@screens/Home';
+import Conversations from '@screens/Conversations';
 import Browser from '@screens/Browser';
 import Faq from '@screens/Faq';
 import Home from '@screens/Home';

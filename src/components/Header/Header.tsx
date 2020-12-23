@@ -68,7 +68,15 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
 
 export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }) => (
     <Box as="span" position="relative">
-        <IconButton color="gray" variant="unstyled" aria-label="Messages" icon={<ChatIcon fontSize={28} />} />
+        <IconButton
+            as={RouterLink}
+            aria-label="Messages"
+            color="gray"
+            d="flex"
+            icon={<ChatIcon fontSize={28} />}
+            to={ROUTES.CONVERSATIONS}
+            variant="unstyled"
+        />
         {hasMessages && (
             <Circle position="absolute" size={3} backgroundColor="tomato" color="white" top={2} right={1} />
         )}

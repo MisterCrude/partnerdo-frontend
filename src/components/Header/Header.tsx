@@ -68,7 +68,15 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
 
 export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }) => (
     <Box as="span" position="relative">
-        <IconButton color="gray" variant="unstyled" aria-label="Messages" icon={<ChatIcon fontSize={28} />} />
+        <IconButton
+            as={RouterLink}
+            aria-label="Messages"
+            color="gray"
+            d="flex"
+            icon={<ChatIcon fontSize={28} />}
+            to={ROUTES.CONVERSATIONS}
+            variant="unstyled"
+        />
         {hasMessages && (
             <Circle position="absolute" size={3} backgroundColor="tomato" color="white" top={2} right={1} />
         )}
@@ -130,27 +138,31 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                         ) : (
                             <>
                                 <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
+                                    as={RouterLink}
+                                    py={4}
+                                    px={8}
+                                    to={ROUTES.BROWSER}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
+                                    <SearchIcon fontSize={20} mt={-1} mr={1} /> Wyszukiwarka
+                                </Link>
+                                <Link
+                                    as={RouterLink}
+                                    py={4}
+                                    px={8}
+                                    to={ROUTES.FAQ}
+                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
+                                >
+                                    <DangerIcon fontSize={20} mt={-1} mr={1} /> FAQ
+                                </Link>
+                                <Divider />
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Jak działa {BRAND_NAME}?
                                 </Link>
-                                <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Polityka prywatności
                                 </Link>
-                                <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Regulamin
                                 </Link>
                             </>

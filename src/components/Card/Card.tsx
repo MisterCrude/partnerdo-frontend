@@ -38,12 +38,11 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                     as={RouterLink}
                     d="inline"
                     size="md"
-                    mr={3}
                     to={`${ROUTES.PROPOSAL}/some-proposal-id`}
                     _hover={{ textDecor: 'underline' }}
                 >
                     Poszukuję partnera do głębokiego lenistwa
-                </Heading>
+                </Heading>{' '}
                 <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
                     Sport
                 </Tag>

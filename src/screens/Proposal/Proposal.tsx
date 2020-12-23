@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ROUTES } from '@config/app';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
+
 import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';

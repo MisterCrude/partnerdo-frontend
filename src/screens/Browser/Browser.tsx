@@ -28,7 +28,7 @@ export const Browser: React.FC = () => {
             <Results />
 
             <Box mt={10}>
-                <Text align="center" color="gray.600" fontSize="lg">
+                <Text align="center">
                     <strong>240</strong> partnerstw z <strong>245,09</strong>
                 </Text>
             </Box>

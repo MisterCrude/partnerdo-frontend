@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
-import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text } from '@chakra-ui/react';
+import { ROUTES } from '@config/app';
+
+import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag } from '@chakra-ui/react';
 import { DeleteIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 
@@ -13,11 +16,13 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
 
     return (
         <Box
-            backgroundColor={hasNewMessage ? 'orange.100' : 'white'}
+            as={RouterLink}
+            borderColor={hasNewMessage ? 'orange.300' : 'gray.200'}
             borderWidth={1}
             borderRadius="lg"
             pos="relative"
             p={4}
+            to={`${ROUTES.CONVERSATIONS}/some-convs-id`}
         >
             {hasNewMessage && (
                 <Circle
@@ -38,8 +43,6 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                     actionTitle="Tak, usuń"
                     triggerIcon={<DeleteIcon color="red.500" />}
                     buttonProps={{
-                        borderColor: 'orange.500',
-                        borderWidth: hasNewMessage ? 1 : 0,
                         d: 'flex',
                         fontSize: 20,
                         size: 'sm',
@@ -67,8 +70,12 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                     <Flex align="flex-start" justify="space-between" mb={{ base: 1, md: 0 }}>
                         <Box>
                             <Heading d="inline-block" size="md" mb={{ base: 3, md: 0 }}>
-                                Poszukuję partnera do głębokiego lenistwa
+                                Poszukuję partnera do głębokiego lenistwa{' '}
+                                <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                                    Sport
+                                </Tag>
                             </Heading>
+
                             <Text fontSize="md" color="gray.500">
                                 <LocationIcon pos="relative" top="-2px" /> Warszawa, Bemowo
                             </Text>

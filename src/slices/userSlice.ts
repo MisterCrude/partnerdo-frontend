@@ -126,11 +126,11 @@ export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDis
 
     dispatch(removeUser());
 
-    storeToast({
-        status: 'success',
-        title: 'Wylogowanie',
-        message: 'Do zobaczenia',
-    });
+    // storeToast({
+    //     status: 'success',
+    //     title: 'Wylogowanie',
+    //     message: 'Do zobaczenia',
+    // });
 };
 
 export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {

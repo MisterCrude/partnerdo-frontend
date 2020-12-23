@@ -15,8 +15,8 @@ interface IInputs {
 }
 
 interface IProps {
-    isFetching: boolean;
     onSubmit: (formData: Record<string, unknown>) => void;
+    isFetching?: boolean;
 }
 
 const validationSchema = yup.object().shape({
@@ -29,7 +29,7 @@ const validationSchema = yup.object().shape({
         .oneOf([yup.ref('password1')], 'Hasło się nie zgadza'),
 });
 
-export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
+export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
     const { register, errors, handleSubmit } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
@@ -56,8 +56,8 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
 
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
-                    borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
+                    borderColor={errors.email ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.email ? 1 : 0}
                     name="email"
                     ref={register}
                     type="text"
@@ -74,8 +74,8 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
 
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
-                    borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
+                    borderColor={errors.password1 ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.password1 ? 1 : 0}
                     name="password1"
                     ref={register}
                     placeholder="Hasło"
@@ -91,8 +91,8 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching }) => {
 
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
-                    borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
+                    borderColor={errors.password2 ? 'tomato' : 'gray.200'}
+                    borderWidth={errors.password2 ? 1 : 0}
                     name="password2"
                     ref={register}
                     placeholder="Powtórz hasło"

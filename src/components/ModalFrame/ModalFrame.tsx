@@ -49,11 +49,13 @@ export const ModalFrame: React.FC<IProps> = ({
             <Modal isOpen={isOpen} onClose={onClose} size={size}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader px={8} py={6} align="center">
+                    <ModalHeader align="center" px={8} py={6} lineHeight={1.3}>
                         {modalTitle}
                     </ModalHeader>
 
-                    <ModalBody px={8}>{children}</ModalBody>
+                    <ModalBody px={8} py={0}>
+                        {children}
+                    </ModalBody>
 
                     <ModalFooter px={8} py={6} justifyContent="space-between">
                         <Button onClick={onClose}>Zamknij</Button>

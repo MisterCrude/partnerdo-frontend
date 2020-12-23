@@ -40,7 +40,7 @@ export const ProposalCreate: React.FC = () => {
     };
 
     return (
-        <Main d="flex" flexDir="column" flexGrow={1} my={20} maxW="3xl">
+        <Main d="flex" flexDir="column" flexGrow={1} maxW="3xl">
             <Heading align="center" mb={10}>
                 Dodaj nowe partnerstwo
             </Heading>
@@ -48,11 +48,11 @@ export const ProposalCreate: React.FC = () => {
                 <Final />
             ) : (
                 <>
-                    <Text align="center" mb={4} fontWeight={300} fontSize="lg">
+                    <Text mb={4} fontWeight={300} fontSize="lg">
                         {step + 1}. {STEPS[step].title}
                     </Text>
 
-                    <Progress value={STEPS[step].percentage} colorScheme="orange" rounded="md" />
+                    <Progress value={STEPS[step].percentage} colorScheme="orange" size="sm" rounded="md" />
                     <StepsForm
                         currentStep={step}
                         lastStep={STEPS.length - 1}

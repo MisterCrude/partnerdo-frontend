@@ -3,5 +3,6 @@ import { IconProps } from '@chakra-ui/react';
 
 export interface IProposalCategory {
     name: string;
-    icon: React.FC<IconProps>;
+    iconColored: React.FC<IconProps>;
+    iconStroked: React.FC<IconProps>;
 }

@@ -18,7 +18,7 @@ const MainCategories: React.FC = () => (
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
             w="100%"
         >
-            {CATEGORIES_DATA.map(({ name, icon: Icon }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ name, iconColored: Icon }: IProposalCategory) => (
                 <Flex
                     as={Link}
                     alignItems="center"
@@ -26,10 +26,9 @@ const MainCategories: React.FC = () => (
                     direction="column"
                     justify="center"
                     minW={20}
-                    maxW={30}
+                    maxW={{ base: 20, md: 28 }}
                     key={name}
                 >
-                    {/* <Box justify="center" borderRadius="300px" backgroundColor="gray.50" color="orange.500" mb={3}> */}
                     <Box justify="center" borderRadius="300px" backgroundColor="gray.50" mb={3}>
                         <Icon w="100%" h="auto" maxW={200} />
                     </Box>

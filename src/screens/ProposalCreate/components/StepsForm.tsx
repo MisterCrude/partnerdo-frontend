@@ -44,7 +44,7 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, o
                     <Button
                         backgroundColor="gray.800"
                         color="white"
-                        variant="solid"
+                        variant="outline"
                         flexGrow={{ base: 1, md: 0 }}
                         onClick={() => onGo()}
                         rightIcon={<ChevronRightIcon />}

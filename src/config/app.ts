@@ -1,13 +1,21 @@
 import { IProposalCategory } from '@models/proposal';
 
 import {
+    BusinessColoredIcon,
     BusinessIcon,
+    MusicColoredIcon,
     MusicIcon,
+    TravelColoredIcon,
     TravelIcon,
+    LearningColoredIcon,
     LearningIcon,
+    SportColoredIcon,
     SportIcon,
+    EventColoredIcon,
     EventIcon,
+    GameColoredIcon,
     GameIcon,
+    ChildrenColoredIcon,
     ChildrenIcon,
 } from '@theme/customIcons';
 
@@ -18,35 +26,43 @@ export const CATEGORIES_DATA: IProposalCategory[] = [
     // https://www.flaticon.com/packs/retail-10?k=1607802870403
     {
         name: 'Sport',
-        icon: SportIcon,
+        iconColored: SportColoredIcon,
+        iconStroked: SportIcon,
     },
     {
         name: 'Muzyka',
-        icon: MusicIcon,
+        iconColored: MusicColoredIcon,
+        iconStroked: MusicIcon,
     },
     {
         name: 'Nauka',
-        icon: LearningIcon,
+        iconColored: LearningColoredIcon,
+        iconStroked: LearningIcon,
     },
     {
         name: 'Dzieci',
-        icon: ChildrenIcon,
+        iconColored: ChildrenColoredIcon,
+        iconStroked: ChildrenIcon,
     },
     {
         name: 'Podróże',
-        icon: TravelIcon,
+        iconColored: TravelColoredIcon,
+        iconStroked: TravelIcon,
     },
     {
         name: 'Gry',
-        icon: GameIcon,
+        iconColored: GameColoredIcon,
+        iconStroked: GameIcon,
     },
     {
         name: 'Rozrywka',
-        icon: EventIcon,
+        iconColored: EventColoredIcon,
+        iconStroked: EventIcon,
     },
     {
         name: 'Biznes',
-        icon: BusinessIcon,
+        iconColored: BusinessColoredIcon,
+        iconStroked: BusinessIcon,
     },
 ];
 
@@ -60,10 +76,11 @@ export const ROUTES = {
     LOGIN: '/login',
     REGISTER: '/register',
     REMIND_PASSWORD: '/remind-password',
+    REMIND_PASSWORD_NEW: '/remind-password/new',
     CONVERSATIONS: '/conversations',
     PROPOSAL: '/proposal',
     PROPOSAL_CREATE: '/proposal/add',
-    USER: '/user',
+    USER_PROFILE: '/user',
     PROFILE: '/profile',
 };
 

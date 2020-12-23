@@ -214,7 +214,6 @@ const EditForm: React.FC = () => {
                         resize="none"
                         type="text"
                         placeholder="O mnie"
-                        size="lg"
                         shadow="base"
                     />
                     {/* {errors.email && (

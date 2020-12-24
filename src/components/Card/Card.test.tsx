@@ -1,10 +1,15 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 
-import { Footer } from './Footer';
+import { Card } from './Card';
 
 it('Should render Footer component', () => {
-    render(<Footer />);
+    render(
+        <BrowserRouter>
+            <Card />
+        </BrowserRouter>
+    );
 
     expect(true).toBeTruthy();
 });

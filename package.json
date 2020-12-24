@@ -60,6 +60,24 @@
     "eslintConfig": {
         "extends": "react-app"
     },
+    "jest": {
+        "moduleNameMapper": {
+            "@assets/(.*)$": "<rootDir>/src/assets/$1",
+            "@components/(.*)$": "<rootDir>/src/components/$1",
+            "@config/(.*)$": "<rootDir>/src/config/$1",
+            "@hooks/(.*)$": "<rootDir>/src/hooks/$1",
+            "@layouts/(.*)$": "<rootDir>/src/layouts/$1",
+            "@models/(.*)$": "<rootDir>/src/models/$1",
+            "@routing/(.*)$": "<rootDir>/src/routing/$1",
+            "@utils/(.*)$": "<rootDir>/src/utils/$1",
+            "@slices/(.*)$": "<rootDir>/src/slices/$1",
+            "@store/(.*)$": "<rootDir>/src/store/$1",
+            "@screens/(.*)$": "<rootDir>/src/screens/$1",
+            "@services/(.*)$": "<rootDir>/src/services/$1",
+            "@src/(.*)$": "<rootDir>/src/$1",
+            "@theme/(.*)$": "<rootDir>/src/theme/$1"
+        }
+    },
     "browserslist": {
         "production": [
             ">0.2%",

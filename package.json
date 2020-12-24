@@ -1,72 +1,80 @@
 {
-  "name": "partnerdo-frontend",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.5",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-redux": "^7.1.9",
-    "ahooks": "^2.7.1",
-    "lodash": "^4.17.20",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
-    "react-scripts": "3.4.4",
-    "tailwindcss": "^1.9.6",
-    "typescript": "~4.0.5"
-  },
-  "devDependencies": {
-    "@types/webpack-env": "^1.15.3",
-    "@typescript-eslint/eslint-plugin": "^4.6.0",
-    "@typescript-eslint/parser": "^4.6.0",
-    "cypress": "^5.5.0",
-    "cypress-react-unit-test": "^4.16.5",
-    "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.3.0",
-    "prettier": "^2.1.2",
-    "pretty-quick": "^3.0.2",
-    "react-app-rewired": "^2.1.6",
-    "react-styleguidist": "^11.1.1"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "build:prod": "yarn lint && yarn test --watchAll=false && yarn build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "format": "pretty-quick --staged",
-    "lint": "eslint src/ --ext .ts,.tsx,.js",
-    "cy": "cypress run",
-    "cy:open": "cypress open",
-    "cy:headless": "cypress run --browser chrome --headless",
-    "st:server": "styleguidist server",
-    "st:build": "styleguidist build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn format && yarn lint"
+    "name": "partnerdo-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@chakra-ui/icons": "^1.0.1",
+        "@chakra-ui/react": "^1.0.2",
+        "@emotion/react": "^11.1.1",
+        "@emotion/styled": "^11.0.0",
+        "@hookform/resolvers": "^1.0.1",
+        "@reduxjs/toolkit": "^1.4.0",
+        "@testing-library/jest-dom": "^5.11.5",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
+        "@types/react-router-dom": "^5.1.6",
+        "ahooks": "^2.7.1",
+        "axios": "^0.21.0",
+        "framer-motion": "^2.9.5",
+        "lodash": "^4.17.20",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-hook-form": "^6.11.5",
+        "react-redux": "^7.2.2",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "3.4.4",
+        "typescript": "~4.0.5",
+        "yup": "^0.31.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.15",
+        "@types/node": "^14.14.5",
+        "@types/react": "^16.9.0",
+        "@types/react-dom": "^16.9.0",
+        "@types/react-redux": "^7.1.9",
+        "@types/webpack-env": "^1.15.3",
+        "@types/yup": "^0.29.9",
+        "@typescript-eslint/eslint-plugin": "^4.6.0",
+        "@typescript-eslint/parser": "^4.6.0",
+        "cypress": "^5.5.0",
+        "eslint-config-prettier": "^6.14.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "husky": "^4.3.0",
+        "postcss-cli": "^8.1.0",
+        "prettier": "^2.1.2",
+        "pretty-quick": "^3.0.2",
+        "react-app-rewired": "^2.1.6"
+    },
+    "scripts": {
+        "start": "react-app-rewired start",
+        "build": "react-app-rewired build",
+        "build:prod": "yarn lint && yarn test --watchAll=false && yarn build",
+        "eject": "react-scripts eject",
+        "format": "pretty-quick --staged",
+        "lint": "eslint src/ --ext .ts,.tsx,.js",
+        "test": "react-app-rewired test",
+        "cy": "cypress run",
+        "cy:open": "cypress open",
+        "cy:headless": "cypress run --browser chrome --headless"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn format && yarn lint"
+        }
     }
-  }
 }

@@ -2,7 +2,66 @@
 
 ## Update packages
 
-- `$ yarn cache clean`
-- `$ yarn update --latest`
-- Remove `node_modules\` and `yarn.lock`
-- `$ yarn update --latest`
+-   `$ yarn cache clean`
+-   `$ yarn update --latest`
+-   Remove `node_modules\` and `yarn.lock`
+-   `$ yarn update --latest`
+
+## Style guide
+
+### Typography
+
+Main text
+
+```jsx
+<Text color="gray.500" fontSize="sm" />
+```
+
+Secondary text
+
+```jsx
+<Text color="gray.800" />
+```
+
+Main text
+
+```jsx
+<Text />
+```
+
+### Colors
+
+Buttons color
+
+```jsx
+<IconButton
+    backgroundColor="gray.800"
+    icon={<EditIcon color="white" />}
+    _active={{ backgroundColor: 'gray.800' }}
+    _hover={{ backgroundColor: 'gray.600' }}
+/>
+```
+
+backgroundColor="gray.800"
+
+Spacing
+
+Base space between elements `base: 4, md: 8`
+
+## FAQ
+
+### 1. Where dispatch triggered and where we connect to the store?
+
+In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`
+
+### 2. Why we need `layouts`?
+
+For holding common structure of pages (header, main, footer, etc.)
+
+### 4. Why we need `pages`?
+
+For spleeting aplicatons by screens
+
+### 5. Why we need `containers`?
+
+For spliting screens to logical blocks

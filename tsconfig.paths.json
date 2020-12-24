@@ -1,19 +1,21 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@assets/*": ["./assets/*"],
-      "@components/*": ["./components/*"],
-      "@containers/*": ["./containers/*"],
-      "@config/*": ["./config/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@models/*": ["./models/*"],
-      "@routing/*": ["./routing/*"],
-      "@screens/*": ["./screens/*"],
-      "@services/*": ["./services/*"],
-      "@store/*": ["./store/*"],
-      "@slices/*": ["./slices/*"],
-      "@src/*": ["./*"]
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@assets/*": ["./assets/*"],
+            "@components/*": ["./components/*"],
+            "@config/*": ["./config/*"],
+            "@hooks/*": ["./hooks/*"],
+            "@routing/*": ["./routing/*"],
+            "@screens/*": ["./screens/*"],
+            "@services/*": ["./services/*"],
+            "@utils/*": ["./utils/*"],
+            "@slices/*": ["./slices/*"],
+            "@models/*": ["./models/*"],
+            "@store/*": ["./store/*"],
+            "@layouts/*": ["./layouts/*"],
+            "@theme/*": ["./theme/*"],
+            "@src/*": ["./*"]
+        }
     }
-  }
 }

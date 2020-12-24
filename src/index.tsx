@@ -1,24 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { ChakraProvider } from '@chakra-ui/react';
 
 import store from '@store/index';
+import { fetchUserAsync } from '@slices/userSlice';
 
-const render = () => {
-  const App = require('@containers/App').default;
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+const fetchInitialData = () => {
+    localStorage.getItem('token') && store.dispatch(fetchUserAsync());
 };
 
+const render = () => {
+    const App = require('./App').default;
+
+    ReactDOM.render(
+        <React.StrictMode>
+            <ChakraProvider>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </ChakraProvider>
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+};
+
+fetchInitialData();
 render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('@containers/App', render);
+    module.hot.accept('./App', render);
+    module.hot.accept('@store/rootReducer', () => {
+        const newRootReducer = require('@store/rootReducer').default;
+        store.replaceReducer(newRootReducer);
+    });
 }

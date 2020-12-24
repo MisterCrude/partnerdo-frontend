@@ -1,11 +1,13 @@
 import { combineReducers } from '@reduxjs/toolkit';
+import toast from '@services/toast';
 
-import appReducer from '@slices/appSlice';
+import userReducer from '@slices/userSlice';
 
 const rootReducer = combineReducers({
-  app: appReducer,
+    user: userReducer,
 });
+const storeToast = toast();
 
 export type RootState = ReturnType<typeof rootReducer>;
-
+export { storeToast };
 export default rootReducer;

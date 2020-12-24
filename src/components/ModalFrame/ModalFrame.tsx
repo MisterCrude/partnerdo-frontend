@@ -31,8 +31,8 @@ export const ModalFrame: React.FC<IProps> = ({
     actionTitle = 'Zapisz zmiany',
     buttonProps = {},
     size = 'md',
-    triggerTitle,
-    triggerIcon,
+    triggerTitle = undefined,
+    triggerIcon = undefined,
 }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 

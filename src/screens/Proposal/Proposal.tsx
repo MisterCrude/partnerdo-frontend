@@ -18,7 +18,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const handleBack = () => history.goBack();
 
     return (
-        <Main flexGrow={1}>
+        <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
                 <Box w={200} maxW="100%">
                     <AspectRatio maxW="100%" mb={3} ration={1}>
@@ -86,13 +86,13 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                             onAction={() => {
                                 console.log(1);
                             }}
-                            size="3xl"
+                            size="5xl"
                             triggerTitle="Złóż ofertę"
                         >
                             <>
                                 <Textarea
                                     borderWidth={0}
-                                    h={40}
+                                    h={48}
                                     name="surname"
                                     mb={1}
                                     // ref={register}
@@ -102,9 +102,6 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     size="lg"
                                     shadow="base"
                                 />
-                                <Box color="gray.500" mb={4}>
-                                    <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
-                                </Box>
                             </>
                         </ModalFrame>
                     ) : (

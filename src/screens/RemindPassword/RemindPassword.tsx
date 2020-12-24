@@ -15,7 +15,7 @@ export const RemindPassword: React.FC = () => {
     };
 
     return (
-        <Main flexGrow={1} maxW="xl">
+        <Main flexGrow={1} maxW="xl" my={20}>
             <Heading align="center" mb={10}>
                 Przypomnij hasło
             </Heading>

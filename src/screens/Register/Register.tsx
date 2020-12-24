@@ -18,7 +18,7 @@ export const Register: React.FC = () => {
     const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
 
     return (
-        <Main flexGrow={1} maxW="xl">
+        <Main flexGrow={1} maxW="xl" my={20}>
             <Heading align="center" mb={10}>
                 Zarejestruj się
             </Heading>

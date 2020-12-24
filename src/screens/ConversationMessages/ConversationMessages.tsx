@@ -7,7 +7,7 @@ import Proposal from './components/Proposal';
 
 export const ConversationMessages: React.FC = () => {
     return (
-        <Main flexGrow={1} d="flex" flexDir="column">
+        <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
             <Proposal />
 
             <Box borderTopWidth={1} flexGrow={1} py={8}>
@@ -37,7 +37,7 @@ export const ConversationMessages: React.FC = () => {
                     // ref={register}
                     resize="none"
                     type="text"
-                    mb={{ base: 4, md: 8 }}
+                    mb={8}
                     placeholder="Wpisz swoją wiadomość"
                     shadow="base"
                 />

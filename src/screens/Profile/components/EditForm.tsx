@@ -27,7 +27,7 @@ const EditForm: React.FC = () => {
     return (
         <Box d={{ base: 'block', md: 'flex' }}>
             <Box mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }} mx={{ base: 'auto' }} w={300} maxW="100%">
-                <Box position="relative">
+                <Box pos="relative">
                     <AspectRatio maxW="100%" mb={{ base: 4, md: 8 }} ration={1}>
                         <Image
                             alt="Jan Baraban"
@@ -43,7 +43,7 @@ const EditForm: React.FC = () => {
                         fontSize={20}
                         size="sm"
                         icon={<EditIcon color="gray.800" />}
-                        position="absolute"
+                        pos="absolute"
                         top={2}
                         right={2}
                     />

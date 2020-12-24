@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import { ROUTES } from '@config/app';
+import { Link } from 'react-router-dom';
 import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/react';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
-import { ROUTES } from '@config/app';
 
 interface IProps {
     hasMessages: boolean;
@@ -52,9 +52,9 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             flexDirection="column"
             variant="link"
         >
-            <Box as="span" position="relative">
+            <Box as="span" pos="relative">
                 <ChatIcon fontSize={30} />
-                {hasMessages && <Circle position="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
+                {hasMessages && <Circle pos="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
             </Box>
         </Flex>
         <Flex
@@ -101,9 +101,9 @@ export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) 
         boxShadow="xs"
         bottom={0}
         backgroundColor="white"
-        display={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
+        d={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
         data-testid="toolsBar"
-        position="fixed"
+        pos="fixed"
         w="100vw"
         zIndex="docked"
     >

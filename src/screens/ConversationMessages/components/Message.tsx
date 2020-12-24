@@ -16,15 +16,9 @@ const Message: React.FC<IProps> = ({ author, message, sentTime }) => (
             </Text>
             <Text fontSize="xs">{sentTime}</Text>
         </Flex>
-        <Box
-            borderWidth={author ? 0 : 1}
-            backgroundColor={author ? 'gray.50' : 'white'}
-            borderRadius="lg"
-            px={4}
-            py={2}
-        >
+        <Text backgroundColor={author ? 'orange.50' : 'gray.50'} borderWidth={1} borderRadius="lg" px={4} py={2}>
             {message}
-        </Box>
+        </Text>
     </Box>
 );
 

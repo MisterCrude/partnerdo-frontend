@@ -17,9 +17,9 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
     return (
         <Box
             as={RouterLink}
-            borderColor={hasNewMessage ? 'orange.300' : 'gray.200'}
             borderWidth={1}
             borderRadius="lg"
+            backgroundColor={newMessagesAmount ? 'gray.50' : 'white'}
             pos="relative"
             p={4}
             to={`${ROUTES.CONVERSATIONS}/some-convs-id`}
@@ -30,7 +30,7 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                     color="white"
                     fontWeight="bold"
                     left={-3}
-                    position="absolute"
+                    pos="absolute"
                     size={7}
                     top={-3}
                 >

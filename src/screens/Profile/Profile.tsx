@@ -11,7 +11,7 @@ const MENU_ITEMS = ['Profil', 'Moje partnerstwa', 'Zrealizowane partnerstwa'];
 
 export const Profile: React.FC = () => {
     return (
-        <Main flexGrow={1}>
+        <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Tabs colorScheme="orange">
                 <TabList border="none" mx={{ base: -8, md: 0 }} overflowX="auto" overflowY="hidden">
                     {MENU_ITEMS.map((item) => (

@@ -7,6 +7,7 @@ import { toOptions } from '@utils/misc';
 import { Box, Grid, Input, Textarea } from '@chakra-ui/react';
 import MenuSelect from '@components/MenuSelect';
 
+// TODO remove this fake data
 const cities: IOption[] = toOptions(CITIES);
 const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.toLocaleLowerCase(), label: name }));
 

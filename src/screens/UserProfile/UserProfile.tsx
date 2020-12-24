@@ -7,8 +7,8 @@ import Main from '@layouts/Main';
 
 export const UserProfile: React.FC = () => {
     return (
-        <Main flexGrow={1}>
-            <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
+        <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
+            <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }}>
                 <Box w={350} maxW="100%" mb={{ base: 6 }}>
                     <AspectRatio maxW="100%" mb={3} ration={1}>
                         <Image

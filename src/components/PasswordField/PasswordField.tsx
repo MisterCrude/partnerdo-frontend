@@ -3,9 +3,7 @@ import React, { useState, forwardRef } from 'react';
 import { InputGroup, Input, IconButton, InputProps, InputRightElement } from '@chakra-ui/react';
 import { CrossEyeIcon, EyeIcon } from '@theme/customIcons';
 
-type Ref = HTMLInputElement;
-
-export const PasswordField = forwardRef<Ref, InputProps>((props, ref) => {
+export const PasswordField = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     const [isShown, setIsShown] = useState<boolean>(false);
 
     const handleClick = () => setIsShown((prevState) => !prevState);

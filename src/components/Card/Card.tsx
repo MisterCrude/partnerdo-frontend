@@ -49,9 +49,9 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
             </Box>
 
             {isHeadLess && (
-                <Box as="span" d="inline-block" color="gray.500" mb={2}>
+                <Text as="span" color="gray.500" d="inline-block" mb={2}>
                     <LocationIcon /> Warszawa, Bemowo
-                </Box>
+                </Text>
             )}
 
             <Text mb={2} fontSize="sm">
@@ -65,14 +65,14 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
         <Box px={6} py={4}>
             <Flex align="center" justify="space-between">
                 <Flex flexGrow={1} justify="space-between" mr={isEditable ? 6 : 0}>
-                    <Flex as="span" align="center" color="gray.500" fontSize="sm">
+                    <Text as="span" align="center" color="gray.500" fontSize="sm">
                         34 <ShowIcon ml={1} fontSize="md" />
-                    </Flex>
-                    <Flex as="span" align="center">
+                    </Text>
+                    <Text as="span" align="center">
                         <Box as="span" color="gray.500" fontSize="sm">
                             01.12.2020 <CalendarIcon ml={1} fontSize="md" />
                         </Box>
-                    </Flex>
+                    </Text>
                 </Flex>
 
                 {isEditable && (

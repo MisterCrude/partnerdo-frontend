@@ -9,14 +9,14 @@ import Main from '@layouts/Main';
 import Filters from './components/Filters';
 import Results from './components/Results';
 
-const cities: IOption[] = toOptions(CITIES);
-const genders: IOption[] = toOptions(GENDER);
 const ages: IOption[] = toOptions(AGE_GROUPS);
+const cities: IOption[] = toOptions(CITIES);
 const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.toLocaleLowerCase(), label: name }));
+const genders: IOption[] = toOptions(GENDER);
 
 export const Browser: React.FC = () => {
     return (
-        <Main>
+        <Main mt={{ base: 0, md: 10 }} mb={10}>
             <Box mb={10}>
                 <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
             </Box>

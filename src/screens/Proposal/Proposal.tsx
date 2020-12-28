@@ -15,7 +15,9 @@ interface IProps {
 export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const history = useHistory();
 
-    const handleBack = () => history.goBack();
+    const handleBack = () => {
+        history.goBack();
+    };
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>

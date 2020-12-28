@@ -15,7 +15,9 @@ interface IProps {
 export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const history = useHistory();
 
-    const handleBack = () => history.goBack();
+    const handleBack = () => {
+        history.goBack();
+    };
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -69,7 +71,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                     </Box>
                 </Flex>
 
-                <Flex align={{ base: 'stretch', dm: 'center' }} justify="space-between">
+                <Flex align={{ base: 'stretch', md: 'center' }} justify="space-between">
                     <Button onClick={handleBack}>Wróć</Button>
 
                     {isAuth ? (
@@ -92,7 +94,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                             <>
                                 <Textarea
                                     borderWidth={0}
-                                    h={48}
+                                    h={72}
                                     name="surname"
                                     mb={1}
                                     // ref={register}

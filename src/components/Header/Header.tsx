@@ -106,24 +106,13 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
-                                    Moje partnerstwa
-                                </Link>
-                                <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
-                                    Zrealizowane partnerstwa
-                                </Link>
-                                <Divider />
-                                <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
                                     Jak działa {BRAND_NAME}?
+                                </Link>
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                    Polityka prywatności
+                                </Link>
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                    Regulamin
                                 </Link>
                                 <Divider />
                                 <Link

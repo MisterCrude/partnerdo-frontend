@@ -25,7 +25,7 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, o
                 {currentStep === 2 && <StepThree />}
             </Box>
 
-            <HStack spacing={3} justify="space-between">
+            <HStack spacing={8} justify="space-between">
                 {currentStep < 1 ? (
                     <Button onClick={onCancel} flexGrow={{ base: 1, md: 0 }}>
                         Anuluj

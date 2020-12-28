@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react';
 
+import customTheme from '@theme/customTheme';
 import store from '@store/index';
 import { fetchUserAsync } from '@slices/userSlice';
 
@@ -15,7 +16,7 @@ const render = () => {
 
     ReactDOM.render(
         <React.StrictMode>
-            <ChakraProvider>
+            <ChakraProvider theme={customTheme}>
                 <Provider store={store}>
                     <App />
                 </Provider>

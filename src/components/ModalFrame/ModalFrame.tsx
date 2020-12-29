@@ -4,7 +4,7 @@ import {
     Box,
     Button,
     ButtonProps,
-    Grid,
+    Flex,
     ModalContent,
     ModalFooter,
     ModalBody,
@@ -65,17 +65,11 @@ export const ModalFrame: React.FC<IProps> = ({
                         <Box my={1}>{children}</Box>
                     </ModalBody>
 
-                    <ModalFooter
-                        as={Grid}
-                        px={8}
-                        py={6}
-                        gap={8}
-                        justifyContent={{ base: 'center', md: 'space-between' }}
-                    >
-                        <Button onClick={onClose} flexGrow={{ base: 1, md: 0 }}>
+                    <ModalFooter as={Flex} px={8} py={6} justifyContent={{ base: 'center', md: 'space-between' }}>
+                        <Button onClick={onClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
                             Zamknij
                         </Button>
-                        <Button onClick={onAction} colorScheme="orange" flexGrow={{ base: 1, md: 0 }}>
+                        <Button onClick={onAction} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
                             {actionTitle}
                         </Button>
                     </ModalFooter>

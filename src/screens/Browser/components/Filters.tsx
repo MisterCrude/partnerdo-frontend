@@ -26,9 +26,9 @@ const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
         </InputGroup>
 
         <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }} gap={{ base: 4, md: 8 }}>
-            <MenuSelect options={categories} palceholder="Kategoria" />
-            <MenuSelect isRadio options={cities} palceholder="Miasto" />
-            <MenuSelect isRadio options={cities} palceholder="Dzielnica" />
+            <MenuSelect options={categories} palceholder="Kategoria" selected={['sdsd']} />
+            <MenuSelect isRadio options={cities} palceholder="Miasto" selected={['sdsd']} />
+            <MenuSelect options={cities} palceholder="Dzielnica" selected={['sdsd']} />
             <MenuSelect options={ages} palceholder="Zakres wiekowy" />
             <MenuSelect options={genders} palceholder="Płeć" />
         </Grid>

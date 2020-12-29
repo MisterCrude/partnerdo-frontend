@@ -48,9 +48,11 @@ export const ConversationMessages: React.FC = () => {
                     placeholder="Wpisz swoją wiadomość"
                     shadow="base"
                 />
-                <Flex justify="space-between">
-                    <Button onClick={hangleBack}>Wróć</Button>
-                    <Button w={{ base: '100%', md: 'auto' }} colorScheme="orange" disabled>
+                <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
+                    <Button onClick={hangleBack} flexGrow={{ base: 1, md: 0 }} mr={4}>
+                        Wróć
+                    </Button>
+                    <Button colorScheme="orange" disabled flexGrow={{ base: 1, md: 0 }} ml={4}>
                         Wyślij
                     </Button>
                 </Flex>

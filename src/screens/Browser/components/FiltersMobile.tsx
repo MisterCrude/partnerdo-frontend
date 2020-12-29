@@ -67,6 +67,7 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
                     <Box p={8} overflowX="auto">
                         <Button
                             borderWidth={1}
+                            colorScheme="orange"
                             d={{ base: 'flex', md: 'none' }}
                             disabled={false}
                             mb={4}

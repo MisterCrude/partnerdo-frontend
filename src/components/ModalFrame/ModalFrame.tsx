@@ -32,9 +32,9 @@ export const ModalFrame: React.FC<IProps> = ({
     onAction,
     actionTitle = 'Zapisz zmiany',
     buttonProps = {},
-    size = 'md',
     triggerTitle = null,
     triggerIcon = null,
+    size = 'md',
 }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
@@ -48,7 +48,7 @@ export const ModalFrame: React.FC<IProps> = ({
 
             {triggerIcon && <IconButton aria-label="button" onClick={onOpen} icon={triggerIcon} {...buttonProps} />}
 
-            <Modal isOpen={isOpen} onClose={onClose} size={size} scrollBehavior="inside">
+            <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
                 <ModalOverlay />
                 <ModalContent
                     borderRadius={{ base: 0, md: 6 }}
@@ -56,12 +56,13 @@ export const ModalFrame: React.FC<IProps> = ({
                     minH={{ base: '100vh', md: 'auto' }}
                     minW={{ base: '100vw', md: 'auto' }}
                     my={{ base: 0, md: 16 }}
+                    w={{ md: size }}
                 >
                     <ModalHeader align="center" px={8} py={6} lineHeight={1.3}>
                         {modalTitle}
                     </ModalHeader>
 
-                    <ModalBody px={8} py={0} flexGrow={0}>
+                    <ModalBody px={8} py={0} flexGrow={0} overflow="unset">
                         <Box my={1}>{children}</Box>
                     </ModalBody>
 

@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { ROUTES } from '@config/app';
+
 import { Button, Box, Flex, Textarea, VStack } from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 import Main from '@layouts/Main';
+import Breadcrumbs from '@components/Breadcrumbs';
 import Message from './components/Message';
 import Proposal from './components/Proposal';
 
@@ -15,6 +18,15 @@ export const ConversationMessages: React.FC = () => {
 
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
+            <Breadcrumbs
+                crumbs={[
+                    ['Strona główna', ROUTES.HOME],
+                    ['Wiadomości', ROUTES.CONVERSATIONS],
+                    'Poszukuję partnera do głębokiego lenistwa',
+                ]}
+                mb={{ base: 8, md: 12 }}
+            />
+
             <Proposal />
 
             <Box borderTopWidth={1} flexGrow={1} py={8}>

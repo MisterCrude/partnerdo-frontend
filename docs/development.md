@@ -35,10 +35,10 @@ Buttons color
 
 ```jsx
 <IconButton
-    backgroundColor="gray.800"
+    bgColor="gray.800"
     icon={<EditIcon color="white" />}
-    _active={{ backgroundColor: 'gray.800' }}
-    _hover={{ backgroundColor: 'gray.600' }}
+    _active={{ bgColor: 'gray.800' }}
+    _hover={{ bgColor: 'gray.600' }}
 />
 ```
 

@@ -49,7 +49,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                     <Box color="gray.500" mb={2}>
                         <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
                     </Box>
-                    <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                    <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                         Sport
                     </Tag>
                 </Box>
@@ -78,11 +78,11 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                         <ModalFrame
                             actionTitle="Wyślij"
                             buttonProps={{
-                                backgroundColor: 'gray.800',
+                                bgColor: 'gray.800',
                                 color: 'white',
                                 variant: 'solid',
-                                _active: { backgroundColor: 'gray.800' },
-                                _hover: { backgroundColor: 'gray.600' },
+                                _active: { bgColor: 'gray.800' },
+                                _hover: { bgColor: 'gray.600' },
                             }}
                             modalTitle="Poszukuję partnera do głębokiego lenistwa"
                             onAction={() => {
@@ -110,11 +110,11 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                         <Button
                             as={RouterLink}
                             to={ROUTES.LOGIN}
-                            backgroundColor="gray.800"
+                            bgColor="gray.800"
                             color="white"
                             variant="solid"
-                            _active={{ backgroundColor: 'gray.800' }}
-                            _hover={{ backgroundColor: 'gray.600' }}
+                            _active={{ bgColor: 'gray.800' }}
+                            _hover={{ bgColor: 'gray.600' }}
                         >
                             Złóż ofertę
                         </Button>

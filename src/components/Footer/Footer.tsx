@@ -8,7 +8,7 @@ export const Footer: React.FC = () => (
     <Flex
         as="footer"
         align="center"
-        backgroundColor="gray.100"
+        bgColor="gray.100"
         justify="center"
         flexDir="column"
         padding={8}

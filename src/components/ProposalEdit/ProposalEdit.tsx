@@ -41,12 +41,12 @@ export const ProposalEdit: React.FC = () => (
                 // borderColor={errors.username ? 'tomato' : 'gray.200'}
                 // borderWidth={errors.username ? 1 : 0}
                 borderWidth={0}
-                h={40}
+                h={64}
                 name="surname"
                 // ref={register}
                 resize="none"
                 type="text"
-                placeholder="O mnie"
+                placeholder="Opis partnerstwa"
                 size="lg"
                 shadow="base"
             />

@@ -4,8 +4,9 @@ import { CITIES, GENDER, AGE_GROUPS, CATEGORIES_DATA } from '@config/app';
 import { IOption } from '@models/app';
 import { toOptions } from '@utils/misc';
 
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 import Main from '@layouts/Main';
+import Pagination from '@components/Pagination';
 import Filters from './components/Filters';
 import FiltersMobile from './components/FiltersMobile';
 import Results from './components/Results';
@@ -28,11 +29,9 @@ export const Browser: React.FC = () => {
 
             <Results />
 
-            <Box mt={10}>
-                <Text align="center">
-                    <strong>240</strong> partnerstw z <strong>245,09</strong>
-                </Text>
-            </Box>
+            <Flex justify="center" mt={10}>
+                <Pagination />
+            </Flex>
 
             <FiltersMobile>
                 <Filters ages={ages} cities={cities} categories={categories} genders={genders} />

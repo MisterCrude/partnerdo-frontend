@@ -86,12 +86,12 @@ export const NotLoggedinSet: React.FC = () => (
         <Flex alignItems="flex" borderRadius={0} justifyContent="flex-start" paddingY={3} marginX={2} variant="link">
             <Button
                 as={RouterLink}
-                backgroundColor="gray.800"
+                bgColor="gray.800"
                 color="white"
                 to={ROUTES.REGISTER}
                 variant="solid"
-                _active={{ backgroundColor: 'gray.800' }}
-                _hover={{ backgroundColor: 'gray.600' }}
+                _active={{ bgColor: 'gray.800' }}
+                _hover={{ bgColor: 'gray.600' }}
             >
                 Zarejestruj się
             </Button>
@@ -104,7 +104,7 @@ export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) 
         as="section"
         boxShadow="xs"
         bottom={0}
-        backgroundColor="white"
+        bgColor="white"
         d={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
         data-testid="toolsBar"
         pos="fixed"

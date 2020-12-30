@@ -30,7 +30,7 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
                 <IconButton
                     aria-label="Filters"
                     colorScheme="teal"
-                    backgroundColor="gray.900"
+                    bgColor="gray.900"
                     borderRadius={40}
                     boxShadow="xl"
                     w={16}
@@ -42,7 +42,7 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
                 />
                 {selectedFiltersAmount > 0 && (
                     <Circle
-                        backgroundColor="orange.500"
+                        bgColor="orange.500"
                         color="white"
                         fontWeight="bold"
                         right={-2}

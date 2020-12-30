@@ -77,7 +77,7 @@ export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }
             to={ROUTES.CONVERSATIONS}
             variant="unstyled"
         />
-        {hasMessages && <Circle pos="absolute" size={3} backgroundColor="tomato" color="white" top={2} right={1} />}
+        {hasMessages && <Circle pos="absolute" size={3} bgColor="tomato" color="white" top={2} right={1} />}
     </Box>
 );
 
@@ -193,12 +193,12 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                     <Button
                         as={RouterLink}
                         to={ROUTES.PROPOSAL_CREATE}
-                        backgroundColor="gray.800"
+                        bgColor="gray.800"
                         color="white"
                         variant="solid"
                         rightIcon={<SmallAddIcon />}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
+                        _active={{ bgColor: 'gray.800' }}
+                        _hover={{ bgColor: 'gray.600' }}
                     >
                         Dodaj partnerstwo
                     </Button>
@@ -210,11 +210,11 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                         <Button
                             as={RouterLink}
                             to={ROUTES.REGISTER}
-                            backgroundColor="gray.800"
+                            bgColor="gray.800"
                             color="white"
                             variant="solid"
-                            _active={{ backgroundColor: 'gray.800' }}
-                            _hover={{ backgroundColor: 'gray.600' }}
+                            _active={{ bgColor: 'gray.800' }}
+                            _hover={{ bgColor: 'gray.600' }}
                         >
                             Zarejestruj się
                         </Button>

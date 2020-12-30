@@ -43,7 +43,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                 >
                     Poszukuję partnera do głębokiego lenistwa
                 </Heading>{' '}
-                <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                     Sport
                 </Tag>
             </Box>
@@ -83,7 +83,6 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                             buttonProps={{
                                 d: 'flex',
                                 fontSize: 20,
-                                size: 'sm',
                             }}
                             modalTitle="Usuwanie partnerstwa"
                             onAction={() => {
@@ -97,7 +96,6 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                             buttonProps={{
                                 d: 'flex',
                                 fontSize: 20,
-                                size: 'sm',
                             }}
                             modalTitle="Edycja partnerstwa"
                             size="4xl"
@@ -121,7 +119,6 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                         buttonProps={{
                             d: 'flex',
                             fontSize: 20,
-                            size: 'sm',
                         }}
                         modalTitle="Usuwanie partnerstwa"
                         onAction={() => {
@@ -135,7 +132,6 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                         buttonProps={{
                             d: 'flex',
                             fontSize: 20,
-                            size: 'sm',
                         }}
                         modalTitle="Edycja partnerstwa"
                         size="4xl"

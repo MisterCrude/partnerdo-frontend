@@ -16,13 +16,7 @@ const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
     <>
         <InputGroup mb={{ base: 4, md: 8 }}>
             <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} color="gray.300" />} />
-            <Input
-                borderWidth={0}
-                backgroundColor="white"
-                placeholder="Jakiego partnerstwa szukasz?"
-                size="lg"
-                shadow="base"
-            />
+            <Input borderWidth={0} bgColor="white" placeholder="Jakiego partnerstwa szukasz?" size="lg" shadow="base" />
         </InputGroup>
 
         <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }} gap={{ base: 4, md: 8 }}>

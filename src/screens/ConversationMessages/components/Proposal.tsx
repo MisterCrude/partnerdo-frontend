@@ -25,7 +25,7 @@ const Proposal: React.FC = () => (
                     <Box>
                         <Heading d="inline-block" size="md" mb={{ base: 2, md: 0 }}>
                             Poszukuję partnera do głębokiego lenistwa{' '}
-                            <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                            <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                                 Sport
                             </Tag>
                         </Heading>

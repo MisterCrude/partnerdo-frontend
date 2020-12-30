@@ -29,7 +29,7 @@ const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
                 <Input
                     borderColor={errors.email ? 'tomato' : 'gray.200'}
                     borderWidth={errors.email ? 1 : 0}
-                    backgroundColor="white"
+                    bgColor="white"
                     name="email"
                     ref={register}
                     type="text"
@@ -45,7 +45,7 @@ const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
             </Box>
 
             <Button
-                backgroundColor="gray.800"
+                bgColor="gray.800"
                 color="white"
                 type="submit"
                 variant="solid"
@@ -54,8 +54,8 @@ const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
                 shadow="base"
                 mb={4}
                 isLoading={isFetching}
-                _active={{ backgroundColor: 'gray.800' }}
-                _hover={{ backgroundColor: 'gray.600' }}
+                _active={{ bgColor: 'gray.800' }}
+                _hover={{ bgColor: 'gray.600' }}
             >
                 Wyślij
             </Button>

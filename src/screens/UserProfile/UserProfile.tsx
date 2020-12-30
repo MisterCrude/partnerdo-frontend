@@ -27,12 +27,12 @@ export const UserProfile: React.FC = () => {
                         partnera do głębokiego lenistwa Poszuk partnera
                     </Text>
                     <Button
-                        backgroundColor="gray.800"
+                        bgColor="gray.800"
                         color="white"
                         variant="solid"
                         rightIcon={<ChatIcon />}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
+                        _active={{ bgColor: 'gray.800' }}
+                        _hover={{ bgColor: 'gray.600' }}
                     >
                         Wyślij wiadomość
                     </Button>

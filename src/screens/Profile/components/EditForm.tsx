@@ -52,16 +52,17 @@ const EditForm: React.FC = () => {
                 <ModalFrame
                     actionTitle="Zapisz hasło"
                     buttonProps={{
-                        backgroundColor: 'gray.800',
+                        bgColor: 'gray.800',
                         d: { base: 'none', md: 'block' },
                         color: 'white',
                         w: '100%',
                         mb: { base: 4, md: 8 },
                         variant: 'solid',
-                        _active: { backgroundColor: 'gray.800' },
-                        _hover: { backgroundColor: 'gray.600' },
+                        _active: { bgColor: 'gray.800' },
+                        _hover: { bgColor: 'gray.600' },
                     }}
                     modalTitle="Zmiana hasła"
+                    size="lg"
                     triggerTitle="Zmień hasło"
                     onAction={() => {
                         console.log(1);
@@ -73,7 +74,7 @@ const EditForm: React.FC = () => {
                                 // borderColor={errors.username ? 'tomato' : 'gray.200'}
                                 // borderWidth={errors.username ? 1 : 0}
                                 borderWidth={0}
-                                backgroundColor="white"
+                                bgColor="white"
                                 name="username"
                                 // ref={register}
                                 type="text"
@@ -92,7 +93,7 @@ const EditForm: React.FC = () => {
                                 // borderColor={errors.username ? 'tomato' : 'gray.200'}
                                 // borderWidth={errors.username ? 1 : 0}
                                 borderWidth={0}
-                                backgroundColor="white"
+                                bgColor="white"
                                 name="username"
                                 // ref={register}
                                 type="text"
@@ -132,7 +133,7 @@ const EditForm: React.FC = () => {
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
                         borderWidth={0}
-                        backgroundColor="white"
+                        bgColor="white"
                         name="username"
                         // ref={register}
                         type="text"
@@ -225,13 +226,13 @@ const EditForm: React.FC = () => {
                     </Button>
                     <Button
                         d={{ base: 'block', md: 'none' }}
-                        backgroundColor="gray.800"
+                        bgColor="gray.800"
                         color="white"
                         w="100%"
                         variant="solid"
                         mb={{ base: 4, md: 0 }}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
+                        _active={{ bgColor: 'gray.800' }}
+                        _hover={{ bgColor: 'gray.600' }}
                     >
                         Zmień hasło
                     </Button>

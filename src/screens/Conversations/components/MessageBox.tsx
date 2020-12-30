@@ -19,21 +19,13 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
             as={RouterLink}
             borderWidth={1}
             borderRadius="lg"
-            backgroundColor={newMessagesAmount ? 'gray.50' : 'white'}
+            bgColor={newMessagesAmount ? 'gray.50' : 'white'}
             pos="relative"
             p={4}
             to={`${ROUTES.CONVERSATIONS}/some-convs-id`}
         >
             {hasNewMessage && (
-                <Circle
-                    backgroundColor="tomato"
-                    color="white"
-                    fontWeight="bold"
-                    left={-3}
-                    pos="absolute"
-                    size={7}
-                    top={-3}
-                >
+                <Circle bgColor="tomato" color="white" fontWeight="bold" left={-3} pos="absolute" size={7} top={-3}>
                     {newMessagesAmount}
                 </Circle>
             )}
@@ -45,7 +37,6 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                     buttonProps={{
                         d: 'flex',
                         fontSize: 20,
-                        size: 'sm',
                     }}
                     modalTitle="Usuwanie konwersacji"
                     onAction={() => {
@@ -71,7 +62,7 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                         <Box>
                             <Heading d="inline-block" size="md" mb={{ base: 3, md: 0 }}>
                                 Poszukuję partnera do głębokiego lenistwa{' '}
-                                <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                                <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                                     Sport
                                 </Tag>
                             </Heading>

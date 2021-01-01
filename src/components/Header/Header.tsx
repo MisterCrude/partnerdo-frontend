@@ -25,7 +25,7 @@ import {
     UseDisclosureProps,
     VStack,
 } from '@chakra-ui/react';
-import { SmallAddIcon, SettingsIcon } from '@chakra-ui/icons';
+import { CheckIcon, SmallAddIcon, HamburgerIcon, SettingsIcon } from '@chakra-ui/icons';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon, SearchIcon } from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 
@@ -58,6 +58,14 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE}>
                     <SettingsIcon mr={2} />
                     Profil
+                </MenuItem>
+                <MenuItem as={RouterLink} to={ROUTES.PROFILE_MY_PROPOSALS}>
+                    <HamburgerIcon mr={2} />
+                    Moje partnerstwa
+                </MenuItem>
+                <MenuItem as={RouterLink} to={ROUTES.PROFILE_DONE_PROPOSALS}>
+                    <CheckIcon mr={2} />
+                    Zrealizowane partnerstwa
                 </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>

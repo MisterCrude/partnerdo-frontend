@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Breadcrumbs } from './Breadcrumbs';
 
-it('Should render Footer component', () => {
+it('Should render Breadcrumbs component', () => {
     render(
         <BrowserRouter>
             <Breadcrumbs />

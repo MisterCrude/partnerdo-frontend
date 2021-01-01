@@ -1,13 +1,22 @@
 import React from 'react';
 
+import { ROUTES } from '@config/app';
+
 import { ChatIcon } from '@chakra-ui/icons';
 import { AspectRatio, Box, Button, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
 import Card from '@components/Card';
+import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
 
 export const UserProfile: React.FC = () => {
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
+            <Breadcrumbs
+                current="Profil użytkownika Jan Baraban"
+                crumbs={[{ title: 'Strona główna', link: ROUTES.BROWSER }]}
+                mb={8}
+            />
+
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }}>
                 <Box w={350} maxW="100%" mb={{ base: 6 }}>
                     <AspectRatio maxW="100%" mb={3} ration={1}>

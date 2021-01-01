@@ -19,12 +19,12 @@ export const ConversationMessages: React.FC = () => {
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
             <Breadcrumbs
+                current="Poszukuję partnera do głębokiego lenistwa"
                 crumbs={[
-                    ['Strona główna', ROUTES.HOME],
-                    ['Wiadomości', ROUTES.CONVERSATIONS],
-                    'Poszukuję partnera do głębokiego lenistwa',
+                    { title: 'Strona główna', link: ROUTES.HOME },
+                    { title: 'Wiadomości', link: ROUTES.CONVERSATIONS },
                 ]}
-                mb={{ base: 8, md: 12 }}
+                mb={12}
             />
 
             <Proposal />

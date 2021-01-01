@@ -7,6 +7,7 @@ import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, T
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
+import Breadcrumbs from '@components/Breadcrumbs';
 
 interface IProps {
     isAuth?: boolean;
@@ -21,6 +22,12 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
+            <Breadcrumbs
+                crumbs={[{ title: 'Strona główna', link: ROUTES.BROWSER }]}
+                current="Poszukuję partnera do głębokiego lenistwa"
+                mb={8}
+            />
+
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
                 <Box w={200} maxW="100%">
                     <AspectRatio maxW="100%" mb={3} ration={1}>

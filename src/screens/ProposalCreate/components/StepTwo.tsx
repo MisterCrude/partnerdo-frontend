@@ -11,8 +11,8 @@ const cities: IOption[] = toOptions(CITIES);
 
 export const StepThree: React.FC = () => (
     <VStack align="stretch" spacing={{ base: 6, md: 8 }} w="100%">
-        <MenuSelect isRadio options={cities} palceholder="Miasto" />
-        <MenuSelect isRadio options={cities} palceholder="Dzielnica" />
+        <MenuSelect options={cities} palceholder="Miasto" />
+        <MenuSelect options={cities} palceholder="Dzielnica" />
     </VStack>
 );
 

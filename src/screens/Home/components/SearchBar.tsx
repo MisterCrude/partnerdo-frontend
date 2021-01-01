@@ -28,7 +28,7 @@ export const SearchBar: React.FC = () => (
             />
         </InputGroup>
 
-        <MenuSelect isRadio options={cities} height="55px" palceholder="Miasto" />
+        <MenuSelect options={cities} height="55px" palceholder="Miasto" />
 
         <Button borderWidth={0} colorScheme="orange" size="lg" shadow="base" h="55px">
             Szukaj

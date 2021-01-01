@@ -32,8 +32,8 @@ export const ProposalEdit: React.FC = () => (
                 )} */}
         </Box>
         <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
-            <MenuSelect isRadio options={cities} palceholder="Miasto" />
-            <MenuSelect isRadio options={cities} palceholder="Dzielnica" />
+            <MenuSelect options={cities} palceholder="Miasto" />
+            <MenuSelect options={cities} palceholder="Dzielnica" />
             <MenuSelect options={categories} palceholder="Kategoria" />
         </Grid>
         <Box>

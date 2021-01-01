@@ -82,6 +82,8 @@ export const ROUTES = {
     PROPOSAL_CREATE: '/proposal/add',
     USER_PROFILE: '/user',
     PROFILE: '/profile',
+    PROFILE_MY_PROPOSALS: '/profile/my-proposals',
+    PROFILE_DONE_PROPOSALS: '/profile/done-proposals',
 };
 
 export const CITIES = [

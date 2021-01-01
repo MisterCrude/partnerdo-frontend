@@ -6,7 +6,6 @@ import {
     Circle,
     CloseButton,
     Divider,
-    IconButton,
     useDisclosure,
     UseDisclosureProps,
     Modal,
@@ -26,20 +25,10 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
 
     return (
         <>
-            <Box d={{ base: 'block', md: 'none' }} bottom="12vh" pos="fixed" right="6vw">
-                <IconButton
-                    aria-label="Filters"
-                    colorScheme="teal"
-                    bgColor="gray.900"
-                    borderRadius={40}
-                    boxShadow="xl"
-                    w={16}
-                    h={16}
-                    variant="none"
-                    onClick={onOpen}
-                    icon={<FilterIcon fontSize={30} color="white" />}
-                    _focus={{ boxShadow: 'none' }}
-                />
+            <Box d={{ base: 'block', md: 'none' }}>
+                <Button d="flex" colorScheme="orange" onClick={onOpen} mb={8} w="100%">
+                    Filtry <FilterIcon fontSize={20} ml={2} />
+                </Button>
                 {selectedFiltersAmount > 0 && (
                     <Circle
                         bgColor="orange.500"
@@ -64,16 +53,8 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
 
                     <Divider />
 
-                    <Box p={8} overflowX="auto">
-                        <Button
-                            borderWidth={1}
-                            colorScheme="orange"
-                            d={{ base: 'flex', md: 'none' }}
-                            disabled={false}
-                            mb={4}
-                            w="100%"
-                            size="lg"
-                        >
+                    <Box p={8}>
+                        <Button colorScheme="gray" d={{ base: 'flex', md: 'none' }} disabled={false} mb={4} w="100%">
                             Wyczyść filtry <DeleteIcon fontSize="md" ml={2} />
                         </Button>
                         {children}

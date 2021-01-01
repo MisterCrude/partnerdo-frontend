@@ -19,6 +19,10 @@ const genders: IOption[] = toOptions(GENDER);
 export const Browser: React.FC = () => {
     return (
         <Main mt={{ base: 0, md: 10 }} mb={10}>
+            <FiltersMobile>
+                <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
+            </FiltersMobile>
+
             <Box mb={10} d={{ base: 'none', md: 'block' }}>
                 <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
             </Box>
@@ -32,10 +36,6 @@ export const Browser: React.FC = () => {
             <Flex justify="center" mt={10}>
                 <Pagination />
             </Flex>
-
-            <FiltersMobile>
-                <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
-            </FiltersMobile>
         </Main>
     );
 };

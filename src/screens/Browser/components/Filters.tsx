@@ -4,6 +4,7 @@ import { Grid, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { IOption } from '@models/app';
 import { SearchIcon } from '@theme/customIcons';
 import MenuSelect from '@components/MenuSelect';
+import MenuMultiSelect from '@components/MenuMultiSelect';
 
 interface IProps {
     ages: IOption[];
@@ -20,11 +21,11 @@ const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
         </InputGroup>
 
         <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }} gap={{ base: 4, md: 8 }}>
-            <MenuSelect options={categories} palceholder="Kategoria" selected={['sdsd']} />
-            <MenuSelect isRadio options={cities} palceholder="Miasto" selected={['sdsd']} />
-            <MenuSelect options={cities} palceholder="Dzielnica" selected={['sdsd']} />
-            <MenuSelect options={ages} palceholder="Zakres wiekowy" />
-            <MenuSelect options={genders} palceholder="Płeć" />
+            <MenuMultiSelect options={categories} palceholder="Kategoria" />
+            <MenuSelect options={cities} palceholder="Miasto" />
+            <MenuMultiSelect options={cities} palceholder="Dzielnica" />
+            <MenuMultiSelect options={ages} palceholder="Zakres wiekowy" />
+            <MenuMultiSelect options={genders} palceholder="Płeć" />
         </Grid>
     </>
 );

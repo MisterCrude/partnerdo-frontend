@@ -127,6 +127,7 @@ const EditForm: React.FC = () => {
                     <Text>Czy napawne checesz usunąć swoje konto?</Text>
                 </ModalFrame>
             </Box>
+
             <Box flexGrow={1}>
                 <Box mb={{ base: 4, md: 8 }}>
                     <Input
@@ -155,7 +156,7 @@ const EditForm: React.FC = () => {
                         name="email"
                         // ref={register}
                         type="text"
-                        placeholder="Email *"
+                        placeholder="Email"
                         size="lg"
                         shadow="base"
                     />

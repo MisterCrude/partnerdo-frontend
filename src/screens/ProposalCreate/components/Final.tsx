@@ -14,7 +14,7 @@ export const Final = () => (
         </Heading>
         <Text align="center" lineHeight={8}>
             i za chwiłę pojawinsię na naszej
-            <Link as={RouterLink} color="orange.500" colorScheme="orange" fontWeight="800" ml={2} to={ROUTES.BROWSER}>
+            <Link as={RouterLink} color="orange.500" colorScheme="orange" fontWeight="800" ml={2} to={ROUTES.PROPOSALS}>
                 tablicę ogłoszeniowej
             </Link>
             <br />

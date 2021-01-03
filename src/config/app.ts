@@ -69,7 +69,7 @@ export const CATEGORIES_DATA: IProposalCategory[] = [
 export const TOAST_DURATION = 5000;
 
 export const ROUTES = {
-    BROWSER: '/',
+    ROOT: '/',
     HOME: '/home',
     NOT_FOUND: '/404',
     FAQ: '/faq',
@@ -78,8 +78,8 @@ export const ROUTES = {
     REMIND_PASSWORD: '/remind-password',
     REMIND_PASSWORD_NEW: '/remind-password/new',
     CONVERSATIONS: '/conversations',
-    PROPOSAL: '/proposal',
-    PROPOSAL_CREATE: '/proposal/add',
+    PROPOSALS: '/proposals',
+    PROPOSALS_CREATE: '/proposals/add',
     USER_PROFILE: '/user',
     PROFILE: '/profile',
     PROFILE_MY_PROPOSALS: '/profile/my-proposals',

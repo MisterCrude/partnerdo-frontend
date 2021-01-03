@@ -38,7 +38,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false 
                     as={RouterLink}
                     d="inline"
                     size="md"
-                    to={`${ROUTES.PROPOSAL}/some-proposal-id`}
+                    to={`${ROUTES.PROPOSALS}/some-proposal-id`}
                     _hover={{ textDecor: 'underline' }}
                 >
                     Poszukuję partnera do głębokiego lenistwa

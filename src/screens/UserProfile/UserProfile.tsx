@@ -13,7 +13,7 @@ export const UserProfile: React.FC = () => {
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Breadcrumbs
                 current="Profil użytkownika Jan Baraban"
-                crumbs={[{ title: 'Strona główna', link: ROUTES.BROWSER }]}
+                crumbs={[{ title: 'Strona główna', link: ROUTES.PROPOSALS }]}
                 mb={8}
             />
 

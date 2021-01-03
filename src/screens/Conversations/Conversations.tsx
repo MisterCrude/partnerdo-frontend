@@ -11,7 +11,7 @@ import MessageBox from './components/MessageBox';
 export const Conversations: React.FC = () => {
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
-            <Breadcrumbs crumbs={[{ title: 'Strona główna', link: ROUTES.BROWSER }]} current="Wiadomości" mb={6} />
+            <Breadcrumbs crumbs={[{ title: 'Strona główna', link: ROUTES.PROPOSALS }]} current="Wiadomości" mb={6} />
 
             <VStack align="stretch" spacing={{ base: 4, md: 8 }}>
                 <Text color="gray.800" fontSize="sm" fontWeight="bold" textAlign="right">

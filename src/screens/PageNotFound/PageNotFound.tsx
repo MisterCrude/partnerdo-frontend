@@ -18,7 +18,7 @@ export const PageNotFound: React.FC<IProps> = ({ isAuth = false }) => (
                 4<SearchIcon color="gray.900" fontSize={60} top="-8px" pos="relative" />4
             </Heading>
             <Text>Wygłąda na to że taka strona nie istnieje.</Text>
-            <Button as={RouterLink} colorScheme="orange" mt={12} to={isAuth ? ROUTES.BROWSER : ROUTES.HOME}>
+            <Button as={RouterLink} colorScheme="orange" mt={12} to={isAuth ? ROUTES.PROPOSALS : ROUTES.HOME}>
                 {isAuth ? 'Wróć do wyszukiwarki' : 'Wróć do strony głownej'}
             </Button>
         </Box>

@@ -109,9 +109,11 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                         {isAuth ? (
                             <>
                                 <Link
+                                    as={RouterLink}
                                     href="#"
                                     paddingY={4}
                                     paddingX={8}
+                                    to={ROUTES.FAQ}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
                                     Jak działa {BRAND_NAME}?
@@ -153,7 +155,14 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                     <DangerIcon fontSize={20} mt={-1} mr={1} /> FAQ
                                 </Link>
                                 <Divider />
-                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                <Link
+                                    as={RouterLink}
+                                    href="#"
+                                    py={4}
+                                    px={8}
+                                    to={ROUTES.FAQ}
+                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
+                                >
                                     Jak działa {BRAND_NAME}?
                                 </Link>
                                 <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
@@ -179,10 +188,18 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
 
         <HStack d={{ base: 'none', md: 'flex' }} spacing={isAuth ? 6 : 4}>
             <HStack spacing={2}>
-                <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<DangerIcon fontSize={28} />} />
                 <IconButton
                     as={RouterLink}
                     aria-label="faq"
+                    color="gray"
+                    d="flex"
+                    variant="unstyled"
+                    to={ROUTES.FAQ}
+                    icon={<DangerIcon fontSize={28} />}
+                />
+                <IconButton
+                    as={RouterLink}
+                    aria-label="Wyszukiwarka partnerstw"
                     color="gray"
                     d="flex"
                     icon={<SearchIcon fontSize={28} />}

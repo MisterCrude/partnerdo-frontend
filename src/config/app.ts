@@ -70,7 +70,6 @@ export const TOAST_DURATION = 5000;
 
 export const ROUTES = {
     ROOT: '/',
-    HOME: '/home',
     NOT_FOUND: '/404',
     FAQ: '/faq',
     LOGIN: '/login',

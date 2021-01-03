@@ -27,7 +27,7 @@ const MainCategories: React.FC = () => (
                     borderRadius="md"
                     direction="column"
                     justify="center"
-                    to={ROUTES.BROWSER}
+                    to={ROUTES.PROPOSALS}
                     minW={20}
                     maxW={{ base: 20, md: 28 }}
                     key={name}

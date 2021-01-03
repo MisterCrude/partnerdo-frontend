@@ -138,7 +138,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                     as={RouterLink}
                                     py={4}
                                     px={8}
-                                    to={ROUTES.BROWSER}
+                                    to={ROUTES.PROPOSALS}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
                                     <SearchIcon fontSize={20} mt={-1} mr={1} /> Wyszukiwarka
@@ -173,7 +173,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
 
 export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
     <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
-        <Heading as={RouterLink} to={isAuth ? ROUTES.BROWSER : ROUTES.HOME}>
+        <Heading as={RouterLink} to={isAuth ? ROUTES.PROPOSALS : ROUTES.ROOT}>
             {BRAND_NAME}
         </Heading>
 
@@ -186,7 +186,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                     color="gray"
                     d="flex"
                     icon={<SearchIcon fontSize={28} />}
-                    to={ROUTES.BROWSER}
+                    to={ROUTES.PROPOSALS}
                     variant="unstyled"
                 />
                 {isAuth && (
@@ -200,7 +200,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                 {isAuth ? (
                     <Button
                         as={RouterLink}
-                        to={ROUTES.PROPOSAL_CREATE}
+                        to={ROUTES.PROPOSALS_CREATE}
                         bgColor="gray.800"
                         color="white"
                         variant="solid"

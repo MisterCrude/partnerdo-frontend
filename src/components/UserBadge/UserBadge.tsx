@@ -9,12 +9,15 @@ interface IProps {
     avatarUrl: string;
     title: string;
     subtitle: string | React.ReactNode;
+    userId?: string;
 }
 
-export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle }) => {
+export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, userId }) => {
     const history = useHistory();
 
-    const handleClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
+    const handleClick = () => {
+        userId && history.push(`${ROUTES.USER_PROFILE}/${userId}`);
+    };
 
     return (
         <Flex>
@@ -24,7 +27,7 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle }) => {
                     d="inline"
                     fontWeight="bold"
                     onClick={handleClick}
-                    _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                    _hover={userId ? { cursor: 'pointer', textDecor: 'underline' } : {}}
                 >
                     {title}
                 </Text>

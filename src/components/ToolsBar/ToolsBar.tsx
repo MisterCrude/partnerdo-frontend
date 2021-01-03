@@ -27,7 +27,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             justifyContent="center"
             flexDirection="column"
             variant="link"
-            to={ROUTES.PROPOSAL_CREATE}
+            to={ROUTES.PROPOSALS_CREATE}
         >
             <PlusIcon fontSize={30} />
         </Button>
@@ -40,7 +40,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             paddingY={3}
             flexDirection="column"
             variant="link"
-            to={ROUTES.BROWSER}
+            to={ROUTES.PROPOSALS}
         >
             <SearchIcon fontSize={30} />
         </Button>

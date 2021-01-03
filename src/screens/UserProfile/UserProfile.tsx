@@ -2,8 +2,7 @@ import React from 'react';
 
 import { ROUTES } from '@config/app';
 
-import { ChatIcon } from '@chakra-ui/icons';
-import { AspectRatio, Box, Button, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
+import { AspectRatio, Box, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
 import Card from '@components/Card';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
@@ -13,7 +12,7 @@ export const UserProfile: React.FC = () => {
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Breadcrumbs
                 current="Profil użytkownika Jan Baraban"
-                crumbs={[{ title: 'Strona główna', link: ROUTES.BROWSER }]}
+                crumbs={[{ title: 'Strona główna', link: ROUTES.PROPOSALS }]}
                 mb={8}
             />
 
@@ -35,7 +34,7 @@ export const UserProfile: React.FC = () => {
                         Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję
                         partnera do głębokiego lenistwa Poszuk partnera
                     </Text>
-                    <Button
+                    {/* <Button
                         bgColor="gray.800"
                         color="white"
                         variant="solid"
@@ -44,7 +43,7 @@ export const UserProfile: React.FC = () => {
                         _hover={{ bgColor: 'gray.600' }}
                     >
                         Wyślij wiadomość
-                    </Button>
+                    </Button> */}
                 </Box>
                 <Box flexGrow={1}>
                     <Heading as="h2" size="lg" mb={{ base: 4, md: 8 }}>

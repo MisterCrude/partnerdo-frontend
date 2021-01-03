@@ -20,7 +20,7 @@ export const NewOffers: React.FC = () => (
                 ))}
         </Grid>
 
-        <Button as={RouterLink} colorScheme="orange" size="lg" mt={{ base: 14, lg: 20 }} to={ROUTES.BROWSER}>
+        <Button as={RouterLink} colorScheme="orange" size="lg" mt={{ base: 14, lg: 20 }} to={ROUTES.PROPOSALS}>
             Zobacz wszystkie
         </Button>
     </Flex>

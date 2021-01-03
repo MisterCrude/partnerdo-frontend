@@ -65,7 +65,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
         localStorage.setItem('token', token.key);
-        history.push(ROUTES.BROWSER);
+        history.push(ROUTES.PROPOSALS);
 
         dispatch(setUser({ user: normalizedUser }));
         storeToast({
@@ -100,7 +100,7 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         const normalizedUser = compose(unset('pk'), set('id', user.pk))(user);
 
         localStorage.setItem('token', token.key);
-        history.push(ROUTES.BROWSER);
+        history.push(ROUTES.PROPOSALS);
 
         dispatch(setUser({ user: normalizedUser }));
 
@@ -122,7 +122,7 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
 
 export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
     localStorage.removeItem('token');
-    history.push(ROUTES.HOME);
+    history.push(ROUTES.ROOT);
 
     dispatch(removeUser());
 

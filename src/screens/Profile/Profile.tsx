@@ -12,13 +12,13 @@ import MyProposals from './components/MyProposals';
 
 const LINKS = [
     {
-        crumbs: [{ title: 'Strona główna', link: ROUTES.BROWSER }],
+        crumbs: [{ title: 'Strona główna', link: ROUTES.PROPOSALS }],
         title: 'Profil',
         link: ROUTES.PROFILE,
     },
     {
         crumbs: [
-            { title: 'Strona główna', link: ROUTES.BROWSER },
+            { title: 'Strona główna', link: ROUTES.PROPOSALS },
             { title: 'Profil', link: ROUTES.PROFILE },
         ],
         title: 'Moje partnerstwa',
@@ -26,7 +26,7 @@ const LINKS = [
     },
     {
         crumbs: [
-            { title: 'Strona główna', link: ROUTES.BROWSER },
+            { title: 'Strona główna', link: ROUTES.PROPOSALS },
             { title: 'Profil', link: ROUTES.PROFILE },
         ],
         title: 'Zrealizowane partnerstwa',

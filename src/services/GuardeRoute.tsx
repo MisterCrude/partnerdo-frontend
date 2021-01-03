@@ -3,11 +3,16 @@ import { Route, Redirect, RouteProps } from 'react-router-dom';
 
 interface IProps {
     component: React.FC;
-    isAuth: boolean;
+    isAuth?: boolean;
     redirectTo?: string;
 }
 
-const GuardedRoute: React.FC<IProps & RouteProps> = ({ component: Component, isAuth, redirectTo = '/', ...rest }) => {
+const GuardedRoute: React.FC<IProps & RouteProps> = ({
+    component: Component,
+    redirectTo = '/',
+    isAuth = false,
+    ...rest
+}) => {
     return <Route {...rest} render={(props) => (isAuth ? <Component {...props} /> : <Redirect to={redirectTo} />)} />;
 };
 

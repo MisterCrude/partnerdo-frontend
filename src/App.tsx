@@ -48,7 +48,9 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
             ]}
             <Route component={Browser} path={ROUTES.PROPOSALS} exact />
 
-            <Route component={Faq} path={ROUTES.FAQ} />
+            <Route path={ROUTES.FAQ}>
+                <Faq isAuth={isAuth} />
+            </Route>
 
             <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
             <GuardedRoute

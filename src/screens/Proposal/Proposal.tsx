@@ -23,7 +23,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Breadcrumbs
-                crumbs={[{ title: isAuth ? 'Strona główna' : 'Partnerstwa', link: ROUTES.PROPOSALS }]}
+                crumbs={[{ title: isAuth ? 'Strona główna' : 'Lista partnerstw', link: ROUTES.PROPOSALS }]}
                 current="Poszukuję partnera do głębokiego lenistwa"
                 mb={8}
             />

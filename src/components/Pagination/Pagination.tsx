@@ -16,6 +16,7 @@ export const Pagination: React.FC = () => (
         />
         <IconButton
             aria-label="Pagination button"
+            colorScheme="orange"
             fontWeight="normal"
             minW={{ base: 9, md: 10 }}
             h={{ base: 9, md: 10 }}
@@ -24,7 +25,6 @@ export const Pagination: React.FC = () => (
         />
         <IconButton
             aria-label="Pagination button"
-            colorScheme="orange"
             minW={{ base: 9, md: 10 }}
             h={{ base: 9, md: 10 }}
             fontWeight="normal"

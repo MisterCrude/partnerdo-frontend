@@ -10,17 +10,19 @@ import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
 
 interface IProps {
+    userId?: string;
     isHeadLess?: boolean;
     isEditable?: boolean;
 }
 
-export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false }) => (
+export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false, userId }) => (
     <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
         {!isHeadLess && (
             <Flex align="center" px={6} py={4} justify="space-between">
                 <UserBadge
                     avatarUrl="https://bit.ly/sage-adebayo"
                     title="Jan Baraban"
+                    userId={userId}
                     subtitle={
                         <Box as="span" color="gray.500">
                             <LocationIcon /> Warszawa, Bemowo

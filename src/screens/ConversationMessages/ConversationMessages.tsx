@@ -21,7 +21,7 @@ export const ConversationMessages: React.FC = () => {
             <Breadcrumbs
                 current="Poszukuję partnera do głębokiego lenistwa"
                 crumbs={[
-                    { title: 'Strona główna', link: ROUTES.HOME },
+                    { title: 'Strona główna', link: ROUTES.ROOT },
                     { title: 'Wiadomości', link: ROUTES.CONVERSATIONS },
                 ]}
                 mb={12}

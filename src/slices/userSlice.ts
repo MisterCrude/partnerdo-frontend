@@ -122,7 +122,7 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
 
 export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
     localStorage.removeItem('token');
-    history.push(ROUTES.HOME);
+    history.push(ROUTES.ROOT);
 
     dispatch(removeUser());
 

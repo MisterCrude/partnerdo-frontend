@@ -1,10 +1,15 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { ToolsBar } from './ToolsBar';
 
 it('Should render ToolsBar component', () => {
-    render(<ToolsBar hasMessages isAuth mobileOnly />);
+    render(
+        <BrowserRouter>
+            <ToolsBar hasMessages isAuth mobileOnly />
+        </BrowserRouter>
+    );
 
     expect(true).toBeTruthy();
 });

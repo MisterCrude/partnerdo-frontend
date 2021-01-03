@@ -7,7 +7,7 @@ import { Breadcrumbs } from './Breadcrumbs';
 it('Should render Breadcrumbs component', () => {
     render(
         <BrowserRouter>
-            <Breadcrumbs />
+            <Breadcrumbs crumbs={[]} current="test" />
         </BrowserRouter>
     );
 

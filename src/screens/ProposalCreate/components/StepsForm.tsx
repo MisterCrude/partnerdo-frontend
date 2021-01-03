@@ -25,7 +25,7 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, o
                 {currentStep === 2 && <StepThree />}
             </Box>
 
-            <HStack spacing={3} justify="space-between">
+            <HStack spacing={8} justify="space-between">
                 {currentStep < 1 ? (
                     <Button onClick={onCancel} flexGrow={{ base: 1, md: 0 }}>
                         Anuluj
@@ -42,14 +42,14 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, o
                     </Button>
                 ) : (
                     <Button
-                        backgroundColor="gray.800"
+                        bgColor="gray.800"
                         color="white"
                         variant="outline"
                         flexGrow={{ base: 1, md: 0 }}
                         onClick={() => onGo()}
                         rightIcon={<ChevronRightIcon />}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
+                        _active={{ bgColor: 'gray.800' }}
+                        _hover={{ bgColor: 'gray.600' }}
                     >
                         Dalej
                     </Button>

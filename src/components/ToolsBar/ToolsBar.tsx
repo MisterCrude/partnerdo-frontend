@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import { ROUTES } from '@config/app';
+import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/react';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
-import { ROUTES } from '@config/app';
 
 interface IProps {
     hasMessages: boolean;
@@ -18,8 +18,8 @@ interface IPropsLoggedinSet {
 
 export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
     <SimpleGrid templateColumns="repeat(4, 1fr)">
-        <Flex
-            as={Button}
+        <Button
+            as={RouterLink}
             alignItems="center"
             borderRadius={0}
             color="gray.700"
@@ -27,11 +27,12 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             justifyContent="center"
             flexDirection="column"
             variant="link"
+            to={ROUTES.PROPOSAL_CREATE}
         >
             <PlusIcon fontSize={30} />
-        </Flex>
-        <Flex
-            as={Button}
+        </Button>
+        <Button
+            as={RouterLink}
             alignItems="center"
             borderRadius={0}
             color="gray.700"
@@ -39,11 +40,12 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             paddingY={3}
             flexDirection="column"
             variant="link"
+            to={ROUTES.BROWSER}
         >
             <SearchIcon fontSize={30} />
-        </Flex>
-        <Flex
-            as={Button}
+        </Button>
+        <Button
+            as={RouterLink}
             alignItems="center"
             borderRadius={0}
             color="gray.700"
@@ -51,14 +53,15 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             justifyContent="center"
             flexDirection="column"
             variant="link"
+            to={ROUTES.CONVERSATIONS}
         >
-            <Box as="span" position="relative">
+            <Box as="span" pos="relative">
                 <ChatIcon fontSize={30} />
-                {hasMessages && <Circle position="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
+                {hasMessages && <Circle pos="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
             </Box>
-        </Flex>
-        <Flex
-            as={Button}
+        </Button>
+        <Button
+            as={RouterLink}
             alignItems="center"
             borderRadius={0}
             color="gray.700"
@@ -66,28 +69,29 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             paddingY={3}
             flexDirection="column"
             variant="link"
+            to={ROUTES.PROFILE}
         >
             <ProfileIcon fontSize={30} />
-        </Flex>
+        </Button>
     </SimpleGrid>
 );
 
 export const NotLoggedinSet: React.FC = () => (
     <Flex justifyContent="center">
         <Flex alignItems="center" borderRadius={0} justifyContent="flex-end" paddingY={3} marginX={2} variant="link">
-            <Button as={Link} to={ROUTES.LOGIN}>
+            <Button as={RouterLink} to={ROUTES.LOGIN}>
                 Zaloguj się
             </Button>
         </Flex>
         <Flex alignItems="flex" borderRadius={0} justifyContent="flex-start" paddingY={3} marginX={2} variant="link">
             <Button
-                as={Link}
-                backgroundColor="gray.800"
+                as={RouterLink}
+                bgColor="gray.800"
                 color="white"
                 to={ROUTES.REGISTER}
                 variant="solid"
-                _active={{ backgroundColor: 'gray.800' }}
-                _hover={{ backgroundColor: 'gray.600' }}
+                _active={{ bgColor: 'gray.800' }}
+                _hover={{ bgColor: 'gray.600' }}
             >
                 Zarejestruj się
             </Button>
@@ -100,10 +104,10 @@ export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) 
         as="section"
         boxShadow="xs"
         bottom={0}
-        backgroundColor="white"
-        display={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
+        bgColor="white"
+        d={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}
         data-testid="toolsBar"
-        position="fixed"
+        pos="fixed"
         w="100vw"
         zIndex="docked"
     >

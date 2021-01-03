@@ -107,7 +107,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) =>
             </Box>
 
             <Button
-                backgroundColor="gray.800"
+                bgColor="gray.800"
                 color="white"
                 mb={{ base: 4, md: 8 }}
                 size="lg"
@@ -116,8 +116,8 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) =>
                 variant="solid"
                 w="100%"
                 isLoading={isFetching}
-                _active={{ backgroundColor: 'gray.800' }}
-                _hover={{ backgroundColor: 'gray.600' }}
+                _active={{ bgColor: 'gray.800' }}
+                _hover={{ bgColor: 'gray.600' }}
             >
                 Zarejestruj się
             </Button>

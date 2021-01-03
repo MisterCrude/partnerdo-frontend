@@ -7,6 +7,7 @@ import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, T
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
+import Breadcrumbs from '@components/Breadcrumbs';
 
 interface IProps {
     isAuth?: boolean;
@@ -15,10 +16,18 @@ interface IProps {
 export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const history = useHistory();
 
-    const handleBack = () => history.goBack();
+    const handleBack = () => {
+        history.goBack();
+    };
 
     return (
-        <Main flexGrow={1}>
+        <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
+            <Breadcrumbs
+                crumbs={[{ title: 'Strona główna', link: ROUTES.BROWSER }]}
+                current="Poszukuję partnera do głębokiego lenistwa"
+                mb={8}
+            />
+
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
                 <Box w={200} maxW="100%">
                     <AspectRatio maxW="100%" mb={3} ration={1}>
@@ -47,7 +56,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                     <Box color="gray.500" mb={2}>
                         <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
                     </Box>
-                    <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                    <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                         Sport
                     </Tag>
                 </Box>
@@ -69,30 +78,30 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                     </Box>
                 </Flex>
 
-                <Flex align={{ base: 'stretch', dm: 'center' }} justify="space-between">
+                <Flex align={{ base: 'stretch', md: 'center' }} justify="space-between">
                     <Button onClick={handleBack}>Wróć</Button>
 
                     {isAuth ? (
                         <ModalFrame
                             actionTitle="Wyślij"
                             buttonProps={{
-                                backgroundColor: 'gray.800',
+                                bgColor: 'gray.800',
                                 color: 'white',
                                 variant: 'solid',
-                                _active: { backgroundColor: 'gray.800' },
-                                _hover: { backgroundColor: 'gray.600' },
+                                _active: { bgColor: 'gray.800' },
+                                _hover: { bgColor: 'gray.600' },
                             }}
                             modalTitle="Poszukuję partnera do głębokiego lenistwa"
                             onAction={() => {
                                 console.log(1);
                             }}
-                            size="3xl"
+                            size="5xl"
                             triggerTitle="Złóż ofertę"
                         >
                             <>
                                 <Textarea
                                     borderWidth={0}
-                                    h={40}
+                                    h={72}
                                     name="surname"
                                     mb={1}
                                     // ref={register}
@@ -102,20 +111,17 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     size="lg"
                                     shadow="base"
                                 />
-                                <Box color="gray.500" mb={4}>
-                                    <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
-                                </Box>
                             </>
                         </ModalFrame>
                     ) : (
                         <Button
                             as={RouterLink}
                             to={ROUTES.LOGIN}
-                            backgroundColor="gray.800"
+                            bgColor="gray.800"
                             color="white"
                             variant="solid"
-                            _active={{ backgroundColor: 'gray.800' }}
-                            _hover={{ backgroundColor: 'gray.600' }}
+                            _active={{ bgColor: 'gray.800' }}
+                            _hover={{ bgColor: 'gray.600' }}
                         >
                             Złóż ofertę
                         </Button>

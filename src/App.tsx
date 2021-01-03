@@ -55,7 +55,7 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
                 path={`${ROUTES.CONVERSATIONS}/:conversationId`}
                 isAuth={isAuth}
             />
-            <GuardedRoute component={ProposalCreate} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
+            <GuardedRoute component={ProposalCreate} path={ROUTES.PROPOSAL_CREATE} isAuth={isAuth} />
             <Route path={ROUTES.PROPOSAL}>
                 <Proposal isAuth={isAuth} />
             </Route>

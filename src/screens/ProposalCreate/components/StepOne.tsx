@@ -17,10 +17,10 @@ export const StepOne = () => {
             gap={8}
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
             w="100%"
+            justifyItems="center"
         >
             {CATEGORIES_DATA.map(({ name, iconStroked: Icon }: IProposalCategory) => (
                 <Flex
-                    alignItems="center"
                     borderRadius="md"
                     cursor="pointer"
                     direction="column"
@@ -29,10 +29,10 @@ export const StepOne = () => {
                     minW={20}
                     maxW={30}
                     onClick={() => handleChose(name)}
-                    position="relative"
+                    pos="relative"
                 >
                     {chosenName === name && (
-                        <CheckCircleIcon color="green.500" fontSize={20} position="absolute" top={0} right={0} />
+                        <CheckCircleIcon color="green.500" fontSize={20} pos="absolute" top={0} right={0} />
                     )}
                     <Box w="100%" borderRadius="300px" background="gray.100" mb={3}>
                         <Icon w="100%" h="auto" color={chosenName === name ? 'orange.500' : 'gray.800'} />

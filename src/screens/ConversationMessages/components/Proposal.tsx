@@ -16,12 +16,16 @@ const Proposal: React.FC = () => (
                 />
             </AspectRatio>
 
+            <Text d={{ base: 'inline', sm: 'none' }} fontSize="lg" fontWeight="bold">
+                Jan Baraban
+            </Text>
+
             <Flex align="space-between" flexDir="column" flexGrow={1} justify="space-between">
                 <Flex align="flex-start" justify="space-between" mb={{ base: 1, md: 0 }}>
                     <Box>
-                        <Heading d="inline-block" size="md">
+                        <Heading d="inline-block" size="md" mb={{ base: 2, md: 0 }}>
                             Poszukuję partnera do głębokiego lenistwa{' '}
-                            <Tag borderRadius="full" backgroundColor="orange.500" px={4} variant="solid">
+                            <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                                 Sport
                             </Tag>
                         </Heading>
@@ -30,7 +34,7 @@ const Proposal: React.FC = () => (
                         </Text>
                     </Box>
                 </Flex>
-                <Text fontSize="sm" fontWeight="bold">
+                <Text d={{ base: 'none', sm: 'inline' }} fontSize="md" fontWeight="bold">
                     Jan Baraban
                 </Text>
             </Flex>

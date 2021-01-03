@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { IOption } from '@models/app';
 
-import { Button, Box, Checkbox, Menu, MenuButton, MenuItem, MenuList, theme } from '@chakra-ui/react';
+import { Button, Box, Checkbox, Menu, MenuButton, MenuDivider, MenuItem, MenuList, theme } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface IProps {
@@ -19,27 +19,18 @@ const MenuListStyles = css`
     }
 `;
 
-const CheckboxStyles = css`
-    display: inline-flex;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    cursor: pointer;
+export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height = '48px' }) => {
+    const [selectedOprions, setSelectedOprions] = useState<string[]>([]);
 
-    .chakra-checkbox__control {
-        align-self: center;
-        border-radius: 100%;
-        border: none;
+    const handleSelect = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedOprions((prevState) =>
+            target.checked ? [...prevState, target.value] : prevState.filter((item) => item !== target.value)
+        );
+    };
 
-        &[aria-checked] {
-            background: red;
-        }
-    }
-`;
-
-export const MenuSelect: React.FC<IProps> = ({ options, palceholder, height = '48px' }) => {
-    const [selectedOprion, setSelectedOprion] = useState<string>();
-
-    const handleSelect = ({ target }: React.ChangeEvent<HTMLInputElement>) => setSelectedOprion(target.value);
+    const handleAll = () => {
+        return null;
+    };
 
     return (
         <Box pos="relative">
@@ -65,22 +56,29 @@ export const MenuSelect: React.FC<IProps> = ({ options, palceholder, height = '4
                         bgColor: 'white',
                     }}
                 >
-                    <Box as="span" fontWeight={selectedOprion ? 'semibold' : 'normal'}>
-                        {selectedOprion ? selectedOprion : palceholder}
+                    <Box as="span" fontWeight={selectedOprions.length ? 'semibold' : 'normal'}>
+                        {palceholder} {selectedOprions.length > 0 && `(${selectedOprions.length})`}
                     </Box>
                 </MenuButton>
 
                 <Box css={MenuListStyles}>
-                    <MenuList overflow="auto" maxH="300px">
+                    <MenuList overflow="auto" maxH="315px">
+                        <MenuItem p={0}>
+                            <Checkbox w="100%" px={4} py={2} onClick={handleAll}>
+                                Wszystkie
+                            </Checkbox>
+                        </MenuItem>
+
+                        <MenuDivider />
+
                         {options.map(({ value, label }) => (
                             <MenuItem p={0} key={value}>
                                 <Checkbox
-                                    isChecked={selectedOprion === value}
-                                    css={CheckboxStyles}
                                     value={value}
                                     w="100%"
                                     px={4}
                                     py={2}
+                                    isChecked={selectedOprions.includes(value)}
                                     onChange={handleSelect}
                                 >
                                     {label}

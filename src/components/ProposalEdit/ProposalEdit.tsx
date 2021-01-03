@@ -7,6 +7,7 @@ import { toOptions } from '@utils/misc';
 import { Box, Grid, Input, Textarea } from '@chakra-ui/react';
 import MenuSelect from '@components/MenuSelect';
 
+// TODO remove this fake data
 const cities: IOption[] = toOptions(CITIES);
 const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.toLocaleLowerCase(), label: name }));
 
@@ -31,8 +32,8 @@ export const ProposalEdit: React.FC = () => (
                 )} */}
         </Box>
         <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
-            <MenuSelect isRadio options={cities} palceholder="Miasto" />
-            <MenuSelect isRadio options={cities} palceholder="Dzielnica" />
+            <MenuSelect options={cities} palceholder="Miasto" />
+            <MenuSelect options={cities} palceholder="Dzielnica" />
             <MenuSelect options={categories} palceholder="Kategoria" />
         </Grid>
         <Box>
@@ -40,12 +41,12 @@ export const ProposalEdit: React.FC = () => (
                 // borderColor={errors.username ? 'tomato' : 'gray.200'}
                 // borderWidth={errors.username ? 1 : 0}
                 borderWidth={0}
-                h={40}
+                h={64}
                 name="surname"
                 // ref={register}
                 resize="none"
                 type="text"
-                placeholder="O mnie"
+                placeholder="Opis partnerstwa"
                 size="lg"
                 shadow="base"
             />

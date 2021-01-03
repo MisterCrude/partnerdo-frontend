@@ -25,7 +25,7 @@ import {
     UseDisclosureProps,
     VStack,
 } from '@chakra-ui/react';
-import { SmallAddIcon, SettingsIcon } from '@chakra-ui/icons';
+import { CheckIcon, SmallAddIcon, HamburgerIcon, SettingsIcon } from '@chakra-ui/icons';
 import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon, SearchIcon } from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 
@@ -59,6 +59,14 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
                     <SettingsIcon mr={2} />
                     Profil
                 </MenuItem>
+                <MenuItem as={RouterLink} to={ROUTES.PROFILE_MY_PROPOSALS}>
+                    <HamburgerIcon mr={2} />
+                    Moje partnerstwa
+                </MenuItem>
+                <MenuItem as={RouterLink} to={ROUTES.PROFILE_DONE_PROPOSALS}>
+                    <CheckIcon mr={2} />
+                    Zrealizowane partnerstwa
+                </MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
             </MenuList>
@@ -67,7 +75,7 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
 );
 
 export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }) => (
-    <Box as="span" position="relative">
+    <Box as="span" pos="relative">
         <IconButton
             as={RouterLink}
             aria-label="Messages"
@@ -77,9 +85,7 @@ export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }
             to={ROUTES.CONVERSATIONS}
             variant="unstyled"
         />
-        {hasMessages && (
-            <Circle position="absolute" size={3} backgroundColor="tomato" color="white" top={2} right={1} />
-        )}
+        {hasMessages && <Circle pos="absolute" size={3} bgColor="tomato" color="white" top={2} right={1} />}
     </Box>
 );
 
@@ -96,7 +102,9 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                     <ModalHeader alignItems="center" display="flex" justifyContent="space-between" padding={8}>
                         {BRAND_NAME} <CloseButton onClick={onClose} fontSize={18} />
                     </ModalHeader>
+
                     <Divider />
+
                     <VStack as="nav" align="stretch" spacing={0}>
                         {isAuth ? (
                             <>
@@ -106,24 +114,13 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                     paddingX={8}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
-                                    Moje partnerstwa
-                                </Link>
-                                <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
-                                    Zrealizowane partnerstwa
-                                </Link>
-                                <Divider />
-                                <Link
-                                    href="#"
-                                    paddingY={4}
-                                    paddingX={8}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
                                     Jak działa {BRAND_NAME}?
+                                </Link>
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                    Polityka prywatności
+                                </Link>
+                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                    Regulamin
                                 </Link>
                                 <Divider />
                                 <Link
@@ -180,7 +177,7 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
             {BRAND_NAME}
         </Heading>
 
-        <HStack spacing={isAuth ? 6 : 4} display={{ base: 'none', md: 'flex' }}>
+        <HStack d={{ base: 'none', md: 'flex' }} spacing={isAuth ? 6 : 4}>
             <HStack spacing={2}>
                 <IconButton color="gray" variant="unstyled" aria-label="faq" icon={<DangerIcon fontSize={28} />} />
                 <IconButton
@@ -204,12 +201,12 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                     <Button
                         as={RouterLink}
                         to={ROUTES.PROPOSAL_CREATE}
-                        backgroundColor="gray.800"
+                        bgColor="gray.800"
                         color="white"
                         variant="solid"
                         rightIcon={<SmallAddIcon />}
-                        _active={{ backgroundColor: 'gray.800' }}
-                        _hover={{ backgroundColor: 'gray.600' }}
+                        _active={{ bgColor: 'gray.800' }}
+                        _hover={{ bgColor: 'gray.600' }}
                     >
                         Dodaj partnerstwo
                     </Button>
@@ -221,11 +218,11 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
                         <Button
                             as={RouterLink}
                             to={ROUTES.REGISTER}
-                            backgroundColor="gray.800"
+                            bgColor="gray.800"
                             color="white"
                             variant="solid"
-                            _active={{ backgroundColor: 'gray.800' }}
-                            _hover={{ backgroundColor: 'gray.600' }}
+                            _active={{ bgColor: 'gray.800' }}
+                            _hover={{ bgColor: 'gray.600' }}
                         >
                             Zarejestruj się
                         </Button>

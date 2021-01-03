@@ -67,7 +67,7 @@ const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => 
             </Box>
 
             <Button
-                backgroundColor="gray.800"
+                bgColor="gray.800"
                 color="white"
                 type="submit"
                 variant="solid"
@@ -76,8 +76,8 @@ const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => 
                 shadow="base"
                 mb={4}
                 isLoading={isFetching}
-                _active={{ backgroundColor: 'gray.800' }}
-                _hover={{ backgroundColor: 'gray.600' }}
+                _active={{ bgColor: 'gray.800' }}
+                _hover={{ bgColor: 'gray.600' }}
             >
                 Wyślij
             </Button>

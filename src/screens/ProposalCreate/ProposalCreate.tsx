@@ -40,9 +40,9 @@ export const ProposalCreate: React.FC = () => {
     };
 
     return (
-        <Main d="flex" flexDir="column" flexGrow={1} maxW="3xl">
+        <Main d="flex" flexDir="column" flexGrow={1} maxW="3xl" mt={{ base: 0, md: 10 }} mb={10}>
             <Heading align="center" mb={10}>
-                Dodaj nowe partnerstwo
+                Nowe partnerstwo
             </Heading>
             {isProposalCreated ? (
                 <Final />

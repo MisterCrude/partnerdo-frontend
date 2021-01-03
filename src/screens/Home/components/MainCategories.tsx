@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { Box, Flex, Heading, SimpleGrid, Link, Text } from '@chakra-ui/react';
-import { CATEGORIES_DATA } from '@config/app';
+import { CATEGORIES_DATA, ROUTES } from '@config/app';
 import { IProposalCategory } from '@models/proposal';
+
+import { Link as RouterLink } from 'react-router-dom';
+import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
 const MainCategories: React.FC = () => (
     <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 32, md: 48 }}>
@@ -20,16 +22,17 @@ const MainCategories: React.FC = () => (
         >
             {CATEGORIES_DATA.map(({ name, iconColored: Icon }: IProposalCategory) => (
                 <Flex
-                    as={Link}
+                    as={RouterLink}
                     alignItems="center"
                     borderRadius="md"
                     direction="column"
                     justify="center"
+                    to={ROUTES.BROWSER}
                     minW={20}
                     maxW={{ base: 20, md: 28 }}
                     key={name}
                 >
-                    <Box justify="center" borderRadius="300px" backgroundColor="gray.50" mb={3}>
+                    <Box justify="center" borderRadius="300px" bgColor="gray.100" mb={3}>
                         <Icon w="100%" h="auto" maxW={200} />
                     </Box>
                     <Text align="center" lineHeight={1.2}>

@@ -22,7 +22,7 @@ import {
 export const BRAND_NAME = 'PartnerDo';
 
 export const CATEGORIES_DATA: IProposalCategory[] = [
-    // https://www.flaticon.com/search/2?word=music
+    // https://www.flaticon.com/free-icon/guitar_2892205?term=guitar&page=1&position=13&related_item_id=2892205
     // https://www.flaticon.com/packs/retail-10?k=1607802870403
     {
         name: 'Sport',
@@ -82,6 +82,8 @@ export const ROUTES = {
     PROPOSAL_CREATE: '/proposal/add',
     USER_PROFILE: '/user',
     PROFILE: '/profile',
+    PROFILE_MY_PROPOSALS: '/profile/my-proposals',
+    PROFILE_DONE_PROPOSALS: '/profile/done-proposals',
 };
 
 export const CITIES = [

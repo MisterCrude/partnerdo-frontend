@@ -207,6 +207,25 @@ const EditForm: React.FC = () => {
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
                         borderWidth={0}
+                        h={20}
+                        name="shortDescription"
+                        // ref={register}
+                        resize="none"
+                        type="text"
+                        placeholder="Krótki opis"
+                        shadow="base"
+                    />
+                    {/* {errors.email && (
+                    <Text color="tomato" fontSize={15}>
+                        {errors.email.message}
+                    </Text>
+                )} */}
+                </Box>
+                <Box mb={{ base: 4, md: 8 }}>
+                    <Textarea
+                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
+                        // borderWidth={errors.username ? 1 : 0}
+                        borderWidth={0}
                         h={40}
                         name="surname"
                         // ref={register}

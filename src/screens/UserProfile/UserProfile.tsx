@@ -30,10 +30,12 @@ export const UserProfile: React.FC = () => {
                     <Heading size="md" mb={3}>
                         Jan Baraban
                     </Heading>
+
                     <Text mb={4} fontSize="sm">
                         Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję
                         partnera do głębokiego lenistwa Poszuk partnera
                     </Text>
+
                     {/* <Button
                         bgColor="gray.800"
                         color="white"

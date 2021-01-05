@@ -23,7 +23,7 @@ export const Main: React.FC<BoxProps> = (props) => {
     return (
         <Flex as="main" minH="100vh" flexDir="column">
             <Header isAuth={isAuth} hasMessages={hasMessages} onLogout={handleLogout} />
-            <Container as="section" px={8} maxW="7xl" {...props}>
+            <Container as="section" px={{ base: 4, sm: 8 }} maxW="7xl" {...props}>
                 {props.children}
             </Container>
             <Footer />

@@ -3,7 +3,7 @@ import React from 'react';
 import { ROUTES } from '@config/app';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 
-import { AspectRatio, Box, Button, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
+import { AspectRatio, Box, Button, Divider, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 import Main from '@layouts/Main';
@@ -49,12 +49,18 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                         Jan baraban
                     </Heading>
                 </Box>
+
+                <Divider d={{ base: 'block', md: 'none' }} />
+
                 <Box>
-                    <Heading as="h2" size="lg" mb={1}>
+                    <Heading as="h2" size="lg" mb={2}>
                         Poszukuję partnera do głębokiego lenistwa
                     </Heading>
-                    <Box color="gray.500" mb={2}>
+                    <Box color="gray.500">
                         <LocationIcon mr={1} pos="relative" top="-1px" /> Warszawa, Bemowo
+                    </Box>
+                    <Box color="gray.500" fontSize="sm" mb={2}>
+                        <CalendarIcon mr={1} mt={-1} fontSize="md" /> 01.12.2020
                     </Box>
                     <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
                         Sport
@@ -63,7 +69,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
             </Stack>
 
             <Box flexGrow={1}>
-                <Text>
+                <Text mb={6}>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium repellat, laudantium officia
                     facere nesciunt eum dicta sint vel neque placeat saepe mollitia iste at harum corporis eaque
                     voluptatibus accusantium culpa. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -71,12 +77,6 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                     veritatis, fugiat at repudiandae modi sapiente corrupti facere tempora iusto. Lorem ipsum dolor sit,
                     amet consectetur adipisic
                 </Text>
-
-                <Flex justify="flex-end" my={4}>
-                    <Box as="span" color="gray.500" fontSize="sm">
-                        <CalendarIcon mr={1} mt={-1} fontSize="md" /> 01.12.2020
-                    </Box>
-                </Flex>
 
                 <Flex align={{ base: 'stretch', md: 'center' }} justify="space-between">
                     <Button onClick={handleBack}>Wróć</Button>

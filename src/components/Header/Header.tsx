@@ -99,7 +99,7 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="full">
                 <ModalOverlay />
                 <Box as={ModalContent} borderRadius={0} minHeight="100vh" m={0}>
-                    <ModalHeader alignItems="center" display="flex" justifyContent="space-between" padding={8}>
+                    <ModalHeader alignItems="center" display="flex" justifyContent="space-between" padding={4}>
                         {BRAND_NAME} <CloseButton onClick={onClose} fontSize={18} />
                     </ModalHeader>
 
@@ -111,26 +111,20 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                 <Link
                                     as={RouterLink}
                                     href="#"
-                                    paddingY={4}
-                                    paddingX={8}
+                                    p={4}
                                     to={ROUTES.FAQ}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
                                     Jak działa {BRAND_NAME}?
                                 </Link>
-                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                <Link href="#" p={4} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Polityka prywatności
                                 </Link>
-                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                <Link href="#" p={4} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Regulamin
                                 </Link>
                                 <Divider />
-                                <Link
-                                    paddingY={4}
-                                    paddingX={8}
-                                    onClick={onLogout}
-                                    _hover={{ bgColor: 'gray', textDecoration: 'none' }}
-                                >
+                                <Link p={4} onClick={onLogout} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Wyloguj się
                                 </Link>
                             </>
@@ -138,17 +132,15 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                             <>
                                 <Link
                                     as={RouterLink}
-                                    py={4}
-                                    px={8}
+                                    p={4}
                                     to={ROUTES.PROPOSALS}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
-                                    <SearchIcon fontSize={20} mt={-1} mr={1} /> Wyszukiwarka
+                                    <SearchIcon fontSize={20} mt={-1} mr={1} /> Lista partnerstw
                                 </Link>
                                 <Link
                                     as={RouterLink}
-                                    py={4}
-                                    px={8}
+                                    p={4}
                                     to={ROUTES.FAQ}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
@@ -158,17 +150,16 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
                                 <Link
                                     as={RouterLink}
                                     href="#"
-                                    py={4}
-                                    px={8}
+                                    p={4}
                                     to={ROUTES.FAQ}
                                     _hover={{ bgColor: 'gray', textDecoration: 'none' }}
                                 >
                                     Jak działa {BRAND_NAME}?
                                 </Link>
-                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                <Link href="#" p={4} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Polityka prywatności
                                 </Link>
-                                <Link href="#" py={4} px={8} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
+                                <Link href="#" p={4} _hover={{ bgColor: 'gray', textDecoration: 'none' }}>
                                     Regulamin
                                 </Link>
                             </>
@@ -181,7 +172,13 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
 };
 
 export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
-    <Flex as="header" alignItems="center" justifyContent="space-between" padding={8}>
+    <Flex
+        as="header"
+        alignItems="center"
+        justifyContent="space-between"
+        py={{ base: 6, sm: 8 }}
+        px={{ base: 4, sm: 8 }}
+    >
         <Heading as={RouterLink} to={isAuth ? ROUTES.PROPOSALS : ROUTES.ROOT}>
             {BRAND_NAME}
         </Heading>

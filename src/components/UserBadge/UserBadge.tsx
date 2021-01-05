@@ -20,7 +20,7 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, userId
     };
 
     return (
-        <Flex>
+        <Flex w="100%">
             <Avatar src={avatarUrl} />
             <Box ml="3" overflow="hidden">
                 <Text

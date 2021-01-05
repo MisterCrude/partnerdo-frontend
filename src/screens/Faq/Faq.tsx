@@ -30,7 +30,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                 </Heading>
 
                 <Accordion allowToggle>
-                    <AccordionItem>
+                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -40,11 +40,16 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                         <AccordionPanel pb={4}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.
+                            laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         </AccordionPanel>
                     </AccordionItem>
 
-                    <AccordionItem>
+                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -66,7 +71,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                 </Heading>
 
                 <Accordion allowToggle>
-                    <AccordionItem>
+                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -80,7 +85,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                         </AccordionPanel>
                     </AccordionItem>
 
-                    <AccordionItem>
+                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -94,7 +99,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                         </AccordionPanel>
                     </AccordionItem>
 
-                    <AccordionItem>
+                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BoxProps, Divider } from '@chakra-ui/react';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import { Link as RouterLink } from 'react-router-dom';
 
 interface ICrumb {
@@ -16,21 +17,23 @@ interface IProps {
 
 export const Breadcrumbs: React.FC<IProps & BoxProps> = ({ crumbs, current, mb = 6 }) => (
     <>
-        <Breadcrumb mb={6}>
+        <Breadcrumb mb={5}>
             {crumbs.map(({ title, link }, index) => (
                 <React.Fragment key={index}>
-                    <BreadcrumbItem>
+                    <BreadcrumbItem borderRadius={20} bgColor="gray.100" px={4} py={1} my={1}>
                         <BreadcrumbLink as={RouterLink} to={link} color="gray.500">
                             {title}
                         </BreadcrumbLink>
                     </BreadcrumbItem>
                     <Box as="span" mx={2}>
-                        /
+                        <ChevronRightIcon color="gray.500" />
                     </Box>
                 </React.Fragment>
             ))}
             <BreadcrumbItem isCurrentPage>
-                <BreadcrumbLink>{current}</BreadcrumbLink>
+                <BreadcrumbLink borderRadius={20} bgColor="gray.100" px={3} py={1} my={1}>
+                    {current}
+                </BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
         <Divider mb={mb} />

@@ -47,17 +47,34 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" size="full">
                 <ModalOverlay />
                 <Box as={ModalContent} borderRadius={0} minH="100vh" m={0}>
-                    <ModalHeader align="center" display="flex" justifyContent="space-between" padding={8}>
+                    <ModalHeader align="center" display="flex" justifyContent="space-between" p={4}>
                         Filtry <CloseButton onClick={onClose} fontSize={18} />
                     </ModalHeader>
 
                     <Divider />
 
-                    <Box p={8}>
-                        <Button colorScheme="gray" d={{ base: 'flex', md: 'none' }} disabled={false} mb={4} w="100%">
+                    <Box p={4}>
+                        <Button
+                            colorScheme="gray"
+                            d={{ base: 'flex', md: 'none' }}
+                            size="lg"
+                            disabled={false}
+                            mb={4}
+                            w="100%"
+                        >
                             Wyczyść filtry <DeleteIcon fontSize="md" ml={2} />
                         </Button>
                         {children}
+                        <Button
+                            colorScheme="orange"
+                            disabled={false}
+                            d={{ base: 'flex', md: 'none' }}
+                            size="lg"
+                            w="100%"
+                            mt={8}
+                        >
+                            Zastosuj
+                        </Button>
                     </Box>
                 </Box>
             </Modal>

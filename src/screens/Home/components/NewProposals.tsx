@@ -7,7 +7,7 @@ import { Button, Flex, Grid, Heading } from '@chakra-ui/react';
 import Card from '@components/Card';
 
 export const NewOffers: React.FC = () => (
-    <Flex as="section" align="center" flexDir="column" justify="center" mb={24}>
+    <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 14, md: 24 }}>
         <Heading align="center" px={8} mb={{ base: 8, md: 10 }} lineHeight={1.2}>
             Najnowsze oferty
         </Heading>

@@ -18,7 +18,7 @@ interface IProps {
 export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false, userId }) => (
     <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
         {!isHeadLess && (
-            <Flex align="center" px={6} py={4} justify="space-between">
+            <Flex align="center" px={{ base: 4, md: 6 }} py={4} justify="space-between">
                 <UserBadge
                     avatarUrl="https://bit.ly/sage-adebayo"
                     title="Jan Baraban"
@@ -34,7 +34,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
 
         <Divider />
 
-        <Box px={6} py={4}>
+        <Box px={{ base: 4, md: 6 }} py={4}>
             <Box mb={isHeadLess ? 1 : 2}>
                 <Heading
                     as={RouterLink}
@@ -64,7 +64,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
 
         <Divider />
 
-        <Box px={6} py={4}>
+        <Box px={{ base: 4, md: 6 }} py={4}>
             <Flex align="center" justify="space-between">
                 <Flex flexGrow={1} justify="space-between" mr={isEditable ? 6 : 0}>
                     <Text as="span" align="center" color="gray.500" fontSize="sm">
@@ -113,7 +113,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
         </Box>
 
         {isEditable && (
-            <Box d={{ base: 'block', md: 'none' }} px={6} pb={4}>
+            <Box d={{ base: 'block', md: 'none' }} px={{ base: 4, md: 6 }} pb={4}>
                 <SimpleGrid spacing={6} d={{ base: 'grid', md: 'none' }} templateColumns="repeat(2, 1fr)">
                     <ModalFrame
                         actionTitle="Tak, usuń"

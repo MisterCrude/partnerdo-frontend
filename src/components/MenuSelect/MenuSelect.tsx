@@ -24,15 +24,14 @@ const CheckboxStyles = css`
     padding: 0.5rem 1rem;
     width: 100%;
     cursor: pointer;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 
     .chakra-checkbox__control {
         align-self: center;
         border-radius: 100%;
         border: none;
-
-        &[aria-checked] {
-            background: red;
-        }
+        margin-left: 0.5rem;
     }
 `;
 

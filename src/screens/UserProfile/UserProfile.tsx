@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ROUTES } from '@config/app';
 
-import { AspectRatio, Box, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
+import { AspectRatio, Box, Heading, Image, VStack, Stack, Text, Divider } from '@chakra-ui/react';
 import Card from '@components/Card';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
@@ -18,7 +18,7 @@ export const UserProfile: React.FC = () => {
 
             <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }}>
                 <Box w={350} maxW="100%" mb={{ base: 6 }}>
-                    <AspectRatio maxW="100%" mb={3} ration={1}>
+                    <AspectRatio maxW="100%" mb={4} ration={1}>
                         <Image
                             alt="Jan Baraban"
                             borderRadius={6}
@@ -27,9 +27,15 @@ export const UserProfile: React.FC = () => {
                             fallbackSrc="https://via.placeholder.com/300"
                         />
                     </AspectRatio>
-                    <Heading size="md" mb={3}>
+                    <Heading size="md" mb={4}>
                         Jan Baraban
                     </Heading>
+
+                    <Text color="gray.500" fontSize="sm">
+                        Kanapowy sportowiec i mamusin przystojniak
+                    </Text>
+
+                    <Divider my={3} />
 
                     <Text mb={4} fontSize="sm">
                         Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję

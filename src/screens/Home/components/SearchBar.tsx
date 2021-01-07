@@ -17,7 +17,12 @@ export const SearchBar: React.FC = () => (
         w="100%"
     >
         <InputGroup>
-            <InputLeftElement pointerEvents="none" h="100%" children={<SearchIcon fontSize={24} color="gray.300" />} />
+            <InputLeftElement
+                children={<SearchIcon fontSize={24} color="gray.300" />}
+                pointerEvents="none"
+                zIndex={1}
+                h="100%"
+            />
             <Input
                 borderWidth={0}
                 bgColor="white"

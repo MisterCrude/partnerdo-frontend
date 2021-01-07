@@ -212,6 +212,7 @@ const EditForm: React.FC = () => {
                         // ref={register}
                         resize="none"
                         type="text"
+                        size="lg"
                         placeholder="Krótki opis"
                         shadow="base"
                     />
@@ -230,6 +231,7 @@ const EditForm: React.FC = () => {
                         name="surname"
                         // ref={register}
                         resize="none"
+                        size="lg"
                         type="text"
                         placeholder="O mnie"
                         shadow="base"

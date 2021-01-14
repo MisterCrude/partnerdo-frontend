@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
 
+import { getIsAuth } from '@slices/userSlice';
 import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
-import { getIsAuth } from '@slices/userSlice';
 
-import Conversations from '@screens/Conversations';
-import ConversationMessages from '@screens/ConversationMessages';
 import Browser from '@screens/Browser';
+import ConversationMessages from '@screens/ConversationMessages';
+import Conversations from '@screens/Conversations';
 import Faq from '@screens/Faq';
 import Home from '@screens/Home';
 import Login from '@screens/Login';
-import Profile from '@screens/Profile';
 import PageNotFound from '@screens/PageNotFound';
+import Profile from '@screens/Profile';
 import Proposal from '@screens/Proposal';
 import ProposalCreate from '@screens/ProposalCreate';
 import Register from '@screens/Register';

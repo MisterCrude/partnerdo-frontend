@@ -4,9 +4,9 @@ import { History } from 'history';
 import { useSelector } from 'react-redux';
 
 import { Link as RouterLink } from 'react-router-dom';
-import useDispatch from '@hooks/useDispatch';
 import { loginUserAsync, getIsFetching } from '@slices/userSlice';
 import { ROUTES } from '@config/app';
+import useDispatch from '@hooks/useDispatch';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';

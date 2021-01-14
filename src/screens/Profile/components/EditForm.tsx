@@ -140,7 +140,7 @@ const EditForm: React.FC = () => {
                         type="text"
                         size="lg"
                         shadow="base"
-                        placeholder="Nazwa użytkownika"
+                        placeholder="* Nazwa użytkownika"
                     />
                     {/* {errors.username && (
                     <Text color="tomato" fontSize={15}>
@@ -156,7 +156,25 @@ const EditForm: React.FC = () => {
                         name="email"
                         // ref={register}
                         type="text"
-                        placeholder="Email"
+                        placeholder="* Email"
+                        size="lg"
+                        shadow="base"
+                    />
+                    {/* {errors.email && (
+                    <Text color="tomato" fontSize={15}>
+                        {errors.email.message}
+                    </Text>
+                )} */}
+                </Box>
+                <Box mb={{ base: 4, md: 8 }}>
+                    <Input
+                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
+                        // borderWidth={errors.username ? 1 : 0}
+                        borderWidth={0}
+                        name="yearOfBirth"
+                        // ref={register}
+                        type="text"
+                        placeholder="* Rok urodzenia"
                         size="lg"
                         shadow="base"
                     />

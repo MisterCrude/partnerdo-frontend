@@ -20,7 +20,8 @@ const genders: IOption[] = toOptions(GENDER);
 
 export const Browser: React.FC = () => {
     // TODO replace isAuth by propsals data
-    const isAuth = useSelector(getIsAuth);
+    // const isAuth = useSelector(getIsAuth);
+    const isAuth = !!localStorage.getItem('isLogged');
 
     return (
         <Main mt={{ base: 0, md: 10 }} mb={10}>

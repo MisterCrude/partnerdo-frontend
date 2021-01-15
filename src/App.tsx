@@ -77,7 +77,10 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
 
 // TODO: add  "pre-push": "yarn test" to package.json
 const App: React.FC = () => {
-    const isAuth = useSelector(getIsAuth);
+    // const isAuth = useSelector(getIsAuth);
+    const isAuth = !!localStorage.getItem('isLogged');
+
+    console.log(isAuth);
 
     return (
         <BrowserRouter>

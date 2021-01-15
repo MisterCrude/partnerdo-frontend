@@ -19,11 +19,18 @@ interface ILoginUserParams {
 }
 
 export const Login: React.FC = () => {
+    /* eslint-disable-next-line */
     const history = useHistory();
+    /* eslint-disable-next-line */
     const submitForm = useDispatch<ILoginUserParams>(loginUserAsync);
     const isFetching = useSelector(getIsFetching);
 
-    const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
+    // const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
+    /* eslint-disable-next-line */
+    const handleSubmitForm = (credentials: Record<string, unknown>) => {
+        localStorage.setItem('isLogged', 'true');
+        window.location.pathname = '/proposals';
+    };
 
     return (
         <Main flexGrow={1} maxW="xl" my={20}>

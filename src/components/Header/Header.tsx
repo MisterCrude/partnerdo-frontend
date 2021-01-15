@@ -180,7 +180,8 @@ export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
         px={{ base: 4, sm: 8 }}
     >
         <Heading as={RouterLink} to={isAuth ? ROUTES.PROPOSALS : ROUTES.ROOT}>
-            {BRAND_NAME}
+            {/* {BRAND_NAME} */}
+            Partner<span style={{ color: '#DD6B20' }}>Do</span>.pl
         </Heading>
 
         <HStack d={{ base: 'none', md: 'flex' }} spacing={isAuth ? 6 : 4}>

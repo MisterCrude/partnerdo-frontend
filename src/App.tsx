@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Redirect, Switch, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 
-import { getIsAuth } from '@slices/userSlice';
+// import { getIsAuth } from '@slices/userSlice';
 import { ROUTES } from '@config/app';
 import GuardedRoute from '@services/GuardeRoute';
 

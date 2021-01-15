@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import { CITIES, GENDER, AGE_GROUPS, CATEGORIES_DATA } from '@config/app';
 import { IOption } from '@models/app';
 import { toOptions } from '@utils/misc';
-import { getIsAuth } from '@slices/userSlice';
+// import { getIsAuth } from '@slices/userSlice';
 
 import { Box, Text, Flex } from '@chakra-ui/react';
 import Main from '@layouts/Main';

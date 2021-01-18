@@ -38,7 +38,6 @@
         "@types/yup": "^0.29.9",
         "@typescript-eslint/eslint-plugin": "^4.6.0",
         "@typescript-eslint/parser": "^4.6.0",
-        "cypress": "^5.5.0",
         "eslint-config-prettier": "^6.14.0",
         "eslint-plugin-prettier": "^3.1.4",
         "husky": "^4.3.0",
@@ -54,10 +53,7 @@
         "eject": "react-scripts eject",
         "format": "pretty-quick --staged",
         "lint": "eslint src/ --ext .ts,.tsx,.js",
-        "test": "react-app-rewired test",
-        "cy": "cypress run",
-        "cy:open": "cypress open",
-        "cy:headless": "cypress run --browser chrome --headless"
+        "test": "react-app-rewired test"
     },
     "eslintConfig": {
         "extends": "react-app"

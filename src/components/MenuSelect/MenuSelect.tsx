@@ -7,9 +7,9 @@ import { Button, Box, Checkbox, Menu, MenuButton, MenuItem, MenuList, theme } fr
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface IProps {
-    palceholder: string;
-    options: IOption[];
     height?: string;
+    options: IOption[];
+    palceholder: string;
 }
 
 const MenuListStyles = css`
@@ -20,12 +20,12 @@ const MenuListStyles = css`
 `;
 
 const CheckboxStyles = css`
-    display: inline-flex;
-    padding: 0.5rem 1rem;
-    width: 100%;
     cursor: pointer;
+    display: inline-flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    padding: 0.5rem 1rem;
+    width: 100%;
 
     .chakra-checkbox__control {
         align-self: center;

@@ -19,7 +19,7 @@ import {
     ChildrenIcon,
 } from '@theme/customIcons';
 
-export const BRAND_NAME = 'PartnerDo';
+export const BRAND_NAME = 'partnerDo.pl';
 
 export const CATEGORIES_DATA: IProposalCategory[] = [
     // https://www.flaticon.com/free-icon/guitar_2892205?term=guitar&page=1&position=13&related_item_id=2892205

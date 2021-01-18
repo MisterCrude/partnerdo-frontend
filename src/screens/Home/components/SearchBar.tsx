@@ -17,19 +17,14 @@ export const SearchBar: React.FC = () => (
         w="100%"
     >
         <InputGroup>
-            <InputLeftElement
-                children={<SearchIcon fontSize={24} color="gray.300" />}
-                pointerEvents="none"
-                zIndex={1}
-                h="100%"
-            />
+            <InputLeftElement children={<SearchIcon fontSize={24} color="gray.300" />} h="100%" pointerEvents="none" />
             <Input
-                borderWidth={0}
                 bgColor="white"
+                borderWidth={0}
                 h="55px"
                 placeholder="Jakiego partnerstwa szukasz?"
-                size="lg"
                 shadow="base"
+                size="lg"
             />
         </InputGroup>
 

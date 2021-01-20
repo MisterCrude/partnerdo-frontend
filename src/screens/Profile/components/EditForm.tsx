@@ -1,29 +1,25 @@
 import React from 'react';
 
-import {
-    AspectRatio,
-    Box,
-    Button,
-    ButtonProps,
-    Flex,
-    Textarea,
-    Text,
-    Input,
-    IconButton,
-    Image,
-} from '@chakra-ui/react';
+import { IUser } from '@models/user';
+
+import { AspectRatio, Box, Button, Flex, Textarea, Text, Input, IconButton, Image } from '@chakra-ui/react';
 import { EditIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 
-export interface IModalProps {
-    buttonProps: ButtonProps;
-    buttonTitle: string;
-    modalTitle: string;
-    onAction: any;
-    actionTitle?: string;
+export interface IProps extends IUser {
+    someField?: boolean;
 }
 
-const EditForm: React.FC = () => {
+const EditForm: React.FC<IProps> = ({
+    avatar,
+    birthYear,
+    description,
+    email,
+    firstName,
+    lastName,
+    shortDescription,
+    username,
+}) => {
     return (
         <Box d={{ base: 'block', md: 'flex' }}>
             <Box mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }} mx={{ base: 'auto' }} w={300} maxW="100%">
@@ -33,7 +29,7 @@ const EditForm: React.FC = () => {
                             alt="Jan Baraban"
                             borderRadius={6}
                             objectFit="cover"
-                            src="https://bit.ly/sage-adebayo"
+                            src={avatar}
                             fallbackSrc="https://via.placeholder.com/300"
                         />
                     </AspectRatio>
@@ -73,14 +69,14 @@ const EditForm: React.FC = () => {
                             <Input
                                 // borderColor={errors.username ? 'tomato' : 'gray.200'}
                                 // borderWidth={errors.username ? 1 : 0}
-                                borderWidth={0}
-                                bgColor="white"
-                                name="username"
                                 // ref={register}
-                                type="text"
-                                size="lg"
-                                shadow="base"
+                                bgColor="white"
+                                borderWidth={0}
+                                name="username"
                                 placeholder="Podaj nowe hasło"
+                                shadow="base"
+                                size="lg"
+                                type="text"
                             />
                             {/* {errors.username && (
                     <Text color="tomato" fontSize={15}>
@@ -133,14 +129,15 @@ const EditForm: React.FC = () => {
                     <Input
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
-                        borderWidth={0}
-                        bgColor="white"
-                        name="username"
                         // ref={register}
-                        type="text"
-                        size="lg"
+                        bgColor="white"
+                        borderWidth={0}
+                        name="username"
+                        placeholder="Nazwa użytkownika"
                         shadow="base"
-                        placeholder="* Nazwa użytkownika"
+                        size="lg"
+                        type="text"
+                        value={username}
                     />
                     {/* {errors.username && (
                     <Text color="tomato" fontSize={15}>
@@ -152,13 +149,14 @@ const EditForm: React.FC = () => {
                     <Input
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
                         borderWidth={0}
                         name="email"
-                        // ref={register}
-                        type="text"
-                        placeholder="* Email"
-                        size="lg"
+                        placeholder="Email"
                         shadow="base"
+                        size="lg"
+                        type="text"
+                        value={email}
                     />
                     {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>
@@ -170,13 +168,14 @@ const EditForm: React.FC = () => {
                     <Input
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
                         borderWidth={0}
                         name="yearOfBirth"
-                        // ref={register}
-                        type="text"
-                        placeholder="* Rok urodzenia"
-                        size="lg"
+                        placeholder="Rok urodzenia"
                         shadow="base"
+                        size="lg"
+                        type="text"
+                        value={birthYear}
                     />
                     {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>
@@ -188,13 +187,14 @@ const EditForm: React.FC = () => {
                     <Input
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
                         borderWidth={0}
                         name="name"
-                        // ref={register}
-                        type="text"
                         placeholder="Imię"
-                        size="lg"
                         shadow="base"
+                        size="lg"
+                        type="text"
+                        value={firstName || ''}
                     />
                     {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>
@@ -206,13 +206,14 @@ const EditForm: React.FC = () => {
                     <Input
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
                         borderWidth={0}
                         name="surname"
-                        // ref={register}
-                        type="text"
                         placeholder="Nazwisko"
-                        size="lg"
                         shadow="base"
+                        size="lg"
+                        type="text"
+                        value={lastName || ''}
                     />
                     {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>
@@ -224,15 +225,16 @@ const EditForm: React.FC = () => {
                     <Textarea
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
                         borderWidth={0}
                         h={20}
                         name="shortDescription"
-                        // ref={register}
-                        resize="none"
-                        type="text"
-                        size="lg"
                         placeholder="Krótki opis"
+                        resize="none"
                         shadow="base"
+                        size="lg"
+                        type="text"
+                        value={shortDescription || ''}
                     />
                     {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>
@@ -244,15 +246,16 @@ const EditForm: React.FC = () => {
                     <Textarea
                         // borderColor={errors.username ? 'tomato' : 'gray.200'}
                         // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
                         borderWidth={0}
                         h={40}
                         name="surname"
-                        // ref={register}
+                        placeholder="O mnie"
                         resize="none"
+                        shadow="base"
                         size="lg"
                         type="text"
-                        placeholder="O mnie"
-                        shadow="base"
+                        value={description || ''}
                     />
                     {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>

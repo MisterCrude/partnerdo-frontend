@@ -73,9 +73,6 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
     );
 };
 
-// TODO: try to remove .eslintrc and devDependencies
-
-// TODO: add  "pre-push": "yarn test" to package.json
 const App: React.FC = () => {
     const isAuth = useSelector(getIsAuth);
 

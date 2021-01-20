@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { IOption } from '@models/app';
 
-import { Button, Box, Checkbox, Menu, MenuButton, MenuDivider, MenuItem, MenuList, theme } from '@chakra-ui/react';
+import { Button, Box, Checkbox, Menu, MenuButton, MenuItem, MenuList, theme } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface IProps {
@@ -26,10 +26,6 @@ export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height
         setSelectedOprions((prevState) =>
             target.checked ? [...prevState, target.value] : prevState.filter((item) => item !== target.value)
         );
-    };
-
-    const handleAll = () => {
-        return null;
     };
 
     return (
@@ -62,15 +58,7 @@ export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height
                 </MenuButton>
 
                 <Box css={MenuListStyles}>
-                    <MenuList overflow="auto" maxH="315px">
-                        <MenuItem p={0}>
-                            <Checkbox w="100%" px={4} py={2} onClick={handleAll}>
-                                Wszystkie
-                            </Checkbox>
-                        </MenuItem>
-
-                        <MenuDivider />
-
+                    <MenuList overflow="auto" maxH="295px">
                         {options.map(({ value, label }) => (
                             <MenuItem p={0} key={value}>
                                 <Checkbox

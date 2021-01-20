@@ -16,12 +16,7 @@ interface IProps {
 const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
     <>
         <InputGroup mb={{ base: 4, md: 8 }}>
-            <InputLeftElement
-                children={<SearchIcon fontSize={24} color="gray.300" />}
-                pointerEvents="none"
-                h="100%"
-                zIndex={1}
-            />
+            <InputLeftElement children={<SearchIcon fontSize={24} color="gray.300" />} pointerEvents="none" h="100%" />
             <Input borderWidth={0} bgColor="white" placeholder="Jakiego partnerstwa szukasz?" size="lg" shadow="base" />
         </InputGroup>
 

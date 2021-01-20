@@ -1,9 +1,8 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { History } from 'history';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Link as RouterLink } from 'react-router-dom';
 import { loginUserAsync, getIsFetching } from '@slices/userSlice';
 import { ROUTES } from '@config/app';
 import useDispatch from '@hooks/useDispatch';

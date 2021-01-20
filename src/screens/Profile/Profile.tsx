@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch, Link as RouterLink, Route, Redirect, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { ROUTES } from '@config/app';
+import { getUserData } from '@slices/userSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -35,6 +37,7 @@ const LINKS = [
 ];
 
 export const Profile: React.FC = () => {
+    const userData = useSelector(getUserData);
     const { pathname } = useLocation();
 
     return (
@@ -44,20 +47,21 @@ export const Profile: React.FC = () => {
                     pathname === link && <Breadcrumbs current={title} crumbs={crumbs} key={link} />
             )}
 
-            <Flex mx={{ base: -8, sm: 0 }} pl={{ base: 8, sm: 0 }} pb={{ base: 2, sm: 0 }} overflowX={{ base: 'auto' }}>
+            <Flex mx={{ base: -4, sm: 0 }} pl={{ base: 8, sm: 0 }} pb={{ base: 2, sm: 0 }} overflowX={{ base: 'auto' }}>
                 <Box>
                     {LINKS.map(({ title, link }) => (
                         <Link
-                            as={RouterLink}
-                            to={link}
-                            key={link}
-                            whiteSpace="nowrap"
-                            mr={10}
-                            textDecor={link === pathname ? 'underline' : 'none'}
-                            color={link === pathname ? 'gray.800' : 'gray.500'}
+                            _last={{ mr: { base: 10, sm: 8 } }}
                             _focus={{
                                 boxShadow: 'none',
                             }}
+                            as={RouterLink}
+                            color={link === pathname ? 'gray.800' : 'gray.500'}
+                            key={link}
+                            mr={10}
+                            textDecor={link === pathname ? 'underline' : 'none'}
+                            to={link}
+                            whiteSpace="nowrap"
                         >
                             {title}
                         </Link>
@@ -67,7 +71,9 @@ export const Profile: React.FC = () => {
 
             <Box mt={8}>
                 <Switch>
-                    <Route exact component={EditForm} path={ROUTES.PROFILE} />
+                    <Route exact path={ROUTES.PROFILE}>
+                        <EditForm {...userData} />
+                    </Route>
                     <Route exact component={MyProposals} path={ROUTES.PROFILE_MY_PROPOSALS} />
                     <Route exact component={History} path={ROUTES.PROFILE_DONE_PROPOSALS} />
                     <Redirect from="/*" to={ROUTES.NOT_FOUND} />

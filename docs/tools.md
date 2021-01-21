@@ -12,6 +12,12 @@ Modular and accessible component library
 A production-ready motion library for React
 ```
 
+## [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
+
+```
+For developing and testing your components in separate sandbox
+```
+
 <br/>
 
 ## [Lodash](https://lodash.com/)
@@ -58,7 +64,7 @@ Promise based HTTP client for the browser and node.js
 
 <br/>
 
-## [Cypress](https://www.cypress.io/)
+<!-- ## [Cypress](https://www.cypress.io/)
 
 ```
 Integration / e2e / unit automation testing framework
@@ -76,4 +82,4 @@ Integration / e2e / unit automation testing framework
 
 -   [Cypress realword app](https://github.com/cypress-io/cypress-realworld-app)
 
--   [Cypress with CI/CD](https://github.com/cypress-io/cypress-example-kitchensink)
+-   [Cypress with CI/CD](https://github.com/cypress-io/cypress-example-kitchensink) -->

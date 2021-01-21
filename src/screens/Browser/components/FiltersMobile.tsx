@@ -6,12 +6,14 @@ import {
     Circle,
     CloseButton,
     Divider,
-    useDisclosure,
-    UseDisclosureProps,
     Modal,
+    ModalBody,
     ModalContent,
     ModalHeader,
     ModalOverlay,
+    Text,
+    useDisclosure,
+    UseDisclosureProps,
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { FilterIcon } from '@theme/customIcons';
@@ -48,12 +50,12 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
                 <ModalOverlay />
                 <Box as={ModalContent} borderRadius={0} minH="100vh" m={0}>
                     <ModalHeader align="center" display="flex" justifyContent="space-between" p={4}>
-                        Filtry <CloseButton onClick={onClose} fontSize={18} />
+                        <Text align="left">Filtry</Text> <CloseButton onClick={onClose} />
                     </ModalHeader>
 
                     <Divider />
 
-                    <Box p={4}>
+                    <ModalBody p={4}>
                         <Button
                             colorScheme="gray"
                             d={{ base: 'flex', md: 'none' }}
@@ -64,7 +66,9 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
                         >
                             Wyczyść filtry <DeleteIcon fontSize="md" ml={2} />
                         </Button>
+
                         {children}
+
                         <Button
                             colorScheme="orange"
                             disabled={false}
@@ -75,7 +79,7 @@ export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmoun
                         >
                             Zastosuj
                         </Button>
-                    </Box>
+                    </ModalBody>
                 </Box>
             </Modal>
         </>

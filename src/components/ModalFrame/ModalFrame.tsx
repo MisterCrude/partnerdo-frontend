@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import {
-    Box,
     Button,
     ButtonProps,
+    CloseButton,
+    Divider,
     Flex,
-    ModalContent,
-    ModalFooter,
-    ModalBody,
-    Modal,
-    ModalOverlay,
-    ModalHeader,
     IconButton,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalHeader,
+    ModalOverlay,
+    Text,
     useDisclosure,
     UseDisclosureProps,
 } from '@chakra-ui/react';
 
-export interface IProps {
+export type IProps = PropsWithChildren<{
     modalTitle: string;
     onAction: any;
     actionTitle?: string;
@@ -24,7 +25,7 @@ export interface IProps {
     size?: string;
     triggerTitle?: string;
     triggerIcon?: React.ReactElement;
-}
+}>;
 
 export const ModalFrame: React.FC<IProps> = ({
     children,
@@ -32,9 +33,9 @@ export const ModalFrame: React.FC<IProps> = ({
     onAction,
     actionTitle = 'Zapisz zmiany',
     buttonProps = {},
-    triggerTitle = null,
-    triggerIcon = null,
     size = 'md',
+    triggerIcon = null,
+    triggerTitle = null,
 }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
@@ -58,22 +59,24 @@ export const ModalFrame: React.FC<IProps> = ({
                     my={{ base: 0, md: 16 }}
                     w={{ md: size }}
                 >
-                    <ModalHeader align="center" px={8} py={6} lineHeight={1.3}>
-                        {modalTitle}
+                    <ModalHeader align="center" display="flex" justifyContent="space-between" py={4}>
+                        <Text align="left">{modalTitle}</Text> <CloseButton onClick={onClose} />
                     </ModalHeader>
 
-                    <ModalBody px={8} py={0} flexGrow={0} overflow="unset">
-                        <Box my={1}>{children}</Box>
-                    </ModalBody>
+                    <Divider />
 
-                    <ModalFooter as={Flex} px={8} py={6} justifyContent={{ base: 'center', md: 'space-between' }}>
-                        <Button onClick={onClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
-                            Zamknij
-                        </Button>
-                        <Button onClick={onAction} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
-                            {actionTitle}
-                        </Button>
-                    </ModalFooter>
+                    <ModalBody p={4}>
+                        {children}
+
+                        <Flex justifyContent={{ base: 'center', md: 'space-between' }} pt={3}>
+                            <Button onClick={onClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
+                                Zamknij
+                            </Button>
+                            <Button onClick={onAction} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
+                                {actionTitle}
+                            </Button>
+                        </Flex>
+                    </ModalBody>
                 </ModalContent>
             </Modal>
         </>

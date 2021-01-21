@@ -15,7 +15,7 @@ export const PasswordField = forwardRef<HTMLInputElement, InputProps>((props, re
                 <IconButton
                     aria-label="Password"
                     color={isShown ? 'gray' : 'gray.400'}
-                    icon={isShown ? <EyeIcon fontSize={24} /> : <CrossEyeIcon fontSize={24} />}
+                    icon={isShown ? <CrossEyeIcon fontSize={24} /> : <EyeIcon fontSize={24} />}
                     size="sm"
                     mr={2}
                     variant="unstyled"

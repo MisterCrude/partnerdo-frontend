@@ -17,7 +17,9 @@ export const SearchBar: React.FC = () => (
         w="100%"
     >
         <InputGroup>
-            <InputLeftElement children={<SearchIcon fontSize={24} color="gray.300" />} h="100%" pointerEvents="none" />
+            <InputLeftElement h="100%" pointerEvents="none">
+                <SearchIcon fontSize={24} color="gray.300" />
+            </InputLeftElement>
             <Input
                 bgColor="white"
                 borderWidth={0}

@@ -42,7 +42,7 @@ export const MenuSelect: React.FC<IProps> = ({ options, palceholder, height = '4
 
     return (
         <Box pos="relative">
-            <Menu closeOnSelect={false}>
+            <Menu closeOnSelect>
                 <MenuButton
                     as={Button}
                     bgColor="white"

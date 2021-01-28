@@ -15,7 +15,7 @@ A production-ready motion library for React
 ## [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
 
 ```
-For developing and testing your components in separate sandbox
+Tool for UI component development and documentation
 ```
 
 <br/>

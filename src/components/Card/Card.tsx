@@ -9,7 +9,7 @@ import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
 
-interface IProps {
+export interface IProps {
     userId?: string;
     isHeadLess?: boolean;
     isEditable?: boolean;

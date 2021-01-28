@@ -60,8 +60,8 @@
         "format": "pretty-quick --staged",
         "lint": "eslint src/ --ext .ts,.tsx,.js",
         "test": "react-app-rewired test",
-        "storybook": "start-storybook -p 6006 -s public",
-        "build-storybook": "build-storybook -s public"
+        "sb": "start-storybook -p 6006 -s public",
+        "sb:build": "build-storybook -s public"
     },
     "eslintConfig": {
         "extends": "react-app"

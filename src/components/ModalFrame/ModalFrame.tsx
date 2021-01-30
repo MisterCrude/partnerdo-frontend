@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from 'react';
-import { BoxProps } from '@chakra-ui/react';
 
 import {
     Button,
@@ -33,7 +32,7 @@ export const ModalFrame: React.FC<IProps> = ({
     modalTitle,
     onAction,
     actionTitle = 'Zapisz zmiany',
-    buttonProps = {} as BoxProps,
+    buttonProps = {},
     size = 'md',
     triggerIcon = null,
     triggerTitle = null,

@@ -9,15 +9,20 @@ import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
 
+export enum Types {
+    HEADLESS = 'headless',
+    EDITABLE = 'editable',
+    UNPUBLISH = 'unpublish',
+    DEFAULT = 'default',
+}
 export interface IProps {
+    type?: Types;
     onUserClick?: () => void;
-    isHeadLess?: boolean;
-    isEditable?: boolean;
 }
 
-export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false, onUserClick }) => (
+export const Card: React.FC<IProps> = ({ type = Types.DEFAULT, onUserClick }) => (
     <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
-        {!isHeadLess && (
+        {type !== Types.HEADLESS && (
             <Flex align="center" px={{ base: 4, md: 6 }} py={4} justify="space-between">
                 <UserBadge
                     avatarUrl="https://bit.ly/sage-adebayo"
@@ -60,7 +65,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
 
         <Box px={{ base: 4, md: 6 }} py={4}>
             <Flex align="center" justify="space-between">
-                <Flex flexGrow={1} justify="flex-end" mr={isEditable ? 6 : 0}>
+                <Flex flexGrow={1} justify="flex-end" mr={type === Types.EDITABLE ? 6 : 0}>
                     <Text as="span" align="center">
                         <Box as="span" color="gray.500" fontSize="sm">
                             01.12.2020 <CalendarIcon ml={1} fontSize="md" />
@@ -68,7 +73,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
                     </Text>
                 </Flex>
 
-                {isEditable && (
+                {type === Types.EDITABLE && (
                     <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
                         <ModalFrame
                             actionTitle="Tak, usuń"
@@ -103,7 +108,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
             </Flex>
         </Box>
 
-        {isEditable && (
+        {type === Types.EDITABLE && (
             <Box d={{ base: 'block', md: 'none' }} px={{ base: 4, md: 6 }} pb={4}>
                 <SimpleGrid spacing={6} d={{ base: 'grid', md: 'none' }} templateColumns="repeat(2, 1fr)">
                     <ModalFrame

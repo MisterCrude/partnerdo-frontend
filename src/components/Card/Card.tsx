@@ -3,31 +3,27 @@ import React from 'react';
 import { ROUTES } from '@config/app';
 
 import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
-import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
+import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon } from '@theme/customIcons';
 import { Link as RouterLink } from 'react-router-dom';
 import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
 
 export interface IProps {
-    userId?: string;
+    onUserClick?: () => void;
     isHeadLess?: boolean;
     isEditable?: boolean;
 }
 
-export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false, userId }) => (
+export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false, onUserClick }) => (
     <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
         {!isHeadLess && (
             <Flex align="center" px={{ base: 4, md: 6 }} py={4} justify="space-between">
                 <UserBadge
                     avatarUrl="https://bit.ly/sage-adebayo"
+                    onClick={onUserClick}
+                    subtitle={'Kanapowy sportowiec i mamusin przystojniak'}
                     title="Jan Baraban"
-                    userId={userId}
-                    subtitle={
-                        <Box as="span" color="gray.500" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
-                            Kanapowy sportowiec i mamusin przystojniak
-                        </Box>
-                    }
                 />
             </Flex>
         )}
@@ -64,10 +60,7 @@ export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false,
 
         <Box px={{ base: 4, md: 6 }} py={4}>
             <Flex align="center" justify="space-between">
-                <Flex flexGrow={1} justify="space-between" mr={isEditable ? 6 : 0}>
-                    <Text as="span" align="center" color="gray.500" fontSize="sm">
-                        34 <ShowIcon ml={1} fontSize="md" />
-                    </Text>
+                <Flex flexGrow={1} justify="flex-end" mr={isEditable ? 6 : 0}>
                     <Text as="span" align="center">
                         <Box as="span" color="gray.500" fontSize="sm">
                             01.12.2020 <CalendarIcon ml={1} fontSize="md" />

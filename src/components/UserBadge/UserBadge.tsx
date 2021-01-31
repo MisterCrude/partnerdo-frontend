@@ -1,24 +1,15 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
-
-import { useHistory } from 'react-router-dom';
 import { Avatar, Box, Flex, Text } from '@chakra-ui/react';
 
-interface IProps {
+export interface IProps {
     avatarUrl: string;
+    subtitle: string;
     title: string;
-    subtitle: string | React.ReactNode;
-    userId?: string;
+    onClick?: () => void;
 }
 
-export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, userId }) => {
-    const history = useHistory();
-
-    const handleClick = () => {
-        userId && history.push(`${ROUTES.USER_PROFILE}/${userId}`);
-    };
-
+export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, onClick }) => {
     return (
         <Flex w="100%">
             <Avatar src={avatarUrl} />
@@ -26,8 +17,8 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, userId
                 <Text
                     d="inline"
                     fontWeight="bold"
-                    onClick={handleClick}
-                    _hover={userId ? { cursor: 'pointer', textDecor: 'underline' } : {}}
+                    onClick={onClick}
+                    _hover={!!onClick ? { cursor: 'pointer', textDecor: 'underline' } : {}}
                 >
                     {title}
                 </Text>

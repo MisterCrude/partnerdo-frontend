@@ -10,7 +10,7 @@ export default {
         type: {
             control: {
                 type: 'select',
-                options: [Types.DEFAULT, Types.EDITABLE, Types.UNPUBLISH, Types.HEADLESS],
+                options: [Types.DEFAULT, Types.EDITABLE, Types.UNPUBLISH],
             },
         },
     },

@@ -18,7 +18,7 @@ const Results: React.FC<IProps> = ({ isAuth }) => {
 
     return (
         <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-            <Card onUserClick={handleUserClick} onTitleClick={handleTitleClick} />
+            <Card onUserNameClick={handleUserClick} onTitleClick={handleTitleClick} />
         </VStack>
     );
 };

@@ -1,35 +1,48 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
-
 import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
 import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon } from '@theme/customIcons';
-import { Link as RouterLink } from 'react-router-dom';
 import ModalFrame from '@components/ModalFrame';
 import UserBadge from '@components/UserBadge';
 import ProposalEdit from '@components/ProposalEdit';
 
 export enum Types {
+    DEFAULT = 'default',
     HEADLESS = 'headless',
     EDITABLE = 'editable',
     UNPUBLISH = 'unpublish',
-    DEFAULT = 'default',
 }
 export interface IProps {
+    address: string;
+    category: string;
+    content: string;
+    publishDate: string;
+    title: string;
+    userAvatarUrl: string;
+    userName: string;
+    userSlogan: string;
+    onTitleClick: () => void;
     type?: Types;
     onUserClick?: () => void;
 }
 
-export const Card: React.FC<IProps> = ({ type = Types.DEFAULT, onUserClick }) => (
+export const Card: React.FC<IProps> = ({
+    address,
+    category,
+    content,
+    publishDate,
+    title,
+    type = Types.DEFAULT,
+    userAvatarUrl,
+    userName,
+    userSlogan,
+    onUserClick,
+    onTitleClick,
+}) => (
     <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
         {type !== Types.HEADLESS && (
             <Flex align="center" px={{ base: 4, md: 6 }} py={4} justify="space-between">
-                <UserBadge
-                    avatarUrl="https://bit.ly/sage-adebayo"
-                    onClick={onUserClick}
-                    subtitle={'Kanapowy sportowiec i mamusin przystojniak'}
-                    title="Jan Baraban"
-                />
+                <UserBadge avatarUrl={userAvatarUrl} onClick={onUserClick} subtitle={userSlogan} title={userName} />
             </Flex>
         )}
 
@@ -38,26 +51,25 @@ export const Card: React.FC<IProps> = ({ type = Types.DEFAULT, onUserClick }) =>
         <Box px={{ base: 4, md: 6 }} py={4}>
             <Box mb={{ base: 1, md: 0 }}>
                 <Heading
-                    as={RouterLink}
+                    cursor="pointer"
                     d="inline"
                     size="md"
-                    to={`${ROUTES.PROPOSALS}/some-proposal-id`}
+                    onClick={onTitleClick}
                     _hover={{ textDecor: 'underline' }}
                 >
-                    Poszukuję partnera do głębokiego lenistwa
+                    {title}
                 </Heading>{' '}
                 <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
-                    Sport
+                    {category}
                 </Tag>
             </Box>
 
             <Box color="gray.500" mb={2}>
-                <LocationIcon /> Warszawa, Bemowo
+                <LocationIcon mt={-1} /> {address}
             </Box>
 
             <Text mb={2} fontSize="sm">
-                Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera
-                do głębokiego lenistwa Poszuk partnera ...
+                {content}
             </Text>
         </Box>
 
@@ -68,7 +80,7 @@ export const Card: React.FC<IProps> = ({ type = Types.DEFAULT, onUserClick }) =>
                 <Flex flexGrow={1} justify="flex-end" mr={type === Types.EDITABLE ? 6 : 0}>
                     <Text as="span" align="center">
                         <Box as="span" color="gray.500" fontSize="sm">
-                            01.12.2020 <CalendarIcon ml={1} fontSize="md" />
+                            {publishDate} <CalendarIcon ml={1} fontSize="md" />
                         </Box>
                     </Text>
                 </Flex>

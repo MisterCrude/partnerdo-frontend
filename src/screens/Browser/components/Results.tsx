@@ -13,12 +13,12 @@ interface IProps {
 const Results: React.FC<IProps> = ({ isAuth }) => {
     const history = useHistory();
 
-    console.log();
-    const handleGoToUserProfile = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
+    const handleUserClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
+    const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-proposal-id`);
 
     return (
         <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-            <Card onUserClick={handleGoToUserProfile} />
+            <Card onUserClick={handleUserClick} onTitleClick={handleTitleClick} />
         </VStack>
     );
 };

@@ -25,3 +25,5 @@ export const toOptions = (valuesHolder: string[] | Record<string, string>): IOpt
         ? valuesHolder.map((value: string) => ({ value, label: value }))
         : keys(valuesHolder).map((value: string) => ({ value, label: valuesHolder[value] }));
 };
+
+export const noopFn = () => undefined;

@@ -15,7 +15,16 @@ export default {
         },
     },
     args: {
+        address: 'Warszawa, Bemowo',
+        content:
+            'Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ...',
+        category: 'Sport',
+        publishDate: '01.10.2020',
+        title: 'Poszukuję partnera do głębokiego lenistwa',
         type: Types.DEFAULT,
+        userAvatarUrl: 'https://bit.ly/sage-adebayo',
+        userName: 'Jan Baraban',
+        userSlogan: 'Kanapowy sportowiec i mamusin przystojniak',
     },
     component: Card,
     decorators: [withRouterDecorator],
@@ -23,7 +32,7 @@ export default {
 } as Meta;
 
 const Template: Story<IProps> = (args) => (
-    <Container maxW="3xl">
+    <Container maxW="4xl">
         <Card {...args} />
     </Container>
 );

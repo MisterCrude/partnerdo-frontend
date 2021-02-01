@@ -14,6 +14,7 @@
 -   `components/` - holds reusable React components
 -   `models/` - ...
 -   `store/` - redux store configuration and reducers
+-   `stroies/` - holds multicomponent stories (icon, typography, etc.)
 -   `slices/` - redux store slices (redux toolkit)
 -   `layouts/` - includes common structure of screen (header, main, footer, etc.)
 -   `utils/` - holds small snippets you can use throughout the application

@@ -48,7 +48,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) =>
                     shadow="base"
                 />
                 {errors.username && (
-                    <Text color="tomato" fontSize={15} mt={1}>
+                    <Text color="tomato" fontSize="sm" mt={1}>
                         {errors.username.message}
                     </Text>
                 )}
@@ -66,7 +66,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) =>
                     shadow="base"
                 />
                 {errors.email && (
-                    <Text color="tomato" fontSize={15} mt={1}>
+                    <Text color="tomato" fontSize="sm" mt={1}>
                         {errors.email.message}
                     </Text>
                 )}
@@ -83,7 +83,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) =>
                     shadow="base"
                 />
                 {errors.password1 && (
-                    <Text color="tomato" fontSize={15} mt={1}>
+                    <Text color="tomato" fontSize="sm" mt={1}>
                         {errors.password1.message}
                     </Text>
                 )}
@@ -100,7 +100,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) =>
                     shadow="base"
                 />
                 {errors.password2 && (
-                    <Text color="tomato" fontSize={15} mt={1}>
+                    <Text color="tomato" fontSize="sm" mt={1}>
                         {errors.password2.message}
                     </Text>
                 )}

@@ -32,7 +32,7 @@ export const Browser: React.FC = () => {
                 <Filters ages={ages} cities={cities} categories={categories} genders={genders} />
             </Box>
 
-            <Text fontSize="md" mb={10}>
+            <Text mb={10}>
                 Znaleziono <strong>245,667</strong> partnerstw pasujących do Ciebie
             </Text>
 

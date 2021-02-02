@@ -33,7 +33,7 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
             <Box pos="absolute" top={4} right={4}>
                 <ModalFrame
                     actionTitle="Tak, usuń"
-                    triggerIcon={<DeleteIcon color="red.500" />}
+                    triggerIcon={<DeleteIcon color="tomato" />}
                     buttonProps={{
                         d: 'flex',
                         fontSize: 20,

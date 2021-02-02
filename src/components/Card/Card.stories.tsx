@@ -38,4 +38,3 @@ const Template: Story<IProps> = (args) => (
 );
 
 export const Default = Template.bind({});
-// Default.args = {};

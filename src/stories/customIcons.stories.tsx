@@ -1,48 +1,48 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta } from '@storybook/react/types-6-0';
 import {
-    ProfileIcon,
-    ChatIcon,
-    DangerIcon,
-    MoreCircleIcon,
-    MenuIcon,
-    PlusIcon,
-    SearchIcon,
-    LocationIcon,
-    FacebookIcon,
-    YoutubeIcon,
-    InstagramIcon,
+    BusinessColoredIcon,
+    BusinessIcon,
     CategoryIcon,
-    EyeIcon,
+    ChatIcon,
+    ChildrenColoredIcon,
+    ChildrenIcon,
     CrossEyeIcon,
-    EditIcon,
+    DangerIcon,
     DeleteIcon,
     DotsMenuIcon,
-    UnpublishIcon,
-    PublishIcon,
-    MusicColoredIcon,
-    MusicIcon,
-    FilterIcon,
-    BusinessIcon,
-    BusinessColoredIcon,
-    TravelIcon,
-    TravelColoredIcon,
-    LearningIcon,
-    LearningColoredIcon,
-    SportIcon,
-    SportColoredIcon,
+    EditIcon,
     EventColoredIcon,
     EventIcon,
-    ChildrenIcon,
-    ChildrenColoredIcon,
-    GameIcon,
+    EyeIcon,
+    FacebookIcon,
+    FilterIcon,
     GameColoredIcon,
+    GameIcon,
+    InstagramIcon,
+    LearningColoredIcon,
+    LearningIcon,
+    LocationIcon,
+    MenuIcon,
+    MoreCircleIcon,
+    MusicColoredIcon,
+    MusicIcon,
+    PlusIcon,
+    ProfileIcon,
+    PublishIcon,
+    SearchIcon,
+    SportColoredIcon,
+    SportIcon,
+    TravelColoredIcon,
+    TravelIcon,
+    UnpublishIcon,
+    YoutubeIcon,
 } from '@theme/customIcons';
 import { Box } from '@chakra-ui/react';
 
 export default {
     component: Box,
-    title: 'CustomIcons/OutlineIcons',
+    title: 'Misc/CustomIcons',
     parameters: {
         controls: {
             disabled: true,
@@ -50,7 +50,7 @@ export default {
     },
 } as Meta;
 
-const Template: Story = () => (
+export const Default: React.VFC = () => (
     <>
         <Box>
             <ProfileIcon boxSize={6} m={2} />
@@ -96,5 +96,3 @@ const Template: Story = () => (
         </Box>
     </>
 );
-
-export const Default = Template.bind({});

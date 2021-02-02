@@ -38,7 +38,7 @@ const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
                     placeholder="Email"
                 />
                 {errors.email && (
-                    <Text color="tomato" fontSize={15} mt={1}>
+                    <Text color="tomato" fontSize="sm" mt={1}>
                         {errors.email.message}
                     </Text>
                 )}

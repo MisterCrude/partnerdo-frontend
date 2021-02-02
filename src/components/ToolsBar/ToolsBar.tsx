@@ -22,7 +22,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             as={RouterLink}
             alignItems="center"
             borderRadius={0}
-            color="gray.700"
+            color="gray.800"
             paddingY={3}
             justifyContent="center"
             flexDirection="column"
@@ -35,7 +35,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             as={RouterLink}
             alignItems="center"
             borderRadius={0}
-            color="gray.700"
+            color="gray.800"
             justifyContent="center"
             paddingY={3}
             flexDirection="column"
@@ -48,7 +48,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             as={RouterLink}
             alignItems="center"
             borderRadius={0}
-            color="gray.700"
+            color="gray.800"
             paddingY={3}
             justifyContent="center"
             flexDirection="column"
@@ -64,7 +64,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             as={RouterLink}
             alignItems="center"
             borderRadius={0}
-            color="gray.700"
+            color="gray.800"
             justifyContent="center"
             paddingY={3}
             flexDirection="column"

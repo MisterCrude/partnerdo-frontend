@@ -1,41 +1,78 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta } from '@storybook/react/types-6-0';
 
-import { Container } from '@chakra-ui/react';
-import { withRouterDecorator } from '@utils/storybookDecorators';
-import { Card, IProps, Types } from './Card';
+import { Text, Heading as HeadingComponent, Box, Stack } from '@chakra-ui/react';
 
 export default {
-    argTypes: {
-        type: {
-            control: {
-                type: 'select',
-                options: [Types.DEFAULT, Types.EDITABLE, Types.UNPUBLISH],
-            },
+    component: Box,
+    title: 'Misc/Typography',
+    parameters: {
+        controls: {
+            disabled: true,
         },
+        layout: 'padded',
     },
-    args: {
-        address: 'Warszawa, Bemowo',
-        content:
-            'Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ...',
-        category: 'Sport',
-        publishDate: '01.10.2020',
-        title: 'Poszukuję partnera do głębokiego lenistwa',
-        type: Types.DEFAULT,
-        userAvatarUrl: 'https://bit.ly/sage-adebayo',
-        userName: 'Jan Baraban',
-        userSlogan: 'Kanapowy sportowiec i mamusin przystojniak',
-    },
-    component: Card,
-    decorators: [withRouterDecorator],
-    title: 'Components/Card',
 } as Meta;
 
-const Template: Story<IProps> = (args) => (
-    <Container maxW="4xl">
-        <Card {...args} />
-    </Container>
+export const TextSize: React.VFC = () => (
+    <Stack spacing={3}>
+        <Text fontSize="6xl">(6xl) In love with React & Next</Text>
+        <Text fontSize="5xl">(5xl) In love with React & Next</Text>
+        <Text fontSize="4xl">(4xl) In love with React & Next</Text>
+        <Text fontSize="3xl">(3xl) In love with React & Next</Text>
+        <Text fontSize="2xl">(2xl) In love with React & Next</Text>
+        <Text fontSize="xl">(xl) In love with React & Next</Text>
+        <Text fontSize="lg">(lg) In love with React & Next</Text>
+        <Text>(md / default) In love with React & Next</Text>
+        <Text fontSize="sm">(sm) In love with React & Next</Text>
+        <Text fontSize="xs">(xs) In love with React & Next</Text>
+    </Stack>
 );
 
-export const Default = Template.bind({});
-// Default.args = {};
+export const TextWeight: React.VFC = () => (
+    <Stack spacing={3}>
+        <Text fontWeight="light">(light) In love with React & Next</Text>
+        <Text>(normal / default) In love with React & Next</Text>
+        <Text fontWeight="bold">(bold) In love with React & Next</Text>
+    </Stack>
+);
+
+export const TextColor: React.VFC = () => (
+    <Stack spacing={3}>
+        <Text>(gray.800 / default) In love with React & Next</Text>
+        <Text color="gray.500">(gray.500) In love with React & Next</Text>
+        <Text color="gray.800">(bold) In love with React & Next</Text>
+        <Text color="tomato">(tomato) In love with React & Next</Text>
+        <Text color="green.500">(green.500) In love with React & Next</Text>
+        <Text color="orange.500">(orange.500) In love with React & Next</Text>
+    </Stack>
+);
+
+export const Heading: React.VFC = () => (
+    <Stack spacing={6}>
+        <HeadingComponent as="h1" size="4xl" isTruncated>
+            (4xl) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h2" size="3xl" isTruncated>
+            (3xl) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h2" size="2xl">
+            (2xl) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h2" size="xl">
+            (xl) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h3" size="lg">
+            (lg) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h4" size="md">
+            (md) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h5" size="sm">
+            (sm) In love with React & Next
+        </HeadingComponent>
+        <HeadingComponent as="h6" size="xs">
+            (xs) In love with React & Next
+        </HeadingComponent>
+    </Stack>
+);

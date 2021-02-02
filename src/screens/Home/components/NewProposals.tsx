@@ -16,7 +16,20 @@ export const NewOffers: React.FC = () => (
             {Array(3)
                 .fill('')
                 .map((_, i) => (
-                    <Card key={i} />
+                    <Card
+                        key={i}
+                        address="Warszawa, Bemowo"
+                        content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
+                        category="Sport"
+                        publishDate="01.10.2020"
+                        title="Poszukuję partnera do głębokiego lenistwa"
+                        userAvatarUrl="https://bit.ly/sage-adebayo"
+                        userName="Jan Baraban"
+                        userSlogan="Kanapowy sportowiec i mamusin przystojniak"
+                        onTitleClick={() => {
+                            return null;
+                        }}
+                    />
                 ))}
         </Grid>
 

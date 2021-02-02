@@ -18,7 +18,18 @@ const Results: React.FC<IProps> = ({ isAuth }) => {
 
     return (
         <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-            <Card onUserNameClick={handleUserClick} onTitleClick={handleTitleClick} />
+            <Card
+                address="Warszawa, Bemowo"
+                content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
+                category="Sport"
+                publishDate="01.10.2020"
+                title="Poszukuję partnera do głębokiego lenistwa"
+                userAvatarUrl="https://bit.ly/sage-adebayo"
+                userName="Jan Baraban"
+                userSlogan="Kanapowy sportowiec i mamusin przystojniak"
+                onUserNameClick={handleUserClick}
+                onTitleClick={handleTitleClick}
+            />
         </VStack>
     );
 };

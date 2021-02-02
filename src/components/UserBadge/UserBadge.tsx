@@ -14,7 +14,7 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, onClic
     return (
         <Flex {...styles}>
             <Avatar src={avatarUrl} />
-            <Box ml="3" overflow="hidden">
+            <Box ml="3">
                 <Text
                     d="inline"
                     fontWeight="bold"
@@ -23,9 +23,7 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, onClic
                 >
                     {title}
                 </Text>
-                <Text fontSize="sm" isTruncated d="flex">
-                    {subtitle}
-                </Text>
+                <Text fontSize="sm">{subtitle}</Text>
             </Box>
         </Flex>
     );

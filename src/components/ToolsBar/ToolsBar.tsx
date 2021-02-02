@@ -102,7 +102,7 @@ export const NotLoggedinSet: React.FC = () => (
 export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) => (
     <Box
         as="section"
-        boxShadow="xs"
+        shadow="xs"
         bottom={0}
         bgColor="white"
         d={mobileOnly ? { base: 'grid', md: 'none' } : { base: 'grid' }}

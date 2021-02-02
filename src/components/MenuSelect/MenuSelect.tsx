@@ -48,7 +48,7 @@ export const MenuSelect: React.FC<IProps> = ({ options, palceholder, height = '4
                     bgColor="white"
                     textAlign="left"
                     size="lg"
-                    shadow="base"
+                    shadow="md"
                     pl={4}
                     pr={3}
                     rightIcon={<ChevronDownIcon />}

@@ -7,21 +7,22 @@ import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag } from
 import { DeleteIcon, LocationIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 
-interface IProps {
+export interface IProps {
     newMessagesAmount?: number;
 }
 
-const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
+export const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
     const hasNewMessage = newMessagesAmount > 0;
 
     return (
         <Box
             as={RouterLink}
-            borderWidth={1}
-            borderRadius="lg"
             bgColor={newMessagesAmount ? 'gray.50' : 'white'}
-            pos="relative"
+            borderRadius="lg"
+            borderWidth={1}
+            d="flex"
             p={4}
+            pos="relative"
             to={`${ROUTES.CONVERSATIONS}/some-convs-id`}
         >
             {hasNewMessage && (

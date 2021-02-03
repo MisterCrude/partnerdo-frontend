@@ -1,29 +1,9 @@
 import React from 'react';
 
-import {
-    Box,
-    Badge,
-    Divider,
-    Flex,
-    Heading,
-    Tag,
-    Text,
-    IconButton,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-} from '@chakra-ui/react';
-import {
-    CalendarIcon,
-    DeleteIcon,
-    EditIcon,
-    LocationIcon,
-    DotsMenuIcon,
-    UnpublishIcon,
-    PublishIcon,
-} from '@theme/customIcons';
+import { Box, Badge, Divider, Flex, Heading, Tag, Text } from '@chakra-ui/react';
+import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
+import CardMenu from './CardMenu';
 
 export enum Types {
     DEFAULT = 'default',
@@ -35,14 +15,14 @@ export interface IProps {
     address: string;
     category: string;
     content: string;
+    onTitleClick: () => void;
     publishDate: string;
     title: string;
     userAvatarUrl: string;
     userName: string;
     userSlogan: string;
-    onTitleClick: () => void;
-    type?: Types;
     onUserNameClick?: () => void;
+    type?: Types;
 }
 
 export const Card: React.FC<IProps> = ({
@@ -50,17 +30,17 @@ export const Card: React.FC<IProps> = ({
     category,
     content,
     onTitleClick,
-    onUserNameClick,
     publishDate,
     title,
-    type,
     userAvatarUrl,
     userName,
     userSlogan,
+    type = Types.DEFAULT,
+    onUserNameClick,
 }) => {
     const isUnpublish = type === Types.UNPUBLISH;
-    const isEditable = type === Types.EDITABLE;
     const isDone = type === Types.DONE;
+    const showMenu = type !== Types.DEFAULT;
 
     return (
         <Box
@@ -72,6 +52,7 @@ export const Card: React.FC<IProps> = ({
             overflow="hidden"
             bgColor={isUnpublish || isDone ? 'gray.50' : 'transparent'}
         >
+            {/* Header */}
             <Flex align="center" px={{ base: 4, md: 6 }} py={4} justify="space-between">
                 <UserBadge
                     avatarUrl={userAvatarUrl}
@@ -81,42 +62,12 @@ export const Card: React.FC<IProps> = ({
                     title={userName}
                 />
 
-                {(isEditable || isUnpublish) && (
-                    <Menu>
-                        <MenuButton
-                            as={IconButton}
-                            aria-label="Menu"
-                            color="gray.800"
-                            d="flex"
-                            size="sm"
-                            fontSize={25}
-                            icon={<DotsMenuIcon />}
-                        />
-
-                        <MenuList>
-                            <MenuItem>
-                                <EditIcon mr={2} /> Edytuj
-                            </MenuItem>
-                            {isUnpublish && (
-                                <MenuItem>
-                                    <PublishIcon mr={2} /> Publikuj
-                                </MenuItem>
-                            )}
-                            {!isUnpublish && (
-                                <MenuItem>
-                                    <UnpublishIcon mr={2} /> Cofnij publikację
-                                </MenuItem>
-                            )}
-                            <MenuItem color="red.500">
-                                <DeleteIcon mr={2} /> Usuń
-                            </MenuItem>
-                        </MenuList>
-                    </Menu>
-                )}
+                {showMenu && <CardMenu typeOfSet={type} />}
             </Flex>
 
             <Divider />
 
+            {/* Contentent */}
             <Box px={{ base: 4, md: 6 }} py={4}>
                 {isUnpublish && (
                     <>
@@ -166,6 +117,7 @@ export const Card: React.FC<IProps> = ({
 
             <Divider />
 
+            {/* Footer */}
             <Box px={{ base: 4, md: 6 }} py={4}>
                 <Flex align="center" justify="space-between">
                     <Flex flexGrow={1} justify="flex-end">
@@ -175,39 +127,6 @@ export const Card: React.FC<IProps> = ({
                             </Box>
                         </Text>
                     </Flex>
-
-                    {/* {type === Types.EDITABLE && (
-                    <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
-                        <ModalFrame
-                            actionTitle="Tak, usuń"
-                            triggerIcon={<DeleteIcon color="tomato" />}
-                            buttonProps={{
-                                d: 'flex',
-                                fontSize: 20,
-                            }}
-                            modalTitle="Usuwanie partnerstwa"
-                            onAction={() => {
-                                console.log(1);
-                            }}
-                        >
-                            <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
-                        </ModalFrame>
-                        <ModalFrame
-                            triggerIcon={<EditIcon color="gray.800" />}
-                            buttonProps={{
-                                d: 'flex',
-                                fontSize: 20,
-                            }}
-                            modalTitle="Edycja partnerstwa"
-                            size="4xl"
-                            onAction={() => {
-                                console.log(1);
-                            }}
-                        >
-                            <ProposalEdit />
-                        </ModalFrame>
-                    </HStack>
-                )} */}
                 </Flex>
             </Box>
         </Box>

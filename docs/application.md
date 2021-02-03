@@ -22,11 +22,15 @@
 -   `theme/` - holds custom theme config for chakra UI
 -   `hooks/` - holds our custom React Hooks
 
-## `src/componenets/ExampleComponent`
+## `src/componenets/ExampleComponent/`
 
 -   `ExampleComponent.stories.tsx/` - strories used for generated storybooks
 -   `index.ts/` - entry point
 -   `ExampleComponent.tsx/` - component file
 -   `ExampleComponent.test.tsx/` - component tests file
 -   `AnotherComponent.tsx/` - some small component used `ExampleComponent`
--   `models.ts/` - types shared across components inside `ExampleComponent` dir
+-   `types.ts/` - types shared across components inside `ExampleComponent` dir
+
+## `src/screens/ExampleScreen/`
+
+-   `components` - put here components with used ONLY within current screen

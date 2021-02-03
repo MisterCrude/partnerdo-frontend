@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { Container } from '@chakra-ui/react';
 import { withRouterDecorator } from '@utils/storybookDecorators';
@@ -21,7 +21,6 @@ export default {
         category: 'Sport',
         publishDate: '01.10.2020',
         title: 'Poszukuję partnera do głębokiego lenistwa',
-        type: Types.DEFAULT,
         userAvatarUrl: 'https://bit.ly/sage-adebayo',
         userName: 'Jan Baraban',
         userSlogan: 'Kanapowy sportowiec i mamusin przystojniak',
@@ -38,3 +37,21 @@ const Template: Story<IProps> = (args) => (
 );
 
 export const Default = Template.bind({});
+Default.args = {
+    type: Types.DEFAULT,
+};
+
+export const Editable = Template.bind({});
+Editable.args = {
+    type: Types.EDITABLE,
+};
+
+export const Done = Template.bind({});
+Done.args = {
+    type: Types.DONE,
+};
+
+export const Unpublish = Template.bind({});
+Unpublish.args = {
+    type: Types.UNPUBLISH,
+};

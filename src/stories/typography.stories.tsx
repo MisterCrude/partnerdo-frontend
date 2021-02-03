@@ -14,7 +14,7 @@ export default {
     },
 } as Meta;
 
-export const TextSize: React.VFC = () => (
+export const TextSize: React.FC = () => (
     <Stack spacing={3}>
         <Text fontSize="6xl">(6xl) In love with React & Next</Text>
         <Text fontSize="5xl">(5xl) In love with React & Next</Text>
@@ -29,7 +29,7 @@ export const TextSize: React.VFC = () => (
     </Stack>
 );
 
-export const TextWeight: React.VFC = () => (
+export const TextWeight: React.FC = () => (
     <Stack spacing={3}>
         <Text fontWeight="light">(light) In love with React & Next</Text>
         <Text>(normal / default) In love with React & Next</Text>
@@ -37,7 +37,7 @@ export const TextWeight: React.VFC = () => (
     </Stack>
 );
 
-export const TextColor: React.VFC = () => (
+export const TextColor: React.FC = () => (
     <Stack spacing={3}>
         <Text>(gray.800 / default) In love with React & Next</Text>
         <Text color="gray.500">(gray.500) In love with React & Next</Text>
@@ -48,7 +48,7 @@ export const TextColor: React.VFC = () => (
     </Stack>
 );
 
-export const Heading: React.VFC = () => (
+export const Heading: React.FC = () => (
     <Stack spacing={6}>
         <HeadingComponent as="h1" size="4xl" isTruncated>
             (4xl) In love with React & Next

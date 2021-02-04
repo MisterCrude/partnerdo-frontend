@@ -13,7 +13,7 @@ interface IProps {
 const Results: React.FC<IProps> = ({ isAuth }) => {
     const history = useHistory();
 
-    const handleUserClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
+    const handleUserNameClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
     const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-proposal-id`);
 
     return (
@@ -27,7 +27,7 @@ const Results: React.FC<IProps> = ({ isAuth }) => {
                 userAvatarUrl="https://bit.ly/sage-adebayo"
                 userName="Jan Baraban"
                 userSlogan="Kanapowy sportowiec i mamusin przystojniak"
-                onUserNameClick={handleUserClick}
+                onUserNameClick={handleUserNameClick}
                 onTitleClick={handleTitleClick}
             />
         </VStack>

@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { Box, Badge, Divider, Flex, Heading, Tag, Text } from '@chakra-ui/react';
+import { Box, Badge, Divider, Flex, Heading, Tag, Text, MenuItem } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
-import CardMenu from './CardMenu';
+import { DeleteIcon, EditIcon, UnpublishIcon, PublishIcon } from '@theme/customIcons';
+
+import CardMenu from '@src/components/CardMenu';
 
 export enum Types {
     DEFAULT = 'default',
@@ -62,7 +64,29 @@ export const Card: React.FC<IProps> = ({
                     title={userName}
                 />
 
-                {showMenu && <CardMenu typeOfSet={type} />}
+                {showMenu && (
+                    <CardMenu>
+                        {!isDone && (
+                            <>
+                                <MenuItem>
+                                    <EditIcon mr={2} /> Edytuj
+                                </MenuItem>
+                                {isUnpublish ? (
+                                    <MenuItem>
+                                        <PublishIcon mr={2} /> Publikuj
+                                    </MenuItem>
+                                ) : (
+                                    <MenuItem>
+                                        <UnpublishIcon mr={2} /> Cofnij publikację
+                                    </MenuItem>
+                                )}
+                            </>
+                        )}
+                        <MenuItem color="red.500">
+                            <DeleteIcon mr={2} /> Usuń
+                        </MenuItem>
+                    </CardMenu>
+                )}
             </Flex>
 
             <Divider />

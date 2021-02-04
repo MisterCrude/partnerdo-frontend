@@ -1,29 +1,28 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
-import { ROUTES } from '@config/app';
-
-import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag } from '@chakra-ui/react';
+import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
 import { DeleteIcon, LocationIcon } from '@theme/customIcons';
-import ModalFrame from '@components/ModalFrame';
+import CardMenu from '@src/components/CardMenu';
+// import ModalFrame from '@components/ModalFrame';
 
 export interface IProps {
+    onTitleClick: () => void;
+    onUserNameClick: () => void;
     newMessagesAmount?: number;
 }
 
-export const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
+export const MessageBox: React.FC<IProps> = ({ onUserNameClick, onTitleClick, newMessagesAmount = 0 }) => {
     const hasNewMessage = newMessagesAmount > 0;
 
     return (
         <Box
-            as={RouterLink}
             bgColor={newMessagesAmount ? 'gray.50' : 'white'}
             borderRadius="lg"
             borderWidth={1}
             d="flex"
             p={4}
             pos="relative"
-            to={`${ROUTES.CONVERSATIONS}/some-convs-id`}
+            shadow="md"
         >
             {hasNewMessage && (
                 <Circle bgColor="tomato" color="white" fontWeight="bold" left={-3} pos="absolute" size={7} top={-3}>
@@ -31,22 +30,6 @@ export const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                 </Circle>
             )}
 
-            <Box pos="absolute" top={4} right={4}>
-                <ModalFrame
-                    actionTitle="Tak, usuń"
-                    triggerIcon={<DeleteIcon color="tomato" />}
-                    buttonProps={{
-                        d: 'flex',
-                        fontSize: 20,
-                    }}
-                    modalTitle="Usuwanie konwersacji"
-                    onAction={() => {
-                        console.log(1);
-                    }}
-                >
-                    <Text>Czy napawne checesz usunąć tą konwersację?</Text>
-                </ModalFrame>
-            </Box>
             <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
                 <AspectRatio w={110} maxW="100%" ration={1}>
                     <Image
@@ -61,20 +44,42 @@ export const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                 <Flex align="space-between" flexDir="column" flexGrow={1} justify="space-between">
                     <Flex align="flex-start" justify="space-between" mb={{ base: 1, md: 0 }}>
                         <Box>
-                            <Heading d="inline-block" size="md" mb={{ base: 3, md: 0 }}>
-                                Poszukuję partnera do głębokiego lenistwa{' '}
-                                <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
+                            <Flex align="center" flexWrap="wrap">
+                                <Heading
+                                    d="inline-block"
+                                    mr={2}
+                                    onClick={onTitleClick}
+                                    size="md"
+                                    _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                                >
+                                    Poszukuję partnera do głębokiego lenistwa
+                                </Heading>
+                                <Tag borderRadius="full" bgColor="orange.500" px={4} my={1} variant="solid">
                                     Sport
                                 </Tag>
-                            </Heading>
+                            </Flex>
 
                             <Text fontSize="md" color="gray.500">
                                 <LocationIcon pos="relative" top="-2px" /> Warszawa, Bemowo
                             </Text>
                         </Box>
+
+                        <Box ml={4}>
+                            <CardMenu>
+                                <MenuItem color="red.500">
+                                    <DeleteIcon mr={2} /> Usuń
+                                </MenuItem>
+                            </CardMenu>
+                        </Box>
                     </Flex>
                     <Flex align="center" justify="space-between">
-                        <Text fontSize="sm" fontWeight="bold" d={{ base: 'none', md: 'inline' }}>
+                        <Text
+                            d={{ base: 'none', md: 'inline' }}
+                            fontSize="sm"
+                            fontWeight="bold"
+                            onClick={onUserNameClick}
+                            _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                        >
                             Jan Baraban
                         </Text>
                         <Text as="span" color="gray.500" fontSize="sm">
@@ -88,3 +93,20 @@ export const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
 };
 
 export default MessageBox;
+
+/* <Box pos="absolute" top={4} right={4}>
+    <ModalFrame
+        actionTitle="Tak, usuń"
+        triggerIcon={<DeleteIcon color="tomato" />}
+        buttonProps={{
+            d: 'flex',
+            fontSize: 20,
+        }}
+        modalTitle="Usuwanie konwersacji"
+        onAction={() => {
+            console.log(1);
+        }}
+    >
+        <Text>Czy napawne checesz usunąć tą konwersację?</Text>
+    </ModalFrame>
+</Box>; */

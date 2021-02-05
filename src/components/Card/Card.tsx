@@ -69,15 +69,15 @@ export const Card: React.FC<IProps> = ({
                         {!isDone && (
                             <>
                                 <MenuItem>
-                                    <EditIcon mr={2} /> Edytuj
+                                    <EditIcon mr={2} fontSize="lg" /> Edytuj
                                 </MenuItem>
                                 {isUnpublish ? (
                                     <MenuItem>
-                                        <PublishIcon mr={2} /> Publikuj
+                                        <PublishIcon mr={2} fontSize="lg" /> Publikuj
                                     </MenuItem>
                                 ) : (
                                     <MenuItem>
-                                        <UnpublishIcon mr={2} /> Cofnij publikację
+                                        <UnpublishIcon mr={2} fontSize="lg" /> Cofnij publikację
                                     </MenuItem>
                                 )}
                             </>

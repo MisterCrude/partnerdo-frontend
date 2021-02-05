@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 
-import { DeleteIcon, UnpublishIcon, EditIcon } from '@theme/customIcons';
+import { EditIcon, UnpublishIcon, PublishIcon } from '@theme/customIcons';
 import { Container, MenuItem } from '@chakra-ui/react';
 import { CardMenu } from './CardMenu';
 
@@ -14,13 +14,13 @@ export const Default: React.FC = () => (
     <Container maxW="4xl">
         <CardMenu>
             <MenuItem>
-                <EditIcon mr={2} /> Edytuj
+                <EditIcon mr={2} fontSize="lg" /> Edytuj
             </MenuItem>
             <MenuItem>
-                <UnpublishIcon mr={2} /> Cofnij publikację
+                <PublishIcon mr={2} fontSize="lg" /> Publikuj
             </MenuItem>
-            <MenuItem color="red.500">
-                <DeleteIcon mr={2} /> Usuń
+            <MenuItem>
+                <UnpublishIcon mr={2} fontSize="lg" /> Cofnij publikację
             </MenuItem>
         </CardMenu>
     </Container>

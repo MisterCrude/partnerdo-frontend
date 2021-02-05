@@ -25,8 +25,18 @@ import {
     UseDisclosureProps,
     VStack,
 } from '@chakra-ui/react';
-import { CheckIcon, SmallAddIcon, HamburgerIcon, SettingsIcon } from '@chakra-ui/icons';
-import { ChatIcon, DangerIcon, MenuIcon, ProfileIcon, SearchIcon } from '@theme/customIcons';
+import { SmallAddIcon } from '@chakra-ui/icons';
+import {
+    ChatIcon,
+    DangerIcon,
+    LogoutIcon,
+    MenuIcon,
+    ProfileIcon,
+    ProposalsIcon,
+    SearchIcon,
+    SettingsIcon,
+    TickSquareIcon,
+} from '@theme/customIcons';
 import { BRAND_NAME, ROUTES } from '@config/app';
 
 interface IProps {
@@ -56,19 +66,22 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
             />
             <MenuList>
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE}>
-                    <SettingsIcon mr={2} />
-                    Profil
+                    <SettingsIcon mr={2} fontSize="lg" />
+                    Edycja profilu
                 </MenuItem>
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE_MY_PROPOSALS}>
-                    <HamburgerIcon mr={2} />
+                    <ProposalsIcon mr={2} fontSize="lg" />
                     Moje partnerstwa
                 </MenuItem>
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE_DONE_PROPOSALS}>
-                    <CheckIcon mr={2} />
+                    <TickSquareIcon mr={2} fontSize="lg" />
                     Zrealizowane partnerstwa
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={onLogout}>Wyloguj się</MenuItem>
+                <MenuItem onClick={onLogout}>
+                    <LogoutIcon mr={2} fontSize="lg" />
+                    Wyloguj się
+                </MenuItem>
             </MenuList>
         </Menu>
     </Box>

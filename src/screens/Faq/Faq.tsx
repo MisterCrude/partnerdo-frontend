@@ -29,8 +29,8 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                     Rejestracja
                 </Heading>
 
-                <Accordion allowToggle>
-                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
+                <Accordion allowMultiple>
+                    <AccordionItem>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -49,7 +49,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                         </AccordionPanel>
                     </AccordionItem>
 
-                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
+                    <AccordionItem>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -70,8 +70,8 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                     Coś tam jeszcze
                 </Heading>
 
-                <Accordion allowToggle>
-                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
+                <Accordion allowMultiple>
+                    <AccordionItem>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -85,7 +85,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                         </AccordionPanel>
                     </AccordionItem>
 
-                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
+                    <AccordionItem>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?
@@ -99,7 +99,7 @@ export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
                         </AccordionPanel>
                     </AccordionItem>
 
-                    <AccordionItem borderWidth={1} mb={4} borderRadius={10}>
+                    <AccordionItem>
                         <AccordionButton>
                             <Box flex="1" textAlign="left">
                                 Jak załoyć konto?

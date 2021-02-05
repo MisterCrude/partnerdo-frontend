@@ -30,7 +30,7 @@ export const MessageBox: React.FC<IProps> = ({ onUserNameClick, onTitleClick, ne
                 </Circle>
             )}
 
-            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+            <Stack direction={{ base: 'column', md: 'row' }} spacing={4} flexGrow={1}>
                 <AspectRatio w={110} maxW="100%" ration={1}>
                     <Image
                         alt="Jan Baraban"

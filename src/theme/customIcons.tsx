@@ -237,6 +237,38 @@ export const DotsMenuIcon: ReturnType<typeof createIcon> = createIcon({
     ),
 });
 
+export const SmallCloseIcon: ReturnType<typeof createIcon> = createIcon({
+    displayName: 'SmallCloseIcon',
+    path: (
+        <path
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M10.0473 8.98987C9.7537 8.77199 9.33703 8.79615 9.07074 9.06239C8.77781 9.35525 8.77777 9.83012 9.07063 10.123L10.9385 11.9913L9.07318 13.8565L9.00056 13.9407C8.78271 14.2343 8.80692 14.6509 9.07318 14.9172C9.36608 15.2101 9.84095 15.2101 10.1338 14.9172L11.999 13.052L13.8666 14.92L13.9507 14.9927C14.2443 15.2106 14.661 15.1864 14.9273 14.9202C15.2202 14.6273 15.2203 14.1524 14.9274 13.8595L13.0597 11.9914L14.9258 10.1252L14.9985 10.0411C15.2163 9.74747 15.1921 9.33081 14.9258 9.06454C14.6329 8.77165 14.1581 8.77165 13.8652 9.06454L11.9991 10.9306L10.1314 9.0625L10.0473 8.98987Z"
+        />
+    ),
+});
+
+export const SmallDangerIcon: ReturnType<typeof createIcon> = createIcon({
+    displayName: 'SmallDangerIcon',
+    path: (
+        <g>
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M11.75 8C12.1297 8 12.4435 8.31396 12.4932 8.7213L12.5 8.83454V12.284C12.5 12.7449 12.1642 13.1185 11.75 13.1185C11.3703 13.1185 11.0565 12.8046 11.0068 12.3972L11 12.284V8.83454C11 8.37364 11.3358 8 11.75 8Z"
+            />
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M11 15.4814C11 15.0207 11.336 14.6402 11.75 14.6402C12.164 14.6402 12.5 15.0085 12.5 15.4692V15.4814C12.5 15.9421 12.164 16.316 11.75 16.316C11.336 16.316 11 15.9421 11 15.4814Z"
+            />
+        </g>
+    ),
+});
+
 export const UnpublishIcon: ReturnType<typeof createIcon> = createIcon({
     displayName: 'UnpublishIcon',
     path: (

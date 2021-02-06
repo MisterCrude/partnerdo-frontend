@@ -11,7 +11,8 @@ export const CardMenu: React.FC = ({ children }) => (
             color="gray.800"
             d="flex"
             size="sm"
-            fontSize={25}
+            fontSize={35}
+            variant="unstyled"
             icon={<DotsMenuIcon />}
         />
 

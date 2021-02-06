@@ -110,16 +110,6 @@ export const Card: React.FC<IProps> = ({
                     </>
                 )}
                 <Heading alignItems="center" d="flex" size="md" flexWrap="wrap">
-                    <Box
-                        as="span"
-                        d="inline-block"
-                        cursor="pointer"
-                        mr={2}
-                        onClick={onTitleClick}
-                        _hover={{ textDecor: 'underline' }}
-                    >
-                        {title}
-                    </Box>
                     <Tag
                         bgColor="orange.500"
                         borderRadius="full"
@@ -130,6 +120,16 @@ export const Card: React.FC<IProps> = ({
                     >
                         {category}
                     </Tag>
+                    <Box
+                        as="span"
+                        d="inline-block"
+                        cursor="pointer"
+                        ml={2}
+                        onClick={onTitleClick}
+                        _hover={{ textDecor: 'underline' }}
+                    >
+                        {title}
+                    </Box>
                 </Heading>
 
                 <Box color="gray.500" mb={2}>

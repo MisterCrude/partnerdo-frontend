@@ -37,6 +37,8 @@ import {
     TravelIcon,
     UnpublishIcon,
     YoutubeIcon,
+    SmallCloseIcon,
+    SmallDangerIcon,
 } from '@theme/customIcons';
 import { Stack, SimpleGrid } from '@chakra-ui/react';
 
@@ -72,6 +74,8 @@ export const Outline: React.FC = () => (
         <UnpublishIcon />
         <PublishIcon />
         <FilterIcon />
+        <SmallCloseIcon />
+        <SmallDangerIcon />
     </SimpleGrid>
 );
 export const Categories: React.FC = () => (

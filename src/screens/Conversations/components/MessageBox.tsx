@@ -1,22 +1,46 @@
 import React from 'react';
 
 import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
-import { DeleteIcon, LocationIcon } from '@theme/customIcons';
+import { DeleteIcon, LocationIcon, SmallDangerIcon } from '@theme/customIcons';
 import CardMenu from '@src/components/CardMenu';
-// import ModalFrame from '@components/ModalFrame';
+
+export enum Types {
+    DEFAULT = 'default',
+    REJECTED = 'rejected',
+    SECONDARY = 'secondary',
+}
 
 export interface IProps {
+    category: string;
+    title: string;
+    userAvatarUrl: string;
+    userName: string;
     onTitleClick: () => void;
     onUserNameClick: () => void;
     newMessagesAmount?: number;
+    subtitle?: string;
+    type?: Types;
 }
 
-export const MessageBox: React.FC<IProps> = ({ onUserNameClick, onTitleClick, newMessagesAmount = 0 }) => {
+export const MessageBox: React.FC<IProps> = ({
+    title,
+    category,
+    userAvatarUrl,
+    userName,
+    onUserNameClick,
+    onTitleClick,
+    subtitle,
+    newMessagesAmount = 0,
+    type = Types.DEFAULT,
+}) => {
     const hasNewMessage = newMessagesAmount > 0;
+    const isRejected = type === Types.REJECTED;
+    const isSecondary = type === Types.SECONDARY;
 
     return (
         <Box
-            bgColor={newMessagesAmount ? 'gray.50' : 'white'}
+            bgColor={isRejected ? 'red.50' : 'white'}
+            borderColor={isRejected ? 'red.100' : 'inherit'}
             borderRadius="lg"
             borderWidth={1}
             d="flex"
@@ -24,19 +48,27 @@ export const MessageBox: React.FC<IProps> = ({ onUserNameClick, onTitleClick, ne
             pos="relative"
             shadow="md"
         >
-            {hasNewMessage && (
-                <Circle bgColor="tomato" color="white" fontWeight="bold" left={-3} pos="absolute" size={7} top={-3}>
-                    {newMessagesAmount}
+            {(hasNewMessage || isRejected) && (
+                <Circle
+                    bgColor={isRejected ? 'red.600' : 'orange.500'}
+                    color="white"
+                    fontWeight="bold"
+                    left={-3}
+                    pos="absolute"
+                    size={7}
+                    top={-3}
+                >
+                    {isRejected ? <SmallDangerIcon fontSize={38} /> : newMessagesAmount}
                 </Circle>
             )}
 
             <Stack direction={{ base: 'column', md: 'row' }} spacing={4} flexGrow={1}>
                 <AspectRatio w={110} maxW="100%" ration={1}>
                     <Image
-                        alt="Jan Baraban"
+                        alt={userName}
                         borderRadius={6}
                         objectFit="cover"
-                        src="https://bit.ly/sage-adebayo"
+                        src={userAvatarUrl}
                         fallbackSrc="https://via.placeholder.com/300"
                     />
                 </AspectRatio>
@@ -44,19 +76,33 @@ export const MessageBox: React.FC<IProps> = ({ onUserNameClick, onTitleClick, ne
                 <Flex align="space-between" flexDir="column" flexGrow={1} justify="space-between">
                     <Flex align="flex-start" justify="space-between" mb={{ base: 1, md: 0 }}>
                         <Box>
+                            {isSecondary && (
+                                <Text mb={1}>
+                                    <Box
+                                        as="strong"
+                                        mr={2}
+                                        onClick={onUserNameClick}
+                                        _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                                    >
+                                        {userName}
+                                    </Box>
+                                    {subtitle}
+                                </Text>
+                            )}
+
                             <Flex align="center" flexWrap="wrap">
+                                <Tag borderRadius="full" bgColor="orange.500" px={4} my={1} variant="solid">
+                                    {category}
+                                </Tag>
                                 <Heading
                                     d="inline-block"
-                                    mr={2}
+                                    ml={2}
                                     onClick={onTitleClick}
                                     size="md"
                                     _hover={{ cursor: 'pointer', textDecor: 'underline' }}
                                 >
-                                    Poszukuję partnera do głębokiego lenistwa
+                                    {title}
                                 </Heading>
-                                <Tag borderRadius="full" bgColor="orange.500" px={4} my={1} variant="solid">
-                                    Sport
-                                </Tag>
                             </Flex>
 
                             <Text fontSize="md" color="gray.500">
@@ -72,16 +118,19 @@ export const MessageBox: React.FC<IProps> = ({ onUserNameClick, onTitleClick, ne
                             </CardMenu>
                         </Box>
                     </Flex>
-                    <Flex align="center" justify="space-between">
-                        <Text
-                            d={{ base: 'none', md: 'inline' }}
-                            fontSize="sm"
-                            fontWeight="bold"
-                            onClick={onUserNameClick}
-                            _hover={{ cursor: 'pointer', textDecor: 'underline' }}
-                        >
-                            Jan Baraban
-                        </Text>
+                    <Flex align="center" justify={!isSecondary ? 'space-between' : 'flex-end'}>
+                        {!isSecondary && (
+                            <Text
+                                d={{ base: 'none', md: 'inline' }}
+                                fontSize="sm"
+                                fontWeight="bold"
+                                onClick={onUserNameClick}
+                                _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                            >
+                                {userName}
+                            </Text>
+                        )}
+
                         <Text as="span" color="gray.500" fontSize="sm">
                             <strong>Ostatnia wiadomość:</strong> 14:40
                         </Text>

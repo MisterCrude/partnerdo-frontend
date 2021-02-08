@@ -17,7 +17,7 @@ const MyProposals: React.FC = () => {
                     type={Types.EDITABLE}
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
-                    userSlogan="Kanapowy sportowiec i mamusin przystojniak"
+                    partDescription="Kawałek opisu z profilu bla bla..."
                     onTitleClick={() => {
                         return null;
                     }}
@@ -31,7 +31,7 @@ const MyProposals: React.FC = () => {
                     type={Types.EDITABLE}
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
-                    userSlogan="Kanapowy sportowiec i mamusin przystojniak"
+                    partDescription="Kawałek opisu z profilu bla bla..."
                     onTitleClick={() => {
                         return null;
                     }}
@@ -45,7 +45,7 @@ const MyProposals: React.FC = () => {
                     type={Types.UNPUBLISH}
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
-                    userSlogan="Kanapowy sportowiec i mamusin przystojniak"
+                    partDescription="Kawałek opisu z profilu bla bla..."
                     onTitleClick={() => {
                         return null;
                     }}

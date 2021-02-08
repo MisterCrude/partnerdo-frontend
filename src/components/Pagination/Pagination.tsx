@@ -7,37 +7,37 @@ export const Pagination: React.FC = () => (
     <HStack align="center" spacing={2}>
         <IconButton
             aria-label="Pagination button"
-            fontWeight="normal"
-            icon={<ChevronLeftIcon />}
-            minW={{ base: 9, md: 10 }}
-            h={{ base: 9, md: 10 }}
             fontSize={22}
+            fontWeight="normal"
+            h={{ base: 9, md: 10 }}
+            icon={<ChevronLeftIcon />}
             isRound
+            minW={{ base: 9, md: 10 }}
         />
         <IconButton
             aria-label="Pagination button"
             colorScheme="orange"
             fontWeight="normal"
-            minW={{ base: 9, md: 10 }}
             h={{ base: 9, md: 10 }}
             icon={<>1</>}
             isRound
+            minW={{ base: 9, md: 10 }}
         />
         <IconButton
             aria-label="Pagination button"
-            minW={{ base: 9, md: 10 }}
-            h={{ base: 9, md: 10 }}
             fontWeight="normal"
+            h={{ base: 9, md: 10 }}
             icon={<>2</>}
             isRound
+            minW={{ base: 9, md: 10 }}
         />
         <IconButton
             aria-label="Pagination button"
             fontWeight="normal"
-            minW={{ base: 9, md: 10 }}
             h={{ base: 9, md: 10 }}
             icon={<>3</>}
             isRound
+            minW={{ base: 9, md: 10 }}
         />
         <Box px={1} fontWeight="normal">
             ...
@@ -45,19 +45,19 @@ export const Pagination: React.FC = () => (
         <IconButton
             aria-label="Pagination button"
             fontWeight="normal"
-            minW={{ base: 9, md: 10 }}
             h={{ base: 9, md: 10 }}
             icon={<>5</>}
             isRound
+            minW={{ base: 9, md: 10 }}
         />
         <IconButton
             aria-label="Pagination button"
-            fontWeight="normal"
             fontSize={22}
-            minW={{ base: 9, md: 10 }}
+            fontWeight="normal"
             h={{ base: 9, md: 10 }}
             icon={<ChevronRightIcon />}
             isRound
+            minW={{ base: 9, md: 10 }}
         />
     </HStack>
 );

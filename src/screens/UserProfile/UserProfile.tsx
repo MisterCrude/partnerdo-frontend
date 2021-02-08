@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ROUTES } from '@config/app';
 
-import { AspectRatio, Box, Heading, Image, VStack, Stack, Text, Divider } from '@chakra-ui/react';
+import { AspectRatio, Box, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
 import Card from '@components/Card';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
@@ -32,12 +32,6 @@ export const UserProfile: React.FC = () => {
                     </Heading>
 
                     <Text color="gray.500" fontSize="sm">
-                        Kanapowy sportowiec i mamusin przystojniak
-                    </Text>
-
-                    <Divider my={3} />
-
-                    <Text mb={4} fontSize="sm">
                         Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję
                         partnera do głębokiego lenistwa Poszuk partnera
                     </Text>
@@ -55,7 +49,7 @@ export const UserProfile: React.FC = () => {
                             title="Poszukuję partnera do głębokiego lenistwa"
                             userAvatarUrl="https://bit.ly/sage-adebayo"
                             userName="Jan Baraban"
-                            userSlogan="Kanapowy sportowiec i mamusin przystojniak"
+                            partDescription="Kawałek opisu z profilu bla bla..."
                             onTitleClick={() => {
                                 return null;
                             }}

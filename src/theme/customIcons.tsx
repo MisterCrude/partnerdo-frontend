@@ -237,6 +237,42 @@ export const DotsMenuIcon: ReturnType<typeof createIcon> = createIcon({
     ),
 });
 
+export const CloseIcon: ReturnType<typeof createIcon> = createIcon({
+    displayName: 'CloseIcon',
+    path: (
+        <path
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M17.581 6.41895C17.0224 5.86035 16.1168 5.86035 15.5582 6.41895L11.9993 9.97782L8.44038 6.41872L8.28007 6.28032C7.72049 5.8651 6.92634 5.91115 6.41879 6.41851C5.86049 6.97661 5.86039 7.88156 6.41858 8.43978L9.97787 11.9993L6.41895 15.5582L6.28045 15.7186C5.86497 16.2786 5.91113 17.0732 6.41895 17.581C6.97755 18.1396 7.88322 18.1396 8.44182 17.581L12.0007 14.0222L15.5596 17.5813L15.7199 17.7197C16.2795 18.1349 17.0737 18.0888 17.5812 17.5815C18.1395 17.0234 18.1396 16.1184 17.5814 15.5602L14.0221 12.0007L17.581 8.44182L17.7195 8.2814C18.135 7.72142 18.0889 6.92677 17.581 6.41895Z"
+        />
+    ),
+});
+
+export const TickIcon: ReturnType<typeof createIcon> = createIcon({
+    displayName: 'TickIcon',
+    path: (
+        <path
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M17.3 7.39806C17.8307 6.86731 18.6912 6.86731 19.2219 7.39806C19.7044 7.88055 19.7483 8.63557 19.3535 9.16761L19.2219 9.32004L10.6219 17.9201C10.1395 18.4025 9.38458 18.4465 8.85253 18.0518L8.7001 17.9203L4.39826 13.6203C3.86741 13.0896 3.86722 12.2291 4.39785 11.6983C4.88024 11.2157 5.63526 11.1717 6.16738 11.5663L6.31984 11.6979L9.65926 15.0361L17.3 7.39806Z"
+        />
+    ),
+});
+
+export const SmallTickIcon: ReturnType<typeof createIcon> = createIcon({
+    displayName: 'SmallTickIcon',
+    path: (
+        <path
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M15.0296 9.09687C15.3224 8.80397 15.7973 8.80397 16.0902 9.09687C16.3565 9.36313 16.3807 9.7798 16.1628 10.0734L16.0902 10.1575L11.3442 14.9035C11.078 15.1698 10.6614 15.194 10.3678 14.9762L10.2837 14.9036L7.90966 12.5306C7.61671 12.2378 7.61661 11.7629 7.90944 11.47C8.17565 11.2037 8.59231 11.1794 8.88596 11.3972L8.9701 11.4698L10.813 13.312L15.0296 9.09687Z"
+        />
+    ),
+});
+
 export const SmallCloseIcon: ReturnType<typeof createIcon> = createIcon({
     displayName: 'SmallCloseIcon',
     path: (

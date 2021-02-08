@@ -131,7 +131,7 @@ export const MessageBox: React.FC<IProps> = ({
                             </Text>
                         )}
 
-                        <Text as="span" color="gray.500" fontSize="sm">
+                        <Text as="span" color="gray.500" fontSize="xs">
                             <strong>Ostatnia wiadomość:</strong> 14:40
                         </Text>
                     </Flex>

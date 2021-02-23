@@ -1,148 +1,158 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
-
-import { Box, Divider, Flex, Heading, Tag, Text, HStack, SimpleGrid } from '@chakra-ui/react';
-import { CalendarIcon, DeleteIcon, EditIcon, LocationIcon, ShowIcon } from '@theme/customIcons';
-import { Link as RouterLink } from 'react-router-dom';
-import ModalFrame from '@components/ModalFrame';
+import { Box, Badge, Divider, Flex, Heading, Tag, Text, MenuItem } from '@chakra-ui/react';
+import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
-import ProposalEdit from '@components/ProposalEdit';
+import { DeleteIcon, EditIcon, UnpublishIcon, PublishIcon } from '@theme/customIcons';
 
-interface IProps {
-    userId?: string;
-    isHeadLess?: boolean;
-    isEditable?: boolean;
+import CardMenu from '@src/components/CardMenu';
+
+export enum Types {
+    DEFAULT = 'default',
+    EDITABLE = 'editable',
+    UNPUBLISH = 'unpublish',
+    DONE = 'done',
+}
+export interface IProps {
+    address: string;
+    category: string;
+    content: string;
+    onTitleClick: () => void;
+    publishDate: string;
+    title: string;
+    userAvatarUrl: string;
+    userName: string;
+    partDescription: string;
+    onUserNameClick?: () => void;
+    type?: Types;
 }
 
-export const Card: React.FC<IProps> = ({ isEditable = false, isHeadLess = false, userId }) => (
-    <Box borderWidth={1} borderRadius="lg" d="block" maxW="100%" overflow="hidden">
-        {!isHeadLess && (
+export const Card: React.FC<IProps> = ({
+    address,
+    category,
+    content,
+    onTitleClick,
+    publishDate,
+    title,
+    userAvatarUrl,
+    userName,
+    partDescription,
+    type = Types.DEFAULT,
+    onUserNameClick,
+}) => {
+    const isUnpublish = type === Types.UNPUBLISH;
+    const isDone = type === Types.DONE;
+    const showMenu = type !== Types.DEFAULT;
+
+    return (
+        <Box
+            shadow="md"
+            borderWidth={1}
+            borderRadius="lg"
+            d="block"
+            maxW="100%"
+            overflow="hidden"
+            bgColor={isUnpublish || isDone ? 'gray.50' : 'transparent'}
+        >
+            {/* Header */}
             <Flex align="center" px={{ base: 4, md: 6 }} py={4} justify="space-between">
                 <UserBadge
-                    avatarUrl="https://bit.ly/sage-adebayo"
-                    title="Jan Baraban"
-                    userId={userId}
-                    subtitle={
-                        <Box as="span" color="gray.500" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
-                            Kanapowy sportowiec i mamusin przystojniak
-                        </Box>
-                    }
+                    avatarUrl={userAvatarUrl}
+                    onClick={onUserNameClick}
+                    styles={isUnpublish || isDone ? { filter: 'grayscale(100%)', mr: 4 } : { mr: 4 }}
+                    subtitle={partDescription}
+                    title={userName}
                 />
-            </Flex>
-        )}
 
-        <Divider />
-
-        <Box px={{ base: 4, md: 6 }} py={4}>
-            <Box mb={{ base: 1, md: 0 }}>
-                <Heading
-                    as={RouterLink}
-                    d="inline"
-                    size="md"
-                    to={`${ROUTES.PROPOSALS}/some-proposal-id`}
-                    _hover={{ textDecor: 'underline' }}
-                >
-                    Poszukuję partnera do głębokiego lenistwa
-                </Heading>{' '}
-                <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
-                    Sport
-                </Tag>
-            </Box>
-
-            <Box color="gray.500" mb={2}>
-                <LocationIcon /> Warszawa, Bemowo
-            </Box>
-
-            <Text mb={2} fontSize="sm">
-                Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera
-                do głębokiego lenistwa Poszuk partnera ...
-            </Text>
-        </Box>
-
-        <Divider />
-
-        <Box px={{ base: 4, md: 6 }} py={4}>
-            <Flex align="center" justify="space-between">
-                <Flex flexGrow={1} justify="space-between" mr={isEditable ? 6 : 0}>
-                    <Text as="span" align="center" color="gray.500" fontSize="sm">
-                        34 <ShowIcon ml={1} fontSize="md" />
-                    </Text>
-                    <Text as="span" align="center">
-                        <Box as="span" color="gray.500" fontSize="sm">
-                            01.12.2020 <CalendarIcon ml={1} fontSize="md" />
-                        </Box>
-                    </Text>
-                </Flex>
-
-                {isEditable && (
-                    <HStack spacing={3} d={{ base: 'none', md: 'flex' }}>
-                        <ModalFrame
-                            actionTitle="Tak, usuń"
-                            triggerIcon={<DeleteIcon color="red.500" />}
-                            buttonProps={{
-                                d: 'flex',
-                                fontSize: 20,
-                            }}
-                            modalTitle="Usuwanie partnerstwa"
-                            onAction={() => {
-                                console.log(1);
-                            }}
-                        >
-                            <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
-                        </ModalFrame>
-                        <ModalFrame
-                            triggerIcon={<EditIcon color="gray.800" />}
-                            buttonProps={{
-                                d: 'flex',
-                                fontSize: 20,
-                            }}
-                            modalTitle="Edycja partnerstwa"
-                            size="4xl"
-                            onAction={() => {
-                                console.log(1);
-                            }}
-                        >
-                            <ProposalEdit />
-                        </ModalFrame>
-                    </HStack>
+                {showMenu && (
+                    <CardMenu>
+                        {!isDone && (
+                            <>
+                                <MenuItem>
+                                    <EditIcon mr={2} fontSize="lg" /> Edytuj
+                                </MenuItem>
+                                {isUnpublish ? (
+                                    <MenuItem>
+                                        <PublishIcon mr={2} fontSize="lg" /> Publikuj
+                                    </MenuItem>
+                                ) : (
+                                    <MenuItem>
+                                        <UnpublishIcon mr={2} fontSize="lg" /> Cofnij publikację
+                                    </MenuItem>
+                                )}
+                            </>
+                        )}
+                        <MenuItem color="red.500">
+                            <DeleteIcon mr={2} /> Usuń
+                        </MenuItem>
+                    </CardMenu>
                 )}
             </Flex>
-        </Box>
 
-        {isEditable && (
-            <Box d={{ base: 'block', md: 'none' }} px={{ base: 4, md: 6 }} pb={4}>
-                <SimpleGrid spacing={6} d={{ base: 'grid', md: 'none' }} templateColumns="repeat(2, 1fr)">
-                    <ModalFrame
-                        actionTitle="Tak, usuń"
-                        triggerIcon={<DeleteIcon color="red.500" />}
-                        buttonProps={{
-                            d: 'flex',
-                            fontSize: 20,
-                        }}
-                        modalTitle="Usuwanie partnerstwa"
-                        onAction={() => {
-                            console.log(1);
-                        }}
+            <Divider />
+
+            {/* Contentent */}
+            <Box px={{ base: 4, md: 6 }} py={4}>
+                {isUnpublish && (
+                    <>
+                        <Badge mb={2} colorScheme="orange" variant="solid">
+                            Wersja robocza
+                        </Badge>
+                        <br />
+                    </>
+                )}
+                {isDone && (
+                    <>
+                        <Badge mb={2} colorScheme="green" variant="solid">
+                            Zrealizowane
+                        </Badge>
+                        <br />
+                    </>
+                )}
+                <Heading alignItems="center" d="flex" size="md" flexWrap="wrap">
+                    <Tag
+                        bgColor="orange.500"
+                        borderRadius="full"
+                        filter={isUnpublish || isDone ? 'grayscale(100%)' : 'grayscale(0)'}
+                        my={1}
+                        px={4}
+                        variant="solid"
                     >
-                        <Text>Czy napawne checesz usunąć to partnerstwo?</Text>
-                    </ModalFrame>
-                    <ModalFrame
-                        triggerIcon={<EditIcon color="gray.800" />}
-                        buttonProps={{
-                            d: 'flex',
-                            fontSize: 20,
-                        }}
-                        modalTitle="Edycja partnerstwa"
-                        size="4xl"
-                        onAction={() => {
-                            console.log(1);
-                        }}
+                        {category}
+                    </Tag>
+                    <Box
+                        as="span"
+                        d="inline-block"
+                        cursor="pointer"
+                        ml={2}
+                        onClick={onTitleClick}
+                        _hover={{ textDecor: 'underline' }}
                     >
-                        <ProposalEdit />
-                    </ModalFrame>
-                </SimpleGrid>
+                        {title}
+                    </Box>
+                </Heading>
+
+                <Box color="gray.500" mb={2}>
+                    <LocationIcon mt={-1} /> {address}
+                </Box>
+
+                <Text mb={2}>{content}</Text>
             </Box>
-        )}
-    </Box>
-);
+
+            <Divider />
+
+            {/* Footer */}
+            <Box px={{ base: 4, md: 6 }} py={4}>
+                <Flex align="center" justify="space-between">
+                    <Flex flexGrow={1} justify="flex-end">
+                        <Text as="span" align="center">
+                            <Box as="span" color="gray.500" fontSize="sm">
+                                {publishDate} <CalendarIcon ml={1} mt={-1} fontSize="md" />
+                            </Box>
+                        </Text>
+                    </Flex>
+                </Flex>
+            </Box>
+        </Box>
+    );
+};

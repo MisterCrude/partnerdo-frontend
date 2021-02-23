@@ -1,4 +1,4 @@
-import { IProposalCategory } from '@models/proposal';
+import { IProposalCategoryIcon } from '@models/proposal';
 
 import {
     BusinessColoredIcon,
@@ -21,7 +21,7 @@ import {
 
 export const BRAND_NAME = 'partnerDo.pl';
 
-export const CATEGORIES_DATA: IProposalCategory[] = [
+export const CATEGORIES_DATA: IProposalCategoryIcon[] = [
     // https://www.flaticon.com/free-icon/guitar_2892205?term=guitar&page=1&position=13&related_item_id=2892205
     // https://www.flaticon.com/packs/retail-10?k=1607802870403
     {

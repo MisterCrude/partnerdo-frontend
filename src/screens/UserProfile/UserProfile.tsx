@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ROUTES } from '@config/app';
 
-import { AspectRatio, Box, Heading, Image, VStack, Stack, Text, Divider } from '@chakra-ui/react';
+import { AspectRatio, Box, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
 import Card from '@components/Card';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
@@ -32,36 +32,28 @@ export const UserProfile: React.FC = () => {
                     </Heading>
 
                     <Text color="gray.500" fontSize="sm">
-                        Kanapowy sportowiec i mamusin przystojniak
-                    </Text>
-
-                    <Divider my={3} />
-
-                    <Text mb={4} fontSize="sm">
                         Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję
                         partnera do głębokiego lenistwa Poszuk partnera
                     </Text>
-
-                    {/* <Button
-                        bgColor="gray.800"
-                        color="white"
-                        variant="solid"
-                        rightIcon={<ChatIcon />}
-                        _active={{ bgColor: 'gray.800' }}
-                        _hover={{ bgColor: 'gray.600' }}
-                    >
-                        Wyślij wiadomość
-                    </Button> */}
                 </Box>
                 <Box flexGrow={1}>
                     <Heading as="h2" size="lg" mb={{ base: 4, md: 8 }}>
                         Aktualne partnerstwa
                     </Heading>
                     <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-                        <Card isHeadLess />
-                        <Card isHeadLess />
-                        <Card isHeadLess />
-                        <Card isHeadLess />
+                        <Card
+                            address="Warszawa, Bemowo"
+                            content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
+                            category="Sport"
+                            publishDate="01.10.2020"
+                            title="Poszukuję partnera do głębokiego lenistwa"
+                            userAvatarUrl="https://bit.ly/sage-adebayo"
+                            userName="Jan Baraban"
+                            partDescription="Kawałek opisu z profilu bla bla..."
+                            onTitleClick={() => {
+                                return null;
+                            }}
+                        />
                     </VStack>
                 </Box>
             </Stack>

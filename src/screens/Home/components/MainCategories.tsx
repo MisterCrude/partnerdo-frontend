@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CATEGORIES_DATA, ROUTES } from '@config/app';
-import { IProposalCategory } from '@models/proposal';
+import { IProposalCategoryIcon } from '@models/proposal';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
@@ -20,7 +20,7 @@ const MainCategories: React.FC = () => (
             templateColumns={{ base: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(5, 1fr)' }}
             w="100%"
         >
-            {CATEGORIES_DATA.map(({ name, iconColored: Icon }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ name, iconColored: Icon }: IProposalCategoryIcon) => (
                 <Flex
                     as={RouterLink}
                     alignItems="center"

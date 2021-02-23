@@ -10,16 +10,7 @@ export interface IProps extends IUser {
     someField?: boolean;
 }
 
-const EditForm: React.FC<IProps> = ({
-    avatar,
-    birthYear,
-    description,
-    email,
-    firstName,
-    lastName,
-    shortDescription,
-    username,
-}) => {
+const EditForm: React.FC<IProps> = ({ avatar, birthYear, description, email, firstName, lastName, username }) => {
     return (
         <Box d={{ base: 'block', md: 'flex' }}>
             <Box mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }} mx={{ base: 'auto' }} w={300} maxW="100%">
@@ -79,7 +70,7 @@ const EditForm: React.FC<IProps> = ({
                                 type="text"
                             />
                             {/* {errors.username && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.username.message}
                     </Text>
                 )} */}
@@ -98,7 +89,7 @@ const EditForm: React.FC<IProps> = ({
                                 placeholder="Powtórz nowe hasło"
                             />
                             {/* {errors.username && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.username.message}
                     </Text>
                 )} */}
@@ -140,7 +131,7 @@ const EditForm: React.FC<IProps> = ({
                         value={username}
                     />
                     {/* {errors.username && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.username.message}
                     </Text>
                 )} */}
@@ -159,7 +150,7 @@ const EditForm: React.FC<IProps> = ({
                         value={email}
                     />
                     {/* {errors.email && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.email.message}
                     </Text>
                 )} */}
@@ -178,7 +169,7 @@ const EditForm: React.FC<IProps> = ({
                         value={birthYear}
                     />
                     {/* {errors.email && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.email.message}
                     </Text>
                 )} */}
@@ -197,7 +188,7 @@ const EditForm: React.FC<IProps> = ({
                         value={firstName || ''}
                     />
                     {/* {errors.email && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.email.message}
                     </Text>
                 )} */}
@@ -216,28 +207,7 @@ const EditForm: React.FC<IProps> = ({
                         value={lastName || ''}
                     />
                     {/* {errors.email && (
-                    <Text color="tomato" fontSize={15}>
-                        {errors.email.message}
-                    </Text>
-                )} */}
-                </Box>
-                <Box mb={{ base: 4, md: 8 }}>
-                    <Textarea
-                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
-                        // borderWidth={errors.username ? 1 : 0}
-                        // ref={register}
-                        borderWidth={0}
-                        h={20}
-                        name="shortDescription"
-                        placeholder="Krótki opis"
-                        resize="none"
-                        shadow="base"
-                        size="lg"
-                        type="text"
-                        value={shortDescription || ''}
-                    />
-                    {/* {errors.email && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.email.message}
                     </Text>
                 )} */}
@@ -258,7 +228,7 @@ const EditForm: React.FC<IProps> = ({
                         value={description || ''}
                     />
                     {/* {errors.email && (
-                    <Text color="tomato" fontSize={15}>
+                    <Text color="tomato" fontSize="sm">
                         {errors.email.message}
                     </Text>
                 )} */}

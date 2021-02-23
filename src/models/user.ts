@@ -7,18 +7,11 @@ export interface IUser {
     id: string;
     lastName: string;
     sex: string;
-    shortDescription: string;
     username: string;
 }
 
-export interface IUserState {
-    data: IUser;
-    isAuth: boolean;
-    fetching: boolean;
-}
-
-export interface ITokenResponce {
+export interface ITokenResponse {
     key: string;
 }
 
-export type IUserResponce = IUser;
+export type IUserResponse = IUser;

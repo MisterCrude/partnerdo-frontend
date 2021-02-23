@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { CATEGORIES_DATA } from '@config/app';
-import { IProposalCategory } from '@models/proposal';
+import { IProposalCategoryIcon } from '@models/proposal';
 
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
@@ -19,7 +19,7 @@ export const StepOne = () => {
             w="100%"
             justifyItems="center"
         >
-            {CATEGORIES_DATA.map(({ name, iconStroked: Icon }: IProposalCategory) => (
+            {CATEGORIES_DATA.map(({ name, iconStroked: Icon }: IProposalCategoryIcon) => (
                 <Flex
                     borderRadius="md"
                     cursor="pointer"

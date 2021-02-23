@@ -1,58 +1,74 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
-import { ROUTES } from '@config/app';
+import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
+import { DeleteIcon, LocationIcon, SmallDangerIcon } from '@theme/customIcons';
+import CardMenu from '@src/components/CardMenu';
 
-import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag } from '@chakra-ui/react';
-import { DeleteIcon, LocationIcon } from '@theme/customIcons';
-import ModalFrame from '@components/ModalFrame';
-
-interface IProps {
-    newMessagesAmount?: number;
+export enum Types {
+    DEFAULT = 'default',
+    REJECTED = 'rejected',
+    SECONDARY = 'secondary',
 }
 
-const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
+export interface IProps {
+    category: string;
+    title: string;
+    userAvatarUrl: string;
+    userName: string;
+    onTitleClick: () => void;
+    onUserNameClick: () => void;
+    newMessagesAmount?: number;
+    subtitle?: string;
+    type?: Types;
+}
+
+export const MessageBox: React.FC<IProps> = ({
+    title,
+    category,
+    userAvatarUrl,
+    userName,
+    onUserNameClick,
+    onTitleClick,
+    subtitle,
+    newMessagesAmount = 0,
+    type = Types.DEFAULT,
+}) => {
     const hasNewMessage = newMessagesAmount > 0;
+    const isRejected = type === Types.REJECTED;
+    const isSecondary = type === Types.SECONDARY;
 
     return (
         <Box
-            as={RouterLink}
-            borderWidth={1}
+            bgColor={isRejected ? 'red.50' : 'white'}
+            borderColor={isRejected ? 'red.100' : 'inherit'}
             borderRadius="lg"
-            bgColor={newMessagesAmount ? 'gray.50' : 'white'}
-            pos="relative"
+            borderWidth={1}
+            d="flex"
             p={4}
-            to={`${ROUTES.CONVERSATIONS}/some-convs-id`}
+            pos="relative"
+            shadow="md"
         >
-            {hasNewMessage && (
-                <Circle bgColor="tomato" color="white" fontWeight="bold" left={-3} pos="absolute" size={7} top={-3}>
-                    {newMessagesAmount}
+            {(hasNewMessage || isRejected) && (
+                <Circle
+                    bgColor={isRejected ? 'red.600' : 'orange.500'}
+                    color="white"
+                    fontWeight="bold"
+                    left={-3}
+                    pos="absolute"
+                    size={7}
+                    top={-3}
+                >
+                    {isRejected ? <SmallDangerIcon fontSize={38} /> : newMessagesAmount}
                 </Circle>
             )}
 
-            <Box pos="absolute" top={4} right={4}>
-                <ModalFrame
-                    actionTitle="Tak, usuń"
-                    triggerIcon={<DeleteIcon color="red.500" />}
-                    buttonProps={{
-                        d: 'flex',
-                        fontSize: 20,
-                    }}
-                    modalTitle="Usuwanie konwersacji"
-                    onAction={() => {
-                        console.log(1);
-                    }}
-                >
-                    <Text>Czy napawne checesz usunąć tą konwersację?</Text>
-                </ModalFrame>
-            </Box>
-            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+            <Stack direction={{ base: 'column', md: 'row' }} spacing={4} flexGrow={1}>
                 <AspectRatio w={110} maxW="100%" ration={1}>
                     <Image
-                        alt="Jan Baraban"
+                        alt={userName}
                         borderRadius={6}
                         objectFit="cover"
-                        src="https://bit.ly/sage-adebayo"
+                        src={userAvatarUrl}
                         fallbackSrc="https://via.placeholder.com/300"
                     />
                 </AspectRatio>
@@ -60,23 +76,62 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
                 <Flex align="space-between" flexDir="column" flexGrow={1} justify="space-between">
                     <Flex align="flex-start" justify="space-between" mb={{ base: 1, md: 0 }}>
                         <Box>
-                            <Heading d="inline-block" size="md" mb={{ base: 3, md: 0 }}>
-                                Poszukuję partnera do głębokiego lenistwa{' '}
-                                <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
-                                    Sport
+                            {isSecondary && (
+                                <Text mb={1}>
+                                    <Box
+                                        as="strong"
+                                        mr={2}
+                                        onClick={onUserNameClick}
+                                        _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                                    >
+                                        {userName}
+                                    </Box>
+                                    {subtitle}
+                                </Text>
+                            )}
+
+                            <Flex align="center" flexWrap="wrap">
+                                <Tag borderRadius="full" bgColor="orange.500" px={4} my={1} variant="solid">
+                                    {category}
                                 </Tag>
-                            </Heading>
+                                <Heading
+                                    d="inline-block"
+                                    ml={2}
+                                    onClick={onTitleClick}
+                                    size="md"
+                                    _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                                >
+                                    {title}
+                                </Heading>
+                            </Flex>
 
                             <Text fontSize="md" color="gray.500">
                                 <LocationIcon pos="relative" top="-2px" /> Warszawa, Bemowo
                             </Text>
                         </Box>
+
+                        <Box ml={4}>
+                            <CardMenu>
+                                <MenuItem color="red.500">
+                                    <DeleteIcon mr={2} /> Usuń
+                                </MenuItem>
+                            </CardMenu>
+                        </Box>
                     </Flex>
-                    <Flex align="center" justify="space-between">
-                        <Text fontSize="sm" fontWeight="bold" d={{ base: 'none', md: 'inline' }}>
-                            Jan Baraban
-                        </Text>
-                        <Text as="span" color="gray.500" fontSize="sm">
+                    <Flex align="center" justify={!isSecondary ? 'space-between' : 'flex-end'}>
+                        {!isSecondary && (
+                            <Text
+                                d={{ base: 'none', md: 'inline' }}
+                                fontSize="sm"
+                                fontWeight="bold"
+                                onClick={onUserNameClick}
+                                _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                            >
+                                {userName}
+                            </Text>
+                        )}
+
+                        <Text as="span" color="gray.500" fontSize="xs">
                             <strong>Ostatnia wiadomość:</strong> 14:40
                         </Text>
                     </Flex>
@@ -87,3 +142,20 @@ const MessageBox: React.FC<IProps> = ({ newMessagesAmount = 0 }) => {
 };
 
 export default MessageBox;
+
+/* <Box pos="absolute" top={4} right={4}>
+    <ModalFrame
+        actionTitle="Tak, usuń"
+        triggerIcon={<DeleteIcon color="tomato" />}
+        buttonProps={{
+            d: 'flex',
+            fontSize: 20,
+        }}
+        modalTitle="Usuwanie konwersacji"
+        onAction={() => {
+            console.log(1);
+        }}
+    >
+        <Text>Czy napawne checesz usunąć tą konwersację?</Text>
+    </ModalFrame>
+</Box>; */

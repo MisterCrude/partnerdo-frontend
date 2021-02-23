@@ -15,7 +15,7 @@ export const Footer: React.FC = () => (
         paddingBottom={{ base: 24, md: 8 }}
     >
         <Flex align="center" flexDir="column" mb={7}>
-            <Heading as="h2" color="gray.400" marginBottom={2} size="lg" textAlign="center">
+            <Heading as="h2" color="gray.500" marginBottom={2} size="lg" textAlign="center">
                 {BRAND_NAME}
             </Heading>
             <SimpleGrid as="nav" columns={3} spacing={4} maxW="10rem">

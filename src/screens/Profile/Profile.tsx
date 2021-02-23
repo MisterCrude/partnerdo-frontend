@@ -16,6 +16,7 @@ const LINKS = [
     {
         crumbs: [{ title: 'Strona główna', link: ROUTES.PROPOSALS }],
         title: 'Profil',
+        tabTitle: 'Edycja profilu',
         link: ROUTES.PROFILE,
     },
     {
@@ -23,6 +24,7 @@ const LINKS = [
             { title: 'Strona główna', link: ROUTES.PROPOSALS },
             { title: 'Profil', link: ROUTES.PROFILE },
         ],
+        tabTitle: 'Moje partnerstwa',
         title: 'Moje partnerstwa',
         link: ROUTES.PROFILE_MY_PROPOSALS,
     },
@@ -31,6 +33,7 @@ const LINKS = [
             { title: 'Strona główna', link: ROUTES.PROPOSALS },
             { title: 'Profil', link: ROUTES.PROFILE },
         ],
+        tabTitle: 'Zrealizowane partnerstwa',
         title: 'Zrealizowane partnerstwa',
         link: ROUTES.PROFILE_DONE_PROPOSALS,
     },
@@ -49,7 +52,7 @@ export const Profile: React.FC = () => {
 
             <Flex mx={{ base: -4, sm: 0 }} pl={{ base: 8, sm: 0 }} pb={{ base: 2, sm: 0 }} overflowX={{ base: 'auto' }}>
                 <Box>
-                    {LINKS.map(({ title, link }) => (
+                    {LINKS.map(({ tabTitle, link }) => (
                         <Link
                             _last={{ mr: { base: 10, sm: 8 } }}
                             _focus={{
@@ -63,7 +66,7 @@ export const Profile: React.FC = () => {
                             to={link}
                             whiteSpace="nowrap"
                         >
-                            {title}
+                            {tabTitle}
                         </Link>
                     ))}
                 </Box>

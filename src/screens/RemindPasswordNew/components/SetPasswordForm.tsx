@@ -60,7 +60,7 @@ const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => 
                     shadow="base"
                 />
                 {errors.password2 && (
-                    <Text color="tomato" fontSize={15} mt={1}>
+                    <Text color="tomato" fontSize="sm" mt={1}>
                         {errors.password2.message}
                     </Text>
                 )}

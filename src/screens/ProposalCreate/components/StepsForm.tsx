@@ -27,11 +27,16 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, o
 
             <HStack spacing={8} justify="space-between">
                 {currentStep < 1 ? (
-                    <Button onClick={onCancel} flexGrow={{ base: 1, md: 0 }}>
+                    <Button onClick={onCancel} flexGrow={{ base: 1, md: 0 }} variant="unstyled">
                         Anuluj
                     </Button>
                 ) : (
-                    <Button flexGrow={{ base: 1, md: 0 }} onClick={() => onGo(true)} leftIcon={<ChevronLeftIcon />}>
+                    <Button
+                        flexGrow={{ base: 1, md: 0 }}
+                        leftIcon={<ChevronLeftIcon />}
+                        onClick={() => onGo(true)}
+                        variant="unstyled"
+                    >
                         Wstecz
                     </Button>
                 )}
@@ -44,10 +49,10 @@ export const StepsForm: React.FC<IProps> = ({ currentStep, lastStep, onSubmit, o
                     <Button
                         bgColor="gray.800"
                         color="white"
-                        variant="outline"
                         flexGrow={{ base: 1, md: 0 }}
                         onClick={() => onGo()}
                         rightIcon={<ChevronRightIcon />}
+                        variant="outline"
                         _active={{ bgColor: 'gray.800' }}
                         _hover={{ bgColor: 'gray.600' }}
                     >

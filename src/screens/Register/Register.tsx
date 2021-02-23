@@ -35,7 +35,7 @@ export const Register: React.FC = () => {
             <RegisterFrom onSubmit={handleSubmitForm} isFetching={isFetching} />
 
             <Text fontSize="sm" color="gray.500">
-                <Text as="span" color="red.600" mr={1}>
+                <Text as="span" color="tomato" mr={1}>
                     *
                 </Text>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda id sit nihil obcaecati fugit nisi

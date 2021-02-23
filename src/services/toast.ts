@@ -7,7 +7,7 @@ const toast = (duration?: number | undefined, position?: TPosition | undefined) 
 
     return ({ status, title, message }: Omit<IToast, 'timestamp'>) =>
         toast({
-            position: position ?? 'top-right',
+            position: position ?? 'top-left',
             title,
             description: message,
             status,

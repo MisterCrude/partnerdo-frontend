@@ -4,10 +4,16 @@ import { capitalize } from 'lodash/fp';
 
 import { BACKEND_ROUTING } from '@config/api';
 import { ROUTES } from '@config/app';
-import { IUserState, IUser, ITokenResponce, IUserResponce } from '@models/user';
+import { IUser, ITokenResponse, IUserResponse } from '@models/user';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState, storeToast } from '@store/rootReducer';
+
+export interface IUserState {
+    data: IUser;
+    fetching: boolean;
+    isAuth: boolean;
+}
 
 const initialState: IUserState = {
     isAuth: !!localStorage.getItem('token') ?? false,
@@ -53,11 +59,11 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
     dispatch(setFetching(true));
 
     try {
-        const { data: token }: { data: ITokenResponce } = await apiService.post(
+        const { data: token }: { data: ITokenResponse } = await apiService.post(
             BACKEND_ROUTING.AUTH.LOGIN,
             credentials
         );
-        const { data: userData }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
             headers: {
                 Authorization: `token ${token.key}`,
             },
@@ -66,11 +72,11 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         localStorage.setItem('token', token.key);
         history.push(ROUTES.PROPOSALS);
 
-        dispatch(setUser({ user: userData }));
+        dispatch(setUser({ user }));
         storeToast({
             status: 'success',
             title: 'Logowanie',
-            message: `${capitalize(userData.username)}, witamy w naszym serwisie ponownie`,
+            message: `${capitalize(user.username)}, witamy w naszym serwisie ponownie`,
         });
     } catch (error) {
         storeToast({
@@ -87,11 +93,11 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
     dispatch(setFetching(true));
 
     try {
-        const { data: token }: { data: ITokenResponce } = await apiService.post(
+        const { data: token }: { data: ITokenResponse } = await apiService.post(
             BACKEND_ROUTING.AUTH.REGISTER,
             credentials
         );
-        const { data: userData }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
             headers: {
                 Authorization: `token ${token.key}`,
             },
@@ -100,12 +106,12 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         localStorage.setItem('token', token.key);
         history.push(ROUTES.PROPOSALS);
 
-        dispatch(setUser({ user: userData }));
+        dispatch(setUser({ user }));
 
         storeToast({
             status: 'success',
             title: 'Rejestracja',
-            message: `${capitalize(userData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
+            message: `${capitalize(user.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
     } catch (error) {
         storeToast({
@@ -135,9 +141,9 @@ export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
     dispatch(setFetching(true));
 
     try {
-        const { data: userData }: { data: IUserResponce } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
 
-        dispatch(setUser({ user: userData }));
+        dispatch(setUser({ user }));
     } catch (error) {
         localStorage.removeItem('token');
 

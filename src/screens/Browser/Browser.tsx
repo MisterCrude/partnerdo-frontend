@@ -2,9 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { CITIES, GENDER, AGE_GROUPS, CATEGORIES_DATA } from '@config/app';
+import { fetchPageAsync } from '@slices/proposalSlice';
+import { getIsAuth } from '@slices/userSlice';
 import { IOption } from '@models/app';
 import { toOptions } from '@utils/misc';
-import { getIsAuth } from '@slices/userSlice';
+import useDispatch from '@hooks/useDispatch';
 
 import { Box, Text, Flex } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -19,8 +21,11 @@ const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.t
 const genders: IOption[] = toOptions(GENDER);
 
 export const Browser: React.FC = () => {
+    const fetchPage = useDispatch(fetchPageAsync);
     // TODO replace isAuth by propsals data
     const isAuth = useSelector(getIsAuth);
+
+    fetchPage(1);
 
     return (
         <Main mt={{ base: 0, md: 10 }} mb={10}>

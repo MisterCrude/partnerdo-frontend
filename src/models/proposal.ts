@@ -22,7 +22,7 @@ export type ICityArea = RecordNamedItem;
 export interface IProposal {
     author: IAnthor;
     category: ICategory;
-    city_area: ICityArea;
+    cityArea: ICityArea;
     city: ICity;
     created: string;
     description: string;
@@ -31,11 +31,9 @@ export interface IProposal {
     updated: string;
 }
 
-export interface IPaginatedProposal {
+export interface IProposalResponse {
     count: number;
     next: string;
     previous: string;
     results: IProposal[];
 }
-
-export type IProposalResponse = IPaginatedProposal;

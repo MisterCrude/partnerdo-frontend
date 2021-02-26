@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { ROUTES } from '@config/app';
 
 import { AspectRatio, Box, Button, Divider, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
-import ModalFrame from '@components/ModalFrame';
-import Main from '@layouts/Main';
 import Breadcrumbs from '@components/Breadcrumbs';
+import Main from '@layouts/Main';
+import ModalFrame from '@components/ModalFrame';
 
 interface IProps {
     isAuth?: boolean;

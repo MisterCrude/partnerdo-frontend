@@ -1,47 +1,76 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // import { History } from 'history';
-// import { capitalize } from 'lodash/fp';
+import { keys } from 'lodash/fp';
 
-// import { BACKEND_ROUTING } from '@config/api';
+import { BACKEND_ROUTING } from '@config/api';
+import { arrayToDict } from '@src/utils/misc';
 // import { ROUTES } from '@config/app';
 // import { IProposal, IPaginatedProposal } from '@models/proposal';
-import { IPaginatedProposal } from '@models/proposal';
-// import apiService from '@services/apiService';
+import { IProposal, IProposalResponse } from '@models/proposal';
+import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 // import { RootState, storeToast } from '@store/rootReducer';
-import { storeToast } from '@store/rootReducer';
 
-export interface IProposalState {
-    proposals: IPaginatedProposal;
+interface IPage {
     fetching: boolean;
+    ids: string[];
 }
 
+interface IPaginationItem {
+    count: number;
+    currentPage: number;
+    pages: Record<number, IPage>;
+}
+
+interface INormalisedResponse {
+    proposals: Record<string, IProposal>;
+    count: number;
+    pageNumber: number;
+}
+
+export interface IProposalState {
+    pagination: {
+        proposals: IPaginationItem;
+    };
+    proposals: Record<string, IProposal>;
+}
+
+const initialPaginationItem: IPaginationItem = {
+    count: 0,
+    currentPage: 1,
+    pages: { 1: { fetching: false, ids: [] } },
+};
+
 const initialState: IProposalState = {
-    proposals: {} as IPaginatedProposal,
-    fetching: false,
+    proposals: {},
+    pagination: {
+        proposals: initialPaginationItem,
+    },
 };
 
 /**
  * Slice
  */
+// TODO: split to paginate slice and proposal slice
 const proposalSlice = createSlice({
     name: 'proposal',
     initialState,
     reducers: {
-        setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
-            state.fetching = isFetching;
+        setPage(state, { payload: pageNumber }: PayloadAction<number>) {
+            state.pagination.proposals.pages[pageNumber] = { ids: [], fetching: true };
         },
-        // = Remove Proposal =
-        // = Create Proposal =
-        // = Update Proposal =
-        // = List Proposals Retrieve =
-
-        // removeUser(state) {
-        //     state.data = {} as IUser;
-        //     state.isAuth = false;
-        // },
-        setProposals(state, { payload }: PayloadAction<IPaginatedProposal>) {
-            state.proposals = payload;
+        receivePage(state, { payload: { proposals, count, pageNumber } }: PayloadAction<INormalisedResponse>) {
+            state.proposals = proposals;
+            state.pagination.proposals.count = count;
+            state.pagination.proposals.currentPage = pageNumber;
+            state.pagination.proposals.pages[pageNumber] = {
+                ids: keys(proposals),
+                fetching: false,
+            };
+        },
+        resetPagination(state) {
+            state.pagination.proposals = initialPaginationItem;
+            state.proposals = {};
         },
     },
 });
@@ -49,97 +78,31 @@ const proposalSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setProposals, setFetching } = proposalSlice.actions;
+export const { setPage, receivePage, resetPagination } = proposalSlice.actions;
 
 /**
  * Async actions
  */
-export const fetchProposalsAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
+export const fetchPageAsync = (pageNumber: number): AppThunk => async (dispatch: AppDispatch) => {
+    // TODO move to utils
+    const URLParams = (params: Record<string, string>) => new URLSearchParams(params);
 
     try {
-        // const { data: proposals }: { data: IPaginatedProposal } = await apiService.get(BACKEND_ROUTING.PROPOSAL.LIST);
-        // dispatch(setProposals(proposals));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Partnerstwa',
-            message: 'Nie udało się pobrać listę partnerstw',
-        });
-    }
+        dispatch(setPage(pageNumber));
+        // TODO move to some utils
+        const queryParams = URLParams({ limit: '10', offset: `${pageNumber - 1}` });
+        const {
+            data: { results, count },
+        }: { data: IProposalResponse } = await apiService.get(
+            `${BACKEND_ROUTING.PROPOSAL.LIST}?${queryParams.toString()}`
+        );
+        const dictData = arrayToDict<IProposal>(results, 'id');
 
-    dispatch(setFetching(false));
+        dispatch(receivePage({ proposals: dictData, count, pageNumber }));
+    } catch (error) {
+        resetPagination();
+        console.error('Fetch proposals error:', error);
+    }
 };
 
-// export const registerUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-//     dispatch(setFetching(true));
-
-//     try {
-//         const { data: token }: { data: ITokeResponse } = await apiService.post(
-//             BACKEND_ROUTING.AUTH.REGISTER,
-//             credentials
-//         );
-//         const { data: userData }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
-//             headers: {
-//                 Authorization: `token ${token.key}`,
-//             },
-//         });
-
-//         localStorage.setItem('token', token.key);
-//         history.push(ROUTES.PROPOSALS);
-
-//         dispatch(setUser({ user: userData }));
-
-//         storeToast({
-//             status: 'success',
-//             title: 'Rejestracja',
-//             message: `${capitalize(userData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
-//         });
-//     } catch (error) {
-//         storeToast({
-//             status: 'error',
-//             title: 'Rejestracja',
-//             message: 'Kurde, rejestracja jebnęła',
-//         });
-//     }
-
-//     dispatch(setFetching(false));
-// };
-
-// export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
-//     localStorage.removeItem('token');
-//     history.push(ROUTES.ROOT);
-
-//     dispatch(removeUser());
-// };
-
-// export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-//     dispatch(setFetching(true));
-
-//     try {
-//         const { data: userData }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
-
-//         dispatch(setUser({ user: userData }));
-//     } catch (error) {
-//         localStorage.removeItem('token');
-
-//         dispatch(removeUser());
-
-//         storeToast({
-//             status: 'error',
-//             title: 'Logowanie',
-//             message: 'Coś poszło nie tak, wyjebało Cię z tej wspaniałej apki',
-//         });
-//     }
-
-//     dispatch(setFetching(false));
-// };
-
-/**
- * Selectors
- */
-// export const getUserData = (state: RootState) => state.user.data;
-// export const getIsAuth = (state: RootState) => state.user.isAuth;
-// export const getIsFetching = (state: RootState) => state.user.fetching;
-
-// export default userSlice.reducer;
+export default proposalSlice.reducer;

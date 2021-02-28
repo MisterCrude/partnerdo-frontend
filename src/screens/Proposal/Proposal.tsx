@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import { AspectRatio, Box, Button, Divider, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';

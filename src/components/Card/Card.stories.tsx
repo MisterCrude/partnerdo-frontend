@@ -23,7 +23,7 @@ export default {
         title: 'Poszukuję partnera do głębokiego lenistwa',
         userAvatarUrl: 'https://bit.ly/sage-adebayo',
         userName: 'Jan Baraban',
-        partDescription: 'Kawałek opisu z profilu bla bla...',
+        shortUserDesc: 'Jak w tytule, szukam partnera do głęboki...',
     },
     component: Card,
     decorators: [withRouterDecorator],

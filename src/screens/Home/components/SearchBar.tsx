@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CITIES } from '@config/app';
+import { CITIES } from '@consts/filters';
 import { IOption } from '@models/app';
 
 import { Button, Grid, InputGroup, InputLeftElement, Input } from '@chakra-ui/react';

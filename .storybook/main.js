@@ -12,7 +12,7 @@ module.exports = {
             // App aliases
             '@assets': toPath('src/assets/'),
             '@components': toPath('src/components/'),
-            '@config': toPath('src/config/'),
+            '@consts': toPath('src/consts/'),
             '@hooks': toPath('src/hooks/'),
             '@layouts': toPath('src/layouts/'),
             '@models': toPath('src/models/'),

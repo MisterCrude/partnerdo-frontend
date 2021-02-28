@@ -37,7 +37,8 @@ import {
     SettingsIcon,
     TickSquareIcon,
 } from '@theme/customIcons';
-import { BRAND_NAME, ROUTES } from '@config/app';
+import { BRAND_NAME } from '@consts/app';
+import { ROUTES } from '@consts/routes';
 
 interface IProps {
     hasMessages: boolean;

@@ -1,6 +1,6 @@
 import { IToast, TPosition } from '@models/app';
 import { createStandaloneToast } from '@chakra-ui/react';
-import { TOAST_DURATION } from '@config/app';
+import { TOAST_DURATION } from '@consts/app';
 
 const toast = (duration?: number | undefined, position?: TPosition | undefined) => {
     const toast = createStandaloneToast();

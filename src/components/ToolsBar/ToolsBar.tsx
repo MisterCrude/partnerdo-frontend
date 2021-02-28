@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/react';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';

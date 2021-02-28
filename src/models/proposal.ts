@@ -8,8 +8,10 @@ export interface IProposalCategoryIcon {
     iconStroked: React.FC<IconProps>;
 }
 
-export interface IAnthor {
+// TODO extend from user
+export interface IAuthor {
     avatar: string;
+    description: string;
     firstName: string;
     id: string;
     lastName: string;
@@ -20,7 +22,7 @@ export type ICategory = RecordNamedItem;
 export type ICityArea = RecordNamedItem;
 
 export interface IProposal {
-    author: IAnthor;
+    author: IAuthor;
     category: ICategory;
     cityArea: ICityArea;
     city: ICity;

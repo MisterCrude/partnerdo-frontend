@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import { Flex, Text, VStack } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -129,7 +129,12 @@ export const Conversations: React.FC = () => {
             </VStack>
 
             <Flex justify="center" mt={10}>
-                <Pagination />
+                <Pagination
+                    pagesAmount={1}
+                    onChangePage={() => {
+                        console.log(1);
+                    }}
+                />
             </Flex>
         </Main>
     );

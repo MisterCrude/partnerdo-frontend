@@ -17,7 +17,8 @@
 -   `stroies/` - holds multicomponent stories (icon, typography, etc.)
 -   `slices/` - redux store slices (redux toolkit)
 -   `layouts/` - includes common structure of screen (header, main, footer, etc.)
--   `utils/` - holds small snippets you can use throughout the application
+-   `utils/` - holds small helper methods witch you can use throughout the application
+-   `services/` - holds code snippets witch you can use throughout the application
 -   `screens/` - ...
 -   `theme/` - holds custom theme config for chakra UI
 -   `hooks/` - holds our custom React Hooks
@@ -33,4 +34,4 @@
 
 ## `src/screens/ExampleScreen/`
 
--   `components` - put here components with used ONLY within current screen
+-   `components` - put here components which used ONLY within current screen

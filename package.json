@@ -13,7 +13,6 @@
         "@testing-library/react": "^11.2.3",
         "@testing-library/user-event": "^12.6.2",
         "@types/react-router-dom": "^5.1.7",
-        "ahooks": "^2.9.4",
         "axios": "^0.21.1",
         "framer-motion": "^3.2.2-rc.1",
         "lodash": "^4.17.20",
@@ -24,6 +23,7 @@
         "react-redux": "^7.2.2",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.1",
+        "react-use": "^17.1.1",
         "typescript": "~4.1.3",
         "yup": "^0.32.8"
     },
@@ -72,7 +72,7 @@
         "moduleNameMapper": {
             "@assets/(.*)$": "<rootDir>/src/assets/$1",
             "@components/(.*)$": "<rootDir>/src/components/$1",
-            "@config/(.*)$": "<rootDir>/src/config/$1",
+            "@consts/(.*)$": "<rootDir>/src/consts/$1",
             "@hooks/(.*)$": "<rootDir>/src/hooks/$1",
             "@layouts/(.*)$": "<rootDir>/src/layouts/$1",
             "@models/(.*)$": "<rootDir>/src/models/$1",

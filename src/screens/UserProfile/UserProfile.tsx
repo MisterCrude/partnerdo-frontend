@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import { AspectRatio, Box, Heading, Image, VStack, Stack, Text } from '@chakra-ui/react';
 import Card from '@components/Card';
@@ -43,13 +43,13 @@ export const UserProfile: React.FC = () => {
                     <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
                         <Card
                             address="Warszawa, Bemowo"
-                            content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                             category="Sport"
+                            content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                             publishDate="01.10.2020"
                             title="Poszukuję partnera do głębokiego lenistwa"
+                            shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                             userAvatarUrl="https://bit.ly/sage-adebayo"
                             userName="Jan Baraban"
-                            partDescription="Kawałek opisu z profilu bla bla..."
                             onTitleClick={() => {
                                 return null;
                             }}

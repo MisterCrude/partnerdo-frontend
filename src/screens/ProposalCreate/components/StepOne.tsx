@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { CATEGORIES_DATA } from '@config/app';
+import { CATEGORIES_DATA } from '@consts/app';
 import { IProposalCategoryIcon } from '@models/proposal';
 
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';

@@ -17,7 +17,7 @@ const MyProposals: React.FC = () => {
                     type={Types.EDITABLE}
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
-                    partDescription="Kawałek opisu z profilu bla bla..."
+                    shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                     onTitleClick={() => {
                         return null;
                     }}
@@ -31,7 +31,7 @@ const MyProposals: React.FC = () => {
                     type={Types.EDITABLE}
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
-                    partDescription="Kawałek opisu z profilu bla bla..."
+                    shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                     onTitleClick={() => {
                         return null;
                     }}
@@ -45,7 +45,7 @@ const MyProposals: React.FC = () => {
                     type={Types.UNPUBLISH}
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
-                    partDescription="Kawałek opisu z profilu bla bla..."
+                    shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                     onTitleClick={() => {
                         return null;
                     }}
@@ -53,7 +53,12 @@ const MyProposals: React.FC = () => {
             </VStack>
 
             <Flex justify="center" mt={10}>
-                <Pagination />
+                <Pagination
+                    pagesAmount={1}
+                    onChangePage={() => {
+                        return null;
+                    }}
+                />
             </Flex>
         </>
     );

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { compose, each, toPairs } from 'lodash/fp';
-import { BACKENTD_BASE_URL } from '@config/api';
+import { BACKENTD_BASE_URL } from '@consts/api';
 import { toCamelCase, toSnakeCase } from '@utils/misc';
 
 const instace = axios.create({

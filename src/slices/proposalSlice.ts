@@ -1,15 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 // import { History } from 'history';
 import { keys } from 'lodash/fp';
 
-import { BACKEND_ROUTING } from '@config/api';
-import { arrayToDict } from '@src/utils/misc';
-// import { ROUTES } from '@config/app';
 // import { IProposal, IPaginatedProposal } from '@models/proposal';
-import { IProposal, IProposalResponse } from '@models/proposal';
-import apiService from '@services/apiService';
+// import { ROUTES } from '@consts/app';
 import { AppThunk, AppDispatch } from '@store/index';
-// import { RootState, storeToast } from '@store/rootReducer';
+import { arrayToDict, URLParams } from '@src/utils/misc';
+import { BACKEND_ROUTING } from '@consts/api';
+import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
+import { IProposal, IProposalResponse } from '@models/proposal';
+import { RootState } from '@store/rootReducer';
+import apiService from '@services/apiService';
 
 interface IPage {
     fetching: boolean;
@@ -84,13 +85,15 @@ export const { setPage, receivePage, resetPagination } = proposalSlice.actions;
  * Async actions
  */
 export const fetchPageAsync = (pageNumber: number): AppThunk => async (dispatch: AppDispatch) => {
-    // TODO move to utils
-    const URLParams = (params: Record<string, string>) => new URLSearchParams(params);
-
     try {
+        const countOffset = (pageNumber: number) => (pageNumber - 1) * PAGINATION_ITEMS_LIMIT;
+
         dispatch(setPage(pageNumber));
-        // TODO move to some utils
-        const queryParams = URLParams({ limit: '10', offset: `${pageNumber - 1}` });
+        // TODO move ALL request to separate cervice file????
+        const queryParams = URLParams({
+            limit: String(PAGINATION_ITEMS_LIMIT),
+            offset: String(countOffset(pageNumber)),
+        });
         const {
             data: { results, count },
         }: { data: IProposalResponse } = await apiService.get(
@@ -101,8 +104,32 @@ export const fetchPageAsync = (pageNumber: number): AppThunk => async (dispatch:
         dispatch(receivePage({ proposals: dictData, count, pageNumber }));
     } catch (error) {
         resetPagination();
+        // TODO show toast with error
         console.error('Fetch proposals error:', error);
     }
 };
+
+/**
+ * Selectors
+ */
+// TODO refactor
+export const getPaginationCountSelect = (state: RootState) => state.pagination.pagination.proposals.count;
+export const getPaginationCurrentPageSelect = (state: RootState) => state.pagination.pagination.proposals.currentPage;
+export const getPaginationPagesSelect = (state: RootState) => state.pagination.pagination.proposals.pages;
+export const getPaginationProposalsSelect = (state: RootState) => state.pagination.proposals;
+export const getPaginationPagesAmountSelect = createSelector(getPaginationCountSelect, (count) =>
+    Math.ceil(count / PAGINATION_ITEMS_LIMIT)
+);
+export const getPaginationCurrentPageItems = createSelector(
+    getPaginationCurrentPageSelect,
+    getPaginationPagesSelect,
+    getPaginationProposalsSelect,
+    (currentPage, pages, proposals) => {
+        return {
+            fetching: pages[currentPage].fetching,
+            proposals: pages[currentPage].ids.map((id) => proposals[id]),
+        };
+    }
+);
 
 export default proposalSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Heading, Text } from '@chakra-ui/react';

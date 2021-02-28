@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CITIES, CATEGORIES_DATA } from '@config/app';
+import { CATEGORIES_DATA } from '@consts/app';
+import { CITIES } from '@consts/filters';
 import { IOption } from '@models/app';
 import { toOptions } from '@utils/misc';
 

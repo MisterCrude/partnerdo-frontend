@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import Main from '@layouts/Main';
 import Breadcrumbs from '@components/Breadcrumbs';

@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
 import { capitalize } from 'lodash/fp';
 
-import { BACKEND_ROUTING } from '@config/api';
-import { ROUTES } from '@config/app';
+import { BACKEND_ROUTING } from '@consts/api';
+import { ROUTES } from '@consts/routes';
 import { IUser, ITokenResponse, IUserResponse } from '@models/user';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
@@ -162,8 +162,8 @@ export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
 /**
  * Selectors
  */
-export const getUserData = (state: RootState) => state.user.data;
-export const getIsAuth = (state: RootState) => state.user.isAuth;
-export const getIsFetching = (state: RootState) => state.user.fetching;
+export const getUserDataSelector = (state: RootState) => state.user.data;
+export const getIsAuthSelector = (state: RootState) => state.user.isAuth;
+export const getIsFetchingSelector = (state: RootState) => state.user.fetching;
 
 export default userSlice.reducer;

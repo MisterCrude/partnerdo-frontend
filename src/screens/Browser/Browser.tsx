@@ -1,18 +1,24 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { CITIES, GENDER, AGE_GROUPS, CATEGORIES_DATA } from '@config/app';
-import { fetchPageAsync } from '@slices/proposalSlice';
-import { getIsAuth } from '@slices/userSlice';
+import { CATEGORIES_DATA } from '@consts/app';
+import { CITIES, GENDER, AGE_GROUPS } from '@consts/filters';
+import {
+    fetchPageAsync,
+    getPaginationPagesAmountSelect,
+    getPaginationCurrentPageItems,
+    getPaginationCountSelect,
+} from '@slices/proposalSlice';
 import { IOption } from '@models/app';
-import { toOptions } from '@utils/misc';
+import { toOptions, scrollTop } from '@utils/misc';
 import useDispatch from '@hooks/useDispatch';
 
 import { Box, Text, Flex } from '@chakra-ui/react';
-import Main from '@layouts/Main';
-import Pagination from '@components/Pagination';
+import { useMount } from 'react-use';
 import Filters from './components/Filters';
 import FiltersMobile from './components/FiltersMobile';
+import Main from '@layouts/Main';
+import Pagination from '@components/Pagination';
 import Results from './components/Results';
 
 const ages: IOption[] = toOptions(AGE_GROUPS);
@@ -22,10 +28,18 @@ const genders: IOption[] = toOptions(GENDER);
 
 export const Browser: React.FC = () => {
     const fetchPage = useDispatch(fetchPageAsync);
-    // TODO replace isAuth by propsals data
-    const isAuth = useSelector(getIsAuth);
+    const pagesAmount = useSelector(getPaginationPagesAmountSelect);
+    const itemsCount = useSelector(getPaginationCountSelect);
+    const { proposals, fetching } = useSelector(getPaginationCurrentPageItems);
 
-    fetchPage(1);
+    const handleChangePage = (pageNumber: number) => {
+        fetchPage(pageNumber);
+        scrollTop();
+    };
+
+    useMount(() => {
+        fetchPage(1);
+    });
 
     return (
         <Main mt={{ base: 0, md: 10 }} mb={10}>
@@ -38,13 +52,13 @@ export const Browser: React.FC = () => {
             </Box>
 
             <Text mb={10}>
-                Znaleziono <strong>245,667</strong> partnerstw pasujących do Ciebie
+                Znaleziono <strong>{itemsCount}</strong> partnerstw pasujących do Ciebie
             </Text>
 
-            <Results isAuth={isAuth} />
+            <Results isFetching={fetching} results={proposals} />
 
             <Flex justify="center" mt={10}>
-                <Pagination />
+                <Pagination onChangePage={handleChangePage} pagesAmount={pagesAmount} />
             </Flex>
         </Main>
     );

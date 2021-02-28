@@ -3,8 +3,8 @@ import { History } from 'history';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { loginUserAsync, getIsFetching } from '@slices/userSlice';
-import { ROUTES } from '@config/app';
+import { loginUserAsync, getIsFetchingSelector } from '@slices/userSlice';
+import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
@@ -20,7 +20,7 @@ interface ILoginUserParams {
 export const Login: React.FC = () => {
     const history = useHistory();
     const submitForm = useDispatch<ILoginUserParams>(loginUserAsync);
-    const isFetching = useSelector(getIsFetching);
+    const isFetching = useSelector(getIsFetchingSelector);
 
     const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
 

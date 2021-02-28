@@ -48,20 +48,34 @@ const PaginationStyles = css`
     }
 `;
 
-export const Pagination: React.FC = () => (
-    <Box css={PaginationStyles}>
-        <ReactPaginate
-            activeClassName={'active'}
-            breakClassName={'break'}
-            breakLabel={'...'}
-            containerClassName={'pagination'}
-            css={PaginationStyles}
-            marginPagesDisplayed={MARGIN_PAGE}
-            nextLabel={<ChevronRightIcon />}
-            onPageChange={() => console.log('change')}
-            pageCount={1000}
-            pageRangeDisplayed={PAGE_RANGE}
-            previousLabel={<ChevronLeftIcon />}
-        />
-    </Box>
+interface IProps {
+    pagesAmount: number;
+    onChangePage: (pageNumber: number) => void;
+}
+
+interface IChangeHandlerParams {
+    selected: number;
+}
+
+export const Pagination: React.FC<IProps> = ({ onChangePage, pagesAmount }) => (
+    <>
+        {!pagesAmount && <>Skeleton</>}
+        {pagesAmount > 1 && (
+            <Box css={PaginationStyles}>
+                <ReactPaginate
+                    activeClassName={'active'}
+                    breakClassName={'break'}
+                    breakLabel={'...'}
+                    containerClassName={'pagination'}
+                    css={PaginationStyles}
+                    marginPagesDisplayed={MARGIN_PAGE}
+                    nextLabel={<ChevronRightIcon />}
+                    onPageChange={({ selected }: IChangeHandlerParams) => onChangePage(selected + 1)}
+                    pageCount={pagesAmount}
+                    pageRangeDisplayed={PAGE_RANGE}
+                    previousLabel={<ChevronLeftIcon />}
+                />
+            </Box>
+        )}
+    </>
 );

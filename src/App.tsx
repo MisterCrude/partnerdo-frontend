@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Redirect, Switch, useHistory } from 'react-router
 import { useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 
-import { getIsAuth } from '@slices/userSlice';
-import { ROUTES } from '@config/app';
+import { getIsAuthSelector } from '@slices/userSlice';
+import { ROUTES } from '@consts/routes';
 import GuardedRoute from '@services/GuardeRoute';
 
 import Browser from '@screens/Browser';
@@ -74,7 +74,7 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
 };
 
 const App: React.FC = () => {
-    const isAuth = useSelector(getIsAuth);
+    const isAuth = useSelector(getIsAuthSelector);
 
     return (
         <BrowserRouter>

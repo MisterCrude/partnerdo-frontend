@@ -7,7 +7,7 @@ import proposalReducer from '@slices/proposalSlice';
 
 const rootReducer = combineReducers({
     user: userReducer,
-    pagination: proposalReducer,
+    proposal: proposalReducer,
 });
 const storeToast = toast();
 

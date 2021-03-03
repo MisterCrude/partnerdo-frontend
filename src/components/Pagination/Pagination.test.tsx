@@ -6,7 +6,8 @@ import { Pagination } from './Pagination';
 it('Should render Pagination component', () => {
     render(
         <Pagination
-            count={1}
+            pagesAmount={1}
+            isFetching={false}
             onChangePage={() => {
                 return null;
             }}

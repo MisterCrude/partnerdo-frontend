@@ -5,11 +5,12 @@ import { keys } from 'lodash/fp';
 // import { IProposal, IPaginatedProposal } from '@models/proposal';
 // import { ROUTES } from '@consts/app';
 import { AppThunk, AppDispatch } from '@store/index';
-import { arrayToDict, URLParams } from '@src/utils/misc';
+import { arrayToDict } from '@src/utils/misc';
 import { BACKEND_ROUTING } from '@consts/api';
-import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
+import { getQueryParams } from '@src/utils/pagination';
 import { IProposal, IProposalResponse } from '@models/proposal';
-import { RootState } from '@store/rootReducer';
+import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
+import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 
 interface IPage {
@@ -17,7 +18,7 @@ interface IPage {
     ids: string[];
 }
 
-interface IPaginationItem {
+interface IPagination {
     count: number;
     currentPage: number;
     pages: Record<number, IPage>;
@@ -31,12 +32,12 @@ interface INormalisedResponse {
 
 export interface IProposalState {
     pagination: {
-        proposals: IPaginationItem;
+        proposals: IPagination;
     };
     proposals: Record<string, IProposal>;
 }
 
-const initialPaginationItem: IPaginationItem = {
+const initialPaginationItem: IPagination = {
     count: 0,
     currentPage: 1,
     pages: { 1: { fetching: false, ids: [] } },
@@ -86,14 +87,8 @@ export const { setPage, receivePage, resetPagination } = proposalSlice.actions;
  */
 export const fetchPageAsync = (pageNumber: number): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        const countOffset = (pageNumber: number) => (pageNumber - 1) * PAGINATION_ITEMS_LIMIT;
-
         dispatch(setPage(pageNumber));
-        // TODO move ALL request to separate cervice file????
-        const queryParams = URLParams({
-            limit: String(PAGINATION_ITEMS_LIMIT),
-            offset: String(countOffset(pageNumber)),
-        });
+        const queryParams = getQueryParams(pageNumber);
         const {
             data: { results, count },
         }: { data: IProposalResponse } = await apiService.get(
@@ -103,27 +98,30 @@ export const fetchPageAsync = (pageNumber: number): AppThunk => async (dispatch:
 
         dispatch(receivePage({ proposals: dictData, count, pageNumber }));
     } catch (error) {
-        resetPagination();
-        // TODO show toast with error
-        console.error('Fetch proposals error:', error);
+        dispatch(resetPagination());
+        storeToast({
+            status: 'error',
+            title: 'Pagination',
+            message: `Nie udało się załadować strone`,
+        });
+        console.error('Fetch pagination page error:', error);
     }
 };
 
 /**
  * Selectors
  */
-// TODO refactor
-export const getPaginationCountSelect = (state: RootState) => state.pagination.pagination.proposals.count;
-export const getPaginationCurrentPageSelect = (state: RootState) => state.pagination.pagination.proposals.currentPage;
-export const getPaginationPagesSelect = (state: RootState) => state.pagination.pagination.proposals.pages;
-export const getPaginationProposalsSelect = (state: RootState) => state.pagination.proposals;
-export const getPaginationPagesAmountSelect = createSelector(getPaginationCountSelect, (count) =>
+export const getProposalCountSelect = (state: RootState) => state.proposal.pagination.proposals.count;
+export const getProposalCurrentPageSelect = (state: RootState) => state.proposal.pagination.proposals.currentPage;
+export const getProposalPagesSelect = (state: RootState) => state.proposal.pagination.proposals.pages;
+export const getProposalProposalsSelect = (state: RootState) => state.proposal.proposals;
+export const getPaginationPagesAmountSelect = createSelector(getProposalCountSelect, (count) =>
     Math.ceil(count / PAGINATION_ITEMS_LIMIT)
 );
 export const getPaginationCurrentPageItems = createSelector(
-    getPaginationCurrentPageSelect,
-    getPaginationPagesSelect,
-    getPaginationProposalsSelect,
+    getProposalCurrentPageSelect,
+    getProposalPagesSelect,
+    getProposalProposalsSelect,
     (currentPage, pages, proposals) => {
         return {
             fetching: pages[currentPage].fetching,

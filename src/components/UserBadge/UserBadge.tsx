@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Avatar, Box, Flex, Text, FlexProps } from '@chakra-ui/react';
+import { Avatar, Flex, Text, FlexProps } from '@chakra-ui/react';
 
 export interface IProps {
     avatarUrl: string;
-    subtitle: string;
     title: string;
     styles?: FlexProps;
+    subtitle?: string;
     onClick?: () => void;
 }
 
@@ -14,7 +14,7 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, onClic
     return (
         <Flex {...styles}>
             <Avatar src={avatarUrl} />
-            <Box ml="3">
+            <Flex ml="3" justify="center" direction="column">
                 <Text
                     d="inline"
                     fontWeight="bold"
@@ -23,8 +23,8 @@ export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, onClic
                 >
                     {title}
                 </Text>
-                <Text fontSize="sm">{subtitle}</Text>
-            </Box>
+                {subtitle && <Text fontSize="sm">{subtitle}</Text>}
+            </Flex>
         </Flex>
     );
 };

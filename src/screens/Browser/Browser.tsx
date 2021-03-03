@@ -1,13 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { CATEGORIES_DATA } from '@consts/app';
+import { ROUTES } from '@consts/routes';
 import { CITIES, GENDER, AGE_GROUPS } from '@consts/filters';
 import {
     fetchPageAsync,
     getPaginationPagesAmountSelect,
     getPaginationCurrentPageItems,
-    getPaginationCountSelect,
+    getProposalCountSelect,
 } from '@slices/proposalSlice';
 import { IOption } from '@models/app';
 import { toOptions, scrollTop } from '@utils/misc';
@@ -27,15 +29,18 @@ const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.t
 const genders: IOption[] = toOptions(GENDER);
 
 export const Browser: React.FC = () => {
+    const history = useHistory();
     const fetchPage = useDispatch(fetchPageAsync);
     const pagesAmount = useSelector(getPaginationPagesAmountSelect);
-    const itemsCount = useSelector(getPaginationCountSelect);
+    const itemsCount = useSelector(getProposalCountSelect);
     const { proposals, fetching } = useSelector(getPaginationCurrentPageItems);
 
     const handleChangePage = (pageNumber: number) => {
         fetchPage(pageNumber);
         scrollTop();
     };
+    const handleAuthorNameClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
+    const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-proposal-id`);
 
     useMount(() => {
         fetchPage(1);
@@ -55,10 +60,15 @@ export const Browser: React.FC = () => {
                 Znaleziono <strong>{itemsCount}</strong> partnerstw pasujących do Ciebie
             </Text>
 
-            <Results isFetching={fetching} results={proposals} />
+            <Results
+                isFetching={fetching}
+                results={proposals}
+                onTitleClick={handleTitleClick}
+                onAuthorNameClick={handleAuthorNameClick}
+            />
 
             <Flex justify="center" mt={10}>
-                <Pagination onChangePage={handleChangePage} pagesAmount={pagesAmount} />
+                <Pagination onChangePage={handleChangePage} pagesAmount={pagesAmount} isFetching={fetching} />
             </Flex>
         </Main>
     );

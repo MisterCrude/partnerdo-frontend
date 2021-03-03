@@ -130,6 +130,7 @@ export const Conversations: React.FC = () => {
 
             <Flex justify="center" mt={10}>
                 <Pagination
+                    isFetching={false}
                     pagesAmount={1}
                     onChangePage={() => {
                         console.log(1);

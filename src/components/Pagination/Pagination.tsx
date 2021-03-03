@@ -50,6 +50,7 @@ const PaginationStyles = css`
 
 interface IProps {
     pagesAmount: number;
+    isFetching: boolean;
     onChangePage: (pageNumber: number) => void;
 }
 
@@ -57,9 +58,9 @@ interface IChangeHandlerParams {
     selected: number;
 }
 
-export const Pagination: React.FC<IProps> = ({ onChangePage, pagesAmount }) => (
+export const Pagination: React.FC<IProps> = ({ onChangePage, pagesAmount, isFetching }) => (
     <>
-        {!pagesAmount && <>Skeleton</>}
+        {isFetching && <>Skeleton</>}
         {pagesAmount > 1 && (
             <Box css={PaginationStyles}>
                 <ReactPaginate

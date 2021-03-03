@@ -84,6 +84,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
             title: 'Logowanie',
             message: 'Coś poszło nie tak spróbuj ponownie',
         });
+        console.error('Login error:', error);
     }
 
     dispatch(setFetching(false));

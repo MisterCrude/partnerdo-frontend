@@ -39,10 +39,7 @@ export const noopFn = () => undefined;
 export const arrayToDict = <T extends Record<string, any>>(dict: Array<T>, keyField: string) =>
     dict.reduce((acc: Record<string, T>, curr: T) => ({ ...acc, [curr[keyField]]: curr }), {} as Record<string, T>);
 
-export const URLParams = (params: Record<string, string>) => {
-    // TODO convert params values to string here
-    return new URLSearchParams(params);
-};
+export const URLParams = (params: Record<string, string>) => new URLSearchParams(params);
 
 export const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

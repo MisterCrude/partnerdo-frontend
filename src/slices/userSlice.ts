@@ -4,7 +4,7 @@ import { capitalize } from 'lodash/fp';
 
 import { BACKEND_ROUTING } from '@consts/api';
 import { ROUTES } from '@consts/routes';
-import { IUser, ITokenResponse, IUserResponse } from '@models/user';
+import { IUser, IAuthTokenResponse, IUserResponse } from '@models/user';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState, storeToast } from '@store/rootReducer';
@@ -35,8 +35,8 @@ const userSlice = createSlice({
             state.data = {} as IUser;
             state.isAuth = false;
         },
-        setUser(state, { payload }: PayloadAction<{ user: IUser }>) {
-            state.data = payload.user;
+        setUser(state, { payload: userData }: PayloadAction<IUser>) {
+            state.data = userData;
             state.isAuth = true;
         },
     },
@@ -59,7 +59,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
     dispatch(setFetching(true));
 
     try {
-        const { data: token }: { data: ITokenResponse } = await apiService.post(
+        const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
             BACKEND_ROUTING.AUTH.LOGIN,
             credentials
         );
@@ -72,7 +72,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         localStorage.setItem('token', token.key);
         history.push(ROUTES.PROPOSALS);
 
-        dispatch(setUser({ user }));
+        dispatch(setUser(user));
         storeToast({
             status: 'success',
             title: 'Logowanie',
@@ -94,11 +94,11 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
     dispatch(setFetching(true));
 
     try {
-        const { data: token }: { data: ITokenResponse } = await apiService.post(
+        const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
             BACKEND_ROUTING.AUTH.REGISTER,
             credentials
         );
-        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+        const { data: userData }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
             headers: {
                 Authorization: `token ${token.key}`,
             },
@@ -107,12 +107,12 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         localStorage.setItem('token', token.key);
         history.push(ROUTES.PROPOSALS);
 
-        dispatch(setUser({ user }));
+        dispatch(setUser(userData));
 
         storeToast({
             status: 'success',
             title: 'Rejestracja',
-            message: `${capitalize(user.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
+            message: `${capitalize(userData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
     } catch (error) {
         storeToast({
@@ -142,9 +142,9 @@ export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
     dispatch(setFetching(true));
 
     try {
-        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const { data: userData }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
 
-        dispatch(setUser({ user }));
+        dispatch(setUser(userData));
     } catch (error) {
         localStorage.removeItem('token');
 

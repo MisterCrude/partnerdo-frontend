@@ -12,6 +12,6 @@ export const BACKEND_ROUTING = {
     },
     PROPOSAL: {
         LIST: 'proposals/',
-        FILTERS: 'proposals/filters/',
+        FILTERS: 'proposals/filters',
     },
 };

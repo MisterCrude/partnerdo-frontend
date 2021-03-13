@@ -7,7 +7,7 @@ import { keys } from 'lodash/fp';
 import { AppThunk, AppDispatch } from '@store/index';
 import { arrayToDict } from '@src/utils/misc';
 import { BACKEND_ROUTING } from '@consts/api';
-import { getQueryParams } from '@src/utils/pagination';
+import { getQueryParams, countOffset } from '@src/utils/pagination';
 import { IProposal, IProposalResponse } from '@models/proposal';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 import { RootState, storeToast } from '@store/rootReducer';
@@ -88,22 +88,32 @@ export const { setPage, receivePage, resetPagination } = proposalSlice.actions;
 export const fetchPageAsync = (pageNumber: number): AppThunk => async (dispatch: AppDispatch) => {
     try {
         dispatch(setPage(pageNumber));
-        const queryParams = getQueryParams(pageNumber);
+
+        const queryParams = getQueryParams({
+            limit: String(PAGINATION_ITEMS_LIMIT),
+            offset: String(countOffset(pageNumber)),
+            // category: ['d9a35511-4566-467c-91f5-5edc57e62df4', 'cb29f60a-de07-4a27-9209-ff74e0564a05'].join(','),
+            city: 'f8fc89492-e5d4-4572-9a26-2aa17dd036fc',
+            // city_areas: ['04723601-f533-44f1-b9bc-44cf5b516ac1', '9a890976-5278-4523-b8f0-95255585481f'].join(','),
+            // age: [20, 30].join(','),
+            gender: 'm',
+        });
+
         const {
             data: { results, count },
-        }: { data: IProposalResponse } = await apiService.get(
-            `${BACKEND_ROUTING.PROPOSAL.LIST}?${queryParams.toString()}`
-        );
-        const dictData = arrayToDict<IProposal>(results, 'id');
+        }: { data: IProposalResponse } = await apiService.get(`${BACKEND_ROUTING.PROPOSAL.LIST}?${queryParams}`);
+        const proposalsDict = arrayToDict<IProposal>(results, 'id');
 
-        dispatch(receivePage({ proposals: dictData, count, pageNumber }));
+        dispatch(receivePage({ proposals: proposalsDict, count, pageNumber }));
     } catch (error) {
         dispatch(resetPagination());
+
         storeToast({
             status: 'error',
-            title: 'Pagination',
-            message: `Nie udało się załadować strone`,
+            title: 'Partnerstwa',
+            message: `Nie udało się pobrać partnerstwa`,
         });
+
         console.error('Fetch pagination page error:', error);
     }
 };

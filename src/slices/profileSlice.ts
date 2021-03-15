@@ -4,39 +4,39 @@ import { capitalize } from 'lodash/fp';
 
 import { BACKEND_ROUTING } from '@consts/api';
 import { ROUTES } from '@consts/routes';
-import { IUser, IAuthTokenResponse, IUserResponse } from '@models/user';
+import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
 import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
 import { RootState, storeToast } from '@store/rootReducer';
 
-export interface IUserState {
-    data: IUser;
+export interface IProfileState {
+    data: IProfile;
     fetching: boolean;
     isAuth: boolean;
 }
 
-const initialState: IUserState = {
+const initialState: IProfileState = {
     isAuth: !!localStorage.getItem('token') ?? false,
-    data: {} as IUser,
+    data: {} as IProfile,
     fetching: false,
 };
 
 /**
  * Slice
  */
-const userSlice = createSlice({
-    name: 'user',
+const profileSlice = createSlice({
+    name: 'profile',
     initialState,
     reducers: {
         setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
             state.fetching = isFetching;
         },
-        removeUser(state) {
-            state.data = {} as IUser;
+        removeProfile(state) {
+            state.data = {} as IProfile;
             state.isAuth = false;
         },
-        setUser(state, { payload: userData }: PayloadAction<IUser>) {
-            state.data = userData;
+        setProfile(state, { payload: profileData }: PayloadAction<IProfile>) {
+            state.data = profileData;
             state.isAuth = true;
         },
     },
@@ -45,17 +45,19 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setUser, removeUser, setFetching } = userSlice.actions;
+export const { setProfile, removeProfile, setFetching } = profileSlice.actions;
 
 /**
  * Async actions
  */
-interface IUserParams {
+interface IProfileParams {
     credentials: Record<string, unknown>;
     history: History;
 }
 
-export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
+export const loginProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
+    dispatch: AppDispatch
+) => {
     dispatch(setFetching(true));
 
     try {
@@ -63,7 +65,7 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
             BACKEND_ROUTING.AUTH.LOGIN,
             credentials
         );
-        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+        const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE, {
             headers: {
                 Authorization: `token ${token.key}`,
             },
@@ -72,11 +74,11 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
         localStorage.setItem('token', token.key);
         history.push(ROUTES.PROPOSALS);
 
-        dispatch(setUser(user));
+        dispatch(setProfile(profileData));
         storeToast({
             status: 'success',
             title: 'Logowanie',
-            message: `${capitalize(user.username)}, witamy w naszym serwisie ponownie`,
+            message: `${capitalize(profileData.username)}, witamy w naszym serwisie ponownie`,
         });
     } catch (error) {
         storeToast({
@@ -90,7 +92,9 @@ export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk 
     dispatch(setFetching(false));
 };
 
-export const registerUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
+export const registerProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
+    dispatch: AppDispatch
+) => {
     dispatch(setFetching(true));
 
     try {
@@ -98,7 +102,7 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
             BACKEND_ROUTING.AUTH.REGISTER,
             credentials
         );
-        const { data: userData }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
+        const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE, {
             headers: {
                 Authorization: `token ${token.key}`,
             },
@@ -107,12 +111,12 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
         localStorage.setItem('token', token.key);
         history.push(ROUTES.PROPOSALS);
 
-        dispatch(setUser(userData));
+        dispatch(setProfile(profileData));
 
         storeToast({
             status: 'success',
             title: 'Rejestracja',
-            message: `${capitalize(userData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
+            message: `${capitalize(profileData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
     } catch (error) {
         storeToast({
@@ -125,11 +129,11 @@ export const registerUserAsync = ({ credentials, history }: IUserParams): AppThu
     dispatch(setFetching(false));
 };
 
-export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
+export const logoutProfileAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
     localStorage.removeItem('token');
     history.push(ROUTES.ROOT);
 
-    dispatch(removeUser());
+    dispatch(removeProfile());
 
     // storeToast({
     //     status: 'success',
@@ -138,17 +142,17 @@ export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDis
     // });
 };
 
-export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
+export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) => {
     dispatch(setFetching(true));
 
     try {
-        const { data: userData }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
+        const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE);
 
-        dispatch(setUser(userData));
+        dispatch(setProfile(profileData));
     } catch (error) {
         localStorage.removeItem('token');
 
-        dispatch(removeUser());
+        dispatch(removeProfile());
 
         storeToast({
             status: 'error',
@@ -163,8 +167,8 @@ export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
 /**
  * Selectors
  */
-export const getUserDataSelector = (state: RootState) => state.user.data;
-export const getIsAuthSelector = (state: RootState) => state.user.isAuth;
-export const getIsFetchingSelector = (state: RootState) => state.user.fetching;
+export const getProfileDataSelector = (state: RootState) => state.profile.data;
+export const getIsAuthSelector = (state: RootState) => state.profile.isAuth;
+export const getIsFetchingSelector = (state: RootState) => state.profile.fetching;
 
-export default userSlice.reducer;
+export default profileSlice.reducer;

@@ -8,6 +8,11 @@ import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
 
 export const UserProfile: React.FC = () => {
+    // get user id from params
+    // dispatch action(user-id)
+    // select user data
+    // populate components
+
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Breadcrumbs
@@ -27,7 +32,7 @@ export const UserProfile: React.FC = () => {
                             fallbackSrc="https://via.placeholder.com/300"
                         />
                     </AspectRatio>
-                    <Heading size="md" mb={4}>
+                    <Heading size="lg" mb={4}>
                         Jan Baraban
                     </Heading>
 
@@ -37,7 +42,7 @@ export const UserProfile: React.FC = () => {
                     </Text>
                 </Box>
                 <Box flexGrow={1}>
-                    <Heading as="h2" size="lg" mb={{ base: 4, md: 8 }}>
+                    <Heading as="h2" size="md" mb={{ base: 4, md: 8 }}>
                         Aktualne partnerstwa
                     </Heading>
                     <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>

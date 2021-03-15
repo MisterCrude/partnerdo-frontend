@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import useDispatch from '@hooks/useDispatch';
-import { registerUserAsync, getIsFetchingSelector } from '@slices/userSlice';
+import { registerProfileAsync, getIsFetchingSelector } from '@slices/profileSlice';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
@@ -11,7 +11,7 @@ import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';
 
 export const Register: React.FC = () => {
-    const submitForm = useDispatch(registerUserAsync);
+    const submitForm = useDispatch(registerProfileAsync);
     const history = useHistory();
     const isFetching = useSelector(getIsFetchingSelector);
 

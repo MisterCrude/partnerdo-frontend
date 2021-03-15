@@ -3,7 +3,7 @@ import { History } from 'history';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { loginUserAsync, getIsFetchingSelector } from '@slices/userSlice';
+import { loginProfileAsync, getIsFetchingSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 
@@ -12,14 +12,14 @@ import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
 
-interface ILoginUserParams {
+interface ILoginProfileParams {
     credentials: Record<string, unknown>;
     history: History;
 }
 
 export const Login: React.FC = () => {
     const history = useHistory();
-    const submitForm = useDispatch<ILoginUserParams>(loginUserAsync);
+    const submitForm = useDispatch<ILoginProfileParams>(loginProfileAsync);
     const isFetching = useSelector(getIsFetchingSelector);
 
     const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });

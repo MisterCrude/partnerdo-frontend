@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconProps } from '@chakra-ui/react';
 import { RecordNamedItem } from './misc';
-import { IUser } from './user';
+import { IProfile } from './profile';
 
 export interface IProposalCategoryIcon {
     name: string;
@@ -9,7 +9,7 @@ export interface IProposalCategoryIcon {
     iconStroked: React.FC<IconProps>;
 }
 
-export interface IAuthor extends Omit<IUser, 'gender' | 'birthYear' | 'email'> {
+export interface IAuthor extends Omit<IProfile, 'gender' | 'birthYear' | 'email'> {
     id: string;
 }
 

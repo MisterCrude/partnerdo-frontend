@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 
-import { getIsAuthSelector, logoutUserAsync } from '@slices/userSlice';
+import { getIsAuthSelector, logoutProfileAsync } from '@slices/profileSlice';
 import useDispatch from '@hooks/useDispatch';
 
 import { BoxProps, Container, Flex } from '@chakra-ui/react';
@@ -16,7 +16,7 @@ const hasMessages = true;
 export const Main: React.FC<BoxProps> = (props) => {
     const history = useHistory();
     const isAuth = useSelector(getIsAuthSelector);
-    const logout = useDispatch<History>(logoutUserAsync);
+    const logout = useDispatch<History>(logoutProfileAsync);
     const children = props.children;
 
     const handleLogout = () => logout(history);

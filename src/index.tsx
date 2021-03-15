@@ -5,11 +5,11 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import customTheme from '@theme/customTheme';
 import store from '@store/index';
-import { fetchUserAsync } from '@slices/userSlice';
+import { fetchProfileAsync } from '@slices/profileSlice';
 import { fetchFiltersAsync } from '@slices/filtersSlice';
 
 const fetchInitialData = () => {
-    localStorage.getItem('token') && store.dispatch(fetchUserAsync());
+    localStorage.getItem('token') && store.dispatch(fetchProfileAsync());
     store.dispatch(fetchFiltersAsync());
 };
 

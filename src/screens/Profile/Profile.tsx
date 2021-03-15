@@ -3,7 +3,7 @@ import { Switch, Link as RouterLink, Route, Redirect, useLocation } from 'react-
 import { useSelector } from 'react-redux';
 
 import { ROUTES } from '@consts/routes';
-import { getUserDataSelector } from '@slices/userSlice';
+import { getProfileDataSelector } from '@slices/profileSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -40,7 +40,7 @@ const LINKS = [
 ];
 
 export const Profile: React.FC = () => {
-    const userData = useSelector(getUserDataSelector);
+    const userData = useSelector(getProfileDataSelector);
     const { pathname } = useLocation();
 
     return (

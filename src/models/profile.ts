@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IProfile {
     avatar: string;
     birthYear: string;
     description: string;
@@ -14,4 +14,4 @@ export interface IAuthTokenResponse {
     key: string;
 }
 
-export type IUserResponse = IUser;
+export type IProfileResponse = IProfile;

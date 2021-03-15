@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { IUser } from '@models/user';
+import { IProfile } from '@models/profile';
 
 import { AspectRatio, Box, Button, Flex, Textarea, Text, Input, IconButton, Image } from '@chakra-ui/react';
 import { EditIcon } from '@theme/customIcons';
 import ModalFrame from '@components/ModalFrame';
 
-export interface IProps extends IUser {
+export interface IProps extends IProfile {
     someField?: boolean;
 }
 

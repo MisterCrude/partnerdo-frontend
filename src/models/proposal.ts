@@ -32,6 +32,7 @@ export interface IProposal {
 export interface ICityWithAreas extends ICity {
     cityAreas: ICityArea[];
 }
+
 export interface IFilters {
     categories: ICategory[];
     cities: Record<string, ICityWithAreas>;

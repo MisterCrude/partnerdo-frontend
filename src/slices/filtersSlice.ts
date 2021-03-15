@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-// import { capitalize } from 'lodash/fp';
+import { values } from 'lodash/fp';
 
 import { BACKEND_ROUTING } from '@consts/api';
 import { arrayToDict } from '@src/utils/misc';
@@ -78,8 +78,11 @@ export const fetchFiltersAsync = (): AppThunk => async (dispatch: AppDispatch) =
  * Selectors
  */
 export const getCategoriesSelector = (state: RootState) => state.filters.categories;
-export const getCitiesSelector = (state: RootState) => state.filters.cities;
-export const getCityAreasSelector = createSelector(getCitiesSelector, (cities) => (cityId: string) =>
+export const getCitiesDictSelector = (state: RootState) => state.filters.cities;
+export const getCitiesSelector = createSelector(getCitiesDictSelector, (cities) =>
+    values(cities).map(({ name, id }: ICityWithAreas) => ({ name, id }))
+);
+export const getCityAreasSelector = createSelector(getCitiesDictSelector, (cities) => (cityId: string) =>
     cities[cityId].cityAreas
 );
 

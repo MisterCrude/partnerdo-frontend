@@ -38,7 +38,10 @@ const CheckboxStyles = css`
 export const MenuSelect: React.FC<IProps> = ({ options, palceholder, height = '48px' }) => {
     const [selectedOprion, setSelectedOprion] = useState<string>();
 
-    const handleSelect = ({ target }: React.ChangeEvent<HTMLInputElement>) => setSelectedOprion(target.value);
+    const handleSelect = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+        const option = options.find(({ value }) => value === target.value) as IOption;
+        setSelectedOprion(option.label);
+    };
 
     return (
         <Box pos="relative">
@@ -46,13 +49,14 @@ export const MenuSelect: React.FC<IProps> = ({ options, palceholder, height = '4
                 <MenuButton
                     as={Button}
                     bgColor="white"
-                    textAlign="left"
-                    size="lg"
-                    shadow="md"
+                    h={height}
+                    justifyContent="start"
                     pl={4}
                     pr={3}
                     rightIcon={<ChevronDownIcon />}
-                    h={height}
+                    shadow="md"
+                    size="lg"
+                    textAlign="left"
                     w="100%"
                     _active={{
                         bgColor: 'white',

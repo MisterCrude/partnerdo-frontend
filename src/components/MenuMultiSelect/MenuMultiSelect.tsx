@@ -34,13 +34,14 @@ export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height
                 <MenuButton
                     as={Button}
                     bgColor="white"
-                    textAlign="left"
-                    size="lg"
-                    shadow="md"
+                    h={height}
+                    justifyContent="start"
                     pl={4}
                     pr={3}
                     rightIcon={<ChevronDownIcon />}
-                    h={height}
+                    shadow="md"
+                    size="lg"
+                    textAlign="left"
                     w="100%"
                     _active={{
                         bgColor: 'white',

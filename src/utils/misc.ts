@@ -1,4 +1,5 @@
 import { IOption } from '@models/app';
+import { RecordNamedItem } from '@models/misc';
 import { camelCase, snakeCase, keys, isObject, isArray } from 'lodash/fp';
 
 // TODO split this file to separate files grouped by category
@@ -28,12 +29,6 @@ export const toCamelCase = objCaseSwitcher(camelCase);
 
 export const toSnakeCase = objCaseSwitcher(snakeCase);
 
-export const toOptions = (valuesHolder: string[] | Record<string, string>): IOption[] => {
-    return isArray(valuesHolder)
-        ? valuesHolder.map((value: string) => ({ value, label: value }))
-        : keys(valuesHolder).map((value: string) => ({ value, label: valuesHolder[value] }));
-};
-
 export const noopFn = () => undefined;
 
 export const arrayToDict = <T extends Record<string, any>>(dict: Array<T>, keyField: string) =>
@@ -51,3 +46,6 @@ export const truncateStringByWords = (str: string, length: number): string =>
     `${str.split(' ').slice(0, length).join(' ').trim()}...`;
 
 export const toLocaleDateString = (date: string, locale: string) => new Date(date).toLocaleDateString(locale);
+
+export const recordToOptions = (records: RecordNamedItem[]): IOption[] =>
+    records.map(({ id, name }) => ({ value: id, label: name }));

@@ -22,6 +22,6 @@ export const AGE_GROUPS: Record<string, string> = {
 };
 
 export const GENDER: Record<string, string> = {
-    male: 'Mężczyzna ',
+    male: 'Mężczyzna',
     female: 'Kobieta',
 };

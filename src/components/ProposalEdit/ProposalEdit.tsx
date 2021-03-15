@@ -3,13 +3,12 @@ import React from 'react';
 import { CATEGORIES_DATA } from '@consts/app';
 import { CITIES } from '@consts/filters';
 import { IOption } from '@models/app';
-import { toOptions } from '@utils/misc';
 
 import { Box, Grid, Input, Textarea } from '@chakra-ui/react';
 import MenuSelect from '@components/MenuSelect';
 
 // TODO remove this fake data
-const cities: IOption[] = toOptions(CITIES);
+const cities: IOption[] = CITIES.map((item) => ({ value: item, label: item }));
 const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.toLocaleLowerCase(), label: name }));
 
 export const ProposalEdit: React.FC = () => (

@@ -22,7 +22,10 @@ const Filters: React.FC<IProps> = ({ ages, cities, categories, genders }) => (
             <Input borderWidth={0} bgColor="white" placeholder="Jakiego partnerstwa szukasz?" size="lg" shadow="md" />
         </InputGroup>
 
-        <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, 1fr)' }} gap={{ base: 4, md: 8 }}>
+        <Grid
+            templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(5, minmax(0, 1fr))' }}
+            gap={{ base: 4, md: 8 }}
+        >
             <MenuMultiSelect options={categories} palceholder="Kategoria" />
             <MenuSelect options={cities} palceholder="Miasto" />
             <MenuMultiSelect options={cities} palceholder="Dzielnica" />

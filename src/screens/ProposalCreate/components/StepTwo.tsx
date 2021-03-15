@@ -1,13 +1,11 @@
 import React from 'react';
-
 import { CITIES } from '@consts/filters';
 import { IOption } from '@models/app';
-import { toOptions } from '@utils/misc';
 
 import { VStack } from '@chakra-ui/react';
 import MenuSelect from '@components/MenuSelect';
 
-const cities: IOption[] = toOptions(CITIES);
+const cities: IOption[] = CITIES.map((item) => ({ value: item, label: item }));
 
 export const StepThree: React.FC = () => (
     <VStack align="stretch" spacing={{ base: 6, md: 8 }} w="100%">

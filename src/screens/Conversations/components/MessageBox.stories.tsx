@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
-import { withRouterDecorator } from '@utils/storybookDecorators';
+import { withRouterDecorator } from '@services/storybookDecorators';
 import { MessageBox, IProps, Types } from './MessageBox';
 
 export default {

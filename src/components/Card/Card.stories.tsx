@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { Container } from '@chakra-ui/react';
-import { withRouterDecorator } from '@utils/storybookDecorators';
+import { withRouterDecorator } from '@services/storybookDecorators';
 import { Card, IProps, Types } from './Card';
 
 export default {

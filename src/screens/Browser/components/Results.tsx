@@ -1,14 +1,11 @@
 import React from 'react';
 import { capitalize } from 'lodash/fp';
 import { IProposal, IAuthor } from '@models/proposal';
-import { DEFAULT_LOCALE } from '@consts/app';
+import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
 import { truncateStringByWords, toLocaleDateString } from '@utils/misc';
 
 import { VStack } from '@chakra-ui/react';
 import Card from '@components/Card';
-
-const SHORT_CONTENT_WORDS_AMOUNT = 25;
-const SHORT_DESC_WORDS_AMOUT = 10;
 
 interface IProps {
     isFetching: boolean;
@@ -28,7 +25,7 @@ const Results: React.FC<IProps> = ({ isFetching, results, onAuthorNameClick, onT
                 <>Skeleton</>
             ) : (
                 <>
-                    {results.map(({ id, author, city, cityArea, description, category, updated, title }: IProposal) => (
+                    {results.map(({ id, author, city, cityArea, description, category, updated, title }) => (
                         <Card
                             key={id}
                             // TODO save cityName and cityArea in store after initialFetch and get it by id

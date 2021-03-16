@@ -10,6 +10,12 @@ import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';
 
+// TODO add IRegisterProfileParams to useDispatch
+interface IRegisterProfileParams {
+    credentials: Record<string, unknown>;
+    history: History;
+}
+
 export const Register: React.FC = () => {
     const submitForm = useDispatch(registerProfileAsync);
     const history = useHistory();

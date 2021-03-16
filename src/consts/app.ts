@@ -71,3 +71,6 @@ export const TOAST_DURATION = 5000;
 export const PAGINATION_ITEMS_LIMIT = 10;
 
 export const DEFAULT_LOCALE = 'pl-PL';
+
+export const SHORT_CONTENT_WORDS_AMOUNT = 25;
+export const SHORT_DESC_WORDS_AMOUT = 10;

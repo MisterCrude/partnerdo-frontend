@@ -1,9 +1,9 @@
 import React from 'react';
-
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { ROUTES } from '@consts/routes';
 
 import { AspectRatio, Box, Button, Divider, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
@@ -79,7 +79,15 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                 </Text>
 
                 <Flex align={{ base: 'stretch', md: 'center' }} justify="space-between">
-                    <Button onClick={handleBack}>Wróć</Button>
+                    <Button
+                        onClick={handleBack}
+                        flexGrow={{ base: 1, md: 0 }}
+                        mr={4}
+                        variant="unstyled"
+                        leftIcon={<ChevronLeftIcon />}
+                    >
+                        Wróć
+                    </Button>
 
                     {isAuth ? (
                         <ModalFrame

@@ -29,9 +29,8 @@ const genders: IOption[] = keys(GENDER).map((item) => ({ value: item, label: GEN
 
 export const Browser: React.FC = () => {
     // const [cityAreas, serSityAreas] = useState<any>([]);
-
     const history = useHistory();
-    const fetchPage = useDispatch(fetchPageAsync);
+    const fetchPage = useDispatch<number>(fetchPageAsync);
     const pagesAmount = useSelector(getPaginationPagesAmountSelect);
     const itemsCount = useSelector(getProposalCountSelect);
     const { proposals, fetching } = useSelector(getPaginationCurrentPageItems);

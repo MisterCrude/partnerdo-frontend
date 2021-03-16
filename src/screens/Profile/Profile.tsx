@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Link as RouterLink, Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import { ROUTES } from '@consts/routes';
 import { getProfileDataSelector } from '@slices/profileSlice';
 

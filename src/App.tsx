@@ -1,9 +1,8 @@
-import { BrowserRouter, Route, Redirect, Switch, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-
+import { BrowserRouter, Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import { getIsAuthSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
+import { useSelector } from 'react-redux';
 import GuardedRoute from '@services/GuardeRoute';
 
 import Browser from '@screens/Browser';

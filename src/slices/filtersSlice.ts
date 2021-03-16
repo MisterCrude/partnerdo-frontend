@@ -1,22 +1,22 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { values } from 'lodash/fp';
-
-import { BACKEND_ROUTING } from '@consts/api';
-import { arrayToDict } from '@src/utils/misc';
 // import { ROUTES } from '@consts/routes';
-import { IFiltersResponse, IFilters, ICityWithAreas } from '@models/proposal';
-import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
+import { arrayToDict } from '@src/utils/misc';
+import { BACKEND_ROUTING } from '@consts/api';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { IFiltersResponse, IFilters, ICityWithAreas } from '@models/proposal';
+import { RequestStatus } from '@models/misc';
 import { storeToast, RootState } from '@store/rootReducer';
+import { values } from 'lodash/fp';
+import apiService from '@services/apiService';
 
 export interface IFiltersState extends IFilters {
-    fetching: boolean;
+    requestStatus: RequestStatus;
 }
 
 const initialState: IFiltersState = {
     categories: [],
     cities: {},
-    fetching: false,
+    requestStatus: RequestStatus.IDLE,
 };
 
 /**
@@ -26,8 +26,8 @@ const filtersSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
-            state.fetching = isFetching;
+        setRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.requestStatus = payload;
         },
         removeFilters(state) {
             state.categories = [];
@@ -43,13 +43,13 @@ const filtersSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setFilters, removeFilters, setFetching } = filtersSlice.actions;
+export const { setFilters, removeFilters, setRequestStatus } = filtersSlice.actions;
 
 /**
  * Async actions
  */
 export const fetchFiltersAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
+    dispatch(setRequestStatus(RequestStatus.FETCHING));
 
     try {
         const {
@@ -59,9 +59,8 @@ export const fetchFiltersAsync = (): AppThunk => async (dispatch: AppDispatch) =
         const citiesDict = arrayToDict<ICityWithAreas>(cities, 'id');
 
         dispatch(setFilters({ categories, cities: citiesDict }));
+        dispatch(setRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
-        dispatch(removeFilters());
-
         storeToast({
             status: 'error',
             title: 'Partnerstwa',
@@ -69,9 +68,10 @@ export const fetchFiltersAsync = (): AppThunk => async (dispatch: AppDispatch) =
         });
 
         console.error('Proposal filters error:', error);
-    }
 
-    dispatch(setFetching(false));
+        dispatch(removeFilters());
+        dispatch(setRequestStatus(RequestStatus.ERROR));
+    }
 };
 
 /**

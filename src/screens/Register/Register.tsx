@@ -1,9 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
 import useDispatch from '@hooks/useDispatch';
-import { registerProfileAsync, getIsFetchingSelector } from '@slices/profileSlice';
+import { registerProfileAsync, getRequestStatusSelector } from '@slices/profileSlice';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
@@ -11,15 +10,15 @@ import Main from '@layouts/Main';
 import RegisterFrom from './components/RegisterForm';
 
 // TODO add IRegisterProfileParams to useDispatch
-interface IRegisterProfileParams {
-    credentials: Record<string, unknown>;
-    history: History;
-}
+// interface IRegisterProfileParams {
+//     credentials: Record<string, unknown>;
+//     history: History;
+// }
 
 export const Register: React.FC = () => {
     const submitForm = useDispatch(registerProfileAsync);
     const history = useHistory();
-    const isFetching = useSelector(getIsFetchingSelector);
+    const requestStatus = useSelector(getRequestStatusSelector);
 
     const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
 
@@ -38,7 +37,7 @@ export const Register: React.FC = () => {
                 <Divider />
             </Flex>
 
-            <RegisterFrom onSubmit={handleSubmitForm} isFetching={isFetching} />
+            <RegisterFrom onSubmit={handleSubmitForm} requestStatus={requestStatus} />
 
             <Text fontSize="sm" color="gray.500">
                 <Text as="span" color="tomato" mr={1}>

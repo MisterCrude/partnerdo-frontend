@@ -1,16 +1,15 @@
 import React from 'react';
 import { History } from 'history';
+import { loginProfileAsync, getRequestStatusSelector } from '@slices/profileSlice';
+import { ROUTES } from '@consts/routes';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import { loginProfileAsync, getIsFetchingSelector } from '@slices/profileSlice';
-import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
-import Main from '@layouts/Main';
 import LoginForm from './components/LoginForm';
+import Main from '@layouts/Main';
 
 interface ILoginProfileParams {
     credentials: Record<string, unknown>;
@@ -20,7 +19,7 @@ interface ILoginProfileParams {
 export const Login: React.FC = () => {
     const history = useHistory();
     const submitForm = useDispatch<ILoginProfileParams>(loginProfileAsync);
-    const isFetching = useSelector(getIsFetchingSelector);
+    const requestStatus = useSelector(getRequestStatusSelector);
 
     const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
 
@@ -39,7 +38,7 @@ export const Login: React.FC = () => {
                 <Divider />
             </Flex>
 
-            <LoginForm onSubmit={handleSubmitForm} isFetching={isFetching} />
+            <LoginForm onSubmit={handleSubmitForm} requestStatus={requestStatus} />
 
             <RouterLink to={ROUTES.REMIND_PASSWORD}>Przypomnij hasło</RouterLink>
         </Main>

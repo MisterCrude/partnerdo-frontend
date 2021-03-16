@@ -2,20 +2,20 @@ import { AppThunk, AppDispatch } from '@store/index';
 import { arrayToDict } from '@src/utils/misc';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { History } from 'history';
 import { IUser, IUserResponse, IUserData, IUserProposal } from '@models/user';
 import { omit } from 'lodash/fp';
+import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 
 export interface IUserState extends IUser {
-    fetching: boolean;
+    requestStatus: RequestStatus;
 }
 
 const initialState: IUserState = {
     data: {} as IUserData,
     proposals: [],
-    fetching: false,
+    requestStatus: RequestStatus.IDLE,
 };
 
 /**
@@ -25,8 +25,8 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
-            state.fetching = isFetching;
+        setRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.requestStatus = payload;
         },
         removeUser(state) {
             state.data = {} as IUserData;
@@ -42,13 +42,13 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { removeUser, setUser, setFetching } = userSlice.actions;
+export const { removeUser, setUser, setRequestStatus } = userSlice.actions;
 
 /**
  * Async actions
  */
 export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
+    dispatch(setRequestStatus(RequestStatus.FETCHING));
 
     try {
         const { data: userData }: { data: IUserResponse } = await apiService.get(`${BACKEND_ROUTING.USER}${userId}`);
@@ -57,6 +57,7 @@ export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: App
         const data = omit(['proposals'], userData);
 
         dispatch(setUser({ data, proposals }));
+        dispatch(setRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -64,9 +65,9 @@ export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: App
             message: 'Nie udało się pobrać dane tego uzytkownika',
         });
         console.error('User error:', error);
+        dispatch(removeUser());
+        dispatch(setRequestStatus(RequestStatus.ERROR));
     }
-
-    dispatch(setFetching(false));
 };
 
 /**

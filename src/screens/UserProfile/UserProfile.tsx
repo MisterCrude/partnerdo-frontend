@@ -1,8 +1,9 @@
 import React from 'react';
 import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
 import { fetchUserAsync, getUserSelector } from '@slices/userSlice';
-import { ROUTES } from '@consts/routes';
 import { getUserName } from '@utils/user';
+import { RequestStatus } from '@models/misc';
+import { ROUTES } from '@consts/routes';
 import { truncateStringByWords, toLocaleDateString } from '@utils/misc';
 import { useLocation } from 'react-router-dom';
 import { useMount } from 'react-use';
@@ -14,13 +15,15 @@ import Breadcrumbs from '@components/Breadcrumbs';
 import Card from '@components/Card';
 import Main from '@layouts/Main';
 
-const onAuthorNameClick = () => null;
 const onTitleClick = () => null;
 
 export const UserProfile: React.FC = () => {
     const { pathname } = useLocation();
     const fetchUser = useDispatch(fetchUserAsync);
-    const { fetching, data: userData, proposals } = useSelector(getUserSelector);
+    const { requestStatus, data: userData, proposals } = useSelector(getUserSelector);
+
+    const isFetching = requestStatus === RequestStatus.FETCHING;
+    const isSuccess = requestStatus === RequestStatus.SUCCESS;
 
     useMount(() => {
         const userId = pathname.split('/').pop();
@@ -35,9 +38,9 @@ export const UserProfile: React.FC = () => {
                 crumbs={[{ title: 'Strona główna', link: ROUTES.PROPOSALS }]}
                 mb={8}
             />
-            {fetching ? (
-                <>Skeleton</>
-            ) : (
+            {isFetching && <>Skeleton</>}
+
+            {isSuccess && (
                 <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }}>
                     <Box w={350} maxW="100%" mb={{ base: 6 }}>
                         <AspectRatio maxW="100%" mb={4} ration={1}>
@@ -54,7 +57,7 @@ export const UserProfile: React.FC = () => {
                         </Heading>
 
                         <Text color="gray.500" fontSize="sm">
-                            {/* {truncateStringByWords(userData.description, SHORT_DESC_WORDS_AMOUT)} */}
+                            {truncateStringByWords(userData.description, SHORT_DESC_WORDS_AMOUT)}
                         </Text>
                     </Box>
                     <Box flexGrow={1}>
@@ -74,7 +77,6 @@ export const UserProfile: React.FC = () => {
                                     userAvatarUrl={userData.avatar || ''}
                                     userName={getUserName(userData)}
                                     shortUserDesc={truncateStringByWords(userData.description, SHORT_DESC_WORDS_AMOUT)}
-                                    onUserNameClick={onAuthorNameClick}
                                     onTitleClick={onTitleClick}
                                 />
                             ))}

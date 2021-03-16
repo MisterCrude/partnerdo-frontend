@@ -1,24 +1,24 @@
+import { AppThunk, AppDispatch } from '@store/index';
+import { BACKEND_ROUTING } from '@consts/api';
+import { capitalize } from 'lodash/fp';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
-import { capitalize } from 'lodash/fp';
-
-import { BACKEND_ROUTING } from '@consts/api';
-import { ROUTES } from '@consts/routes';
 import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
-import apiService from '@services/apiService';
-import { AppThunk, AppDispatch } from '@store/index';
+import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
+import { ROUTES } from '@consts/routes';
+import apiService from '@services/apiService';
 
 export interface IProfileState {
     data: IProfile;
-    fetching: boolean;
     isAuth: boolean;
+    requestStatus: RequestStatus;
 }
 
 const initialState: IProfileState = {
-    isAuth: !!localStorage.getItem('token') ?? false,
     data: {} as IProfile,
-    fetching: false,
+    isAuth: !!localStorage.getItem('token') ?? false,
+    requestStatus: RequestStatus.IDLE,
 };
 
 /**
@@ -28,8 +28,8 @@ const profileSlice = createSlice({
     name: 'profile',
     initialState,
     reducers: {
-        setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
-            state.fetching = isFetching;
+        setRequestStatu(state, { payload }: PayloadAction<RequestStatus>) {
+            state.requestStatus = payload;
         },
         removeProfile(state) {
             state.data = {} as IProfile;
@@ -45,7 +45,7 @@ const profileSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setProfile, removeProfile, setFetching } = profileSlice.actions;
+export const { setProfile, removeProfile, setRequestStatu } = profileSlice.actions;
 
 /**
  * Async actions
@@ -58,7 +58,7 @@ interface IProfileParams {
 export const loginProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    dispatch(setFetching(true));
+    dispatch(setRequestStatu(RequestStatus.FETCHING));
 
     try {
         const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
@@ -80,6 +80,7 @@ export const loginProfileAsync = ({ credentials, history }: IProfileParams): App
             title: 'Logowanie',
             message: `${capitalize(profileData.username)}, witamy w naszym serwisie ponownie`,
         });
+        dispatch(setRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -87,15 +88,16 @@ export const loginProfileAsync = ({ credentials, history }: IProfileParams): App
             message: 'Coś poszło nie tak spróbuj ponownie',
         });
         console.error('Login error:', error);
-    }
 
-    dispatch(setFetching(false));
+        dispatch(removeProfile());
+        dispatch(setRequestStatu(RequestStatus.ERROR));
+    }
 };
 
 export const registerProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    dispatch(setFetching(true));
+    dispatch(setRequestStatu(RequestStatus.FETCHING));
 
     try {
         const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
@@ -112,21 +114,22 @@ export const registerProfileAsync = ({ credentials, history }: IProfileParams): 
         history.push(ROUTES.PROPOSALS);
 
         dispatch(setProfile(profileData));
-
         storeToast({
             status: 'success',
             title: 'Rejestracja',
             message: `${capitalize(profileData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
+        dispatch(setRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
             title: 'Rejestracja',
             message: 'Kurde, rejestracja jebnęła',
         });
-    }
 
-    dispatch(setFetching(false));
+        dispatch(removeProfile());
+        dispatch(setRequestStatu(RequestStatus.ERROR));
+    }
 };
 
 export const logoutProfileAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
@@ -134,34 +137,28 @@ export const logoutProfileAsync = (history: History): AppThunk => (dispatch: App
     history.push(ROUTES.ROOT);
 
     dispatch(removeProfile());
-
-    // storeToast({
-    //     status: 'success',
-    //     title: 'Wylogowanie',
-    //     message: 'Do zobaczenia',
-    // });
 };
 
 export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
+    dispatch(setRequestStatu(RequestStatus.FETCHING));
 
     try {
         const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE);
 
         dispatch(setProfile(profileData));
+        dispatch(setRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         localStorage.removeItem('token');
-
-        dispatch(removeProfile());
 
         storeToast({
             status: 'error',
             title: 'Logowanie',
             message: 'Coś poszło nie tak, wyjebało Cię z tej wspaniałej apki',
         });
-    }
 
-    dispatch(setFetching(false));
+        dispatch(removeProfile());
+        dispatch(setRequestStatu(RequestStatus.ERROR));
+    }
 };
 
 /**
@@ -169,6 +166,6 @@ export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) =
  */
 export const getProfileDataSelector = (state: RootState) => state.profile.data;
 export const getIsAuthSelector = (state: RootState) => state.profile.isAuth;
-export const getIsFetchingSelector = (state: RootState) => state.profile.fetching;
+export const getRequestStatusSelector = (state: RootState) => state.profile.requestStatus;
 
 export default profileSlice.reducer;

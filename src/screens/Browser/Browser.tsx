@@ -5,13 +5,15 @@ import { ROUTES } from '@consts/routes';
 import { GENDER, AGE_GROUPS } from '@consts/filters';
 import {
     fetchPageAsync,
-    getPaginationPagesAmountSelect,
-    getPaginationCurrentPageItems,
-    getProposalCountSelect,
+    getCurrentPageProposalsSelector,
+    getPagesAmountSelector,
+    getProposalCountSelector,
+    getRequestStatusSelector,
 } from '@slices/proposalSlice';
-import { keys } from 'lodash/fp';
 import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
 import { IOption } from '@models/app';
+import { keys } from 'lodash/fp';
+import { RequestStatus } from '@models/misc';
 import { scrollTop, recordToOptions } from '@utils/misc';
 import useDispatch from '@hooks/useDispatch';
 
@@ -31,15 +33,17 @@ export const Browser: React.FC = () => {
     // const [cityAreas, serSityAreas] = useState<any>([]);
     const history = useHistory();
     const fetchPage = useDispatch<number>(fetchPageAsync);
-    const pagesAmount = useSelector(getPaginationPagesAmountSelect);
-    const itemsCount = useSelector(getProposalCountSelect);
-    const { proposals, fetching } = useSelector(getPaginationCurrentPageItems);
+    const pagesAmount = useSelector(getPagesAmountSelector);
+    const proposalsCount = useSelector(getProposalCountSelector);
+    const proposals = useSelector(getCurrentPageProposalsSelector);
     const categories = useSelector(getCategoriesSelector);
     const cities = useSelector(getCitiesSelector);
+    const requestStatus = useSelector(getRequestStatusSelector);
     const getCityAreas = useSelector(getCityAreasSelector);
 
     const categoryOprions = recordToOptions(categories);
     const cityOprions = recordToOptions(cities);
+    const isFetching = requestStatus === RequestStatus.FETCHING;
 
     const handleChangePage = (pageNumber: number) => {
         fetchPage(pageNumber);
@@ -49,7 +53,7 @@ export const Browser: React.FC = () => {
     const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-proposal-id`);
 
     useMount(() => {
-        fetchPage(1);
+        fetchPage();
     });
 
     useEffect(() => {
@@ -67,18 +71,18 @@ export const Browser: React.FC = () => {
             </Box>
 
             <Text mb={10}>
-                Znaleziono <strong>{itemsCount}</strong> partnerstw pasujących do Ciebie
+                Znaleziono <strong>{proposalsCount}</strong> partnerstw pasujących do Ciebie
             </Text>
 
             <Results
-                isFetching={fetching}
-                results={proposals}
-                onTitleClick={handleTitleClick}
+                isFetching={isFetching}
                 onAuthorNameClick={handleAuthorNameClick}
+                onTitleClick={handleTitleClick}
+                results={proposals}
             />
 
             <Flex justify="center" mt={10}>
-                <Pagination onChangePage={handleChangePage} pagesAmount={pagesAmount} isFetching={fetching} />
+                <Pagination isFetching={isFetching} onChangePage={handleChangePage} pagesAmount={pagesAmount} />
             </Flex>
         </Main>
     );

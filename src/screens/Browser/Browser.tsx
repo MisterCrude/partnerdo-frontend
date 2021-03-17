@@ -14,7 +14,8 @@ import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '
 import { IOption } from '@models/app';
 import { keys } from 'lodash/fp';
 import { RequestStatus } from '@models/misc';
-import { scrollTop, recordToOptions } from '@utils/misc';
+import { toOptions } from '@utils/convert';
+import { scrollTop } from '@utils/misc';
 import useDispatch from '@hooks/useDispatch';
 
 import { Box, Text, Flex } from '@chakra-ui/react';
@@ -41,16 +42,16 @@ export const Browser: React.FC = () => {
     const requestStatus = useSelector(getRequestStatusSelector);
     const getCityAreas = useSelector(getCityAreasSelector);
 
-    const categoryOprions = recordToOptions(categories);
-    const cityOprions = recordToOptions(cities);
+    const categoryOprions = toOptions(categories);
+    const cityOprions = toOptions(cities);
     const isFetching = requestStatus === RequestStatus.FETCHING;
 
     const handleChangePage = (pageNumber: number) => {
         fetchPage(pageNumber);
         scrollTop();
     };
-    const handleAuthorNameClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
-    const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-proposal-id`);
+    const handleAuthorNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
+    const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-propposal-id`);
 
     useMount(() => {
         fetchPage();

@@ -1,5 +1,5 @@
 import { AppThunk, AppDispatch } from '@store/index';
-import { arrayToDict } from '@src/utils/misc';
+import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { IUser, IUserResponse, IUserData, IUserProposal } from '@models/user';
@@ -74,7 +74,7 @@ export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: App
  * Selectors
  */
 export const getUserSelector = (state: RootState) => state.user;
-export const getUserProposalsSelector = (state: RootState) => arrayToDict<IUserProposal>(state.user.proposals, 'id');
+export const getUserProposalsSelector = (state: RootState) => toDict<IUserProposal>(state.user.proposals, 'id');
 export const getUserProposalSelector = createSelector(getUserProposalsSelector, (proposals) => (proposalId: string) =>
     proposals[proposalId]
 );

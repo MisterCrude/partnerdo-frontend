@@ -4,7 +4,8 @@ import { fetchUserAsync, getUserSelector } from '@slices/userSlice';
 import { getUserName } from '@utils/user';
 import { RequestStatus } from '@models/misc';
 import { ROUTES } from '@consts/routes';
-import { truncateStringByWords, toLocaleDateString } from '@utils/misc';
+import { truncateStringByWords } from '@utils/misc';
+import { toLocaleDateString } from '@utils/convert';
 import { useLocation } from 'react-router-dom';
 import { useMount } from 'react-use';
 import { useSelector } from 'react-redux';
@@ -65,14 +66,14 @@ export const UserProfile: React.FC = () => {
                             Aktualne partnerstwa
                         </Heading>
                         <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-                            {proposals.map(({ id, city, cityArea, description, category, updated, title }) => (
+                            {proposals.map(({ id, city, cityArea, description, category, created, title }) => (
                                 <Card
                                     key={id}
                                     // TODO save cityName and cityArea in store after initialFetch and get it by id
                                     address={`${city.name}, ${cityArea.name}`}
                                     content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
                                     category={category.name}
-                                    publishDate={toLocaleDateString(updated, DEFAULT_LOCALE)}
+                                    publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
                                     title={title}
                                     userAvatarUrl={userData.avatar || ''}
                                     userName={getUserName(userData)}

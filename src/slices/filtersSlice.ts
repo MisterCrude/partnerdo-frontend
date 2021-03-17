@@ -1,6 +1,6 @@
 // import { ROUTES } from '@consts/routes';
 import { AppThunk, AppDispatch } from '@store/index';
-import { arrayToDict } from '@src/utils/misc';
+import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { IFiltersResponse, IFilters, ICityWithAreas } from '@models/proposal';
@@ -56,7 +56,7 @@ export const fetchFiltersAsync = (): AppThunk => async (dispatch: AppDispatch) =
             data: { categories, cities },
         }: { data: IFiltersResponse } = await apiService.get(BACKEND_ROUTING.PROPOSAL.FILTERS);
 
-        const citiesDict = arrayToDict<ICityWithAreas>(cities, 'id');
+        const citiesDict = toDict<ICityWithAreas>(cities, 'id');
 
         dispatch(setFilters({ categories, cities: citiesDict }));
         dispatch(setRequestStatus(RequestStatus.SUCCESS));

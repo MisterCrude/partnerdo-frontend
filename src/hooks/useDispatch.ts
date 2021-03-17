@@ -3,8 +3,7 @@ import { useDispatch as useDispatchRedux } from 'react-redux';
 
 type actionFn = (...args: any[]) => void;
 
-// TODO What return?
-const useDispatch = <T>(action: actionFn) => {
+const useDispatch = <T>(action: actionFn): ((payload?: T | undefined) => void) => {
     const dispatch = useDispatchRedux();
 
     return useCallback(

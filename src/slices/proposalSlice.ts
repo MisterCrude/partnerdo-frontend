@@ -3,7 +3,7 @@ import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 // import { IProposal, IPaginatedProposal } from '@models/proposal';
 // import { ROUTES } from '@consts/app';
 import { AppThunk, AppDispatch } from '@store/index';
-import { arrayToDict } from '@src/utils/misc';
+import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
 import { getQueryParams, countOffset } from '@src/utils/pagination';
 import { IProposal, IProposalResponse } from '@models/proposal';
@@ -103,7 +103,7 @@ export const fetchPageAsync = (pageNumber?: number): AppThunk => async (dispatch
         const {
             data: { results, count },
         }: { data: IProposalResponse } = await apiService.get(`${BACKEND_ROUTING.PROPOSAL.LIST}?${queryParams}`);
-        const proposalsDict = arrayToDict<IProposal>(results, 'id');
+        const proposalsDict = toDict<IProposal>(results, 'id');
 
         dispatch(receivePage({ proposals: proposalsDict, count, pageNumber: pageNumber || 1 }));
         dispatch(setRequestStatus(RequestStatus.SUCCESS));

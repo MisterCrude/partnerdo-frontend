@@ -26,7 +26,6 @@ export interface IProposal {
     description: string;
     id: string;
     title: string;
-    updated: string;
 }
 
 export interface ICityWithAreas extends ICity {

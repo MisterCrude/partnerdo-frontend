@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { Container } from '@chakra-ui/react';
-import { withRouterDecorator } from '@utils/storybookDecorators';
+import { withRouterDecorator } from '@services/storybookDecorators';
 import { Card, IProps, Types } from './Card';
 
 export default {
@@ -23,7 +23,7 @@ export default {
         title: 'Poszukuję partnera do głębokiego lenistwa',
         userAvatarUrl: 'https://bit.ly/sage-adebayo',
         userName: 'Jan Baraban',
-        partDescription: 'Kawałek opisu z profilu bla bla...',
+        shortUserDesc: 'Jak w tytule, szukam partnera do głęboki...',
     },
     component: Card,
     decorators: [withRouterDecorator],

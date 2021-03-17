@@ -1,17 +1,14 @@
+import { IProfile } from './profile';
+import { IProposal } from './proposal';
+
+export type IUserData = Omit<IProfile, 'birthYear' | 'gender'>;
+export type IUserProposal = Omit<IProposal, 'author'>;
+
 export interface IUser {
-    avatar: string;
-    birthYear: string;
-    description: string;
-    email: string;
-    firstName: string;
-    id: string;
-    lastName: string;
-    sex: string;
-    username: string;
+    proposals: IUserProposal[];
+    data: IUserData;
 }
 
-export interface ITokenResponse {
-    key: string;
+export interface IUserResponse extends IUserData {
+    proposals: IUserProposal[];
 }
-
-export type IUserResponse = IUser;

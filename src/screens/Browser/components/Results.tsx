@@ -1,37 +1,46 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { ROUTES } from '@config/app';
+import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
+import { getUserName } from '@utils/user';
+import { IProposal } from '@models/proposal';
+import { truncateStringByWords } from '@utils/misc';
+import { toLocaleDateString } from '@utils/convert';
 
 import { VStack } from '@chakra-ui/react';
 import Card from '@components/Card';
 
 interface IProps {
-    isAuth: boolean;
+    isFetching: boolean;
+    results: IProposal[];
+    onAuthorNameClick: (authorId: string) => void;
+    onTitleClick: () => void;
 }
 
 // eslint-disable-next-line
-const Results: React.FC<IProps> = ({ isAuth }) => {
-    const history = useHistory();
-
-    const handleUserNameClick = () => history.push(`${ROUTES.USER_PROFILE}/some-user-id`);
-    const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-proposal-id`);
-
-    return (
-        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-            <Card
-                address="Warszawa, Bemowo"
-                content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
-                category="Sport"
-                publishDate="01.10.2020"
-                title="Poszukuję partnera do głębokiego lenistwa"
-                userAvatarUrl="https://bit.ly/sage-adebayo"
-                userName="Jan Baraban"
-                partDescription="Kawałek opisu z profilu bla bla..."
-                onUserNameClick={handleUserNameClick}
-                onTitleClick={handleTitleClick}
-            />
-        </VStack>
-    );
-};
+const Results: React.FC<IProps> = ({ isFetching, results, onAuthorNameClick, onTitleClick }) => (
+    <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+        {isFetching ? (
+            <>Skeleton</>
+        ) : (
+            <>
+                {results.map(({ id, author, city, cityArea, created, description, category, title }) => (
+                    <Card
+                        key={id}
+                        // TODO save cityName and cityArea in store after initialFetch and get it by id
+                        address={`${city.name}, ${cityArea.name}`}
+                        content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
+                        category={category.name}
+                        publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
+                        title={title}
+                        userAvatarUrl={author.avatar || ''}
+                        userName={getUserName(author)}
+                        shortUserDesc={truncateStringByWords(author.description, SHORT_DESC_WORDS_AMOUT)}
+                        onUserNameClick={() => onAuthorNameClick(author.id)}
+                        onTitleClick={onTitleClick}
+                    />
+                ))}
+            </>
+        )}
+    </VStack>
+);
 
 export default Results;

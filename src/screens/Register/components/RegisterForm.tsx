@@ -1,10 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-
-import { Button, Box, Input, Text } from '@chakra-ui/react';
+import { RequestStatus } from '@models/misc';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { Button, Box, Input, Text } from '@chakra-ui/react';
 import PasswordField from '@components/PasswordField';
 
 interface IInputs {
@@ -16,7 +16,7 @@ interface IInputs {
 
 interface IProps {
     onSubmit: (formData: Record<string, unknown>) => void;
-    isFetching?: boolean;
+    requestStatus?: RequestStatus;
 }
 
 const validationSchema = yup.object().shape({
@@ -29,10 +29,12 @@ const validationSchema = yup.object().shape({
         .oneOf([yup.ref('password1')], 'Hasło się nie zgadza'),
 });
 
-export const LoginForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
+export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
     const { register, errors, handleSubmit } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
+
+    const isFetching = requestStatus === RequestStatus.FETCHING;
 
     return (
         <Box as="form" onSubmit={handleSubmit(onSubmit)}>

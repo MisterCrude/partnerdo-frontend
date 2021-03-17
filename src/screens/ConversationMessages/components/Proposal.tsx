@@ -3,7 +3,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { AspectRatio, Box, Stack, Image, Flex, Heading, Text, Tag } from '@chakra-ui/react';
 import { LocationIcon } from '@theme/customIcons';
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 const Proposal: React.FC = () => (
     <Box mb={{ base: 4, md: 8 }}>

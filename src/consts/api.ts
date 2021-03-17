@@ -8,10 +8,11 @@ export const BACKEND_ROUTING = {
         PASSWORD_RESET: 'auth/password/reset/',
         PASSWORD_CONFIRM: 'auth/password/reset/confirm/',
         PASSWORD_CHANGE: 'auth/password/change/',
-        USER: 'auth/user/',
+        PROFILE: 'auth/user/',
     },
     PROPOSAL: {
         LIST: 'proposals/',
-        FILTERS: 'proposals/filters/',
+        FILTERS: 'proposals/filters',
     },
+    USER: 'user/',
 };

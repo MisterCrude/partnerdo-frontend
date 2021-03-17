@@ -28,10 +28,10 @@ Modern JavaScript utility library delivering modularity
 
 <br/>
 
-## [Ahooks](https://ahooks.js.org/)
+## [React-use](https://github.com/streamich/react-use)
 
 ```
-Custom hooks library
+Collection of essential React Hooks
 ```
 
 <br/>

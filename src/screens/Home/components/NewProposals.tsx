@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
+import { createArray } from '@utils/misc';
+import { ROUTES } from '@consts/routes';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, Flex, Grid, Heading } from '@chakra-ui/react';
@@ -13,24 +14,22 @@ export const NewOffers: React.FC = () => (
         </Heading>
 
         <Grid templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }} gap={{ base: 4, md: 8 }}>
-            {Array(3)
-                .fill('')
-                .map((_, i) => (
-                    <Card
-                        key={i}
-                        address="Warszawa, Bemowo"
-                        content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
-                        category="Sport"
-                        publishDate="01.10.2020"
-                        title="Poszukuję partnera do głębokiego lenistwa"
-                        userAvatarUrl="https://bit.ly/sage-adebayo"
-                        userName="Jan Baraban"
-                        partDescription="Kawałek opisu z profilu bla bla..."
-                        onTitleClick={() => {
-                            return null;
-                        }}
-                    />
-                ))}
+            {createArray(3).map((_, i) => (
+                <Card
+                    key={i}
+                    address="Warszawa, Bemowo"
+                    content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
+                    category="Sport"
+                    publishDate="01.10.2020"
+                    title="Poszukuję partnera do głębokiego lenistwa"
+                    userAvatarUrl="https://bit.ly/sage-adebayo"
+                    userName="Jan Baraban"
+                    shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
+                    onTitleClick={() => {
+                        return null;
+                    }}
+                />
+            ))}
         </Grid>
 
         <Button as={RouterLink} colorScheme="orange" size="lg" mt={{ base: 14, lg: 20 }} to={ROUTES.PROPOSALS}>

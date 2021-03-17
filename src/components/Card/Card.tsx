@@ -22,7 +22,7 @@ export interface IProps {
     title: string;
     userAvatarUrl: string;
     userName: string;
-    partDescription: string;
+    shortUserDesc: string;
     onUserNameClick?: () => void;
     type?: Types;
 }
@@ -36,7 +36,7 @@ export const Card: React.FC<IProps> = ({
     title,
     userAvatarUrl,
     userName,
-    partDescription,
+    shortUserDesc,
     type = Types.DEFAULT,
     onUserNameClick,
 }) => {
@@ -60,7 +60,7 @@ export const Card: React.FC<IProps> = ({
                     avatarUrl={userAvatarUrl}
                     onClick={onUserNameClick}
                     styles={isUnpublish || isDone ? { filter: 'grayscale(100%)', mr: 4 } : { mr: 4 }}
-                    subtitle={partDescription}
+                    subtitle={shortUserDesc}
                     title={userName}
                 />
 

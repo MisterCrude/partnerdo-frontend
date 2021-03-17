@@ -1,0 +1,16 @@
+export const ROUTES = {
+    ROOT: '/',
+    NOT_FOUND: '/404',
+    FAQ: '/faq',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    REMIND_PASSWORD: '/remind-password',
+    REMIND_PASSWORD_NEW: '/remind-password/new',
+    CONVERSATIONS: '/conversations',
+    PROPOSALS: '/proposals',
+    PROPOSALS_CREATE: '/proposals/add',
+    USER_PROFILE: '/user',
+    PROFILE: '/profile',
+    PROFILE_MY_PROPOSALS: '/profile/my-proposals',
+    PROFILE_DONE_PROPOSALS: '/profile/done-proposals',
+};

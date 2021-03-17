@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Link, Heading, Text } from '@chakra-ui/react';

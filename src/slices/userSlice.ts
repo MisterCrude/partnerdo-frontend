@@ -1,24 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { History } from 'history';
-import { capitalize } from 'lodash/fp';
-
-import { BACKEND_ROUTING } from '@config/api';
-import { ROUTES } from '@config/app';
-import { IUser, ITokenResponse, IUserResponse } from '@models/user';
-import apiService from '@services/apiService';
 import { AppThunk, AppDispatch } from '@store/index';
+import { toDict } from '@utils/convert';
+import { BACKEND_ROUTING } from '@consts/api';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { IUser, IUserResponse, IUserData, IUserProposal } from '@models/user';
+import { omit } from 'lodash/fp';
+import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
+import apiService from '@services/apiService';
 
-export interface IUserState {
-    data: IUser;
-    fetching: boolean;
-    isAuth: boolean;
+export interface IUserState extends IUser {
+    requestStatus: RequestStatus;
 }
 
 const initialState: IUserState = {
-    isAuth: !!localStorage.getItem('token') ?? false,
-    data: {} as IUser,
-    fetching: false,
+    data: {} as IUserData,
+    proposals: [],
+    requestStatus: RequestStatus.IDLE,
 };
 
 /**
@@ -28,16 +25,16 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setFetching(state, { payload: isFetching }: PayloadAction<boolean>) {
-            state.fetching = isFetching;
+        setRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.requestStatus = payload;
         },
         removeUser(state) {
-            state.data = {} as IUser;
-            state.isAuth = false;
+            state.data = {} as IUserData;
+            state.proposals = [];
         },
-        setUser(state, { payload }: PayloadAction<{ user: IUser }>) {
-            state.data = payload.user;
-            state.isAuth = true;
+        setUser(state, { payload: { proposals, data } }: PayloadAction<IUser>) {
+            state.data = data;
+            state.proposals = proposals;
         },
     },
 });
@@ -45,125 +42,41 @@ const userSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setUser, removeUser, setFetching } = userSlice.actions;
+export const { removeUser, setUser, setRequestStatus } = userSlice.actions;
 
 /**
  * Async actions
  */
-interface IUserParams {
-    credentials: Record<string, unknown>;
-    history: History;
-}
-
-export const loginUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
+export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setRequestStatus(RequestStatus.FETCHING));
 
     try {
-        const { data: token }: { data: ITokenResponse } = await apiService.post(
-            BACKEND_ROUTING.AUTH.LOGIN,
-            credentials
-        );
-        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
-            headers: {
-                Authorization: `token ${token.key}`,
-            },
-        });
+        const { data: userData }: { data: IUserResponse } = await apiService.get(`${BACKEND_ROUTING.USER}${userId}`);
 
-        localStorage.setItem('token', token.key);
-        history.push(ROUTES.PROPOSALS);
+        const proposals = userData.proposals;
+        const data = omit(['proposals'], userData);
 
-        dispatch(setUser({ user }));
-        storeToast({
-            status: 'success',
-            title: 'Logowanie',
-            message: `${capitalize(user.username)}, witamy w naszym serwisie ponownie`,
-        });
+        dispatch(setUser({ data, proposals }));
+        dispatch(setRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
-            title: 'Logowanie',
-            message: 'Coś poszło nie tak spróbuj ponownie',
+            title: 'Profile uzytkownika',
+            message: 'Nie udało się pobrać dane tego uzytkownika',
         });
-    }
-
-    dispatch(setFetching(false));
-};
-
-export const registerUserAsync = ({ credentials, history }: IUserParams): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
-
-    try {
-        const { data: token }: { data: ITokenResponse } = await apiService.post(
-            BACKEND_ROUTING.AUTH.REGISTER,
-            credentials
-        );
-        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER, {
-            headers: {
-                Authorization: `token ${token.key}`,
-            },
-        });
-
-        localStorage.setItem('token', token.key);
-        history.push(ROUTES.PROPOSALS);
-
-        dispatch(setUser({ user }));
-
-        storeToast({
-            status: 'success',
-            title: 'Rejestracja',
-            message: `${capitalize(user.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
-        });
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Rejestracja',
-            message: 'Kurde, rejestracja jebnęła',
-        });
-    }
-
-    dispatch(setFetching(false));
-};
-
-export const logoutUserAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
-    localStorage.removeItem('token');
-    history.push(ROUTES.ROOT);
-
-    dispatch(removeUser());
-
-    // storeToast({
-    //     status: 'success',
-    //     title: 'Wylogowanie',
-    //     message: 'Do zobaczenia',
-    // });
-};
-
-export const fetchUserAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setFetching(true));
-
-    try {
-        const { data: user }: { data: IUserResponse } = await apiService.get(BACKEND_ROUTING.AUTH.USER);
-
-        dispatch(setUser({ user }));
-    } catch (error) {
-        localStorage.removeItem('token');
-
+        console.error('User error:', error);
         dispatch(removeUser());
-
-        storeToast({
-            status: 'error',
-            title: 'Logowanie',
-            message: 'Coś poszło nie tak, wyjebało Cię z tej wspaniałej apki',
-        });
+        dispatch(setRequestStatus(RequestStatus.ERROR));
     }
-
-    dispatch(setFetching(false));
 };
 
 /**
  * Selectors
  */
-export const getUserData = (state: RootState) => state.user.data;
-export const getIsAuth = (state: RootState) => state.user.isAuth;
-export const getIsFetching = (state: RootState) => state.user.fetching;
+export const getUserSelector = (state: RootState) => state.user;
+export const getUserProposalsSelector = (state: RootState) => toDict<IUserProposal>(state.user.proposals, 'id');
+export const getUserProposalSelector = createSelector(getUserProposalsSelector, (proposals) => (proposalId: string) =>
+    proposals[proposalId]
+);
 
 export default userSlice.reducer;

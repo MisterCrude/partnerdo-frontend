@@ -68,47 +68,9 @@ export const CATEGORIES_DATA: IProposalCategoryIcon[] = [
 
 export const TOAST_DURATION = 5000;
 
-export const ROUTES = {
-    ROOT: '/',
-    NOT_FOUND: '/404',
-    FAQ: '/faq',
-    LOGIN: '/login',
-    REGISTER: '/register',
-    REMIND_PASSWORD: '/remind-password',
-    REMIND_PASSWORD_NEW: '/remind-password/new',
-    CONVERSATIONS: '/conversations',
-    PROPOSALS: '/proposals',
-    PROPOSALS_CREATE: '/proposals/add',
-    USER_PROFILE: '/user',
-    PROFILE: '/profile',
-    PROFILE_MY_PROPOSALS: '/profile/my-proposals',
-    PROFILE_DONE_PROPOSALS: '/profile/done-proposals',
-};
+export const PAGINATION_ITEMS_LIMIT = 10;
 
-export const CITIES = [
-    'Warszawa',
-    'Kraków',
-    'Łódź',
-    'Wrocław',
-    'Poznań',
-    'Gdańsk',
-    'Szczecin',
-    'Bydgoszcz',
-    'Lublin',
-    'Białystok',
-    'Katowice',
-    'Gdynia',
-];
+export const DEFAULT_LOCALE = 'pl-PL';
 
-export const AGE_GROUPS: Record<string, string> = {
-    young: '18 - 25',
-    semimiddle: '26 - 35',
-    middle: '36 - 45',
-    semisenior: '45 - 55',
-    senior: '> 55',
-};
-
-export const GENDER: Record<string, string> = {
-    male: 'Mężczyzna ',
-    female: 'Kobieta',
-};
+export const SHORT_CONTENT_WORDS_AMOUNT = 25;
+export const SHORT_DESC_WORDS_AMOUT = 10;

@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { compose, each, toPairs } from 'lodash/fp';
-import { BACKENTD_BASE_URL } from '@config/api';
-import { toCamelCase, toSnakeCase } from '@utils/misc';
+import { BACKENTD_BASE_URL } from '@consts/api';
+import { toCamelCase, toSnakeCase } from '@utils/convert';
 
 const instace = axios.create({
     baseURL: BACKENTD_BASE_URL,

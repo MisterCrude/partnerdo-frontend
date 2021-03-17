@@ -1,6 +1,7 @@
 import React from 'react';
 import { IconProps } from '@chakra-ui/react';
 import { RecordNamedItem } from './misc';
+import { IProfile } from './profile';
 
 export interface IProposalCategoryIcon {
     name: string;
@@ -8,34 +9,42 @@ export interface IProposalCategoryIcon {
     iconStroked: React.FC<IconProps>;
 }
 
-export interface IAnthor {
-    avatar: string;
-    firstName: string;
+export interface IAuthor extends Omit<IProfile, 'gender' | 'birthYear' | 'email'> {
     id: string;
-    lastName: string;
-    username: string;
 }
+
 export type ICity = RecordNamedItem;
 export type ICategory = RecordNamedItem;
 export type ICityArea = RecordNamedItem;
 
 export interface IProposal {
-    author: IAnthor;
+    author: IAuthor;
     category: ICategory;
-    city_area: ICityArea;
+    cityArea: ICityArea;
     city: ICity;
     created: string;
     description: string;
     id: string;
     title: string;
-    updated: string;
 }
 
-export interface IPaginatedProposal {
+export interface ICityWithAreas extends ICity {
+    cityAreas: ICityArea[];
+}
+
+export interface IFilters {
+    categories: ICategory[];
+    cities: Record<string, ICityWithAreas>;
+}
+
+export interface IProposalResponse {
     count: number;
     next: string;
     previous: string;
     results: IProposal[];
 }
 
-export type IProposalResponse = IPaginatedProposal;
+export interface IFiltersResponse {
+    categories: ICategory[];
+    cities: ICityWithAreas[];
+}

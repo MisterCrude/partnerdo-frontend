@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CATEGORIES_DATA, ROUTES } from '@config/app';
+import { CATEGORIES_DATA } from '@consts/app';
+import { ROUTES } from '@consts/routes';
 import { IProposalCategoryIcon } from '@models/proposal';
 
 import { Link as RouterLink } from 'react-router-dom';

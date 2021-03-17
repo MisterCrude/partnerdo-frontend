@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ROUTES } from '@config/app';
+import { ROUTES } from '@consts/routes';
 
 import { Button, Box, Flex, Textarea, VStack } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
@@ -14,7 +14,7 @@ export const ConversationMessages: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false);
     const history = useHistory();
 
-    const hangleBack = () => {
+    const handleBack = () => {
         history.goBack();
     };
 
@@ -81,7 +81,7 @@ export const ConversationMessages: React.FC = () => {
                         />
                         <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
                             <Button
-                                onClick={hangleBack}
+                                onClick={handleBack}
                                 flexGrow={{ base: 1, md: 0 }}
                                 mr={4}
                                 variant="unstyled"
@@ -97,7 +97,7 @@ export const ConversationMessages: React.FC = () => {
                 ) : (
                     <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
                         <Button
-                            onClick={hangleBack}
+                            onClick={handleBack}
                             flexGrow={{ base: 1, md: 0 }}
                             mr={4}
                             variant="unstyled"

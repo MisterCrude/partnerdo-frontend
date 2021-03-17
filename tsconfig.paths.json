@@ -4,18 +4,18 @@
         "paths": {
             "@assets/*": ["./assets/*"],
             "@components/*": ["./components/*"],
-            "@config/*": ["./config/*"],
+            "@consts/*": ["./consts/*"],
             "@hooks/*": ["./hooks/*"],
+            "@layouts/*": ["./layouts/*"],
+            "@models/*": ["./models/*"],
             "@routing/*": ["./routing/*"],
             "@screens/*": ["./screens/*"],
             "@services/*": ["./services/*"],
-            "@utils/*": ["./utils/*"],
             "@slices/*": ["./slices/*"],
-            "@models/*": ["./models/*"],
+            "@src/*": ["./*"],
             "@store/*": ["./store/*"],
-            "@layouts/*": ["./layouts/*"],
             "@theme/*": ["./theme/*"],
-            "@src/*": ["./*"]
+            "@utils/*": ["./utils/*"]
         }
     }
 }

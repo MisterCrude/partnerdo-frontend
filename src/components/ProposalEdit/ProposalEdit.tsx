@@ -32,9 +32,15 @@ export const ProposalEdit: React.FC = () => (
                 )} */}
         </Box>
         <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }}>
-            <MenuSelect options={cities} palceholder="Miasto" />
-            <MenuSelect options={cities} palceholder="Dzielnica" />
-            <MenuSelect options={categories} palceholder="Kategoria" />
+            <MenuSelect options={cities} palceholder="Miasto" name="city" selected="sss" onChange={() => null} />
+            <MenuSelect options={cities} palceholder="Dzielnica" name="cityArea" selected="sss" onChange={() => null} />
+            <MenuSelect
+                options={categories}
+                palceholder="Kategoria"
+                name="category"
+                selected="sss"
+                onChange={() => null}
+            />
         </Grid>
         <Box>
             <Textarea

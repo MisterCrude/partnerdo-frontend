@@ -28,6 +28,16 @@ export interface IProposal {
     title: string;
 }
 
+export interface IFiltersData {
+    age: number[];
+    categories: string[];
+    city: string;
+    cityAreas: string[];
+    gender: string[];
+    pageNumber: number;
+    search: string;
+}
+
 export interface ICityWithAreas extends ICity {
     cityAreas: ICityArea[];
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { getCategoriesSelector } from '@slices/filtersSlice';
 
 import { Center, Heading } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -7,6 +9,10 @@ import MainCategories from './components/MainCategories';
 import NewProposals from './components/NewProposals';
 
 export const Home: React.FC = () => {
+    const categories = useSelector(getCategoriesSelector);
+
+    console.log('Home ', categories);
+
     return (
         <Main>
             <Center as="section" flexDirection="column" minH="87vh">

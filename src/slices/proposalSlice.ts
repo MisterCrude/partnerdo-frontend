@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { keys } from 'lodash/fp';
+
 // import { History } from 'history';
 // import { IProposal, IPaginatedProposal } from '@models/proposal';
 // import { ROUTES } from '@consts/app';
 import { AppThunk, AppDispatch } from '@store/index';
-import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
-import { getQueryParams, countOffset } from '@src/utils/pagination';
+import { getQueryParams } from '@src/utils/pagination';
+import { IFiltersData } from '@src/models/proposal';
 import { IProposal, IProposalResponse } from '@models/proposal';
-import { keys } from 'lodash/fp';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
+
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
+import { toDict } from '@utils/convert';
 import apiService from '@services/apiService';
 
 interface INormalisedResponse {
@@ -82,30 +85,21 @@ export const { setRequestStatus, setPage, receivePage, resetPagination } = propo
 /**
  * Async actions
  */
-export const fetchPageAsync = (pageNumber?: number): AppThunk => async (dispatch: AppDispatch) => {
+export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (dispatch: AppDispatch) => {
     try {
-        const isInitialFetch = !pageNumber;
-        if (isInitialFetch) {
-            dispatch(setRequestStatus(RequestStatus.FETCHING));
-        }
-        dispatch(setPage(pageNumber || 1));
+        const isInitialFetch = !filtersData.pageNumber;
+        if (isInitialFetch) dispatch(setRequestStatus(RequestStatus.FETCHING));
 
-        const queryParams = getQueryParams({
-            limit: String(PAGINATION_ITEMS_LIMIT),
-            offset: String(countOffset(pageNumber || 1)),
-            // category: ['d9a35511-4566-467c-91f5-5edc57e62df4', 'cb29f60a-de07-4a27-9209-ff74e0564a05'].join(','),
-            // city: 'f8fc89492-e5d4-4572-9a26-2aa17dd036fc',
-            // city_areas: ['04723601-f533-44f1-b9bc-44cf5b516ac1', '9a890976-5278-4523-b8f0-95255585481f'].join(','),
-            // age: [20, 30].join(','),
-            gender: 'm',
-        });
+        dispatch(setPage(filtersData.pageNumber || 1));
 
         const {
             data: { results, count },
-        }: { data: IProposalResponse } = await apiService.get(`${BACKEND_ROUTING.PROPOSAL.LIST}?${queryParams}`);
+        }: { data: IProposalResponse } = await apiService.get(
+            `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParams(filtersData)}`
+        );
         const proposalsDict = toDict<IProposal>(results, 'id');
 
-        dispatch(receivePage({ proposals: proposalsDict, count, pageNumber: pageNumber || 1 }));
+        dispatch(receivePage({ proposals: proposalsDict, count, pageNumber: filtersData.pageNumber || 1 }));
         dispatch(setRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         dispatch(resetPagination());

@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
-
 import { IOption } from '@models/app';
 
-import { Button, Box, Checkbox, Menu, MenuButton, MenuItem, MenuList, theme } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-
-interface IProps {
-    palceholder: string;
-    options: IOption[];
-    height?: string;
-}
+import { Button, Box, Checkbox, Menu, MenuButton, MenuItem, MenuList, theme, IconButton } from '@chakra-ui/react';
+import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
 
 const MenuListStyles = css`
     width: 100%;
@@ -19,21 +12,61 @@ const MenuListStyles = css`
     }
 `;
 
-export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height = '48px' }) => {
-    const [selectedOprions, setSelectedOprions] = useState<string[]>([]);
+interface IProps {
+    palceholder: string;
+    name: string;
+    selected: Array<string | number>;
+    options: IOption[];
+    height?: string;
+    onChange: (name: string, data: string | number | Array<string | number>) => void;
+    onClear?: (name: string) => void;
+}
 
-    const handleSelect = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedOprions((prevState) =>
-            target.checked ? [...prevState, target.value] : prevState.filter((item) => item !== target.value)
-        );
+export const MenuMultiSelect: React.FC<IProps> = ({
+    options,
+    palceholder,
+    name,
+    selected,
+    onChange,
+    onClear,
+    height = '48px',
+}) => {
+    const handleSelect = ({ target }: ChangeEvent<HTMLInputElement>) => {
+        const newData = target.checked ? [...selected, target.value] : selected.filter((item) => item !== target.value);
+        onChange(name, newData);
+    };
+
+    const handleClear = () => {
+        onClear && onClear(name);
     };
 
     return (
         <Box pos="relative">
             <Menu closeOnSelect={false}>
+                {onClear && !!selected.length && (
+                    <IconButton
+                        aria-label="clear"
+                        colorScheme="orange"
+                        h={6}
+                        isRound
+                        minH={6}
+                        minW={6}
+                        onClick={handleClear}
+                        pos="absolute"
+                        right={-3}
+                        size="sm"
+                        top={-3}
+                        w={6}
+                        zIndex={1}
+                    >
+                        <CloseIcon fontSize={10} />
+                    </IconButton>
+                )}
+
                 <MenuButton
                     as={Button}
                     bgColor="white"
+                    disabled={!options.length}
                     h={height}
                     justifyContent="start"
                     pl={4}
@@ -53,8 +86,8 @@ export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height
                         bgColor: 'white',
                     }}
                 >
-                    <Box as="span" fontWeight={selectedOprions.length ? 'semibold' : 'normal'}>
-                        {palceholder} {selectedOprions.length > 0 && `(${selectedOprions.length})`}
+                    <Box as="span" fontWeight={selected.length ? 'semibold' : 'normal'}>
+                        {palceholder} {selected.length > 0 && `(${selected.length})`}
                     </Box>
                 </MenuButton>
 
@@ -67,7 +100,7 @@ export const MenuMultiSelect: React.FC<IProps> = ({ options, palceholder, height
                                     w="100%"
                                     px={4}
                                     py={2}
-                                    isChecked={selectedOprions.includes(value)}
+                                    isChecked={selected.includes(value)}
                                     onChange={handleSelect}
                                 >
                                     {label}

@@ -14,14 +14,14 @@ export const CITIES = [
 ];
 
 export const AGE_GROUPS: Record<string, string> = {
-    young: '18 - 25',
-    semimiddle: '26 - 35',
-    middle: '36 - 45',
-    semisenior: '45 - 55',
-    senior: '> 55',
+    '18,25': '18 - 25',
+    '26,35': '26 - 35',
+    '36,45': '36 - 45',
+    '45,55': '45 - 55',
+    '55': '> 55',
 };
 
 export const GENDER: Record<string, string> = {
-    male: 'Mężczyzna',
-    female: 'Kobieta',
+    m: 'Mężczyzna',
+    f: 'Kobieta',
 };

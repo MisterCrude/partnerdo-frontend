@@ -61,7 +61,8 @@ interface IChangeHandlerParams {
 export const Pagination: React.FC<IProps> = ({ onChangePage, pagesAmount, isFetching }) => (
     <>
         {isFetching && <>Skeleton</>}
-        {pagesAmount > 1 && (
+
+        {!isFetching && pagesAmount > 1 && (
             <Box css={PaginationStyles}>
                 <ReactPaginate
                     activeClassName={'active'}

@@ -9,8 +9,8 @@ const cities: IOption[] = CITIES.map((item) => ({ value: item, label: item }));
 
 export const StepThree: React.FC = () => (
     <VStack align="stretch" spacing={{ base: 6, md: 8 }} w="100%">
-        <MenuSelect options={cities} palceholder="Miasto" />
-        <MenuSelect options={cities} palceholder="Dzielnica" />
+        <MenuSelect options={cities} palceholder="Miasto" name="city" selected="sss" onChange={() => null} />
+        <MenuSelect options={cities} palceholder="Dzielnica" name="cityArea" selected="sss" onChange={() => null} />
     </VStack>
 );
 

@@ -46,7 +46,6 @@ export const Card: React.FC<IProps> = ({
 
     return (
         <Box
-            shadow="md"
             borderWidth={1}
             borderRadius="lg"
             d="block"

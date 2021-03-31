@@ -32,11 +32,9 @@ const SearchBar: React.FC<IProps> = ({ showClearButton, onChange, onClear }) => 
                 <SearchIcon fontSize={24} color="gray.300" />
             </InputLeftElement>
             <Input
-                borderWidth={0}
                 bgColor="white"
                 placeholder="Jakiego partnerstwa szukasz?"
                 size="lg"
-                shadow="md"
                 name="search"
                 onChange={handleChangeSearch}
             />

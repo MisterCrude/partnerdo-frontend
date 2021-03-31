@@ -70,14 +70,12 @@ export const ConversationMessages: React.FC = () => {
                 {isAccepted ? (
                     <>
                         <Textarea
-                            borderWidth={0}
                             h={40}
                             name="surname"
                             resize="none"
                             type="text"
                             mb={8}
                             placeholder="Wpisz swoją wiadomość"
-                            shadow="base"
                         />
                         <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
                             <Button

@@ -46,7 +46,6 @@ export const ProposalEdit: React.FC = () => (
             <Textarea
                 // borderColor={errors.username ? 'tomato' : 'gray.200'}
                 // borderWidth={errors.username ? 1 : 0}
-                borderWidth={0}
                 h={64}
                 name="surname"
                 // ref={register}
@@ -54,7 +53,6 @@ export const ProposalEdit: React.FC = () => (
                 type="text"
                 placeholder="Opis partnerstwa"
                 size="lg"
-                shadow="base"
             />
             {/* {errors.email && (
                     <Text color="tomato" fontSize={15}>

@@ -41,13 +41,11 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
                     name="username"
                     ref={register}
                     type="text"
                     placeholder="Nazwa użytkownika"
                     size="lg"
-                    shadow="base"
                 />
                 {errors.username && (
                     <Text color="tomato" fontSize="sm" mt={1}>
@@ -59,13 +57,11 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.email ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.email ? 1 : 0}
                     name="email"
                     ref={register}
                     type="text"
                     placeholder="Email"
                     size="lg"
-                    shadow="base"
                 />
                 {errors.email && (
                     <Text color="tomato" fontSize="sm" mt={1}>
@@ -77,12 +73,10 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
                     borderColor={errors.password1 ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.password1 ? 1 : 0}
                     name="password1"
                     ref={register}
                     placeholder="Hasło"
                     size="lg"
-                    shadow="base"
                 />
                 {errors.password1 && (
                     <Text color="tomato" fontSize="sm" mt={1}>
@@ -94,12 +88,10 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
                     borderColor={errors.password2 ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.password2 ? 1 : 0}
                     name="password2"
                     ref={register}
                     placeholder="Powtórz hasło"
                     size="lg"
-                    shadow="base"
                 />
                 {errors.password2 && (
                     <Text color="tomato" fontSize="sm" mt={1}>
@@ -113,7 +105,6 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                 color="white"
                 mb={{ base: 4, md: 8 }}
                 size="lg"
-                shadow="base"
                 type="submit"
                 variant="solid"
                 w="100%"

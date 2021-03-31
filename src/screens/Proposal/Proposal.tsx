@@ -108,7 +108,6 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                         >
                             <>
                                 <Textarea
-                                    borderWidth={0}
                                     h={72}
                                     name="surname"
                                     mb={1}
@@ -117,7 +116,6 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     type="text"
                                     placeholder="Twoja odpowiedź"
                                     size="lg"
-                                    shadow="base"
                                 />
                             </>
                         </ModalFrame>

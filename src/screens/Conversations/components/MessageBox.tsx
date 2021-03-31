@@ -46,7 +46,6 @@ export const MessageBox: React.FC<IProps> = ({
             d="flex"
             p={4}
             pos="relative"
-            shadow="md"
         >
             {(hasNewMessage || isRejected) && (
                 <Circle

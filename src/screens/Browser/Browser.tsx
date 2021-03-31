@@ -62,8 +62,8 @@ export const Browser: React.FC = () => {
     const isShowClearButton = !isEqual(omit('pageNumber', initFiltersData), omit('pageNumber', filtersData));
 
     const handleChangePage = (pageNumber: number) => {
-        setFiltersData((prevState) => ({ ...prevState, pageNumber }));
         scrollTop();
+        setFiltersData((prevState) => ({ ...prevState, pageNumber }));
     };
     const handleChangeFilters = (name: string, data: string | number | Array<string | number>) => {
         setFiltersData((prevState) => ({ ...prevState, [name]: data, pageNumber: 0 }));

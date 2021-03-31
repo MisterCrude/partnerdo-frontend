@@ -34,13 +34,11 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
                     bgColor="white"
                     name="username"
                     ref={register}
                     type="text"
                     size="lg"
-                    shadow="base"
                     placeholder="Nazwa użytkownika"
                 />
                 {errors.username && (
@@ -53,11 +51,9 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.username ? 1 : 0}
                     name="password"
                     ref={register}
                     size="lg"
-                    shadow="base"
                     placeholder="Hasło"
                 />
                 {errors.password && (
@@ -74,7 +70,6 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                 variant="solid"
                 width="100%"
                 size="lg"
-                shadow="base"
                 mb={4}
                 isLoading={isFetching}
                 _active={{ bgColor: 'gray.800' }}

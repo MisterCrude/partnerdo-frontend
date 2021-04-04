@@ -3,7 +3,7 @@ import { GENDER, AGE_GROUPS } from '@consts/filters';
 import { ROUTES } from '@consts/routes';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useMount, useUpdateEffect } from 'react-use';
+import { useUpdateEffect } from 'react-use';
 import {
     fetchPageAsync,
     getCurrentPageProposalsSelector,
@@ -82,10 +82,6 @@ export const Browser: React.FC = () => {
 
     const handleAuthorNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
     const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-propposal-id`);
-
-    useMount(() => {
-        fetchPage(filtersData);
-    });
 
     useUpdateEffect(() => {
         setCityAreas(filtersData.city ? toOptions(getCityAreas(filtersData.city)) : []);

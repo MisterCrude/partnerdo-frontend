@@ -7,11 +7,11 @@ import { registerProfileAsync, getRequestStatusSelector } from '@slices/profileS
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
 import Main from '@layouts/Main';
-import RegisterFrom from './components/RegisterForm';
+import RegisterFrom, { IInputs } from './components/RegisterForm';
 
 // TODO add IRegisterProfileParams to useDispatch
 // interface IRegisterProfileParams {
-//     credentials: Record<string, unknown>;
+//     credentials: Record<string, string>;
 //     history: History;
 // }
 
@@ -20,7 +20,7 @@ export const Register: React.FC = () => {
     const history = useHistory();
     const requestStatus = useSelector(getRequestStatusSelector);
 
-    const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
+    const handleSubmitForm = (credentials: IInputs) => submitForm({ credentials, history });
 
     return (
         <Main flexGrow={1} maxW="xl" my={20}>

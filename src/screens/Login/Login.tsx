@@ -8,11 +8,11 @@ import useDispatch from '@hooks/useDispatch';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
-import LoginForm from './components/LoginForm';
+import LoginForm, { IInputs } from './components/LoginForm';
 import Main from '@layouts/Main';
 
 interface ILoginProfileParams {
-    credentials: Record<string, unknown>;
+    credentials: IInputs;
     history: History;
 }
 
@@ -21,7 +21,7 @@ export const Login: React.FC = () => {
     const submitForm = useDispatch<ILoginProfileParams>(loginProfileAsync);
     const requestStatus = useSelector(getRequestStatusSelector);
 
-    const handleSubmitForm = (credentials: Record<string, unknown>) => submitForm({ credentials, history });
+    const handleSubmitForm = (credentials: IInputs) => submitForm({ credentials, history });
 
     return (
         <Main flexGrow={1} maxW="xl" my={20}>

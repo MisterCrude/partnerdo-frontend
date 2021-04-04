@@ -20,14 +20,7 @@ export const SearchBar: React.FC = () => (
             <InputLeftElement h="100%" pointerEvents="none">
                 <SearchIcon fontSize={24} color="gray.300" />
             </InputLeftElement>
-            <Input
-                bgColor="white"
-                borderWidth={0}
-                h="55px"
-                placeholder="Jakiego partnerstwa szukasz?"
-                shadow="base"
-                size="lg"
-            />
+            <Input bgColor="white" h="55px" placeholder="Jakiego partnerstwa szukasz?" size="lg" />
         </InputGroup>
 
         <MenuSelect

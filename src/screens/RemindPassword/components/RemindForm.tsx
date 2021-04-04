@@ -1,16 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Button, Box, Input, Text } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Box, Input } from '@chakra-ui/react';
+import { FormErrorMessage } from '@components/Form';
 
 interface IInputs {
     email: string;
 }
 
 interface IProps {
-    onSubmit: (formData: Record<string, unknown>) => void;
+    onSubmit: (formData: Record<string, string>) => void;
     isFetching?: boolean;
 }
 
@@ -19,7 +20,11 @@ const validationSchema = yup.object().shape({
 });
 
 const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
-    const { register, errors, handleSubmit } = useForm<IInputs>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -28,20 +33,14 @@ const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.email ? 'tomato' : 'gray.200'}
-                    borderWidth={errors.email ? 1 : 0}
                     bgColor="white"
                     name="email"
                     ref={register}
                     type="text"
                     size="lg"
-                    shadow="base"
                     placeholder="Email"
                 />
-                {errors.email && (
-                    <Text color="tomato" fontSize="sm" mt={1}>
-                        {errors.email.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="email" errors={errors} />
             </Box>
 
             <Button

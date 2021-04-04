@@ -2,12 +2,13 @@ import React from 'react';
 import { Switch, Link as RouterLink, Route, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ROUTES } from '@consts/routes';
-import { getProfileDataSelector } from '@slices/profileSlice';
+import useDispatch from '@hooks/useDispatch';
+import { getProfileDataSelector, getRequestStatusSelector, updateProfileAsync } from '@slices/profileSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';
 import Breadcrumbs from '@components/Breadcrumbs';
-import EditForm from './components/EditForm';
+import EditForm, { IInputs } from './components/EditForm';
 import History from './components/History';
 import MyProposals from './components/MyProposals';
 
@@ -38,9 +39,15 @@ const LINKS = [
     },
 ];
 
+type ProfileParams = IInputs;
+
 export const Profile: React.FC = () => {
     const userData = useSelector(getProfileDataSelector);
+    const requestStatus = useSelector(getRequestStatusSelector);
+    const submitForm = useDispatch<ProfileParams>(updateProfileAsync);
     const { pathname } = useLocation();
+
+    const handleSubmitForm = (updatedData: IInputs) => submitForm(updatedData);
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -74,7 +81,7 @@ export const Profile: React.FC = () => {
             <Box mt={8}>
                 <Switch>
                     <Route exact path={ROUTES.PROFILE}>
-                        <EditForm {...userData} />
+                        <EditForm requestStatus={requestStatus} formData={userData} onSubmit={handleSubmitForm} />
                     </Route>
                     <Route exact component={MyProposals} path={ROUTES.PROFILE_MY_PROPOSALS} />
                     <Route exact component={History} path={ROUTES.PROFILE_DONE_PROPOSALS} />

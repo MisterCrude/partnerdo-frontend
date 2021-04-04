@@ -74,3 +74,5 @@ export const DEFAULT_LOCALE = 'pl-PL';
 
 export const SHORT_CONTENT_WORDS_AMOUNT = 25;
 export const SHORT_DESC_WORDS_AMOUT = 10;
+
+export const ACCEPTED_UPLOAD_IMAGE_FORMAT = 'image/png, image/jpeg';

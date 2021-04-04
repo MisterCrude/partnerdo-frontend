@@ -1,12 +1,14 @@
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
-import { capitalize } from 'lodash/fp';
+import { capitalize, omit, get } from 'lodash/fp';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
 import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import { ROUTES } from '@consts/routes';
+import { IInputs } from '@screens/Login/components/LoginForm';
+import { IInputs as IProfileInputs } from '@screens/Profile/components/EditForm';
 import apiService from '@services/apiService';
 
 export interface IProfileState {
@@ -51,7 +53,7 @@ export const { setProfile, removeProfile, setRequestStatu } = profileSlice.actio
  * Async actions
  */
 interface IProfileParams {
-    credentials: Record<string, unknown>;
+    credentials: IInputs;
     history: History;
 }
 
@@ -157,6 +159,44 @@ export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) =
         });
 
         dispatch(removeProfile());
+        dispatch(setRequestStatu(RequestStatus.ERROR));
+    }
+};
+
+export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setRequestStatu(RequestStatus.FETCHING));
+
+    /**
+     * For reason isn't multi upload get first element in FileList .item(0)
+     */
+    const updatedAvatar = get(['avatar'], updatedData).item(0);
+    const normalizedUpdatedData = omit(['avatar'], updatedData);
+
+    try {
+        if (updatedAvatar) {
+            await apiService.post(BACKEND_ROUTING.AUTH.PROFILE_AVATAR, {
+                image: updatedAvatar,
+            });
+        }
+
+        const { data: profileData }: { data: IProfileResponse } = await apiService.patch(BACKEND_ROUTING.AUTH.PROFILE, {
+            ...normalizedUpdatedData,
+        });
+
+        dispatch(setProfile(profileData));
+        storeToast({
+            status: 'success',
+            title: 'Profil uzytkownika',
+            message: 'Dane zostały zapisane',
+        });
+        dispatch(setRequestStatu(RequestStatus.SUCCESS));
+    } catch (error) {
+        storeToast({
+            status: 'error',
+            title: 'Profil uzytkownika',
+            message: 'Nie udało się zapisać dane',
+        });
+
         dispatch(setRequestStatu(RequestStatus.ERROR));
     }
 };

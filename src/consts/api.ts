@@ -9,6 +9,7 @@ export const BACKEND_ROUTING = {
         PASSWORD_CONFIRM: 'auth/password/reset/confirm/',
         PASSWORD_CHANGE: 'auth/password/change/',
         PROFILE: 'auth/user/',
+        PROFILE_AVATAR: 'user/avatar',
     },
     PROPOSAL: {
         LIST: 'proposals/',

@@ -1,20 +1,21 @@
 import React from 'react';
-import { Button, Box, Input, Text } from '@chakra-ui/react';
 import { RequestStatus } from '@models/misc';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { Button, Box, Input } from '@chakra-ui/react';
+import { FormErrorMessage } from '@components/Form';
 import PasswordField from '@components/PasswordField';
 
-type IInputs = {
+export interface IInputs {
     username: string;
     password: string;
-};
+}
 
 interface IProps {
-    onSubmit: (formData: Record<string, unknown>) => void;
-    requestStatus?: RequestStatus;
+    requestStatus: RequestStatus;
+    onSubmit: (formData: IInputs) => void;
 }
 
 const validationSchema = yup.object().shape({
@@ -23,7 +24,11 @@ const validationSchema = yup.object().shape({
 });
 
 const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
-    const { register, errors, handleSubmit } = useForm<IInputs>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -41,11 +46,7 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                     size="lg"
                     placeholder="Nazwa użytkownika"
                 />
-                {errors.username && (
-                    <Text color="tomato" fontSize={15} mt={1}>
-                        {errors.username.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="username" errors={errors} />
             </Box>
 
             <Box mb={{ base: 4, md: 8 }}>
@@ -56,11 +57,7 @@ const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                     size="lg"
                     placeholder="Hasło"
                 />
-                {errors.password && (
-                    <Text color="tomato" fontSize={15} mt={1}>
-                        {errors.password.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="password" errors={errors} />
             </Box>
 
             <Button

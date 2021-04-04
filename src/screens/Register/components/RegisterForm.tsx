@@ -4,10 +4,11 @@ import * as yup from 'yup';
 import { RequestStatus } from '@models/misc';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Button, Box, Input, Text } from '@chakra-ui/react';
+import { Button, Box, Input } from '@chakra-ui/react';
+import { FormErrorMessage } from '@components/Form';
 import PasswordField from '@components/PasswordField';
 
-interface IInputs {
+export interface IInputs {
     username: string;
     email: string;
     password1: string;
@@ -15,7 +16,7 @@ interface IInputs {
 }
 
 interface IProps {
-    onSubmit: (formData: Record<string, unknown>) => void;
+    onSubmit: (formData: IInputs) => void;
     requestStatus?: RequestStatus;
 }
 
@@ -30,7 +31,11 @@ const validationSchema = yup.object().shape({
 });
 
 export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
-    const { register, errors, handleSubmit } = useForm<IInputs>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -47,11 +52,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                     placeholder="Nazwa użytkownika"
                     size="lg"
                 />
-                {errors.username && (
-                    <Text color="tomato" fontSize="sm" mt={1}>
-                        {errors.username.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="username" errors={errors} />
             </Box>
 
             <Box mb={{ base: 4, md: 8 }}>
@@ -63,11 +64,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                     placeholder="Email"
                     size="lg"
                 />
-                {errors.email && (
-                    <Text color="tomato" fontSize="sm" mt={1}>
-                        {errors.email.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="email" errors={errors} />
             </Box>
 
             <Box mb={{ base: 4, md: 8 }}>
@@ -78,11 +75,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                     placeholder="Hasło"
                     size="lg"
                 />
-                {errors.password1 && (
-                    <Text color="tomato" fontSize="sm" mt={1}>
-                        {errors.password1.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="password1" errors={errors} />
             </Box>
 
             <Box mb={{ base: 4, md: 8 }}>
@@ -93,11 +86,7 @@ export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
                     placeholder="Powtórz hasło"
                     size="lg"
                 />
-                {errors.password2 && (
-                    <Text color="tomato" fontSize="sm" mt={1}>
-                        {errors.password2.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="password2" errors={errors} />
             </Box>
 
             <Button

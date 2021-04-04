@@ -1,22 +1,29 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { compose, each, toPairs } from 'lodash/fp';
+import { each, keys } from 'lodash/fp';
 import { BACKENTD_BASE_URL } from '@consts/api';
 import { toCamelCase, toSnakeCase } from '@utils/convert';
 
 const instace = axios.create({
     baseURL: BACKENTD_BASE_URL,
     transformRequest: (data: Record<string, unknown>) => {
-        const payload: FormData = new FormData();
+        /**
+         * Disable deep converting for toSnakeCase
+         * in request body for sending object data
+         * like File or FileList
+         */
+        const payloadFormData: FormData = new FormData();
+        const normalizedData = toSnakeCase(data);
+        const dataKeys = keys(normalizedData);
 
-        each((item: string[]) => payload.set(item[0], item[1]), compose(toPairs, toSnakeCase)(data));
+        each((key: string) => payloadFormData.set(key, normalizedData[key]), dataKeys);
 
-        return payload;
+        return payloadFormData;
     },
     transformResponse: (resp) => {
-        const payload = JSON.parse(resp);
+        const payloadJSON = JSON.parse(resp);
 
-        return toCamelCase(payload);
+        return toCamelCase(payloadJSON);
     },
 });
 

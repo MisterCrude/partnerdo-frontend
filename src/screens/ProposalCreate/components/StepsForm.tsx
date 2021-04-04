@@ -12,7 +12,7 @@ interface IProps {
     lastStep: number;
     onCancel: () => void;
     onGo: (dec?: boolean) => void;
-    // onSubmit: (formData: Record<string, unknown>) => void;
+    // onSubmit: (formData: Record<string, string>) => void;
     onSubmit: () => void;
 }
 

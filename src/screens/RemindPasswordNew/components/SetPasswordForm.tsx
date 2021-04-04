@@ -1,10 +1,10 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { Button, Box, Text } from '@chakra-ui/react';
-import { yupResolver } from '@hookform/resolvers/yup';
-
+import { Button, Box } from '@chakra-ui/react';
+import { FormErrorMessage } from '@components/Form';
 import PasswordField from '@components/PasswordField';
 
 interface IInputs {
@@ -13,7 +13,7 @@ interface IInputs {
 }
 
 interface IProps {
-    onSubmit: (formData: Record<string, unknown>) => void;
+    onSubmit: (formData: Record<string, string>) => void;
     isFetching?: boolean;
 }
 
@@ -26,7 +26,11 @@ const validationSchema = yup.object().shape({
 });
 
 const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
-    const { register, errors, handleSubmit } = useForm<IInputs>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
     });
 
@@ -42,11 +46,7 @@ const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => 
                     size="lg"
                     shadow="base"
                 />
-                {errors.password1 && (
-                    <Text color="tomato" fontSize={15} mt={1}>
-                        {errors.password1.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="password1" errors={errors} />
             </Box>
 
             <Box mb={{ base: 4, md: 8 }}>
@@ -59,11 +59,7 @@ const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => 
                     size="lg"
                     shadow="base"
                 />
-                {errors.password2 && (
-                    <Text color="tomato" fontSize="sm" mt={1}>
-                        {errors.password2.message}
-                    </Text>
-                )}
+                <FormErrorMessage name="password2" errors={errors} />
             </Box>
 
             <Button

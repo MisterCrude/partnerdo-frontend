@@ -11,6 +11,7 @@ import NewProposals from './components/NewProposals';
 export const Home: React.FC = () => {
     const categories = useSelector(getCategoriesSelector);
 
+    // TODO remove it
     console.log('Home ', categories);
 
     return (

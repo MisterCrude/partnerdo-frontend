@@ -21,9 +21,11 @@ const instace = axios.create({
         return payloadFormData;
     },
     transformResponse: (resp) => {
-        const payloadJSON = JSON.parse(resp);
+        if (resp) {
+            const payloadJSON = JSON.parse(resp);
 
-        return toCamelCase(payloadJSON);
+            return toCamelCase(payloadJSON);
+        }
     },
 });
 

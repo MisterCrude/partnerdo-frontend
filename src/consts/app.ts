@@ -75,4 +75,6 @@ export const DEFAULT_LOCALE = 'pl-PL';
 export const SHORT_CONTENT_WORDS_AMOUNT = 25;
 export const SHORT_DESC_WORDS_AMOUT = 10;
 
-export const ACCEPTED_UPLOAD_IMAGE_FORMAT = 'image/png, image/jpeg';
+export const ACCEPTED_UPLOAD_IMAGE_FORMAT = 'image/png, image/jpeg, image/jpg';
+export const AVATAR_FALLBACK_URL = 'https://via.placeholder.com/300?text=Nie+ma+avataru+:(';
+export const AVATAR_MAX_FILE_SIZE = 5000 * 1024;

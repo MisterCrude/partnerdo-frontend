@@ -1,22 +1,19 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { isEqual, omit } from 'lodash/fp';
 import { useForm } from 'react-hook-form';
-import { useMount, useUpdateEffect } from 'react-use';
+import { useUpdateEffect, useMount } from 'react-use';
 import * as yup from 'yup';
-import { ACCEPTED_UPLOAD_IMAGE_FORMAT } from '@consts/app';
 import { IProfile } from '@models/profile';
 import { RequestStatus } from '@models/misc';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { AspectRatio, Box, Button, Flex, Textarea, Text, Input, IconButton, Image } from '@chakra-ui/react';
-import { EditIcon } from '@theme/customIcons';
+import { Box, Button, Flex, Textarea, Text, Input } from '@chakra-ui/react';
 import { FormErrorMessage } from '@components/Form';
 import ModalFrame from '@components/ModalFrame';
-
-const currentYear = new Date().getFullYear();
+import AvatarInput, { IAvatarInput, AvatarState } from './AvatarInput';
 
 export interface IInputs {
-    avatar: FileList;
+    avatar: IAvatarInput;
     username: string;
     email: string;
     birthYear: string;
@@ -30,6 +27,8 @@ interface IProps {
     requestStatus: RequestStatus;
     onSubmit: (formData: IInputs) => void;
 }
+
+const currentYear = new Date().getFullYear();
 
 const validationSchema = yup.object().shape({
     username: yup.string().required('To pole jest wymagane'),
@@ -46,11 +45,15 @@ const validationSchema = yup.object().shape({
 
 const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
     const [isReceivingData, setIsReceivingData] = useState(false);
-    const [isDisabledSubmit, setIsDisabledSubmit] = useState(true);
+    const [isFormChanged, setIsFormChanged] = useState({
+        avatar: false,
+        inputs: false,
+    });
     const {
         register,
         handleSubmit,
         getValues,
+        setValue,
         formState: { errors },
     } = useForm<IInputs>({
         resolver: yupResolver(validationSchema),
@@ -67,22 +70,33 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
             ...formData,
             birthYear: `${formData.birthYear}`,
         });
-        const providedData = omit(['avatar'], getValues());
-        const isSomeFieldChanged = !isEqual(providedData, defaultData);
+        const userData = omit(['avatar'], getValues());
+        const isFieldsEqual = isEqual(userData, defaultData);
 
-        setIsDisabledSubmit(!isSomeFieldChanged);
+        setIsFormChanged((prevState) => ({ ...prevState, inputs: !isFieldsEqual }));
     };
 
-    const handleChangeAvatar = () => {
-        setIsDisabledSubmit(false);
+    const handleChangeAvatar = (avatarInput: IAvatarInput) => {
+        const isAvatarChanged = avatarInput.state !== AvatarState.IDLE;
+
+        setIsFormChanged((prevState) => ({ ...prevState, avatar: isAvatarChanged }));
+        setValue('avatar', avatarInput);
     };
 
     const isFetching = requestStatus === RequestStatus.FETCHING;
+    const isDisableSubmit = !isFormChanged.avatar && !isFormChanged.inputs;
     const showSkeleton = isFetching && !isReceivingData;
 
     useUpdateEffect(() => {
-        setIsDisabledSubmit(true);
+        setIsFormChanged({
+            avatar: false,
+            inputs: false,
+        });
     }, [formData]);
+
+    useMount(() => {
+        register('avatar');
+    });
 
     return (
         <>
@@ -91,34 +105,8 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
             ) : (
                 <Box as="form" d={{ base: 'block', md: 'flex' }} onSubmit={handleSubmit(onSubmit)}>
                     <Box mr={{ base: 0, md: 8 }} mb={{ base: 8, md: 0 }} mx={{ base: 'auto' }} w={300} maxW="100%">
-                        <Box pos="relative">
-                            <AspectRatio maxW="100%" mb={{ base: 4, md: 8 }} ration={1}>
-                                <Image
-                                    alt="Jan Baraban"
-                                    borderRadius={6}
-                                    objectFit="cover"
-                                    src={avatar}
-                                    fallbackSrc="https://via.placeholder.com/300"
-                                />
-                            </AspectRatio>
-                            <IconButton
-                                aria-label="Edit"
-                                d="flex"
-                                fontSize={20}
-                                size="sm"
-                                icon={<EditIcon color="gray.800" />}
-                                pos="absolute"
-                                top={2}
-                                right={2}
-                            />
-                            <Input
-                                accept={ACCEPTED_UPLOAD_IMAGE_FORMAT}
-                                name="avatar"
-                                ref={register}
-                                type="file"
-                                onChange={handleChangeAvatar}
-                            />
-                        </Box>
+                        <AvatarInput avatarUrl={avatar} onChange={handleChangeAvatar} />
+                        <FormErrorMessage name="username" errors={errors} />
 
                         <ModalFrame
                             actionTitle="Zapisz hasło"
@@ -267,7 +255,7 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
                         >
                             <Button
                                 colorScheme="orange"
-                                disabled={isDisabledSubmit}
+                                disabled={isDisableSubmit}
                                 isLoading={isFetching}
                                 mb={{ base: 4, md: 0 }}
                                 type="submit"

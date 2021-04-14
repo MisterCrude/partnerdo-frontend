@@ -31,9 +31,8 @@ Main text
 
 ### Colors
 
-Buttons color
-
 ```jsx
+// Buttons color
 <IconButton
     bgColor="gray.800"
     icon={<EditIcon color="white" />}
@@ -42,9 +41,12 @@ Buttons color
 />
 ```
 
-backgroundColor="gray.800"
+```jsx
+red.500 // error color
+gray.800 // background color
+```
 
-Spacing
+## Spacing
 
 Base space between elements `base: 4, md: 8`
 

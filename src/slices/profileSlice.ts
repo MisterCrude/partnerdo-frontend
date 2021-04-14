@@ -4,11 +4,12 @@ import { capitalize, omit, get } from 'lodash/fp';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { History } from 'history';
 import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
+import { AvatarState } from '@screens/Profile//components/AvatarInput';
+import { IInputs } from '@screens/Login/components/LoginForm';
+import { IInputs as IProfileInputs } from '@screens/Profile/components/EditForm';
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import { ROUTES } from '@consts/routes';
-import { IInputs } from '@screens/Login/components/LoginForm';
-import { IInputs as IProfileInputs } from '@screens/Profile/components/EditForm';
 import apiService from '@services/apiService';
 
 export interface IProfileState {
@@ -166,17 +167,18 @@ export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) =
 export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => async (dispatch: AppDispatch) => {
     dispatch(setRequestStatu(RequestStatus.FETCHING));
 
-    /**
-     * For reason isn't multi upload get first element in FileList .item(0)
-     */
-    const updatedAvatar = get(['avatar'], updatedData).item(0);
+    const avatar = get(['avatar'], updatedData);
     const normalizedUpdatedData = omit(['avatar'], updatedData);
 
     try {
-        if (updatedAvatar) {
+        if (avatar?.state === AvatarState.ADDED) {
             await apiService.post(BACKEND_ROUTING.AUTH.PROFILE_AVATAR, {
-                image: updatedAvatar,
+                image: avatar.file,
             });
+        }
+
+        if (avatar?.state === AvatarState.DELETED) {
+            await apiService.delete(BACKEND_ROUTING.AUTH.PROFILE_AVATAR);
         }
 
         const { data: profileData }: { data: IProfileResponse } = await apiService.patch(BACKEND_ROUTING.AUTH.PROFILE, {

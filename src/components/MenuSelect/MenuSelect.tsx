@@ -59,6 +59,9 @@ export const MenuSelect: React.FC<IProps> = ({
         }
     };
 
+    const getSlelectedLabel = (selectedVale: string | number) =>
+        options.find((option: IOption) => option.value === selectedVale)?.label;
+
     return (
         <Box pos="relative">
             <Menu closeOnSelect>
@@ -106,7 +109,7 @@ export const MenuSelect: React.FC<IProps> = ({
                     }}
                 >
                     <Box as="span" fontWeight={selected ? 'semibold' : 'normal'}>
-                        {selected ? selected : palceholder}
+                        {selected ? getSlelectedLabel(selected) : palceholder}
                     </Box>
                 </MenuButton>
 

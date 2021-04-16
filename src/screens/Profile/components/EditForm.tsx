@@ -44,7 +44,7 @@ const validationSchema = yup.object().shape({
 });
 
 const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
-    const [isReceivingData, setIsReceivingData] = useState(false);
+    const [isFetchingData, setIsFetchingData] = useState(false);
     const [isFormChanged, setIsFormChanged] = useState({
         avatar: false,
         inputs: false,
@@ -61,8 +61,13 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
 
     const { username, lastName, firstName, birthYear, description, email, avatar } = formData;
 
+    const isDisableSubmit = !isFormChanged.avatar && !isFormChanged.inputs;
+    const isFetching = requestStatus === RequestStatus.FETCHING;
+    const showSkeleton = (isFetching || requestStatus === RequestStatus.IDLE) && !isFetchingData;
+    const showError = requestStatus === RequestStatus.ERROR;
+
     const handleClickSave = () => {
-        setIsReceivingData(true);
+        setIsFetchingData(true);
     };
 
     const handleChange = () => {
@@ -83,10 +88,6 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
         setValue('avatar', avatarInput);
     };
 
-    const isFetching = requestStatus === RequestStatus.FETCHING;
-    const isDisableSubmit = !isFormChanged.avatar && !isFormChanged.inputs;
-    const showSkeleton = isFetching && !isReceivingData;
-
     useUpdateEffect(() => {
         setIsFormChanged({
             avatar: false,
@@ -100,7 +101,8 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
 
     return (
         <>
-            {showSkeleton ? (
+            {showError && <>Error</>}
+            {showSkeleton && !showError ? (
                 <>Skeleton</>
             ) : (
                 <Box as="form" d={{ base: 'block', md: 'flex' }} onSubmit={handleSubmit(onSubmit)}>
@@ -288,6 +290,8 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
                     </Box>
                 </Box>
             )}
+
+            {/* )} */}
         </>
     );
 };

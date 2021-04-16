@@ -47,7 +47,7 @@ export interface IFilters {
     cities: Record<string, ICityWithAreas>;
 }
 
-export interface IProposalResponse {
+export interface IProposalsListResponse {
     count: number;
     next: string;
     previous: string;
@@ -57,4 +57,9 @@ export interface IProposalResponse {
 export interface IFiltersResponse {
     categories: ICategory[];
     cities: ICityWithAreas[];
+}
+
+export interface IProposalResponse extends IProposal {
+    // TODO remove id when add new fields
+    id: string;
 }

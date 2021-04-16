@@ -8,7 +8,7 @@ import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
 import { getQueryParams } from '@src/utils/pagination';
 import { IFiltersData } from '@src/models/proposal';
-import { IProposal, IProposalResponse } from '@models/proposal';
+import { IProposal, IProposalsListResponse, IProposalResponse } from '@models/proposal';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 
 import { RequestStatus } from '@models/misc';
@@ -22,14 +22,20 @@ interface INormalisedResponse {
     pageNumber: number;
 }
 
+interface IDetails {
+    data: IProposal;
+    requestStatus: RequestStatus;
+}
+
 interface IPagination {
     count: number;
     currentPage: number;
-    currentPageRequestStatus: RequestStatus;
+    requestStatus: RequestStatus;
     pages: Record<number, string[]>;
 }
 
 export interface IProposalState {
+    details: IDetails;
     pagination: {
         proposals: IPagination;
     };
@@ -39,11 +45,15 @@ export interface IProposalState {
 const initialPaginationItem: IPagination = {
     count: 0,
     currentPage: 1,
-    currentPageRequestStatus: RequestStatus.IDLE,
+    requestStatus: RequestStatus.IDLE,
     pages: {},
 };
 
 const initialState: IProposalState = {
+    details: {
+        data: {} as IProposal,
+        requestStatus: RequestStatus.IDLE,
+    },
     proposals: {},
     pagination: {
         proposals: initialPaginationItem,
@@ -58,8 +68,8 @@ const proposalSlice = createSlice({
     name: 'proposal',
     initialState,
     reducers: {
-        setRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
-            state.pagination.proposals.currentPageRequestStatus = payload;
+        setPaginationRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.pagination.proposals.requestStatus = payload;
         },
         setPage(state, { payload: pageNumber }: PayloadAction<number>) {
             state.pagination.proposals.pages[pageNumber] = [];
@@ -74,13 +84,31 @@ const proposalSlice = createSlice({
             state.pagination.proposals = initialPaginationItem;
             state.proposals = {};
         },
+        setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.details.requestStatus = payload;
+        },
+        setDetails(state, { payload: proposalDetails }: PayloadAction<IProposal>) {
+            state.details.data = proposalDetails;
+        },
+        resetDetails(state) {
+            state.details.data = {} as IProposal;
+            state.details.requestStatus = RequestStatus.IDLE;
+        },
     },
 });
 
 /**
  * Sync actions
  */
-export const { setRequestStatus, setPage, receivePage, resetPagination } = proposalSlice.actions;
+export const {
+    receivePage,
+    resetDetails,
+    resetPagination,
+    setDetails,
+    setDetailsRequestStatus,
+    setPage,
+    setPaginationRequestStatus,
+} = proposalSlice.actions;
 
 /**
  * Async actions
@@ -88,22 +116,22 @@ export const { setRequestStatus, setPage, receivePage, resetPagination } = propo
 export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (dispatch: AppDispatch) => {
     try {
         const isInitialFetch = !filtersData.pageNumber;
-        if (isInitialFetch) dispatch(setRequestStatus(RequestStatus.FETCHING));
+        if (isInitialFetch) dispatch(setPaginationRequestStatus(RequestStatus.FETCHING));
 
         dispatch(setPage(filtersData.pageNumber || 1));
 
         const {
             data: { results, count },
-        }: { data: IProposalResponse } = await apiService.get(
+        }: { data: IProposalsListResponse } = await apiService.get(
             `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParams(filtersData)}`
         );
         const proposalsDict = toDict<IProposal>(results, 'id');
 
         dispatch(receivePage({ proposals: proposalsDict, count, pageNumber: filtersData.pageNumber || 1 }));
-        dispatch(setRequestStatus(RequestStatus.SUCCESS));
+        dispatch(setPaginationRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         dispatch(resetPagination());
-        dispatch(setRequestStatus(RequestStatus.ERROR));
+        dispatch(setPaginationRequestStatus(RequestStatus.ERROR));
 
         storeToast({
             status: 'error',
@@ -115,11 +143,35 @@ export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (di
     }
 };
 
+export const fetchDetailsAsync = (proposalId: string): AppThunk => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
+
+        const { data: proposalDetails }: { data: IProposalResponse } = await apiService.get(
+            `${BACKEND_ROUTING.PROPOSAL.LIST}${proposalId}`
+        );
+
+        dispatch(setDetails(proposalDetails));
+        dispatch(setDetailsRequestStatus(RequestStatus.SUCCESS));
+    } catch (error) {
+        dispatch(resetDetails());
+        dispatch(setDetailsRequestStatus(RequestStatus.ERROR));
+
+        storeToast({
+            status: 'error',
+            title: 'Partnerstwo',
+            message: 'Nie udało się pobrać danie tego partnerstwa',
+        });
+
+        console.error('Fetch proposal details error:', error);
+    }
+};
+
 /**
  * Selectors
  */
-export const getRequestStatusSelector = (state: RootState) =>
-    state.proposal.pagination.proposals.currentPageRequestStatus;
+export const getProposalsPageRequestStatusSelector = (state: RootState) =>
+    state.proposal.pagination.proposals.requestStatus;
 
 export const getProposalCountSelector = (state: RootState) => state.proposal.pagination.proposals.count;
 export const getPagesAmountSelector = createSelector(getProposalCountSelector, (count) =>
@@ -135,5 +187,8 @@ export const getCurrentPageProposalsSelector = createSelector(
     getProposalsSelector,
     (currentPage, pages, proposals) => (pages[currentPage] ? pages[currentPage].map((id) => proposals[id]) : [])
 );
+
+export const getDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;
+export const getDetailsData = (state: RootState) => state.proposal.details.data;
 
 export default proposalSlice.reducer;

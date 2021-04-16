@@ -6,5 +6,5 @@ export const scrollTop = () => {
 
 export const createArray = (items: number): undefined[] => Array(items).fill(undefined);
 
-export const truncateStringByWords = (str: string, length: number): string =>
-    `${str.split(' ').slice(0, length).join(' ').trim()}...`;
+export const truncateStringByWords = (str: string, maxWords: number): string =>
+    str.split(' ').length <= maxWords ? str : `${str.split(' ').slice(0, maxWords).join(' ').trim()}...`;

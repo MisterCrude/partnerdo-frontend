@@ -3,7 +3,7 @@ import { Switch, Link as RouterLink, Route, Redirect, useLocation } from 'react-
 import { useSelector } from 'react-redux';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
-import { getProfileDataSelector, getRequestStatusSelector, updateProfileAsync } from '@slices/profileSlice';
+import { getProfileDataSelector, getProfileRequestStatusSelector, updateProfileAsync } from '@slices/profileSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -43,7 +43,7 @@ type ProfileParams = IInputs;
 
 export const Profile: React.FC = () => {
     const userData = useSelector(getProfileDataSelector);
-    const requestStatus = useSelector(getRequestStatusSelector);
+    const requestStatus = useSelector(getProfileRequestStatusSelector);
     const submitForm = useDispatch<ProfileParams>(updateProfileAsync);
     const { pathname } = useLocation();
 

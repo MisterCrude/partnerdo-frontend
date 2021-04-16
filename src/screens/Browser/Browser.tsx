@@ -3,15 +3,16 @@ import { GENDER, AGE_GROUPS } from '@consts/filters';
 import { ROUTES } from '@consts/routes';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useUpdateEffect } from 'react-use';
+import { useUnmount, useUpdateEffect } from 'react-use';
 import {
     fetchPageAsync,
     getCurrentPageProposalsSelector,
     getPagesAmountSelector,
     getProposalCountSelector,
-    getRequestStatusSelector,
+    getProposalsPageRequestStatusSelector,
 } from '@slices/proposalSlice';
 import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
+import { resetPagination as reset } from '@slices/proposalSlice';
 import { IFiltersData } from '@models/proposal';
 import { IOption } from '@models/app';
 import { keys, isEqual, omit } from 'lodash/fp';
@@ -47,19 +48,24 @@ export const Browser: React.FC = () => {
     const [cityAreas, setCityAreas] = useState<IOption[]>([]);
     const [filtersData, setFiltersData] = useState<IFiltersData>(initFiltersData);
     const history = useHistory();
+
     const fetchPage = useDispatch<IFiltersData>(fetchPageAsync);
+    const resetPagination = useDispatch(reset);
     const pagesAmount = useSelector(getPagesAmountSelector);
     const proposalsCount = useSelector(getProposalCountSelector);
     const proposals = useSelector(getCurrentPageProposalsSelector);
     const categories = useSelector(getCategoriesSelector);
     const cities = useSelector(getCitiesSelector);
-    const requestStatus = useSelector(getRequestStatusSelector);
+    const requestStatus = useSelector(getProposalsPageRequestStatusSelector);
     const getCityAreas = useSelector(getCityAreasSelector);
 
     const categoryOprions = toOptions(categories);
     const cityOprions = toOptions(cities);
-    const isFetching = requestStatus === RequestStatus.FETCHING;
     const isShowClearButton = !isEqual(omit('pageNumber', initFiltersData), omit('pageNumber', filtersData));
+
+    const showError = requestStatus === RequestStatus.ERROR;
+    const showContet = requestStatus === RequestStatus.SUCCESS;
+    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
 
     const handleChangePage = (pageNumber: number) => {
         scrollTop();
@@ -79,14 +85,17 @@ export const Browser: React.FC = () => {
                 : initFiltersData
         );
     };
-
     const handleAuthorNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
-    const handleTitleClick = () => history.push(`${ROUTES.PROPOSALS}/some-propposal-id`);
+    const handleTitleClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
 
     useUpdateEffect(() => {
         setCityAreas(filtersData.city ? toOptions(getCityAreas(filtersData.city)) : []);
         fetchPage(filtersData);
     }, [filtersData]);
+
+    useUnmount(() => {
+        resetPagination();
+    });
 
     return (
         <Main mt={{ base: 0, md: 10 }} mb={10}>
@@ -115,18 +124,25 @@ export const Browser: React.FC = () => {
                     onClear={handleClear}
                 />
             </Box>
-            <Text mb={10}>
-                Znaleziono <strong>{proposalsCount}</strong> partnerstw pasujących do Ciebie
-            </Text>
-            <Results
-                isFetching={isFetching}
-                onAuthorNameClick={handleAuthorNameClick}
-                onTitleClick={handleTitleClick}
-                results={proposals}
-            />
+
+            {showSkeleton && <>Skeleton</>}
+            {showError && <>Error</>}
+            {showContet && (
+                <>
+                    <Text mb={10}>
+                        Znaleziono <strong>{proposalsCount}</strong> partnerstw pasujących do Ciebie
+                    </Text>
+
+                    <Results
+                        onAuthorNameClick={handleAuthorNameClick}
+                        onTitleClick={handleTitleClick}
+                        results={proposals}
+                    />
+                </>
+            )}
 
             <Flex justify="center" mt={10}>
-                <Pagination isFetching={isFetching} onChangePage={handleChangePage} pagesAmount={pagesAmount} />
+                <Pagination isFetching={showSkeleton} onChangePage={handleChangePage} pagesAmount={pagesAmount} />
             </Flex>
         </Main>
     );

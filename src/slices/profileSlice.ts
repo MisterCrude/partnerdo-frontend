@@ -208,6 +208,6 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
  */
 export const getProfileDataSelector = (state: RootState) => state.profile.data;
 export const getIsAuthSelector = (state: RootState) => state.profile.isAuth;
-export const getRequestStatusSelector = (state: RootState) => state.profile.requestStatus;
+export const getProfileRequestStatusSelector = (state: RootState) => state.profile.requestStatus;
 
 export default profileSlice.reducer;

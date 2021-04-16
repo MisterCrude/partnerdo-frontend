@@ -17,14 +17,14 @@ export interface IProps {
     address: string;
     category: string;
     content: string;
-    onTitleClick: () => void;
     publishDate: string;
     title: string;
     userAvatarUrl: string;
     userName: string;
     shortUserDesc: string;
-    onUserNameClick?: () => void;
     type?: Types;
+    onUserNameClick?: () => void;
+    onTitleClick?: () => void;
 }
 
 export const Card: React.FC<IProps> = ({
@@ -125,7 +125,7 @@ export const Card: React.FC<IProps> = ({
                         cursor="pointer"
                         ml={2}
                         onClick={onTitleClick}
-                        _hover={{ textDecor: 'underline' }}
+                        _hover={{ textDecor: onTitleClick ? 'underline' : 'unset' }}
                     >
                         {title}
                     </Box>

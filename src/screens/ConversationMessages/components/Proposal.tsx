@@ -1,4 +1,5 @@
 import React from 'react';
+import { AVATAR_FALLBACK_URL } from '@consts/app';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { AspectRatio, Box, Stack, Image, Flex, Heading, Text, Tag } from '@chakra-ui/react';
@@ -14,7 +15,7 @@ const Proposal: React.FC = () => (
                     borderRadius={6}
                     objectFit="cover"
                     src="https://bit.ly/sage-adebayo"
-                    fallbackSrc="https://via.placeholder.com/300"
+                    fallbackSrc={AVATAR_FALLBACK_URL}
                 />
             </AspectRatio>
 

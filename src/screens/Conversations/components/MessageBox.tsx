@@ -1,4 +1,5 @@
 import React from 'react';
+import { AVATAR_FALLBACK_URL } from '@consts/app';
 
 import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
 import { DeleteIcon, LocationIcon, SmallDangerIcon } from '@theme/customIcons';
@@ -68,7 +69,7 @@ export const MessageBox: React.FC<IProps> = ({
                         borderRadius={6}
                         objectFit="cover"
                         src={userAvatarUrl}
-                        fallbackSrc="https://via.placeholder.com/300"
+                        fallbackSrc={AVATAR_FALLBACK_URL}
                     />
                 </AspectRatio>
 

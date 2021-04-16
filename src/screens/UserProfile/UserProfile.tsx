@@ -1,12 +1,12 @@
 import React from 'react';
-import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
+import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT, AVATAR_FALLBACK_URL } from '@consts/app';
 import { fetchUserAsync, getUserSelector } from '@slices/userSlice';
 import { getUserName } from '@utils/user';
 import { RequestStatus } from '@models/misc';
 import { ROUTES } from '@consts/routes';
 import { truncateStringByWords } from '@utils/misc';
 import { toLocaleDateString } from '@utils/convert';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { useMount } from 'react-use';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
@@ -16,15 +16,17 @@ import Breadcrumbs from '@components/Breadcrumbs';
 import Card from '@components/Card';
 import Main from '@layouts/Main';
 
-const onTitleClick = () => null;
-
 export const UserProfile: React.FC = () => {
+    const history = useHistory();
     const { pathname } = useLocation();
     const fetchUser = useDispatch(fetchUserAsync);
     const { requestStatus, data: userData, proposals } = useSelector(getUserSelector);
 
-    const isFetching = requestStatus === RequestStatus.FETCHING;
-    const isSuccess = requestStatus === RequestStatus.SUCCESS;
+    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
+    const showContet = requestStatus === RequestStatus.SUCCESS;
+    const showError = requestStatus === RequestStatus.ERROR;
+
+    const handleTitleClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
 
     useMount(() => {
         const userId = pathname.split('/').pop();
@@ -39,9 +41,9 @@ export const UserProfile: React.FC = () => {
                 crumbs={[{ title: 'Strona główna', link: ROUTES.PROPOSALS }]}
                 mb={8}
             />
-            {isFetching && <>Skeleton</>}
-
-            {isSuccess && (
+            {showSkeleton && <>Skeleton</>}
+            {showError && <>Error</>}
+            {showContet && (
                 <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }}>
                     <Box w={350} maxW="100%" mb={{ base: 6 }}>
                         <AspectRatio maxW="100%" mb={4} ration={1}>
@@ -50,7 +52,7 @@ export const UserProfile: React.FC = () => {
                                 borderRadius={6}
                                 objectFit="cover"
                                 src={userData.avatar}
-                                fallbackSrc="https://via.placeholder.com/300"
+                                fallbackSrc={AVATAR_FALLBACK_URL}
                             />
                         </AspectRatio>
                         <Heading size="lg" mb={4}>
@@ -75,10 +77,10 @@ export const UserProfile: React.FC = () => {
                                     category={category.name}
                                     publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
                                     title={title}
-                                    userAvatarUrl={userData.avatar || ''}
+                                    userAvatarUrl={userData.avatar}
                                     userName={getUserName(userData)}
                                     shortUserDesc={truncateStringByWords(userData.description, SHORT_DESC_WORDS_AMOUT)}
-                                    onTitleClick={onTitleClick}
+                                    onTitleClick={() => handleTitleClick(id)}
                                 />
                             ))}
                         </VStack>

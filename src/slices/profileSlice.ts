@@ -1,27 +1,38 @@
 import { AppThunk, AppDispatch } from '@store/index';
+import { AvatarState } from '@screens/Profile//components/AvatarInput';
 import { BACKEND_ROUTING } from '@consts/api';
 import { capitalize, omit, get } from 'lodash/fp';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getQueryParamsString } from '@src/utils/pagination';
 import { History } from 'history';
-import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
-import { AvatarState } from '@screens/Profile//components/AvatarInput';
 import { IInputs } from '@screens/Login/components/LoginForm';
 import { IInputs as IProfileInputs } from '@screens/Profile/components/EditForm';
+import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
+import { IGenericRemote } from '@models/misc';
+import { IProposalsListResponse, IProposal } from '@models/proposal';
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import { ROUTES } from '@consts/routes';
 import apiService from '@services/apiService';
 
 export interface IProfileState {
-    data: IProfile;
     isAuth: boolean;
-    requestStatus: RequestStatus;
+    userProfile: IGenericRemote<IProfile>;
+    proposals: IGenericRemote<IProposal[]>;
+    history: IGenericRemote<any>;
 }
 
 const initialState: IProfileState = {
-    data: {} as IProfile,
     isAuth: !!localStorage.getItem('token') ?? false,
-    requestStatus: RequestStatus.IDLE,
+    userProfile: {
+        data: {} as IProfile,
+        requestStatus: RequestStatus.IDLE,
+    },
+    proposals: {
+        data: [] as IProposal[],
+        requestStatus: RequestStatus.IDLE,
+    },
+    history: {} as IGenericRemote<any>,
 };
 
 /**
@@ -31,16 +42,32 @@ const profileSlice = createSlice({
     name: 'profile',
     initialState,
     reducers: {
-        setRequestStatu(state, { payload }: PayloadAction<RequestStatus>) {
-            state.requestStatus = payload;
+        /**
+         *  Profile
+         */
+        // TODO fix
+        setProfileRequestStatu(state, { payload }: PayloadAction<RequestStatus>) {
+            state.userProfile.requestStatus = payload;
         },
         removeProfile(state) {
-            state.data = {} as IProfile;
+            state.userProfile.data = {} as IProfile;
             state.isAuth = false;
         },
         setProfile(state, { payload: profileData }: PayloadAction<IProfile>) {
-            state.data = profileData;
+            state.userProfile.data = profileData;
             state.isAuth = true;
+        },
+        /**
+         *  ProfileProposal
+         */
+        setProfileProposalsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.proposals.requestStatus = payload;
+        },
+        setProfileProposals(state, { payload: proposals }: PayloadAction<IProposal[]>) {
+            state.proposals.data = proposals;
+        },
+        removeProfileProposals(state) {
+            state.proposals.data = [] as IProposal[];
         },
     },
 });
@@ -48,7 +75,14 @@ const profileSlice = createSlice({
 /**
  * Sync actions
  */
-export const { setProfile, removeProfile, setRequestStatu } = profileSlice.actions;
+export const {
+    setProfile,
+    removeProfile,
+    setProfileRequestStatu,
+    setProfileProposalsRequestStatus,
+    setProfileProposals,
+    removeProfileProposals,
+} = profileSlice.actions;
 
 /**
  * Async actions
@@ -61,7 +95,7 @@ interface IProfileParams {
 export const loginProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    dispatch(setRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
 
     try {
         const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
@@ -83,7 +117,7 @@ export const loginProfileAsync = ({ credentials, history }: IProfileParams): App
             title: 'Logowanie',
             message: `${capitalize(profileData.username)}, witamy w naszym serwisie ponownie`,
         });
-        dispatch(setRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -93,14 +127,14 @@ export const loginProfileAsync = ({ credentials, history }: IProfileParams): App
         console.error('Login error:', error);
 
         dispatch(removeProfile());
-        dispatch(setRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
     }
 };
 
 export const registerProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    dispatch(setRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
 
     try {
         const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
@@ -122,7 +156,7 @@ export const registerProfileAsync = ({ credentials, history }: IProfileParams): 
             title: 'Rejestracja',
             message: `${capitalize(profileData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
-        dispatch(setRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -131,7 +165,7 @@ export const registerProfileAsync = ({ credentials, history }: IProfileParams): 
         });
 
         dispatch(removeProfile());
-        dispatch(setRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
     }
 };
 
@@ -143,29 +177,52 @@ export const logoutProfileAsync = (history: History): AppThunk => (dispatch: App
 };
 
 export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
 
     try {
         const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE);
 
         dispatch(setProfile(profileData));
-        dispatch(setRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         localStorage.removeItem('token');
 
         storeToast({
             status: 'error',
             title: 'Logowanie',
-            message: 'Coś poszło nie tak, wyjebało Cię z tej wspaniałej apki',
+            message: 'Coś poszło nie tak, nie udało się pobrać danie twojego profilu',
         });
 
         dispatch(removeProfile());
-        dispatch(setRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
+    }
+};
+
+export const fetchProfileProposalsAsync = (authorId: string): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setProfileProposalsRequestStatus(RequestStatus.FETCHING));
+
+    try {
+        const { data: profileProposalsPagination }: { data: IProposalsListResponse } = await apiService.get(
+            `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParamsString({ author: authorId })}`
+        );
+
+        const profileProposals = profileProposalsPagination['results'];
+
+        dispatch(setProfileProposals(profileProposals));
+        dispatch(setProfileProposalsRequestStatus(RequestStatus.SUCCESS));
+    } catch (error) {
+        storeToast({
+            status: 'error',
+            title: 'Profil',
+            message: 'Nie udało się pobrać twoich partnerstw',
+        });
+        dispatch(removeProfileProposals());
+        dispatch(setProfileProposalsRequestStatus(RequestStatus.ERROR));
     }
 };
 
 export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
 
     const avatar = get(['avatar'], updatedData);
     const normalizedUpdatedData = omit(['avatar'], updatedData);
@@ -191,7 +248,7 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
             title: 'Profil uzytkownika',
             message: 'Dane zostały zapisane',
         });
-        dispatch(setRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -199,15 +256,18 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
             message: 'Nie udało się zapisać dane',
         });
 
-        dispatch(setRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
     }
 };
 
 /**
  * Selectors
  */
-export const getProfileDataSelector = (state: RootState) => state.profile.data;
 export const getIsAuthSelector = (state: RootState) => state.profile.isAuth;
-export const getProfileRequestStatusSelector = (state: RootState) => state.profile.requestStatus;
+export const getProfileDataSelector = (state: RootState) => state.profile.userProfile.data;
+export const getProfileRequestStatusSelector = (state: RootState) => state.profile.userProfile.requestStatus;
+
+export const getProfileProposalsDataSelector = (state: RootState) => state.profile.proposals.data;
+export const getProfileProposalsRequestStatusSelector = (state: RootState) => state.profile.proposals.requestStatus;
 
 export default profileSlice.reducer;

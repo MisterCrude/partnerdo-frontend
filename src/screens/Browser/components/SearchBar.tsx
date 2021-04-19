@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { useDebounce } from 'react-use';
 
 import { Input, InputGroup, InputLeftElement, InputRightElement, Button } from '@chakra-ui/react';
-import { SearchIcon } from '@theme/customIcons';
+import { SearchIcon, CloseIcon } from '@theme/customIcons';
 
 interface IProps {
     showClearButton: boolean;
@@ -16,7 +16,9 @@ const SearchBar: React.FC<IProps> = ({ showClearButton, onChange, onClear }) => 
     const [search, setSearch] = useState<string>('');
 
     const handleChangeSearch = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => setSearch(value);
-    const handleClear = () => onClear();
+    const handleClear = () => {
+        onClear();
+    };
 
     useDebounce(
         () => {
@@ -41,7 +43,7 @@ const SearchBar: React.FC<IProps> = ({ showClearButton, onChange, onClear }) => 
             {showClearButton && (
                 <InputRightElement width="auto" h="100%" pr={2}>
                     <Button colorScheme="orange" variant="outline" size="sm" onClick={handleClear}>
-                        Wyczyść
+                        Wyczyść <CloseIcon ml={1} />
                     </Button>
                 </InputRightElement>
             )}

@@ -1,9 +1,17 @@
 import React from 'react';
-import { Switch, Link as RouterLink, Route, Redirect, useLocation } from 'react-router-dom';
+import { Switch, Link as RouterLink, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useUpdateEffect } from 'react-use';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
-import { getProfileDataSelector, getProfileRequestStatusSelector, updateProfileAsync } from '@slices/profileSlice';
+import {
+    getProfileDataSelector,
+    getProfileRequestStatusSelector,
+    updateProfileAsync,
+    fetchProfileProposalsAsync,
+    getProfileProposalsDataSelector,
+    getProfileProposalsRequestStatusSelector,
+} from '@slices/profileSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -44,10 +52,26 @@ type ProfileParams = IInputs;
 export const Profile: React.FC = () => {
     const userData = useSelector(getProfileDataSelector);
     const requestStatus = useSelector(getProfileRequestStatusSelector);
+    const profileProposalsData = useSelector(getProfileProposalsDataSelector);
+    const profileProposalsRequestStatus = useSelector(getProfileProposalsRequestStatusSelector);
+
     const submitForm = useDispatch<ProfileParams>(updateProfileAsync);
+    const fetchProfileProposals = useDispatch<string>(fetchProfileProposalsAsync);
+
     const { pathname } = useLocation();
+    const history = useHistory();
 
     const handleSubmitForm = (updatedData: IInputs) => submitForm(updatedData);
+    const handleProposalClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
+
+    useUpdateEffect(() => {
+        /**
+         * @useUpdateEffect used for fetching profileProposals because:
+         * it called after initial fetch of profileData
+         * and called after update form of profileData
+         */
+        fetchProfileProposals(userData.id);
+    }, [userData]);
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -83,7 +107,13 @@ export const Profile: React.FC = () => {
                     <Route exact path={ROUTES.PROFILE}>
                         <EditForm requestStatus={requestStatus} formData={userData} onSubmit={handleSubmitForm} />
                     </Route>
-                    <Route exact component={MyProposals} path={ROUTES.PROFILE_MY_PROPOSALS} />
+                    <Route exact path={ROUTES.PROFILE_MY_PROPOSALS}>
+                        <MyProposals
+                            requestStatus={profileProposalsRequestStatus}
+                            proposals={profileProposalsData}
+                            onProposalClick={handleProposalClick}
+                        />
+                    </Route>
                     <Route exact component={History} path={ROUTES.PROFILE_DONE_PROPOSALS} />
                     <Redirect from="/*" to={ROUTES.NOT_FOUND} />
                 </Switch>

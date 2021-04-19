@@ -6,8 +6,9 @@ import { keys } from 'lodash/fp';
 // import { ROUTES } from '@consts/app';
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
-import { getQueryParams } from '@src/utils/pagination';
-import { IFiltersData } from '@src/models/proposal';
+import { getQueryParamsString, countOffset } from '@src/utils/pagination';
+import { IFiltersData } from '@models/proposal';
+import { IGenericRemote } from '@models/misc';
 import { IProposal, IProposalsListResponse, IProposalResponse } from '@models/proposal';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 
@@ -22,11 +23,6 @@ interface INormalisedResponse {
     pageNumber: number;
 }
 
-interface IDetails {
-    data: IProposal;
-    requestStatus: RequestStatus;
-}
-
 interface IPagination {
     count: number;
     currentPage: number;
@@ -35,7 +31,7 @@ interface IPagination {
 }
 
 export interface IProposalState {
-    details: IDetails;
+    details: IGenericRemote<IProposal>;
     pagination: {
         proposals: IPagination;
     };
@@ -59,6 +55,18 @@ const initialState: IProposalState = {
         proposals: initialPaginationItem,
     },
 };
+
+export const getQueryParams = ({ age, pageNumber, city, categories, cityAreas, gender, search }: IFiltersData) =>
+    getQueryParamsString({
+        limit: String(PAGINATION_ITEMS_LIMIT),
+        offset: String(countOffset(pageNumber || 1)),
+        city: city || undefined,
+        categories: categories.length ? categories.join(',') : undefined,
+        city_areas: cityAreas.length ? cityAreas.join(',') : undefined,
+        age: age.length ? age.join(',') : undefined,
+        gender: gender.length === 1 ? gender[0] : undefined,
+        search: search || undefined,
+    });
 
 /**
  * Slice

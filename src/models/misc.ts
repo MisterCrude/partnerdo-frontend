@@ -6,3 +6,8 @@ export enum RequestStatus {
     SUCCESS = 'success',
     ERROR = 'error',
 }
+
+export interface IGenericRemote<T> {
+    data: T;
+    requestStatus: RequestStatus;
+}

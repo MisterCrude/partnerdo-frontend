@@ -31,13 +31,13 @@ export const Card: React.FC<IProps> = ({
     address,
     category,
     content,
-    onTitleClick,
     publishDate,
     title,
     userAvatarUrl,
     userName,
     shortUserDesc,
     type = Types.DEFAULT,
+    onTitleClick,
     onUserNameClick,
 }) => {
     const isUnpublish = type === Types.UNPUBLISH;
@@ -125,7 +125,10 @@ export const Card: React.FC<IProps> = ({
                         cursor="pointer"
                         ml={2}
                         onClick={onTitleClick}
-                        _hover={{ textDecor: onTitleClick ? 'underline' : 'unset' }}
+                        _hover={{
+                            textDecor: onTitleClick ? 'underline' : 'unset',
+                            cursor: onTitleClick ? 'pointer' : 'default',
+                        }}
                     >
                         {title}
                     </Box>

@@ -8,7 +8,7 @@ const instace = axios.create({
     baseURL: BACKENTD_BASE_URL,
     transformRequest: (data: Record<string, unknown>) => {
         /**
-         * Disable deep converting for toSnakeCase
+         * Disable deep converting for @toSnakeCase
          * in request body for sending object data
          * like File or FileList
          */

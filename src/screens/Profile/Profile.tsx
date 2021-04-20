@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Link as RouterLink, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useUpdateEffect } from 'react-use';
+import { useMount } from 'react-use';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 import {
@@ -64,14 +64,9 @@ export const Profile: React.FC = () => {
     const handleSubmitForm = (updatedData: IInputs) => submitForm(updatedData);
     const handleProposalClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
 
-    useUpdateEffect(() => {
-        /**
-         * @useUpdateEffect used for fetching profileProposals because:
-         * it called after initial fetch of profileData
-         * and called after update form of profileData
-         */
+    useMount(() => {
         fetchProfileProposals(userData.id);
-    }, [userData]);
+    });
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>

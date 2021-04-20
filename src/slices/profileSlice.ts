@@ -242,6 +242,10 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
             ...normalizedUpdatedData,
         });
 
+        /**
+         * Get MyProposals list after changing profile data
+         */
+        dispatch(fetchProfileProposalsAsync(profileData.id));
         dispatch(setProfile(profileData));
         storeToast({
             status: 'success',

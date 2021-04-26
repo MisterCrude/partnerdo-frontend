@@ -82,11 +82,12 @@ export const ConversationMessages: React.FC = () => {
                                 onClick={handleBack}
                                 flexGrow={{ base: 1, md: 0 }}
                                 mr={4}
-                                variant="unstyled"
+                                variant="ghost"
                                 leftIcon={<ChevronLeftIcon />}
                             >
                                 Wróć
                             </Button>
+
                             <Button colorScheme="orange" disabled flexGrow={{ base: 1, md: 0 }} ml={4}>
                                 Wyślij
                             </Button>
@@ -98,7 +99,7 @@ export const ConversationMessages: React.FC = () => {
                             onClick={handleBack}
                             flexGrow={{ base: 1, md: 0 }}
                             mr={4}
-                            variant="unstyled"
+                            variant="ghost"
                             leftIcon={<ChevronLeftIcon />}
                         >
                             Wróć

@@ -45,7 +45,7 @@ const initFiltersData: IFiltersData = {
 };
 
 export const Browser: React.FC = () => {
-    const [cityAreas, setCityAreas] = useState<IOption[]>([]);
+    const [cityAreasOptions, setCityAreasOptions] = useState<IOption[]>([]);
     const [filtersData, setFiltersData] = useState<IFiltersData>(initFiltersData);
     const history = useHistory();
 
@@ -59,8 +59,8 @@ export const Browser: React.FC = () => {
     const requestStatus = useSelector(getProposalsPageRequestStatusSelector);
     const getCityAreas = useSelector(getCityAreasSelector);
 
-    const categoryOprions = toOptions(categories);
-    const cityOprions = toOptions(cities);
+    const categoryOptions = toOptions(categories);
+    const cityOptions = toOptions(cities);
     const isShowClearButton = !isEqual(omit('pageNumber', initFiltersData), omit('pageNumber', filtersData));
 
     const showError = requestStatus === RequestStatus.ERROR;
@@ -89,7 +89,7 @@ export const Browser: React.FC = () => {
     const handleTitleClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
 
     useUpdateEffect(() => {
-        setCityAreas(filtersData.city ? toOptions(getCityAreas(filtersData.city)) : []);
+        setCityAreasOptions(filtersData.city ? toOptions(getCityAreas(filtersData.city)) : []);
         fetchPage(filtersData);
     }, [filtersData]);
 
@@ -102,9 +102,9 @@ export const Browser: React.FC = () => {
             <FiltersMobile>
                 <Filters
                     ages={ages}
-                    categories={categoryOprions}
-                    cities={cityOprions}
-                    cityAreas={cityAreas}
+                    categories={categoryOptions}
+                    cities={cityOptions}
+                    cityAreas={cityAreasOptions}
                     filtersData={filtersData}
                     genders={genders}
                     onChange={handleChangeFilters}
@@ -115,9 +115,9 @@ export const Browser: React.FC = () => {
                 <SearchBar onChange={handleChangeFilters} onClear={handleClear} showClearButton={isShowClearButton} />
                 <Filters
                     ages={ages}
-                    categories={categoryOprions}
-                    cities={cityOprions}
-                    cityAreas={cityAreas}
+                    categories={categoryOptions}
+                    cities={cityOptions}
+                    cityAreas={cityAreasOptions}
                     filtersData={filtersData}
                     genders={genders}
                     onChange={handleChangeFilters}

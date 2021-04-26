@@ -120,7 +120,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     onClick={handleBack}
                                     flexGrow={{ base: 1, md: 0 }}
                                     mr={4}
-                                    variant="unstyled"
+                                    variant="ghost"
                                     leftIcon={<ChevronLeftIcon />}
                                 >
                                     Wróć

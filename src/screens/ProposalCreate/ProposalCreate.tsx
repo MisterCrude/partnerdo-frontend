@@ -1,67 +1,127 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { merge, some, values } from 'lodash/fp';
+import { useHistory, Switch, Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useMount, useUpdateEffect } from 'react-use';
+import { createProposalAsync } from '@slices/proposalSlice';
+import { getCitiesSelector, getCityAreasSelector, getCategoriesSelector } from '@slices/filtersSlice';
+import { getCreateRequestStatusSelector } from '@slices/proposalSlice';
+import { IProposal } from '@models/proposal';
+import { RequestStatus } from '@models/misc';
+import { ROUTES } from '@consts/routes';
+import { toOptions } from '@utils/convert';
+import useDispatch from '@hooks/useDispatch';
 
-import { Heading, Progress, Text } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react';
 import Main from '@layouts/Main';
-import StepsForm from './components/StepsForm';
-import Final from './components/Final';
+import StepOne from './components/StepOne';
+import StepThreeForm from './components/StepThreeForm';
+import StepTwo from './components/StepTwo';
 
 const STEPS = [
     {
-        percentage: 33,
         title: 'Wybierz kategorię',
+        path: `${ROUTES.PROPOSALS_CREATE}/step-one`,
     },
     {
-        percentage: 66,
         title: 'Wybierz lokalizację',
+        path: `${ROUTES.PROPOSALS_CREATE}/step-two`,
     },
     {
-        percentage: 100,
         title: 'Opisz swoję partnerstwo',
+        path: `${ROUTES.PROPOSALS_CREATE}/step-three`,
     },
 ];
 
+/**
+ * Get all keys from IProposal and set to IProposalFields with string value
+ * Partial changes all of fields as optional
+ */
+type IProposalFields = Partial<{ [key in keyof IProposal]: string }>;
+
 export const ProposalCreate: React.FC = () => {
+    const createProposal = useDispatch(createProposalAsync);
+
+    const [currentStep, setCurrentStep] = useState(0);
+    const [proposalFields, setProposalFields] = useState<IProposalFields>({
+        category: '',
+        city: '',
+        cityArea: '',
+        title: '',
+        description: '',
+    });
+
+    const categories = useSelector(getCategoriesSelector);
+    const getCityAreas = useSelector(getCityAreasSelector);
+    const cities = useSelector(getCitiesSelector);
+    const createRequestStatus = useSelector(getCreateRequestStatusSelector);
+
     const history = useHistory();
-    const [step, setStep] = useState(0);
-    const [isProposalCreated, serIsProposalCreated] = useState(false);
 
-    const hangleCancel = () => {
-        history.goBack();
+    const cityOptions = toOptions(cities);
+    const categoryOptions = toOptions(categories);
+
+    const handleCancel = () => history.push(ROUTES.PROPOSALS);
+    const handleGoNextStep = (step: number) => {
+        setCurrentStep(step);
+        history.push(STEPS[step].path);
+    };
+    const handleSaveFields = (fieldsData: Record<string, string>) =>
+        setProposalFields((prevState) => merge({ ...prevState }, fieldsData));
+
+    const handleSubmitForm = (fieldsData: Record<string, string>) => {
+        const hasSomeEmptyFields = some((value: string) => value === '', values(fieldsData));
+        handleSaveFields(fieldsData);
+
+        !hasSomeEmptyFields && createProposal(merge({ ...proposalFields }, fieldsData));
     };
 
-    const handleStep = (dec?: boolean) => {
-        setStep((prevState) => (dec ? --prevState : ++prevState));
-    };
+    useMount(() => history.push(STEPS[0].path));
 
-    const handleSubmitForm = () => {
-        serIsProposalCreated(true);
-        return null;
-    };
+    useUpdateEffect(() => {
+        createRequestStatus === RequestStatus.SUCCESS && history.push(ROUTES.PROPOSALS);
+    }, [createRequestStatus]);
 
     return (
         <Main d="flex" flexDir="column" flexGrow={1} maxW="3xl" mt={{ base: 0, md: 10 }} mb={10}>
             <Heading align="center" mb={10}>
                 Nowe partnerstwo
             </Heading>
-            {isProposalCreated ? (
-                <Final />
-            ) : (
-                <>
-                    <Text mb={4} fontWeight="light" fontSize="lg">
-                        {step + 1}. {STEPS[step].title}
-                    </Text>
 
-                    <Progress value={STEPS[step].percentage} colorScheme="orange" size="sm" rounded="md" />
-                    <StepsForm
-                        currentStep={step}
-                        lastStep={STEPS.length - 1}
-                        onSubmit={handleSubmitForm}
-                        onCancel={hangleCancel}
-                        onGo={handleStep}
+            <Text mb={4} fontWeight="light" fontSize="lg" align="center">
+                <strong>Krok {currentStep + 1} z 3</strong> <br />
+                {STEPS[currentStep].title}
+            </Text>
+
+            <Switch>
+                <Route exact path={STEPS[0].path}>
+                    <StepOne
+                        categories={categoryOptions}
+                        defaultData={proposalFields as Record<string, string>}
+                        onCancel={handleCancel}
+                        onChangeStep={handleGoNextStep}
+                        onSave={handleSaveFields}
                     />
-                </>
-            )}
+                </Route>
+                <Route exact path={STEPS[1].path}>
+                    <StepTwo
+                        citires={cityOptions}
+                        defaultData={proposalFields as Record<string, string>}
+                        cityAreasGetter={getCityAreas}
+                        onChangeStep={handleGoNextStep}
+                        onSave={handleSaveFields}
+                    />
+                </Route>
+                <Route exact path={STEPS[2].path}>
+                    <StepThreeForm
+                        defaultData={proposalFields as Record<string, string>}
+                        requestStatus={createRequestStatus}
+                        onSubmit={handleSubmitForm}
+                        onBack={handleGoNextStep}
+                    />
+                </Route>
+                <Redirect from={ROUTES.PROPOSALS_CREATE} to={STEPS[0].path} />
+            </Switch>
         </Main>
     );
 };

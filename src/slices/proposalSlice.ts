@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { keys } from 'lodash/fp';
-
-// import { History } from 'history';
-// import { IProposal, IPaginatedProposal } from '@models/proposal';
-// import { ROUTES } from '@consts/app';
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
 import { getQueryParamsString, countOffset } from '@src/utils/pagination';
@@ -11,7 +7,6 @@ import { IFiltersData } from '@models/proposal';
 import { IGenericRemote } from '@models/misc';
 import { IProposal, IProposalsListResponse, IProposalResponse } from '@models/proposal';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
-
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import { toDict } from '@utils/convert';
@@ -31,6 +26,7 @@ interface IPagination {
 }
 
 export interface IProposalState {
+    createProposalRequestStatus: RequestStatus;
     details: IGenericRemote<IProposal>;
     pagination: {
         proposals: IPagination;
@@ -46,6 +42,7 @@ const initialPaginationItem: IPagination = {
 };
 
 const initialState: IProposalState = {
+    createProposalRequestStatus: RequestStatus.IDLE,
     details: {
         data: {} as IProposal,
         requestStatus: RequestStatus.IDLE,
@@ -79,8 +76,17 @@ const proposalSlice = createSlice({
         setPaginationRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.pagination.proposals.requestStatus = payload;
         },
+        setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.details.requestStatus = payload;
+        },
+        setCreateProposalRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.createProposalRequestStatus = payload;
+        },
         setPage(state, { payload: pageNumber }: PayloadAction<number>) {
             state.pagination.proposals.pages[pageNumber] = [];
+        },
+        setDetails(state, { payload: proposalDetails }: PayloadAction<IProposal>) {
+            state.details.data = proposalDetails;
         },
         receivePage(state, { payload: { proposals, count, pageNumber } }: PayloadAction<INormalisedResponse>) {
             state.proposals = proposals;
@@ -91,12 +97,6 @@ const proposalSlice = createSlice({
         resetPagination(state) {
             state.pagination.proposals = initialPaginationItem;
             state.proposals = {};
-        },
-        setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
-            state.details.requestStatus = payload;
-        },
-        setDetails(state, { payload: proposalDetails }: PayloadAction<IProposal>) {
-            state.details.data = proposalDetails;
         },
         resetDetails(state) {
             state.details.data = {} as IProposal;
@@ -116,16 +116,17 @@ export const {
     setDetailsRequestStatus,
     setPage,
     setPaginationRequestStatus,
+    setCreateProposalRequestStatus,
 } = proposalSlice.actions;
 
 /**
  * Async actions
  */
 export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (dispatch: AppDispatch) => {
-    try {
-        const isInitialFetch = !filtersData.pageNumber;
-        if (isInitialFetch) dispatch(setPaginationRequestStatus(RequestStatus.FETCHING));
+    const isInitialFetch = !filtersData.pageNumber;
+    if (isInitialFetch) dispatch(setPaginationRequestStatus(RequestStatus.FETCHING));
 
+    try {
         dispatch(setPage(filtersData.pageNumber || 1));
 
         const {
@@ -152,9 +153,9 @@ export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (di
 };
 
 export const fetchDetailsAsync = (proposalId: string): AppThunk => async (dispatch: AppDispatch) => {
-    try {
-        dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
+    dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
 
+    try {
         const { data: proposalDetails }: { data: IProposalResponse } = await apiService.get(
             `${BACKEND_ROUTING.PROPOSAL.LIST}${proposalId}`
         );
@@ -172,6 +173,39 @@ export const fetchDetailsAsync = (proposalId: string): AppThunk => async (dispat
         });
 
         console.error('Fetch proposal details error:', error);
+    }
+};
+
+export const createProposalAsync = (proposalsData: Partial<{ [key in keyof IProposal]: string }>): AppThunk => async (
+    dispatch: AppDispatch
+) => {
+    const setIdle = () => setTimeout(() => dispatch(setCreateProposalRequestStatus(RequestStatus.IDLE)), 100);
+    dispatch(setCreateProposalRequestStatus(RequestStatus.FETCHING));
+
+    try {
+        /**
+         * This method return new proposal object
+         */
+        await apiService.post(BACKEND_ROUTING.PROPOSAL.CREATE, proposalsData);
+
+        storeToast({
+            status: 'success',
+            title: 'Partnerstwo',
+            message: 'Partnerstwo zostało stworzone',
+        });
+
+        dispatch(setCreateProposalRequestStatus(RequestStatus.SUCCESS));
+        setIdle();
+    } catch (error) {
+        dispatch(setCreateProposalRequestStatus(RequestStatus.ERROR));
+        storeToast({
+            status: 'error',
+            title: 'Partnerstwo',
+            message: 'Nie udało się swtorzyć nowego partnerstwa',
+        });
+
+        console.error('Fetch proposal details error:', error);
+        setIdle();
     }
 };
 
@@ -198,5 +232,7 @@ export const getCurrentPageProposalsSelector = createSelector(
 
 export const getDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;
 export const getDetailsData = (state: RootState) => state.proposal.details.data;
+
+export const getCreateRequestStatusSelector = (state: RootState) => state.proposal.createProposalRequestStatus;
 
 export default proposalSlice.reducer;

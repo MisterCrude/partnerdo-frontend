@@ -117,11 +117,11 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
 
                             <Flex align={{ base: 'stretch', md: 'center' }} justify="space-between">
                                 <Button
-                                    onClick={handleBack}
                                     flexGrow={{ base: 1, md: 0 }}
+                                    leftIcon={<ChevronLeftIcon />}
                                     mr={4}
                                     variant="ghost"
-                                    leftIcon={<ChevronLeftIcon />}
+                                    onClick={handleBack}
                                 >
                                     Wróć
                                 </Button>
@@ -129,19 +129,20 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                 {isAuth ? (
                                     <ModalFrame
                                         actionTitle="Wyślij"
-                                        buttonProps={{
-                                            bgColor: 'gray.800',
-                                            color: 'white',
-                                            variant: 'solid',
-                                            _active: { bgColor: 'gray.800' },
-                                            _hover: { bgColor: 'gray.600' },
-                                        }}
                                         modalTitle="Poszukuję partnera do głębokiego lenistwa"
-                                        onAction={() => {
-                                            console.log(1);
-                                        }}
-                                        size="5xl"
-                                        triggerTitle="Złóż ofertę"
+                                        modalTriggerButton={
+                                            <Button
+                                                bgColor="gray.800"
+                                                color="white"
+                                                variant="variant"
+                                                _active={{ bgColor: 'gray.800' }}
+                                                _hover={{ bgColor: 'gray.600' }}
+                                            >
+                                                Złóż ofertę
+                                            </Button>
+                                        }
+                                        modalSize="5xl"
+                                        onAction={() => 0}
                                     >
                                         <>
                                             <Textarea

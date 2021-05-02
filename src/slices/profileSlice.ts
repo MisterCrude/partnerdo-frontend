@@ -69,6 +69,9 @@ const profileSlice = createSlice({
         removeProfileProposals(state) {
             state.proposals.data = [] as IProposal[];
         },
+        removeOneProfileProposal(state, { payload: proposalId }: PayloadAction<string>) {
+            state.proposals.data = state.proposals.data.filter((proposal: IProposal) => proposal.id !== proposalId);
+        },
     },
 });
 
@@ -82,6 +85,7 @@ export const {
     setProfileProposalsRequestStatus,
     setProfileProposals,
     removeProfileProposals,
+    removeOneProfileProposal,
 } = profileSlice.actions;
 
 /**
@@ -261,6 +265,34 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
         });
 
         dispatch(setProfileRequestStatu(RequestStatus.ERROR));
+    }
+};
+
+export interface IProposalRemove {
+    id: string;
+    name: string;
+}
+
+export const removeProfileProposalAsync = ({ id, name }: IProposalRemove): AppThunk => async (
+    dispatch: AppDispatch
+) => {
+    try {
+        dispatch(removeOneProfileProposal(id));
+        await apiService.delete(`${BACKEND_ROUTING.PROPOSAL.LIST}${id}`);
+
+        storeToast({
+            status: 'success',
+            title: 'Profil',
+            message: `Partnerstwo "${name}" zostało usunięte`,
+        });
+    } catch (error) {
+        storeToast({
+            status: 'error',
+            title: 'Profil',
+            message: `Nie udało się usunąć "${name}" partnerstwo`,
+        });
+
+        console.error('Delete proposal error:', error);
     }
 };
 

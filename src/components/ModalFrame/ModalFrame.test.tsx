@@ -6,12 +6,11 @@ import { ModalFrame } from './ModalFrame';
 it('Should render ModalFrame component', () => {
     render(
         <ModalFrame
-            actionTitle="Zapisz hasło"
-            triggerTitle="Zmień hasło"
+            modalTriggerButton={<>Some item</>}
             modalTitle="Zmiana hasła"
-            onAction={() => {
-                console.log('test');
-            }}
+            modalSize="lg"
+            actionTitle="Zapisz hasło"
+            onAction={() => 0}
         />
     );
 

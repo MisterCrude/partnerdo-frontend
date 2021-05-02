@@ -2,11 +2,9 @@ import React, { PropsWithChildren } from 'react';
 
 import {
     Button,
-    ButtonProps,
     CloseButton,
     Divider,
     Flex,
-    IconButton,
     Modal,
     ModalBody,
     ModalContent,
@@ -18,36 +16,28 @@ import {
 } from '@chakra-ui/react';
 
 export type IProps = PropsWithChildren<{
+    actionTitle: string;
     modalTitle: string;
+    modalSize?: string;
+    modalTriggerButton?: React.ReactElement;
     onAction: any;
-    actionTitle?: string;
-    buttonProps?: ButtonProps;
-    size?: string;
-    triggerTitle?: string;
-    triggerIcon?: React.ReactElement;
 }>;
 
 export const ModalFrame: React.FC<IProps> = ({
+    actionTitle,
     children,
+    modalSize = 'md',
     modalTitle,
+    modalTriggerButton = null,
     onAction,
-    actionTitle = 'Zapisz zmiany',
-    buttonProps = {},
-    size = 'md',
-    triggerIcon = null,
-    triggerTitle = null,
 }) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
+    const renderTriggerButton = React.cloneElement(modalTriggerButton as React.ReactElement, { onClick: onOpen });
+
     return (
         <>
-            {triggerTitle && (
-                <Button onClick={onOpen} {...buttonProps}>
-                    {triggerTitle}
-                </Button>
-            )}
-
-            {triggerIcon && <IconButton aria-label="button" onClick={onOpen} icon={triggerIcon} {...buttonProps} />}
+            {modalTriggerButton && renderTriggerButton}
 
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
                 <ModalOverlay />
@@ -57,7 +47,7 @@ export const ModalFrame: React.FC<IProps> = ({
                     minH={{ base: '100vh', md: 'auto' }}
                     minW={{ base: '100vw', md: 'auto' }}
                     my={{ base: 0, md: 16 }}
-                    w={{ md: size }}
+                    w={{ md: modalSize }}
                 >
                     <ModalHeader align="center" display="flex" justifyContent="space-between" py={4}>
                         <Text align="left">{modalTitle}</Text> <CloseButton onClick={onClose} />

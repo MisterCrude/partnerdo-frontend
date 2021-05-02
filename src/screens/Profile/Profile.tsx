@@ -5,12 +5,14 @@ import { useMount } from 'react-use';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 import {
+    IProposalRemove,
     getProfileDataSelector,
     getProfileRequestStatusSelector,
     updateProfileAsync,
     fetchProfileProposalsAsync,
     getProfileProposalsDataSelector,
     getProfileProposalsRequestStatusSelector,
+    removeProfileProposalAsync,
 } from '@slices/profileSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
@@ -55,8 +57,9 @@ export const Profile: React.FC = () => {
     const profileProposalsData = useSelector(getProfileProposalsDataSelector);
     const profileProposalsRequestStatus = useSelector(getProfileProposalsRequestStatusSelector);
 
-    const submitForm = useDispatch<ProfileParams>(updateProfileAsync);
     const fetchProfileProposals = useDispatch<string>(fetchProfileProposalsAsync);
+    const removeProfileProposal = useDispatch<IProposalRemove>(removeProfileProposalAsync);
+    const submitForm = useDispatch<ProfileParams>(updateProfileAsync);
 
     const { pathname } = useLocation();
     const history = useHistory();
@@ -106,6 +109,7 @@ export const Profile: React.FC = () => {
                         <MyProposals
                             requestStatus={profileProposalsRequestStatus}
                             proposals={profileProposalsData}
+                            onRemove={removeProfileProposal}
                             onProposalClick={handleProposalClick}
                         />
                     </Route>

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Box, Badge, Divider, Flex, Heading, Tag, Text, MenuItem } from '@chakra-ui/react';
+import { Box, Badge, Divider, Flex, Heading, Tag, Text, MenuItem, Button } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
 import { DeleteIcon, EditIcon, UnpublishIcon, PublishIcon } from '@theme/customIcons';
+import ModalFrame from '@components/ModalFrame';
 
 import CardMenu from '@src/components/CardMenu';
 
@@ -13,6 +14,7 @@ export enum Types {
     UNPUBLISH = 'unpublish',
     DONE = 'done',
 }
+
 export interface IProps {
     address: string;
     category: string;
@@ -25,6 +27,7 @@ export interface IProps {
     type?: Types;
     onUserNameClick?: () => void;
     onTitleClick?: () => void;
+    onRemove?: () => void;
 }
 
 export const Card: React.FC<IProps> = ({
@@ -39,10 +42,27 @@ export const Card: React.FC<IProps> = ({
     type = Types.DEFAULT,
     onTitleClick,
     onUserNameClick,
+    onRemove,
 }) => {
     const isUnpublish = type === Types.UNPUBLISH;
     const isDone = type === Types.DONE;
     const showMenu = type !== Types.DEFAULT;
+
+    const renderDeleteButton = (
+        <ModalFrame
+            actionTitle="Usuń"
+            modalTitle="Usuwanie partnerstwa"
+            modalSize="lg"
+            modalTriggerButton={
+                <MenuItem color="red.500">
+                    <DeleteIcon mr={2} /> Usuń
+                </MenuItem>
+            }
+            onAction={onRemove}
+        >
+            <>Czy napewno chcesz usunąć partnerstwo "{title}"</>
+        </ModalFrame>
+    );
 
     return (
         <Box
@@ -81,9 +101,7 @@ export const Card: React.FC<IProps> = ({
                                 )}
                             </>
                         )}
-                        <MenuItem color="red.500">
-                            <DeleteIcon mr={2} /> Usuń
-                        </MenuItem>
+                        {renderDeleteButton}
                     </CardMenu>
                 )}
             </Flex>

@@ -111,23 +111,24 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
                         <FormErrorMessage name="username" errors={errors} />
 
                         <ModalFrame
-                            actionTitle="Zapisz hasło"
-                            buttonProps={{
-                                bgColor: 'gray.800',
-                                d: { base: 'none', md: 'block' },
-                                color: 'white',
-                                w: '100%',
-                                mb: { base: 4, md: 8 },
-                                variant: 'solid',
-                                _active: { bgColor: 'gray.800' },
-                                _hover: { bgColor: 'gray.600' },
-                            }}
+                            modalTriggerButton={
+                                <Button
+                                    bgColor="gray.800"
+                                    color="white"
+                                    w="100%"
+                                    mb={{ base: 4, md: 8 }}
+                                    variant="solid"
+                                    d={{ base: 'none', md: 'block' }}
+                                    _active={{ bgColor: 'gray.800' }}
+                                    _hover={{ bgColor: 'gray.600' }}
+                                >
+                                    Zmień hasło
+                                </Button>
+                            }
                             modalTitle="Zmiana hasła"
-                            size="lg"
-                            triggerTitle="Zmień hasło"
-                            onAction={() => {
-                                console.log(1);
-                            }}
+                            modalSize="lg"
+                            actionTitle="Zapisz hasło"
+                            onAction={() => 0}
                         >
                             <>
                                 <Box mb={{ base: 4, md: 8 }}>
@@ -162,17 +163,18 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
 
                         <ModalFrame
                             actionTitle="Tak, usuń"
-                            buttonProps={{
-                                d: { base: 'none', md: 'block' },
-                                colorScheme: 'red',
-                                variant: 'link',
-                                fontWeight: 300,
-                            }}
+                            modalTriggerButton={
+                                <Button
+                                    d={{ base: 'none', md: 'block' }}
+                                    colorScheme="red"
+                                    variant="link"
+                                    fontWeight={300}
+                                >
+                                    Usuń konto
+                                </Button>
+                            }
                             modalTitle="Usuwanie konta"
-                            triggerTitle="Usuń konto"
-                            onAction={() => {
-                                console.log(1);
-                            }}
+                            onAction={() => 1}
                         >
                             <Text>Czy napawne checesz usunąć swoje konto?</Text>
                         </ModalFrame>

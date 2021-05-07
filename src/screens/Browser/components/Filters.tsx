@@ -7,23 +7,23 @@ import MenuSelect from '@components/MenuSelect';
 import MenuMultiSelect from '@components/MenuMultiSelect';
 
 interface IProps {
-    ages: IOption[];
-    categories: IOption[];
-    cities: IOption[];
-    cityAreas: IOption[];
-    genders: IOption[];
+    ageOptions: IOption[];
+    categoryOptions: IOption[];
+    cityOptions: IOption[];
+    cityAreaOptions: IOption[];
+    genderOptions: IOption[];
     filtersData: IFiltersData;
-    onChange: (name: string, data: string | number | Array<string | number>) => void;
+    onChange: (name: string, data: string | Array<string>) => void;
     onClear?: (name: string) => void;
 }
 
 const Filters: React.FC<IProps> = ({
-    ages,
-    categories,
-    cities,
-    cityAreas,
+    ageOptions,
+    categoryOptions,
+    cityOptions,
+    cityAreaOptions,
+    genderOptions,
     filtersData,
-    genders,
     onChange,
     onClear,
 }) => {
@@ -37,14 +37,14 @@ const Filters: React.FC<IProps> = ({
         >
             <MenuMultiSelect
                 name="categories"
-                options={categories}
+                options={categoryOptions}
                 palceholder="Kategoria"
                 selected={filtersData['categories']}
                 onChange={handleChange}
                 onClear={handleClear}
             />
             <MenuSelect
-                options={cities}
+                options={cityOptions}
                 palceholder="Miasto"
                 name="city"
                 selected={filtersData['city']}
@@ -53,7 +53,7 @@ const Filters: React.FC<IProps> = ({
             />
             <MenuMultiSelect
                 name="cityAreas"
-                options={cityAreas}
+                options={cityAreaOptions}
                 palceholder="Dzielnica"
                 selected={filtersData['cityAreas']}
                 onChange={handleChange}
@@ -61,7 +61,7 @@ const Filters: React.FC<IProps> = ({
             />
             <MenuMultiSelect
                 name="age"
-                options={ages}
+                options={ageOptions}
                 palceholder="Zakres wiekowy"
                 selected={filtersData['age']}
                 onChange={handleChange}
@@ -69,7 +69,7 @@ const Filters: React.FC<IProps> = ({
             />
             <MenuMultiSelect
                 name="gender"
-                options={genders}
+                options={genderOptions}
                 palceholder="Płeć"
                 selected={filtersData['gender']}
                 onChange={handleChange}

@@ -23,7 +23,7 @@ export const UserProfile: React.FC = () => {
     const { requestStatus, data: userData, proposals } = useSelector(getUserSelector);
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
-    const showContet = requestStatus === RequestStatus.SUCCESS;
+    const showContent = requestStatus === RequestStatus.SUCCESS;
     const showError = requestStatus === RequestStatus.ERROR;
 
     const handleTitleClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
@@ -43,7 +43,7 @@ export const UserProfile: React.FC = () => {
             />
             {showSkeleton && <>Skeleton</>}
             {showError && <>Error</>}
-            {showContet && (
+            {showContent && (
                 <Stack direction={{ base: 'column', md: 'row' }} spacing={{ base: 4, md: 8 }}>
                     <Box w={350} maxW="100%" mb={{ base: 6 }}>
                         <AspectRatio maxW="100%" mb={4} ration={1}>
@@ -75,6 +75,7 @@ export const UserProfile: React.FC = () => {
                                     address={`${city.name}, ${cityArea.name}`}
                                     content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
                                     category={category.name}
+                                    categoryColor={category.color}
                                     publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
                                     title={title}
                                     userAvatarUrl={userData.avatar}

@@ -7,7 +7,7 @@ import { IProfile } from '@models/profile';
 import { RequestStatus } from '@models/misc';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Box, Button, Flex, Textarea, Text, Input } from '@chakra-ui/react';
+import { Box, Button, Flex, Textarea, Text, Input, useDisclosure, UseDisclosureProps } from '@chakra-ui/react';
 import { FormErrorMessage } from '@components/Form';
 import ModalFrame from '@components/ModalFrame';
 import AvatarInput, { IAvatarInput, AvatarState } from './AvatarInput';
@@ -21,7 +21,6 @@ export interface IInputs {
     lastName: string;
     description: string;
 }
-
 interface IProps {
     formData: IProfile;
     requestStatus: RequestStatus;
@@ -38,12 +37,23 @@ const validationSchema = yup.object().shape({
         .required('To pole jest wymagane')
         .min(currentYear - 100, 'Nie poprawny rok urodzenia')
         .max(currentYear, 'Nie poprawny rok urodzenia'),
-    firstName: yup.string().max(100, 'To pole jest wymagane'),
-    lastName: yup.string().max(100, 'To pole jest wymagane'),
-    description: yup.string().required('To pole jest wymagane').max(100, 'To pole jest wymagane'),
+    firstName: yup.string().max(100, 'Maksymala ilość zanków 100'),
+    lastName: yup.string().max(100, 'Maksymala ilość zanków 100'),
+    description: yup.string().required('To pole jest wymagane').max(200, 'Maksymala ilość zanków 200'),
 });
 
-const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
+const EditProfileForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
+    const {
+        isOpen: isChangePassOpen,
+        onOpen: onChangePassOpen,
+        onClose: onChangePassClose,
+    }: UseDisclosureProps = useDisclosure();
+    const {
+        isOpen: isRemoveAccountOpen,
+        onOpen: onRemoveAccountOpen,
+        onClose: onRemoveAccountClose,
+    }: UseDisclosureProps = useDisclosure();
+
     const [isFetchingData, setIsFetchingData] = useState(false);
     const [isFormChanged, setIsFormChanged] = useState({
         avatar: false,
@@ -64,7 +74,6 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
     const isDisableSubmit = !isFormChanged.avatar && !isFormChanged.inputs;
     const isFetching = requestStatus === RequestStatus.FETCHING;
     const showSkeleton = (isFetching || requestStatus === RequestStatus.IDLE) && !isFetchingData;
-    const showError = requestStatus === RequestStatus.ERROR;
 
     const handleClickSave = () => {
         setIsFetchingData(true);
@@ -101,8 +110,7 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
 
     return (
         <>
-            {showError && <>Error</>}
-            {showSkeleton && !showError ? (
+            {showSkeleton ? (
                 <>Skeleton</>
             ) : (
                 <Box as="form" d={{ base: 'block', md: 'flex' }} onSubmit={handleSubmit(onSubmit)}>
@@ -110,74 +118,29 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
                         <AvatarInput avatarUrl={avatar} onChange={handleChangeAvatar} />
                         <FormErrorMessage name="username" errors={errors} />
 
-                        <ModalFrame
-                            modalTriggerButton={
-                                <Button
-                                    bgColor="gray.800"
-                                    color="white"
-                                    w="100%"
-                                    mb={{ base: 4, md: 8 }}
-                                    variant="solid"
-                                    d={{ base: 'none', md: 'block' }}
-                                    _active={{ bgColor: 'gray.800' }}
-                                    _hover={{ bgColor: 'gray.600' }}
-                                >
-                                    Zmień hasło
-                                </Button>
-                            }
-                            modalTitle="Zmiana hasła"
-                            modalSize="lg"
-                            actionTitle="Zapisz hasło"
-                            onAction={() => 0}
+                        <Button
+                            bgColor="gray.800"
+                            color="white"
+                            w="100%"
+                            mb={{ base: 4, md: 8 }}
+                            variant="solid"
+                            d={{ base: 'none', md: 'block' }}
+                            _active={{ bgColor: 'gray.800' }}
+                            _hover={{ bgColor: 'gray.600' }}
+                            onClick={onChangePassOpen}
                         >
-                            <>
-                                <Box mb={{ base: 4, md: 8 }}>
-                                    <Input
-                                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
-                                        // borderWidth={errors.username ? 1 : 0}
-                                        // ref={register}
-                                        borderColor={errors.username ? 'tomato' : 'gray.200'}
-                                        bgColor="white"
-                                        name="username"
-                                        placeholder="Podaj nowe hasło"
-                                        size="lg"
-                                        type="text"
-                                    />
-                                    {/* <FormErrorMessage name="username" errors={errors} /> */}
-                                </Box>
-                                <Box>
-                                    <Input
-                                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
-                                        // borderWidth={errors.username ? 1 : 0}
-                                        bgColor="white"
-                                        name="username"
-                                        // ref={register}
-                                        type="text"
-                                        size="lg"
-                                        placeholder="Powtórz nowe hasło"
-                                    />
-                                    {/* <FormErrorMessage name="username" errors={errors} /> */}
-                                </Box>
-                            </>
-                        </ModalFrame>
+                            Zmień hasło
+                        </Button>
 
-                        <ModalFrame
-                            actionTitle="Tak, usuń"
-                            modalTriggerButton={
-                                <Button
-                                    d={{ base: 'none', md: 'block' }}
-                                    colorScheme="red"
-                                    variant="link"
-                                    fontWeight={300}
-                                >
-                                    Usuń konto
-                                </Button>
-                            }
-                            modalTitle="Usuwanie konta"
-                            onAction={() => 1}
+                        <Button
+                            d={{ base: 'none', md: 'block' }}
+                            colorScheme="red"
+                            variant="link"
+                            fontWeight={300}
+                            onClick={onRemoveAccountOpen}
                         >
-                            <Text>Czy napawne checesz usunąć swoje konto?</Text>
-                        </ModalFrame>
+                            Usuń konto
+                        </Button>
                     </Box>
 
                     <Box flexGrow={1}>
@@ -265,7 +228,7 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
                                 type="submit"
                                 onClick={handleClickSave}
                             >
-                                Zapisz zmiany
+                                Zapisz
                             </Button>
                             <Button
                                 d={{ base: 'block', md: 'none' }}
@@ -293,9 +256,59 @@ const EditForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
                 </Box>
             )}
 
-            {/* )} */}
+            <ModalFrame onClose={onChangePassClose} isOpen={isChangePassOpen} modalTitle="Zmiana hasła" size="lg">
+                <Box mb={{ base: 4, md: 8 }}>
+                    <Input
+                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
+                        // borderWidth={errors.username ? 1 : 0}
+                        // ref={register}
+                        borderColor={errors.username ? 'tomato' : 'gray.200'}
+                        bgColor="white"
+                        name="username"
+                        placeholder="Podaj nowe hasło"
+                        size="lg"
+                        type="text"
+                    />
+                    {/* <FormErrorMessage name="username" errors={errors} /> */}
+                </Box>
+                <Box>
+                    <Input
+                        // borderColor={errors.username ? 'tomato' : 'gray.200'}
+                        // borderWidth={errors.username ? 1 : 0}
+                        bgColor="white"
+                        name="username"
+                        // ref={register}
+                        type="text"
+                        size="lg"
+                        placeholder="Powtórz nowe hasło"
+                    />
+                    {/* <FormErrorMessage name="username" errors={errors} /> */}
+                </Box>
+
+                <Flex justifyContent={{ base: 'center', md: 'space-between' }} pt={3}>
+                    <Button onClick={onChangePassClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
+                        Zamknij
+                    </Button>
+                    <Button onClick={() => null} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
+                        Zapisz hasło
+                    </Button>
+                </Flex>
+            </ModalFrame>
+
+            <ModalFrame onClose={onRemoveAccountClose} isOpen={isRemoveAccountOpen} modalTitle="Usuwanie konta">
+                <Text>Czy napawne checesz usunąć swoje konto?</Text>
+
+                <Flex justifyContent={{ base: 'center', md: 'space-between' }} pt={3}>
+                    <Button onClick={onRemoveAccountClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
+                        Zamknij
+                    </Button>
+                    <Button onClick={() => null} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
+                        Tak, usuń
+                    </Button>
+                </Flex>
+            </ModalFrame>
         </>
     );
 };
 
-export default EditForm;
+export default EditProfileForm;

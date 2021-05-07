@@ -52,9 +52,12 @@ Base space between elements `base: 4, md: 8`
 
 ## FAQ
 
-### 1. Where dispatch triggered and where we connect to the store?
+### 1. Where dispatched and selected data from store?
 
-In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`
+**OLD**
+~~In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`~~
+**NEW**
+In `screens/<some_screen>/modules`
 
 ### 2. Why we need `layouts`?
 

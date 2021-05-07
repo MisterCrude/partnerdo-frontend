@@ -5,24 +5,22 @@ import { useMount } from 'react-use';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 import {
-    IProposalRemove,
     getProfileDataSelector,
     getProfileRequestStatusSelector,
     updateProfileAsync,
     fetchProfileProposalsAsync,
-    getProfileProposalsDataSelector,
+    getProfileProposalsSelector,
     getProfileProposalsRequestStatusSelector,
-    removeProfileProposalAsync,
 } from '@slices/profileSlice';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';
 import Breadcrumbs from '@components/Breadcrumbs';
-import EditForm, { IInputs } from './components/EditForm';
+import EditProfileForm, { IInputs } from './components/EditProfileForm';
 import History from './components/History';
 import MyProposals from './components/MyProposals';
 
-const LINKS = [
+const PROFILE_TABS = [
     {
         crumbs: [{ title: 'Strona główna', link: ROUTES.PROPOSALS }],
         title: 'Profil',
@@ -49,17 +47,14 @@ const LINKS = [
     },
 ];
 
-type ProfileParams = IInputs;
-
 export const Profile: React.FC = () => {
     const userData = useSelector(getProfileDataSelector);
     const requestStatus = useSelector(getProfileRequestStatusSelector);
-    const profileProposalsData = useSelector(getProfileProposalsDataSelector);
+    const profileProposals = useSelector(getProfileProposalsSelector);
     const profileProposalsRequestStatus = useSelector(getProfileProposalsRequestStatusSelector);
 
     const fetchProfileProposals = useDispatch<string>(fetchProfileProposalsAsync);
-    const removeProfileProposal = useDispatch<IProposalRemove>(removeProfileProposalAsync);
-    const submitForm = useDispatch<ProfileParams>(updateProfileAsync);
+    const submitForm = useDispatch<IInputs>(updateProfileAsync);
 
     const { pathname } = useLocation();
     const history = useHistory();
@@ -73,14 +68,14 @@ export const Profile: React.FC = () => {
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
-            {LINKS.map(
+            {PROFILE_TABS.map(
                 ({ crumbs, link, title }) =>
                     pathname === link && <Breadcrumbs current={title} crumbs={crumbs} key={link} />
             )}
 
             <Flex mx={{ base: -4, sm: 0 }} pl={{ base: 8, sm: 0 }} pb={{ base: 2, sm: 0 }} overflowX={{ base: 'auto' }}>
                 <Box>
-                    {LINKS.map(({ tabTitle, link }) => (
+                    {PROFILE_TABS.map(({ tabTitle, link }) => (
                         <Link
                             _last={{ mr: { base: 10, sm: 8 } }}
                             _focus={{
@@ -103,13 +98,16 @@ export const Profile: React.FC = () => {
             <Box mt={8}>
                 <Switch>
                     <Route exact path={ROUTES.PROFILE}>
-                        <EditForm requestStatus={requestStatus} formData={userData} onSubmit={handleSubmitForm} />
+                        <EditProfileForm
+                            requestStatus={requestStatus}
+                            formData={userData}
+                            onSubmit={handleSubmitForm}
+                        />
                     </Route>
                     <Route exact path={ROUTES.PROFILE_MY_PROPOSALS}>
                         <MyProposals
                             requestStatus={profileProposalsRequestStatus}
-                            proposals={profileProposalsData}
-                            onRemove={removeProfileProposal}
+                            proposals={profileProposals}
                             onProposalClick={handleProposalClick}
                         />
                     </Route>

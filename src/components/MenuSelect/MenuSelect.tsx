@@ -34,8 +34,8 @@ interface IProps {
     name: string;
     options: IOption[];
     palceholder: string;
-    selected: string | number;
-    onChange: (name: string, data: string | number) => void;
+    selected: string;
+    onChange: (name: string, value: string) => void;
     onClear?: (name: string) => void;
 }
 
@@ -59,7 +59,7 @@ export const MenuSelect: React.FC<IProps> = ({
         }
     };
 
-    const getSlelectedLabel = (selectedVale: string | number) =>
+    const getSlelectedLabel = (selectedVale: string) =>
         options.find((option: IOption) => option.value === selectedVale)?.label;
 
     return (

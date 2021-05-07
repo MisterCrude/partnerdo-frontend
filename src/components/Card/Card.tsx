@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Box, Badge, Divider, Flex, Heading, Tag, Text, MenuItem, Button } from '@chakra-ui/react';
+import { Box, Badge, Divider, Flex, Heading, Tag, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';
-import { DeleteIcon, EditIcon, UnpublishIcon, PublishIcon } from '@theme/customIcons';
-import ModalFrame from '@components/ModalFrame';
 
 import CardMenu from '@src/components/CardMenu';
 
@@ -20,14 +18,16 @@ export interface IProps {
     category: string;
     content: string;
     publishDate: string;
+    shortUserDesc: string;
     title: string;
     userAvatarUrl: string;
     userName: string;
-    shortUserDesc: string;
+    categoryColor?: string;
+    deleteActionButton?: React.ReactElement;
+    editActionButton?: React.ReactElement;
     type?: Types;
     onUserNameClick?: () => void;
     onTitleClick?: () => void;
-    onRemove?: () => void;
 }
 
 export const Card: React.FC<IProps> = ({
@@ -35,34 +35,20 @@ export const Card: React.FC<IProps> = ({
     category,
     content,
     publishDate,
+    shortUserDesc,
     title,
     userAvatarUrl,
     userName,
-    shortUserDesc,
+    editActionButton,
+    deleteActionButton,
+    categoryColor = 'orange.500',
     type = Types.DEFAULT,
     onTitleClick,
     onUserNameClick,
-    onRemove,
 }) => {
     const isUnpublish = type === Types.UNPUBLISH;
     const isDone = type === Types.DONE;
     const showMenu = type !== Types.DEFAULT;
-
-    const renderDeleteButton = (
-        <ModalFrame
-            actionTitle="Usuń"
-            modalTitle="Usuwanie partnerstwa"
-            modalSize="lg"
-            modalTriggerButton={
-                <MenuItem color="red.500">
-                    <DeleteIcon mr={2} /> Usuń
-                </MenuItem>
-            }
-            onAction={onRemove}
-        >
-            <>Czy napewno chcesz usunąć partnerstwo "{title}"</>
-        </ModalFrame>
-    );
 
     return (
         <Box
@@ -87,10 +73,9 @@ export const Card: React.FC<IProps> = ({
                     <CardMenu>
                         {!isDone && (
                             <>
-                                <MenuItem>
-                                    <EditIcon mr={2} fontSize="lg" /> Edytuj
-                                </MenuItem>
-                                {isUnpublish ? (
+                                {editActionButton}
+                                {/* TODO uncomit it when implement publish functionality */}
+                                {/* {isUnpublish ? (
                                     <MenuItem>
                                         <PublishIcon mr={2} fontSize="lg" /> Publikuj
                                     </MenuItem>
@@ -98,10 +83,10 @@ export const Card: React.FC<IProps> = ({
                                     <MenuItem>
                                         <UnpublishIcon mr={2} fontSize="lg" /> Cofnij publikację
                                     </MenuItem>
-                                )}
+                                )} */}
                             </>
                         )}
-                        {renderDeleteButton}
+                        {deleteActionButton}
                     </CardMenu>
                 )}
             </Flex>
@@ -118,6 +103,7 @@ export const Card: React.FC<IProps> = ({
                         <br />
                     </>
                 )}
+
                 {isDone && (
                     <>
                         <Badge mb={2} colorScheme="green" variant="solid">
@@ -126,9 +112,10 @@ export const Card: React.FC<IProps> = ({
                         <br />
                     </>
                 )}
+
                 <Heading alignItems="center" d="flex" size="md" flexWrap="wrap">
                     <Tag
-                        bgColor="orange.500"
+                        bgColor={categoryColor}
                         borderRadius="full"
                         filter={isUnpublish || isDone ? 'grayscale(100%)' : 'grayscale(0)'}
                         my={1}

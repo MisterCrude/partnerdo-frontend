@@ -15,10 +15,10 @@ const MenuListStyles = css`
 interface IProps {
     palceholder: string;
     name: string;
-    selected: Array<string | number>;
+    selected: Array<string>;
     options: IOption[];
     height?: string;
-    onChange: (name: string, data: string | number | Array<string | number>) => void;
+    onChange: (name: string, data: string | Array<string>) => void;
     onClear?: (name: string) => void;
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
-
 import { getIsAuthSelector, logoutProfileAsync } from '@slices/profileSlice';
 import useDispatch from '@hooks/useDispatch';
 

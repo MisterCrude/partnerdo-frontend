@@ -1,12 +1,10 @@
 import { AppThunk, AppDispatch } from '@store/index';
-import { AvatarState } from '@screens/Profile//components/AvatarInput';
+import { AvatarState } from '@screens/Profile/components/AvatarInput';
 import { BACKEND_ROUTING } from '@consts/api';
 import { capitalize, omit, get } from 'lodash/fp';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getQueryParamsString } from '@src/utils/pagination';
 import { History } from 'history';
-import { IInputs } from '@screens/Login/components/LoginForm';
-import { IInputs as IProfileInputs } from '@screens/Profile/components/EditForm';
 import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
 import { IGenericRemote } from '@models/misc';
 import { IProposalsListResponse, IProposal } from '@models/proposal';
@@ -18,7 +16,7 @@ import apiService from '@services/apiService';
 export interface IProfileState {
     isAuth: boolean;
     userProfile: IGenericRemote<IProfile>;
-    proposals: IGenericRemote<IProposal[]>;
+    proposals: IGenericRemote<IProposal[]> & { updateRequestStatus: RequestStatus };
     history: IGenericRemote<any>;
 }
 
@@ -31,6 +29,7 @@ const initialState: IProfileState = {
     proposals: {
         data: [] as IProposal[],
         requestStatus: RequestStatus.IDLE,
+        updateRequestStatus: RequestStatus.IDLE,
     },
     history: {} as IGenericRemote<any>,
 };
@@ -58,10 +57,13 @@ const profileSlice = createSlice({
             state.isAuth = true;
         },
         /**
-         *  ProfileProposal
+         *  ProfileProposals
          */
         setProfileProposalsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.proposals.requestStatus = payload;
+        },
+        setProfileProposalsUpdateRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.proposals.updateRequestStatus = payload;
         },
         setProfileProposals(state, { payload: proposals }: PayloadAction<IProposal[]>) {
             state.proposals.data = proposals;
@@ -71,6 +73,11 @@ const profileSlice = createSlice({
         },
         removeOneProfileProposal(state, { payload: proposalId }: PayloadAction<string>) {
             state.proposals.data = state.proposals.data.filter((proposal: IProposal) => proposal.id !== proposalId);
+        },
+        updateProfileProposal(state, { payload: editedProposal }: PayloadAction<IProposal>) {
+            state.proposals.data = state.proposals.data.map((proposal: IProposal) =>
+                proposal.id === editedProposal.id ? editedProposal : proposal
+            );
         },
     },
 });
@@ -83,7 +90,9 @@ export const {
     removeProfile,
     setProfileRequestStatu,
     setProfileProposalsRequestStatus,
+    setProfileProposalsUpdateRequestStatus,
     setProfileProposals,
+    updateProfileProposal,
     removeProfileProposals,
     removeOneProfileProposal,
 } = profileSlice.actions;
@@ -92,8 +101,41 @@ export const {
  * Async actions
  */
 interface IProfileParams {
-    credentials: IInputs;
+    credentials: {
+        username: string;
+        password: string;
+    };
     history: History;
+}
+
+interface IProfileInputs {
+    avatar: {
+        state: AvatarState;
+        file: File;
+        fileUrl: string;
+    };
+    username: string;
+    email: string;
+    birthYear: string;
+    firstName: string;
+    lastName: string;
+    description: string;
+}
+
+export interface IProposalRemove {
+    id: string;
+    name: string;
+}
+
+export interface IProposalUpdate {
+    id: string;
+    formData: {
+        category: string;
+        city: string;
+        cityArea: string;
+        description: string;
+        title: string;
+    };
 }
 
 export const loginProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
@@ -268,17 +310,12 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
     }
 };
 
-export interface IProposalRemove {
-    id: string;
-    name: string;
-}
-
 export const removeProfileProposalAsync = ({ id, name }: IProposalRemove): AppThunk => async (
     dispatch: AppDispatch
 ) => {
     try {
-        dispatch(removeOneProfileProposal(id));
         await apiService.delete(`${BACKEND_ROUTING.PROPOSAL.LIST}${id}`);
+        dispatch(removeOneProfileProposal(id));
 
         storeToast({
             status: 'success',
@@ -296,6 +333,31 @@ export const removeProfileProposalAsync = ({ id, name }: IProposalRemove): AppTh
     }
 };
 
+export const updateProfileProposalAsync = ({ id, formData }: IProposalUpdate): AppThunk => async (
+    dispatch: AppDispatch
+) => {
+    dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.FETCHING));
+    try {
+        const { data: proposal } = await apiService.patch(`${BACKEND_ROUTING.PROPOSAL.LIST}${id}`, formData);
+        dispatch(updateProfileProposal(proposal));
+
+        storeToast({
+            status: 'success',
+            title: 'Profil',
+            message: `Partnerstwo "${formData.title}" zostało zedytowane`,
+        });
+        dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.SUCCESS));
+    } catch (error) {
+        storeToast({
+            status: 'error',
+            title: 'Profil',
+            message: `Nie udało się zedytować partnerstwo "${formData.title}"`,
+        });
+        dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.ERROR));
+        console.error('Delete proposal error:', error);
+    }
+};
+
 /**
  * Selectors
  */
@@ -303,7 +365,9 @@ export const getIsAuthSelector = (state: RootState) => state.profile.isAuth;
 export const getProfileDataSelector = (state: RootState) => state.profile.userProfile.data;
 export const getProfileRequestStatusSelector = (state: RootState) => state.profile.userProfile.requestStatus;
 
-export const getProfileProposalsDataSelector = (state: RootState) => state.profile.proposals.data;
+export const getProfileProposalsSelector = (state: RootState) => state.profile.proposals.data;
 export const getProfileProposalsRequestStatusSelector = (state: RootState) => state.profile.proposals.requestStatus;
+export const getProfileProposalsUpdateRequestStatusSelector = (state: RootState) =>
+    state.profile.proposals.updateRequestStatus;
 
 export default profileSlice.reducer;

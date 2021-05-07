@@ -35,3 +35,4 @@
 ## `src/screens/ExampleScreen/`
 
 -   `components` - put here components which used ONLY within current screen
+-   `modules` - put here module component which used ONLY within current screen

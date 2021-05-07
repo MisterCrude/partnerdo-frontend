@@ -17,14 +17,14 @@ interface IProps {
 }
 
 export const StepThreeForm: React.FC<IProps> = ({ defaultData, citires, cityAreasGetter, onSave, onChangeStep }) => {
-    const [city, setCity] = useState<string>('');
-    const [cityArea, setCityArea] = useState<string>('');
+    const [city, setCity] = useState('');
+    const [cityArea, setCityArea] = useState('');
     const [cityAreasOptions, setCityAreasOptions] = useState<IOption[]>([]);
 
     const disableNextButton = !(city && cityArea);
 
-    const handleCityChange = (_: string, data: string | number) => setCity(data as string);
-    const handleCityAreaChange = (_: string, data: string | number) => setCityArea(data as string);
+    const handleCityChange = (_: string, value: string) => setCity(value);
+    const handleCityAreaChange = (_: string, value: string) => setCityArea(value);
     const handleForward = () => {
         onSave({ city, cityArea });
         onChangeStep(2);

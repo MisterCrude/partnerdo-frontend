@@ -6,7 +6,7 @@ import { SearchIcon, CloseIcon } from '@theme/customIcons';
 
 interface IProps {
     showClearButton: boolean;
-    onChange: (name: string, data: string | number | string[]) => void;
+    onChange: (name: string, data: string | string[]) => void;
     onClear: () => void;
 }
 

@@ -15,7 +15,21 @@ import { getUserName } from '@utils/user';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
 
-import { AspectRatio, Box, Button, Divider, Flex, Heading, Image, Stack, Tag, Textarea, Text } from '@chakra-ui/react';
+import {
+    AspectRatio,
+    Box,
+    Button,
+    Divider,
+    Flex,
+    Heading,
+    Image,
+    Stack,
+    Tag,
+    Textarea,
+    Text,
+    useDisclosure,
+    UseDisclosureProps,
+} from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import Breadcrumbs from '@components/Breadcrumbs';
@@ -27,6 +41,8 @@ interface IProps {
 }
 
 export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
+    const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
+
     const history = useHistory();
     const { pathname } = useLocation();
 
@@ -40,20 +56,16 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
-    const showContet = requestStatus === RequestStatus.SUCCESS;
+    const showContent = requestStatus === RequestStatus.SUCCESS;
 
-    const handleBack = () => {
-        history.goBack();
-    };
+    const handleBack = () => history.goBack();
 
     useMount(() => {
         const proposalId = pathname.split('/').pop();
         fetchDetails(proposalId);
     });
 
-    useUnmount(() => {
-        resetDetails();
-    });
+    useUnmount(() => resetDetails());
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -66,7 +78,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
             <>
                 {showSkeleton && <>Skeleton</>}
                 {showError && <>Error</>}
-                {showContet && (
+                {showContent && (
                     <>
                         <Stack
                             direction={{ base: 'column', md: 'row' }}
@@ -107,7 +119,12 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     <CalendarIcon mr={1} mt={-1} fontSize="md" />{' '}
                                     {toLocaleDateString(created, DEFAULT_LOCALE)}
                                 </Box>
-                                <Tag borderRadius="full" bgColor="orange.500" px={4} variant="solid">
+                                <Tag
+                                    borderRadius="full"
+                                    bgColor={category.color || 'orange.500'}
+                                    px={4}
+                                    variant="solid"
+                                >
                                     {category.name}
                                 </Tag>
                             </Box>
@@ -127,36 +144,16 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                 </Button>
 
                                 {isAuth ? (
-                                    <ModalFrame
-                                        actionTitle="Wyślij"
-                                        modalTitle="Poszukuję partnera do głębokiego lenistwa"
-                                        modalTriggerButton={
-                                            <Button
-                                                bgColor="gray.800"
-                                                color="white"
-                                                variant="variant"
-                                                _active={{ bgColor: 'gray.800' }}
-                                                _hover={{ bgColor: 'gray.600' }}
-                                            >
-                                                Złóż ofertę
-                                            </Button>
-                                        }
-                                        modalSize="5xl"
-                                        onAction={() => 0}
+                                    <Button
+                                        onClick={onOpen}
+                                        bgColor="gray.800"
+                                        color="white"
+                                        variant="variant"
+                                        _active={{ bgColor: 'gray.800' }}
+                                        _hover={{ bgColor: 'gray.600' }}
                                     >
-                                        <>
-                                            <Textarea
-                                                h={72}
-                                                name="surname"
-                                                mb={1}
-                                                // ref={register}
-                                                resize="none"
-                                                type="text"
-                                                placeholder="Twoja odpowiedź"
-                                                size="lg"
-                                            />
-                                        </>
-                                    </ModalFrame>
+                                        Złóż ofertę
+                                    </Button>
                                 ) : (
                                     <Button
                                         as={RouterLink}
@@ -172,6 +169,32 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                 )}
                             </Flex>
                         </Box>
+
+                        <ModalFrame
+                            onClose={onClose}
+                            isOpen={isOpen}
+                            modalTitle="Poszukuję partnera do głębokiego lenistwa"
+                            size="5xl"
+                        >
+                            <Textarea
+                                h={72}
+                                name="surname"
+                                mb={1}
+                                // ref={register}
+                                resize="none"
+                                type="text"
+                                placeholder="Twoja odpowiedź"
+                                size="lg"
+                            />
+                            <Flex justifyContent={{ base: 'center', md: 'space-between' }} pt={3}>
+                                <Button onClick={onClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
+                                    Zamknij
+                                </Button>
+                                <Button onClick={() => null} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
+                                    Wyślij
+                                </Button>
+                            </Flex>
+                        </ModalFrame>
                     </>
                 )}
             </>

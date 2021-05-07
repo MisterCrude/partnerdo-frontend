@@ -29,10 +29,10 @@ import Pagination from '@components/Pagination';
 import Results from './components/Results';
 import SearchBar from './components/SearchBar';
 
-const ages: IOption[] = keys(AGE_GROUPS)
+const ageOptions: IOption[] = keys(AGE_GROUPS)
     .sort()
     .map((item) => ({ value: item, label: AGE_GROUPS[item] }));
-const genders: IOption[] = keys(GENDER).map((item) => ({ value: item, label: GENDER[item] }));
+const genderOptions: IOption[] = keys(GENDER).map((item) => ({ value: item, label: GENDER[item] }));
 
 const initFiltersData: IFiltersData = {
     age: [],
@@ -64,14 +64,14 @@ export const Browser: React.FC = () => {
     const isShowClearButton = !isEqual(omit('pageNumber', initFiltersData), omit('pageNumber', filtersData));
 
     const showError = requestStatus === RequestStatus.ERROR;
-    const showContet = requestStatus === RequestStatus.SUCCESS;
+    const showContent = requestStatus === RequestStatus.SUCCESS;
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
 
     const handleChangePage = (pageNumber: number) => {
         scrollTop();
         setFiltersData((prevState) => ({ ...prevState, pageNumber }));
     };
-    const handleChangeFilters = (name: string, data: string | number | Array<string | number>) => {
+    const handleChangeFilters = (name: string, data: string | Array<string>) => {
         setFiltersData((prevState) => ({ ...prevState, [name]: data, pageNumber: 0 }));
     };
     const handleClear = (name?: string) => {
@@ -101,12 +101,12 @@ export const Browser: React.FC = () => {
         <Main mt={{ base: 0, md: 10 }} mb={10}>
             <FiltersMobile>
                 <Filters
-                    ages={ages}
-                    categories={categoryOptions}
-                    cities={cityOptions}
-                    cityAreas={cityAreasOptions}
+                    ageOptions={ageOptions}
+                    categoryOptions={categoryOptions}
+                    cityOptions={cityOptions}
+                    cityAreaOptions={cityAreasOptions}
+                    genderOptions={genderOptions}
                     filtersData={filtersData}
-                    genders={genders}
                     onChange={handleChangeFilters}
                     onClear={handleClear}
                 />
@@ -114,12 +114,12 @@ export const Browser: React.FC = () => {
             <Box mb={10} d={{ base: 'none', md: 'block' }}>
                 <SearchBar onChange={handleChangeFilters} onClear={handleClear} showClearButton={isShowClearButton} />
                 <Filters
-                    ages={ages}
-                    categories={categoryOptions}
-                    cities={cityOptions}
-                    cityAreas={cityAreasOptions}
+                    ageOptions={ageOptions}
+                    categoryOptions={categoryOptions}
+                    cityOptions={cityOptions}
+                    cityAreaOptions={cityAreasOptions}
                     filtersData={filtersData}
-                    genders={genders}
+                    genderOptions={genderOptions}
                     onChange={handleChangeFilters}
                     onClear={handleClear}
                 />
@@ -127,7 +127,7 @@ export const Browser: React.FC = () => {
 
             {showSkeleton && <>Skeleton</>}
             {showError && <>Error</>}
-            {showContet && (
+            {showContent && (
                 <>
                     <Text mb={10}>
                         Znaleziono <strong>{proposalsCount}</strong> partnerstw pasujących do Ciebie

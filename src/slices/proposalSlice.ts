@@ -179,7 +179,6 @@ export const fetchDetailsAsync = (proposalId: string): AppThunk => async (dispat
 export const createProposalAsync = (proposalsData: Partial<{ [key in keyof IProposal]: string }>): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    const setIdle = () => setTimeout(() => dispatch(setCreateProposalRequestStatus(RequestStatus.IDLE)), 100);
     dispatch(setCreateProposalRequestStatus(RequestStatus.FETCHING));
 
     try {
@@ -195,7 +194,6 @@ export const createProposalAsync = (proposalsData: Partial<{ [key in keyof IProp
         });
 
         dispatch(setCreateProposalRequestStatus(RequestStatus.SUCCESS));
-        setIdle();
     } catch (error) {
         dispatch(setCreateProposalRequestStatus(RequestStatus.ERROR));
         storeToast({
@@ -205,8 +203,8 @@ export const createProposalAsync = (proposalsData: Partial<{ [key in keyof IProp
         });
 
         console.error('Fetch proposal details error:', error);
-        setIdle();
     }
+    setTimeout(() => dispatch(setCreateProposalRequestStatus(RequestStatus.IDLE)), 100);
 };
 
 /**

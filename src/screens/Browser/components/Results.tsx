@@ -25,6 +25,7 @@ const Results: React.FC<IProps> = ({ results, onAuthorNameClick, onTitleClick })
                     address={`${city.name}, ${cityArea.name}`}
                     content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
                     category={category.name}
+                    categoryColor={category.color}
                     publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
                     title={title}
                     userAvatarUrl={author.avatar}

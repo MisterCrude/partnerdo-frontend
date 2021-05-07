@@ -157,5 +157,13 @@ export default MessageBox;
         }}
     >
         <Text>Czy napawne checesz usunąć tą konwersację?</Text>
+        <Flex justifyContent={{ base: 'center', md: 'space-between' }} pt={3}>
+                    <Button onClick={onRemoveAccountClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
+                        Zamknij
+                    </Button>
+                    <Button onClick={() => null} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
+                        Tak, usuń
+                    </Button>
+                </Flex>
     </ModalFrame>
 </Box>; */

@@ -14,7 +14,7 @@ export interface IAuthor extends Omit<IProfile, 'gender' | 'birthYear' | 'email'
 }
 
 export type ICity = RecordNamedItem;
-export type ICategory = RecordNamedItem;
+export type ICategory = Record<'name' | 'id' | 'color' | 'image', string>;
 export type ICityArea = RecordNamedItem;
 
 export interface IProposal {
@@ -29,7 +29,7 @@ export interface IProposal {
 }
 
 export interface IFiltersData {
-    age: number[];
+    age: string[];
     categories: string[];
     city: string;
     cityAreas: string[];

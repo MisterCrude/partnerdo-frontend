@@ -102,7 +102,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     mx={1}
                                     _hover={{ textDecor: 'underline' }}
                                 >
-                                    {getUserName(author)}
+                                    {getUserName(author.firstName, author.lastName, author.username)}
                                 </Heading>
                             </Box>
 

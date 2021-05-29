@@ -1,4 +1,5 @@
 export interface IProfile {
+    // TODO check why profile hasn't ID
     avatar: string;
     birthYear: string;
     description: string;

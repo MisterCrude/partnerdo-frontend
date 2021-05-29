@@ -96,7 +96,7 @@ export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }
             color="gray"
             d="flex"
             icon={<ChatIcon fontSize={28} />}
-            to={ROUTES.CONVERSATIONS}
+            to={ROUTES.CHAT}
             variant="unstyled"
         />
         {hasMessages && <Circle pos="absolute" size={3} bgColor="tomato" color="white" top={2} right={1} />}

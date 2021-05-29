@@ -1,5 +1,4 @@
 import { capitalize } from 'lodash/fp';
-import { IAuthor } from '@models/proposal';
 
-export const getUserName = ({ firstName, lastName, username }: IAuthor) =>
+export const getUserName = (firstName: string, lastName: string, username: string) =>
     firstName ? `${firstName} ${lastName}` : capitalize(username);

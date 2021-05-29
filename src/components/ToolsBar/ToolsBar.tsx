@@ -53,7 +53,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
             justifyContent="center"
             flexDirection="column"
             variant="link"
-            to={ROUTES.CONVERSATIONS}
+            to={ROUTES.CHAT}
         >
             <Box as="span" pos="relative">
                 <ChatIcon fontSize={30} />

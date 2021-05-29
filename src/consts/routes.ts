@@ -6,7 +6,7 @@ export const ROUTES = {
     REGISTER: '/register',
     REMIND_PASSWORD: '/remind-password',
     REMIND_PASSWORD_NEW: '/remind-password/new',
-    CONVERSATIONS: '/conversations',
+    CHAT: '/chat',
     PROPOSALS: '/proposals',
     PROPOSALS_CREATE: '/proposals/add',
     USER_PROFILE: '/user',

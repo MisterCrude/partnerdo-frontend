@@ -47,13 +47,6 @@ export interface IFilters {
     cities: Record<string, ICityWithAreas>;
 }
 
-export interface IProposalsListResponse {
-    count: number;
-    next: string;
-    previous: string;
-    results: IProposal[];
-}
-
 export interface IFiltersResponse {
     categories: ICategory[];
     cities: ICityWithAreas[];

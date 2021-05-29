@@ -66,7 +66,7 @@ const MyProposals: React.FC<IProps> = ({ requestStatus, proposals, onProposalCli
                                         }
                                         // TODO save cityName and cityArea in store after initialFetch and get it by id
                                         address={`${city.name}, ${cityArea.name}`}
-                                        category={category.name}
+                                        categoryName={category.name}
                                         categoryColor={category.color}
                                         content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
                                         publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
@@ -77,7 +77,7 @@ const MyProposals: React.FC<IProps> = ({ requestStatus, proposals, onProposalCli
                                         title={title}
                                         type={Types.EDITABLE}
                                         userAvatarUrl={author.avatar}
-                                        userName={getUserName(author)}
+                                        userName={getUserName(author.firstName, author.lastName, author.username)}
                                         onTitleClick={() => onProposalClick(id)}
                                     />
                                 );

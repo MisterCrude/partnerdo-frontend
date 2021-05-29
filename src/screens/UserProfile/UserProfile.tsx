@@ -28,6 +28,8 @@ export const UserProfile: React.FC = () => {
 
     const handleTitleClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
 
+    const userName = getUserName(userData.firstName, userData.lastName, userData.username);
+
     useMount(() => {
         const userId = pathname.split('/').pop();
 
@@ -37,7 +39,7 @@ export const UserProfile: React.FC = () => {
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
             <Breadcrumbs
-                current={`Profil użytkownika ${getUserName(userData)}`}
+                current={`Profil użytkownika ${userName}`}
                 crumbs={[{ title: 'Strona główna', link: ROUTES.PROPOSALS }]}
                 mb={8}
             />
@@ -56,7 +58,7 @@ export const UserProfile: React.FC = () => {
                             />
                         </AspectRatio>
                         <Heading size="lg" mb={4}>
-                            {getUserName(userData)}
+                            {userName}
                         </Heading>
 
                         <Text color="gray.500" fontSize="sm">
@@ -74,12 +76,12 @@ export const UserProfile: React.FC = () => {
                                     // TODO save cityName and cityArea in store after initialFetch and get it by id
                                     address={`${city.name}, ${cityArea.name}`}
                                     content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
-                                    category={category.name}
+                                    categoryName={category.name}
                                     categoryColor={category.color}
                                     publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
                                     title={title}
                                     userAvatarUrl={userData.avatar}
-                                    userName={getUserName(userData)}
+                                    userName={getUserName(userData.firstName, userData.lastName, userData.username)}
                                     shortUserDesc={truncateStringByWords(userData.description, SHORT_DESC_WORDS_AMOUT)}
                                     onTitleClick={() => handleTitleClick(id)}
                                 />

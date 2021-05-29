@@ -11,28 +11,36 @@ export enum Types {
     SECONDARY = 'secondary',
 }
 
+// TODO create types like in Card, avoiding have isRejected and hasNewMessage in the same time
+
 export interface IProps {
-    category: string;
+    address: string;
+    categoryName: string;
     title: string;
     userAvatarUrl: string;
     userName: string;
+    lastMessageTime: string;
     onTitleClick: () => void;
     onUserNameClick: () => void;
-    newMessagesAmount?: number;
+    categoryColor?: string;
+    newMessagesAmount?: number | string;
     subtitle?: string;
     type?: Types;
 }
 
 export const MessageBox: React.FC<IProps> = ({
+    address,
+    categoryColor = 'orange.500',
+    categoryName,
+    lastMessageTime,
+    newMessagesAmount = 0,
+    onTitleClick,
+    onUserNameClick,
+    subtitle,
     title,
-    category,
+    type = Types.DEFAULT,
     userAvatarUrl,
     userName,
-    onUserNameClick,
-    onTitleClick,
-    subtitle,
-    newMessagesAmount = 0,
-    type = Types.DEFAULT,
 }) => {
     const hasNewMessage = newMessagesAmount > 0;
     const isRejected = type === Types.REJECTED;
@@ -40,7 +48,7 @@ export const MessageBox: React.FC<IProps> = ({
 
     return (
         <Box
-            bgColor={isRejected ? 'red.50' : 'white'}
+            bgColor={isRejected ? 'red.50' : hasNewMessage ? 'orange.50' : 'white'}
             borderColor={isRejected ? 'red.100' : 'inherit'}
             borderRadius="lg"
             borderWidth={1}
@@ -54,9 +62,12 @@ export const MessageBox: React.FC<IProps> = ({
                     color="white"
                     fontWeight="bold"
                     left={-3}
+                    minW={7}
+                    paddingX={2}
                     pos="absolute"
                     size={7}
-                    top={-3}
+                    top={-4}
+                    width={isRejected ? 7 : 'auto'}
                 >
                     {isRejected ? <SmallDangerIcon fontSize={38} /> : newMessagesAmount}
                 </Circle>
@@ -91,8 +102,8 @@ export const MessageBox: React.FC<IProps> = ({
                             )}
 
                             <Flex align="center" flexWrap="wrap">
-                                <Tag borderRadius="full" bgColor="orange.500" px={4} my={1} variant="solid">
-                                    {category}
+                                <Tag borderRadius="full" bgColor={categoryColor} px={4} my={1} variant="solid">
+                                    {categoryName}
                                 </Tag>
                                 <Heading
                                     d="inline-block"
@@ -106,7 +117,7 @@ export const MessageBox: React.FC<IProps> = ({
                             </Flex>
 
                             <Text fontSize="md" color="gray.500">
-                                <LocationIcon pos="relative" top="-2px" /> Warszawa, Bemowo
+                                <LocationIcon pos="relative" top="-2px" /> {address}
                             </Text>
                         </Box>
 
@@ -132,7 +143,7 @@ export const MessageBox: React.FC<IProps> = ({
                         )}
 
                         <Text as="span" color="gray.500" fontSize="xs">
-                            <strong>Ostatnia wiadomość:</strong> 14:40
+                            <strong>Ostatnia wiadomość:</strong> {lastMessageTime}
                         </Text>
                     </Flex>
                 </Flex>

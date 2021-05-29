@@ -10,7 +10,7 @@ const History: React.FC = () => {
             <VStack align="stretch" spacing={{ base: 4, md: 8 }} mb={4}>
                 <Card
                     address="Warszawa, Bemowo"
-                    category="Sport"
+                    categoryName="Sport"
                     content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                     publishDate="01.10.2020"
                     title="Poszukuję partnera do głębokiego lenistwa"
@@ -24,7 +24,7 @@ const History: React.FC = () => {
                 />
                 <Card
                     address="Warszawa, Bemowo"
-                    category="Sport"
+                    categoryName="Sport"
                     content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                     publishDate="01.10.2020"
                     title="Poszukuję partnera do głębokiego lenistwa"
@@ -38,7 +38,7 @@ const History: React.FC = () => {
                 />
                 <Card
                     address="Warszawa, Bemowo"
-                    category="Sport"
+                    categoryName="Sport"
                     content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                     publishDate="01.10.2020"
                     title="Poszukuję partnera do głębokiego lenistwa"

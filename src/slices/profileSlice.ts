@@ -7,7 +7,8 @@ import { getQueryParamsString } from '@src/utils/pagination';
 import { History } from 'history';
 import { IProfile, IAuthTokenResponse, IProfileResponse } from '@models/profile';
 import { IGenericRemote } from '@models/misc';
-import { IProposalsListResponse, IProposal } from '@models/proposal';
+import { IProposal } from '@models/proposal';
+import { IPaginationResponse } from '@models/api';
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import { ROUTES } from '@consts/routes';
@@ -248,7 +249,7 @@ export const fetchProfileProposalsAsync = (authorId: string): AppThunk => async 
     dispatch(setProfileProposalsRequestStatus(RequestStatus.FETCHING));
 
     try {
-        const { data: profileProposalsPagination }: { data: IProposalsListResponse } = await apiService.get(
+        const { data: profileProposalsPagination }: { data: IPaginationResponse<IProposal> } = await apiService.get(
             `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParamsString({ author: authorId })}`
         );
 

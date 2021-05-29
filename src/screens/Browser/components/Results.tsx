@@ -24,12 +24,12 @@ const Results: React.FC<IProps> = ({ results, onAuthorNameClick, onTitleClick })
                     // TODO save cityName and cityArea in store after initialFetch and get it by id
                     address={`${city.name}, ${cityArea.name}`}
                     content={truncateStringByWords(description, SHORT_CONTENT_WORDS_AMOUNT)}
-                    category={category.name}
+                    categoryName={category.name}
                     categoryColor={category.color}
                     publishDate={toLocaleDateString(created, DEFAULT_LOCALE)}
                     title={title}
                     userAvatarUrl={author.avatar}
-                    userName={getUserName(author)}
+                    userName={getUserName(author.firstName, author.lastName, author.username)}
                     shortUserDesc={truncateStringByWords(author.description, SHORT_DESC_WORDS_AMOUT)}
                     onUserNameClick={() => onAuthorNameClick(author.id)}
                     onTitleClick={() => onTitleClick(id)}

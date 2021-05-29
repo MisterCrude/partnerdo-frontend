@@ -5,7 +5,8 @@ import { BACKEND_ROUTING } from '@consts/api';
 import { getQueryParamsString, countOffset } from '@src/utils/pagination';
 import { IFiltersData } from '@models/proposal';
 import { IGenericRemote } from '@models/misc';
-import { IProposal, IProposalsListResponse, IProposalResponse } from '@models/proposal';
+import { IProposal, IProposalResponse } from '@models/proposal';
+import { IPaginationResponse } from '@models/api';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
@@ -13,7 +14,7 @@ import { toDict } from '@utils/convert';
 import apiService from '@services/apiService';
 
 interface INormalisedResponse {
-    proposals: Record<string, IProposal>;
+    results: IProposalResponse[];
     count: number;
     pageNumber: number;
 }
@@ -56,7 +57,7 @@ const initialState: IProposalState = {
 export const getQueryParams = ({ age, pageNumber, city, categories, cityAreas, gender, search }: IFiltersData) =>
     getQueryParamsString({
         limit: String(PAGINATION_ITEMS_LIMIT),
-        offset: String(countOffset(pageNumber || 1)),
+        offset: String(countOffset(pageNumber || 1, PAGINATION_ITEMS_LIMIT)),
         city: city || undefined,
         categories: categories.length ? categories.join(',') : undefined,
         city_areas: cityAreas.length ? cityAreas.join(',') : undefined,
@@ -88,7 +89,9 @@ const proposalSlice = createSlice({
         setDetails(state, { payload: proposalDetails }: PayloadAction<IProposal>) {
             state.details.data = proposalDetails;
         },
-        receivePage(state, { payload: { proposals, count, pageNumber } }: PayloadAction<INormalisedResponse>) {
+        receivePage(state, { payload: { results, count, pageNumber } }: PayloadAction<INormalisedResponse>) {
+            const proposals = toDict<IProposal>(results, 'id');
+
             state.proposals = proposals;
             state.pagination.proposals.count = count;
             state.pagination.proposals.currentPage = pageNumber;
@@ -131,12 +134,11 @@ export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (di
 
         const {
             data: { results, count },
-        }: { data: IProposalsListResponse } = await apiService.get(
+        }: { data: IPaginationResponse<IProposal> } = await apiService.get(
             `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParams(filtersData)}`
         );
-        const proposalsDict = toDict<IProposal>(results, 'id');
 
-        dispatch(receivePage({ proposals: proposalsDict, count, pageNumber: filtersData.pageNumber || 1 }));
+        dispatch(receivePage({ results, count, pageNumber: filtersData.pageNumber || 1 }));
         dispatch(setPaginationRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         dispatch(resetPagination());
@@ -218,14 +220,15 @@ export const getPagesAmountSelector = createSelector(getProposalCountSelector, (
     Math.ceil(count / PAGINATION_ITEMS_LIMIT)
 );
 
-export const getCurrentPageSelector = (state: RootState) => state.proposal.pagination.proposals.currentPage;
+export const getCurrentPageNumberSelector = (state: RootState) => state.proposal.pagination.proposals.currentPage;
 export const getPagesSelector = (state: RootState) => state.proposal.pagination.proposals.pages;
 export const getProposalsSelector = (state: RootState) => state.proposal.proposals;
 export const getCurrentPageProposalsSelector = createSelector(
-    getCurrentPageSelector,
+    getCurrentPageNumberSelector,
     getPagesSelector,
     getProposalsSelector,
-    (currentPage, pages, proposals) => (pages[currentPage] ? pages[currentPage].map((id) => proposals[id]) : [])
+    (currentPageNumber, pages, proposals) =>
+        pages[currentPageNumber] ? pages[currentPageNumber].map((id) => proposals[id]) : []
 );
 
 export const getDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;

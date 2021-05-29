@@ -33,5 +33,11 @@ export const toDict = <T extends Record<string, any>>(dict: Array<T>, keyField: 
 
 export const toLocaleDateString = (date: string, locale: string) => new Date(date).toLocaleDateString(locale);
 
+export const toLocaleTimeString = (date: string, locale: string) =>
+    new Date(date).toLocaleString(locale, {
+        minute: '2-digit',
+        hour: '2-digit',
+    });
+
 export const toOptions = (records: RecordNamedItem[]): IOption[] =>
     records.map(({ id, name }) => ({ value: id, label: name }));

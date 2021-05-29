@@ -12,7 +12,7 @@ interface IProps {
     onApprove?: () => void;
     onReject?: () => void;
 }
-
+// TODO extract axxept reject functionality from this component
 const Message: React.FC<IProps> = ({ author, message, sentTime, isAccepted, onApprove, onReject }) => {
     const showAcceptedControls = onReject && onApprove && !isAccepted;
 

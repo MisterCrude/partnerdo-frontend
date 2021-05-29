@@ -15,7 +15,7 @@ export enum Types {
 
 export interface IProps {
     address: string;
-    category: string;
+    categoryName: string;
     content: string;
     publishDate: string;
     shortUserDesc: string;
@@ -32,7 +32,7 @@ export interface IProps {
 
 export const Card: React.FC<IProps> = ({
     address,
-    category,
+    categoryName,
     content,
     publishDate,
     shortUserDesc,
@@ -122,7 +122,7 @@ export const Card: React.FC<IProps> = ({
                         px={4}
                         variant="solid"
                     >
-                        {category}
+                        {categoryName}
                     </Tag>
                     <Box
                         as="span"

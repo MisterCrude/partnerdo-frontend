@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import GuardedRoute from '@services/GuardeRoute';
 
 import Browser from '@screens/Browser';
-import ConversationMessages from '@screens/ConversationMessages';
-import Conversations from '@screens/Conversations';
+import Conversation from '@screens/Conversation';
+import Chat from '@screens/Chat';
 import Faq from '@screens/Faq';
 import Home from '@screens/Home';
 import Login from '@screens/Login';
@@ -51,12 +51,8 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
                 <Faq isAuth={isAuth} />
             </Route>
 
-            <GuardedRoute exact component={Conversations} path={ROUTES.CONVERSATIONS} isAuth={isAuth} />
-            <GuardedRoute
-                component={ConversationMessages}
-                path={`${ROUTES.CONVERSATIONS}/:conversationId`}
-                isAuth={isAuth}
-            />
+            <GuardedRoute exact component={Chat} path={ROUTES.CHAT} isAuth={isAuth} />
+            <GuardedRoute component={Conversation} path={`${ROUTES.CHAT}/:conversationId`} isAuth={isAuth} />
             <GuardedRoute component={ProposalCreate} path={ROUTES.PROPOSALS_CREATE} isAuth={isAuth} />
             <Route path={ROUTES.PROPOSALS}>
                 <Proposal isAuth={isAuth} />

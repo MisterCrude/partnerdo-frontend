@@ -90,6 +90,10 @@ export const Browser: React.FC = () => {
 
     useUpdateEffect(() => {
         setCityAreasOptions(filtersData.city ? toOptions(getCityAreas(filtersData.city)) : []);
+        /**
+         * Initial proposals fetch doing here.
+         * After fetchin filters useUpdateEffect triggered and fetch proposals list.
+         */
         fetchPage(filtersData);
     }, [filtersData]);
 

@@ -16,7 +16,7 @@ import { resetPagination as reset } from '@slices/proposalSlice';
 import { IFiltersData } from '@models/proposal';
 import { IOption } from '@models/app';
 import { keys, isEqual, omit } from 'lodash/fp';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { scrollTop } from '@utils/misc';
 import { toOptions } from '@utils/convert';
 import useDispatch from '@hooks/useDispatch';

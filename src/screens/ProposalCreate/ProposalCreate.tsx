@@ -7,7 +7,7 @@ import { createProposalAsync } from '@slices/proposalSlice';
 import { getCitiesSelector, getCityAreasSelector, getCategoriesSelector } from '@slices/filtersSlice';
 import { getCreateRequestStatusSelector } from '@slices/proposalSlice';
 import { IProposal } from '@models/proposal';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { ROUTES } from '@consts/routes';
 import { toOptions } from '@utils/convert';
 import useDispatch from '@hooks/useDispatch';

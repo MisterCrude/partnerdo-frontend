@@ -4,7 +4,7 @@ import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IUser, IUserResponse, IUserData, IUserProposal } from '@models/user';
 import { omit } from 'lodash/fp';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 

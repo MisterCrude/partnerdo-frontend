@@ -2,7 +2,7 @@ import React from 'react';
 import { FormErrorMessage } from '@components/Form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { useMount } from 'react-use';
 import * as yup from 'yup';
 

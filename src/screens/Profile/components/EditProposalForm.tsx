@@ -3,7 +3,7 @@ import { IProposal } from '@models/proposal';
 import { useForm } from 'react-hook-form';
 import { useMount, useUpdateEffect } from 'react-use';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import * as yup from 'yup';
 import { isEqual, pick } from 'lodash/fp';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button, Box, Input } from '@chakra-ui/react';

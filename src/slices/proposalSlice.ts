@@ -1,14 +1,11 @@
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
-import { keys } from 'lodash/fp';
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { getQueryParamsString, countOffset } from '@src/utils/pagination';
-import { IFiltersData } from '@models/proposal';
-import { IGenericRemote } from '@models/misc';
-import { IProposal, IProposalResponse } from '@models/proposal';
-import { IPaginationResponse } from '@models/api';
+import { IFiltersData, IProposal, IProposalResponse } from '@models/proposal';
+import { IPaginationResponse, RequestStatus, IGenericRemote } from '@models/api';
+import { keys } from 'lodash/fp';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
-import { RequestStatus } from '@models/misc';
 import { RootState, storeToast } from '@store/rootReducer';
 import { toDict } from '@utils/convert';
 import apiService from '@services/apiService';
@@ -232,7 +229,7 @@ export const getCurrentPageProposalsSelector = createSelector(
 );
 
 export const getDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;
-export const getDetailsData = (state: RootState) => state.proposal.details.data;
+export const getDetailsDataSelector = (state: RootState) => state.proposal.details.data;
 
 export const getCreateRequestStatusSelector = (state: RootState) => state.proposal.createProposalRequestStatus;
 

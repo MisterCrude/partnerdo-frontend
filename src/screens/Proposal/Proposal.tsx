@@ -3,11 +3,11 @@ import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import {
     resetDetails as reset,
     fetchDetailsAsync,
-    getDetailsData,
+    getDetailsDataSelector,
     getDetailsRequestStatusSelector,
 } from '@slices/proposalSlice';
 import { ROUTES } from '@consts/routes';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';
 import { useMount, useUnmount } from 'react-use';
 import { toLocaleDateString } from '@utils/convert';
@@ -46,7 +46,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const history = useHistory();
     const { pathname } = useLocation();
 
-    const proposalData = useSelector(getDetailsData);
+    const proposalData = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);

@@ -7,7 +7,7 @@ import {
     getPagesAmountSelector,
 } from '@slices/chatRoomsSlice';
 import { getUserName } from '@utils/user';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { ROUTES } from '@consts/routes';
 import { scrollTop } from '@utils/misc';
 import { toLocaleTimeString } from '@utils/convert';

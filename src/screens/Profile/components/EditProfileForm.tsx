@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useUpdateEffect, useMount } from 'react-use';
 import * as yup from 'yup';
 import { IProfile } from '@models/profile';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Box, Button, Flex, Textarea, Text, Input, useDisclosure, UseDisclosureProps } from '@chakra-ui/react';

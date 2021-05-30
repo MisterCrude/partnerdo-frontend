@@ -4,7 +4,7 @@ import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { IFiltersResponse, IFilters, ICityWithAreas } from '@models/proposal';
-import { RequestStatus } from '@models/misc';
+import { RequestStatus } from '@models/api';
 import { storeToast, RootState } from '@store/rootReducer';
 import { values } from 'lodash/fp';
 import apiService from '@services/apiService';

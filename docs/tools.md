@@ -6,11 +6,15 @@
 Modular and accessible component library
 ```
 
+<br/>
+
 ## [Framer motion](https://www.framer.com/motion/)
 
 ```
 A production-ready motion library for React
 ```
+
+<br/>
 
 ## [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
 
@@ -42,7 +46,7 @@ Collection of essential React Hooks
 Toolset for efficient Redux development
 ```
 
-### Useful links
+#### Useful links
 
 -   [Redux toolkit wiht TypesScript](https://www.mattbutton.com/redux-made-easy-with-redux-toolkit-and-typescript/)
 

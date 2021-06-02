@@ -1,15 +1,24 @@
 # Development
 
-## Update packages
+## Commands
+
+#### _Update packages_
 
 -   `$ yarn cache clean`
+-   `$ rm -R node_modules && rm -R yarn.lock`
 -   `$ yarn update --latest`
--   Remove `node_modules\` and `yarn.lock`
--   `$ yarn update --latest`
+
+<br/><br/>
 
 ## Style guide
 
-### Typography
+-   Submit button shoult be inside from component `<form />` and `<ComponentForm />`
+
+<br/><br/>
+
+#### _TYPOGRAPHY_
+
+<br/>
 
 Main text
 
@@ -29,7 +38,11 @@ Main text
 <Text />
 ```
 
-### Colors
+<br/>
+
+#### _COLORS_
+
+<br/>
 
 ```jsx
 // Buttons color
@@ -46,27 +59,30 @@ red.500 // error color
 gray.800 // background color
 ```
 
+<br/><br/>
+
 ## Spacing
 
 Base space between elements `base: 4, md: 8`
+
+<br/><br/>
 
 ## FAQ
 
 ### 1. Where dispatched and selected data from store?
 
-**OLD**
-~~In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`~~
-**NEW**
-In `screens/<some_screen>/modules`
+> **OLD** > ~~In any types of HOC - `containers`, `pages`, `layouts`, `App.tsx`~~  
+> **NEW**
+> In `screens/<some_screen>/modules`
 
 ### 2. Why we need `layouts`?
 
-For holding common structure of pages (header, main, footer, etc.)
+> For holding common structure of pages (header, main, footer, etc.)
 
 ### 4. Why we need `pages`?
 
-For spleeting aplicatons by screens
+> For spleeting aplicatons by screens
 
 ### 5. Why we need `containers`?
 
-For spliting screens to logical blocks
+> For spliting screens to logical blocks

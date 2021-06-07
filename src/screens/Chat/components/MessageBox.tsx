@@ -28,7 +28,7 @@ export interface IProps {
     type?: Types;
 }
 
-export const MessageBox: React.FC<IProps> = ({
+const MessageBox: React.FC<IProps> = ({
     address,
     categoryColor = 'orange.500',
     categoryName,

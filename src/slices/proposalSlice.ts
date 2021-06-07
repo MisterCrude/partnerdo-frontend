@@ -112,11 +112,11 @@ export const {
     receivePage,
     resetDetails,
     resetPagination,
+    setCreateProposalRequestStatus,
     setDetails,
     setDetailsRequestStatus,
     setPage,
     setPaginationRequestStatus,
-    setCreateProposalRequestStatus,
 } = proposalSlice.actions;
 
 /**

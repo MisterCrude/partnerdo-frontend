@@ -38,7 +38,6 @@ const EditProposalModule: React.FC<IProps> = ({ proposal, onClose }) => {
 
     useMount(() => {
         const cityAreas = getCityAreas(proposal.city.id);
-
         setCityAreaOptions(toOptions(cityAreas));
     });
 

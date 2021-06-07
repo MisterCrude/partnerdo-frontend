@@ -32,7 +32,6 @@ export const UserProfile: React.FC = () => {
 
     useMount(() => {
         const userId = pathname.split('/').pop();
-
         fetchUser(userId);
     });
 

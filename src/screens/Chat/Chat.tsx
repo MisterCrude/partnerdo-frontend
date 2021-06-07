@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
 import {
     fetchPageAsync,
@@ -21,6 +21,7 @@ import Main from '@layouts/Main';
 import Pagination from '@components/Pagination';
 import Breadcrumbs from '@components/Breadcrumbs';
 import MessageBox from './components/MessageBox';
+import DateTitle from './components/DateTitle';
 
 export const Chat: React.FC = () => {
     const history = useHistory();
@@ -37,11 +38,12 @@ export const Chat: React.FC = () => {
     const showContent = requestStatus === RequestStatus.SUCCESS;
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
 
-    const handleChangePage = () => scrollTop();
+    const handleChangePage = (pageNumber: number) => {
+        scrollTop();
+        fetchPage(pageNumber);
+    };
 
-    useMount(() => {
-        fetchPage();
-    });
+    useMount(fetchPage);
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -53,41 +55,37 @@ export const Chat: React.FC = () => {
                 <>
                     {/* TODO move it to Results component like in Browser.tsx */}
                     <VStack align="stretch" spacing={{ base: 4, md: 8 }}>
-                        {/* <Text color="gray.800" fontSize="sm" fontWeight="bold">
-                    Wczoraj
-                </Text> */}
-                        {/* 
-                    id: string;
-                    initiator: Omit<IProfile, 'birthYear' | 'description' | 'gender'>;
-                    proposalAuthor: Omit<IProfile, 'birthYear' | 'description' | 'gender'>;
-                    proposal: Omit<IProposal, 'author'>;
-                    status: string;
-                    chatroom: string;
-                    lastMessage: string;
-                    created: string;
-                    message: string; 
-                */}
                         {chatRooms.map(
-                            ({
-                                id,
-                                created,
-                                unreadMessageNumber,
-                                proposal: { title, category, city, cityArea },
-                                proposalAuthor: { id: authorId, avatar, firstName, lastName, username },
-                            }) => (
-                                <MessageBox
-                                    key={id}
-                                    address={`${city.name}, ${cityArea.name}`}
-                                    categoryColor={category.color}
-                                    categoryName={category.name}
-                                    lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                                    newMessagesAmount={unreadMessageNumber}
-                                    onTitleClick={() => handleTitleClick(id)}
-                                    onUserNameClick={() => handleUserNameClick(authorId)}
-                                    title={title}
-                                    userAvatarUrl={avatar}
-                                    userName={getUserName(firstName, lastName, username)}
-                                />
+                            (
+                                {
+                                    id,
+                                    created,
+                                    unreadMessageNumber,
+                                    proposal: { title, category, city, cityArea },
+                                    proposalAuthor: { id: authorId, avatar, firstName, lastName, username },
+                                },
+                                index
+                            ) => (
+                                <Fragment key={id}>
+                                    <DateTitle
+                                        prevCreatedDate={chatRooms[index - 1]?.created}
+                                        currentCreatedDate={created}
+                                    />
+
+                                    <MessageBox
+                                        key={id}
+                                        address={`${city.name}, ${cityArea.name}`}
+                                        categoryColor={category.color}
+                                        categoryName={category.name}
+                                        lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
+                                        newMessagesAmount={unreadMessageNumber}
+                                        onTitleClick={() => handleTitleClick(id)}
+                                        onUserNameClick={() => handleUserNameClick(authorId)}
+                                        title={title}
+                                        userAvatarUrl={avatar}
+                                        userName={getUserName(firstName, lastName, username)}
+                                    />
+                                </Fragment>
                             )
                         )}
                         {/* <MessageBox

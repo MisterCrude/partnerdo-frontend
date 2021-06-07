@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
-
 import { CloseIcon, TickIcon } from '@theme/customIcons';
 
 interface IProps {

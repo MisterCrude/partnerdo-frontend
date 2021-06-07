@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import {
     resetDetails as reset,
@@ -6,6 +6,7 @@ import {
     getDetailsDataSelector,
     getDetailsRequestStatusSelector,
 } from '@slices/proposalSlice';
+import { getCreateChatRoomRequestStatusSelector, createChatRoomAsync, IChatRoomDetails } from '@slices/chatRoomsSlice';
 import { ROUTES } from '@consts/routes';
 import { RequestStatus } from '@models/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';
@@ -41,6 +42,7 @@ interface IProps {
 }
 
 export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
+    const [offerMessage, setOfferMessage] = useState('');
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
     const history = useHistory();
@@ -48,17 +50,27 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
 
     const proposalData = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
+    const createChatRoomRequestStatus = useSelector(getCreateChatRoomRequestStatusSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
     const resetDetails = useDispatch(reset);
+    const createChatRoom = useDispatch<Omit<IChatRoomDetails, 'initiator'>>(createChatRoomAsync);
 
     const { author, category, cityArea, city, created, description, title } = proposalData;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
+    const isFetchingCreateChatRoom = createChatRoomRequestStatus === RequestStatus.FETCHING;
 
     const handleBack = () => history.goBack();
+
+    const handleMakeOffer = () => {
+        onClose();
+        createChatRoom({ initialMessage: offerMessage, proposal: proposalData.id });
+    };
+
+    const handleChageOfferMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setOfferMessage(target.value);
 
     useMount(() => {
         const proposalId = pathname.split('/').pop();
@@ -178,19 +190,26 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                         >
                             <Textarea
                                 h={72}
-                                name="surname"
                                 mb={1}
-                                // ref={register}
-                                resize="none"
-                                type="text"
+                                name="offerMessage"
+                                onChange={handleChageOfferMessage}
                                 placeholder="Twoja odpowiedź"
+                                resize="none"
                                 size="lg"
+                                type="text"
+                                value={offerMessage}
                             />
                             <Flex justifyContent={{ base: 'center', md: 'space-between' }} pt={3}>
                                 <Button onClick={onClose} flexGrow={{ base: 1, md: 0 }} mr={4}>
                                     Zamknij
                                 </Button>
-                                <Button onClick={() => null} colorScheme="orange" flexGrow={{ base: 1, md: 0 }} ml={4}>
+                                <Button
+                                    isLoading={isFetchingCreateChatRoom}
+                                    colorScheme="orange"
+                                    flexGrow={{ base: 1, md: 0 }}
+                                    ml={4}
+                                    onClick={handleMakeOffer}
+                                >
                                     Wyślij
                                 </Button>
                             </Flex>

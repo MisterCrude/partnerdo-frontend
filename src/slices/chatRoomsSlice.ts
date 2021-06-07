@@ -10,7 +10,13 @@ import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 import { RootState, storeToast } from '@store/rootReducer';
 import { toDict } from '@utils/convert';
 import apiService from '@services/apiService';
+import { getProfileDataSelector } from './profileSlice';
 
+export interface IChatRoomDetails {
+    proposal: string;
+    initiator: string;
+    initialMessage: string;
+}
 interface INormalisedResponse {
     results: IChatRoomResponse[];
     count: number;
@@ -25,6 +31,7 @@ interface IPagination {
 }
 
 export interface IChatRoomsState {
+    createChatRoomRequestStatus: RequestStatus;
     details: IGenericRemote<IChatRoom>;
     pagination: {
         chatRooms: IPagination;
@@ -40,6 +47,7 @@ const initialChatRoomItem: IPagination = {
 };
 
 const initialState: IChatRoomsState = {
+    createChatRoomRequestStatus: RequestStatus.IDLE,
     details: {
         data: {} as IChatRoom,
         requestStatus: RequestStatus.IDLE,
@@ -69,6 +77,9 @@ const chatRoomsSlice = createSlice({
         },
         setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.details.requestStatus = payload;
+        },
+        setChatRoomCreateStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.createChatRoomRequestStatus = payload;
         },
         setPage(state, { payload: pageNumber }: PayloadAction<number>) {
             state.pagination.chatRooms.pages[pageNumber] = [];
@@ -103,13 +114,14 @@ const chatRoomsSlice = createSlice({
  * Sync actions
  */
 export const {
-    setPage,
-    setDetails,
     receivePage,
-    resetPagination,
     resetDetails,
-    setPaginationRequestStatus,
+    resetPagination,
+    setChatRoomCreateStatus,
+    setDetails,
     setDetailsRequestStatus,
+    setPage,
+    setPaginationRequestStatus,
 } = chatRoomsSlice.actions;
 
 /**
@@ -170,6 +182,46 @@ export const fetchDetailsAsync = (chatRoomId: string): AppThunk => async (dispat
     }
 };
 
+export const createChatRoomAsync = ({
+    initialMessage,
+    proposal,
+}: Omit<IChatRoomDetails, 'initiator'>): AppThunk => async (dispatch: AppDispatch, getState) => {
+    dispatch(setChatRoomCreateStatus(RequestStatus.FETCHING));
+
+    try {
+        const state = getState();
+        const initiator = getProfileDataSelector(state).id;
+        const chatRoomDetails = {
+            initialMessage,
+            proposal,
+            initiator,
+        };
+
+        /**
+         * This method return new chatRoom object
+         */
+        await apiService.post(BACKEND_ROUTING.PROPOSAL.CREATE_CHAT_ROOM, chatRoomDetails);
+
+        storeToast({
+            status: 'success',
+            title: 'Partnerstwo',
+            message: 'Propozycja została pomyślnie wysłana',
+        });
+
+        dispatch(setChatRoomCreateStatus(RequestStatus.SUCCESS));
+    } catch (error) {
+        dispatch(setChatRoomCreateStatus(RequestStatus.ERROR));
+        storeToast({
+            status: 'error',
+            title: 'Partnerstwo',
+            message: 'Nie udało się wysłać proposycji',
+        });
+
+        console.error('Create chatroom error:', error);
+    }
+    setTimeout(() => dispatch(setChatRoomCreateStatus(RequestStatus.IDLE)), 100);
+};
+
 /**
  * Selectors
  */
@@ -194,5 +246,7 @@ export const getCurrentPageChatRoomsSelector = createSelector(
 
 export const getDetailsRequestStatusSelector = (state: RootState) => state.chatRooms.details.requestStatus;
 export const getDetailsDataSelector = (state: RootState) => state.chatRooms.details.data;
+
+export const getCreateChatRoomRequestStatusSelector = (state: RootState) => state.chatRooms.createChatRoomRequestStatus;
 
 export default chatRoomsSlice.reducer;

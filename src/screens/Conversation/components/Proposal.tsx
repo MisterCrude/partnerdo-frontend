@@ -42,18 +42,21 @@ const Proposal: React.FC<IProps> = ({
             <Flex align="space-between" flexDir="column" flexGrow={1} justify="space-between">
                 <Flex align="flex-start" justify="space-between" mb={{ base: 1, md: 0 }}>
                     <Box>
-                        <Heading
-                            as={RouterLink}
-                            d="inline"
-                            size="md"
-                            to={`${ROUTES.PROPOSALS}/${proposalId}`}
-                            _hover={{ textDecor: 'underline' }}
-                        >
-                            {title}
-                        </Heading>{' '}
-                        <Tag borderRadius="full" bgColor={categoryColor} px={4} variant="solid">
-                            {categoryName}
-                        </Tag>
+                        <Flex align="center" flexWrap="wrap">
+                            <Tag borderRadius="full" bgColor={categoryColor} px={4} my={1} variant="solid">
+                                {categoryName}
+                            </Tag>
+                            <Heading
+                                as={RouterLink}
+                                d="inline-block"
+                                size="md"
+                                ml={2}
+                                to={`${ROUTES.PROPOSALS}/${proposalId}`}
+                                _hover={{ cursor: 'pointer', textDecor: 'underline' }}
+                            >
+                                {title}
+                            </Heading>
+                        </Flex>
                         <Text fontSize="md" color="gray.500">
                             <LocationIcon pos="relative" top="-2px" /> {address}
                         </Text>
@@ -62,7 +65,7 @@ const Proposal: React.FC<IProps> = ({
                 <Box d={{ base: 'none', sm: 'block' }}>
                     <Text
                         as={RouterLink}
-                        fontSize="md"
+                        fontSize="sm"
                         fontWeight="bold"
                         to={`${ROUTES.USER_PROFILE}/${authorId}`}
                         _hover={{ cursor: 'pointer', textDecor: 'underline' }}

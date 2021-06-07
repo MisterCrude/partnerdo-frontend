@@ -39,5 +39,31 @@ export const toLocaleTimeString = (date: string, locale: string) =>
         hour: '2-digit',
     });
 
+export const toLocaleWithDayNameString = (date: string, locale: string) => {
+    const secPerDay = 1000 * 24 * 60 * 60;
+    const timeDifference = new Date().getTime() - new Date(date).getTime();
+
+    const localeString = new Date(date).toLocaleString(locale, {
+        day: '2-digit',
+        month: '2-digit',
+        weekday: 'long',
+        year: '2-digit',
+    });
+
+    if (timeDifference <= secPerDay) {
+        return `Dzisiaj, ${localeString.split(', ')[1]}`;
+    }
+
+    if (timeDifference <= secPerDay * 2 && timeDifference > secPerDay) {
+        return `Wczoraj, ${localeString.split(', ')[1]}`;
+    }
+
+    if (timeDifference / secPerDay > 7) {
+        return localeString.split(', ')[1];
+    }
+
+    return localeString[0].toUpperCase() + localeString.slice(1);
+};
+
 export const toOptions = (records: RecordNamedItem[]): IOption[] =>
     records.map(({ id, name }) => ({ value: id, label: name }));

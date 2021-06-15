@@ -63,6 +63,9 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
             <Route path={ROUTES.NOT_FOUND}>
                 <PageNotFound isAuth={isAuth} />
             </Route>
+
+            {isAuth && <Redirect exact from="" to={ROUTES.PROPOSALS} />}
+
             <Redirect from="/*" to={ROUTES.NOT_FOUND} />
         </Switch>
     );

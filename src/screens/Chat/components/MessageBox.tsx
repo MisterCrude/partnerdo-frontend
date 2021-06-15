@@ -89,15 +89,16 @@ const MessageBox: React.FC<IProps> = ({
                         <Box>
                             {isSecondary && (
                                 <Text mb={1}>
+                                    {subtitle}
+
                                     <Box
                                         as="strong"
-                                        mr={2}
+                                        ml={2}
                                         onClick={onUserNameClick}
                                         _hover={{ cursor: 'pointer', textDecor: 'underline' }}
                                     >
                                         {userName}
                                     </Box>
-                                    {subtitle}
                                 </Text>
                             )}
 

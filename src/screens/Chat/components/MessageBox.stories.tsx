@@ -1,4 +1,3 @@
-import React from 'react';
 import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { withRouterDecorator } from '@services/storybookDecorators';
@@ -14,11 +13,12 @@ export default {
         },
     },
     args: {
+        address: 'Warszawa, Bemowo',
+        categoryName: 'Sport',
+        subtitle: 'Masz propozycje od',
         title: 'Poszukuję partnera do glenistwałębokiego lenistwa',
-        category: 'Sport',
-        userName: 'Ged Breg',
-        subtitle: 'wysłał Ci prpozycję na twoje partnerstwo',
         userAvatarUrl: 'https://i.pravatar.cc/300?u=3',
+        userName: 'Ged Breg',
     },
     component: MessageBox,
     decorators: [withRouterDecorator],

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useMount, useUnmount } from 'react-use';
+import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { DEFAULT_LOCALE } from '@consts/app';
@@ -8,14 +8,18 @@ import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
 import { RequestStatus } from '@models/api';
+import { IChatRoomStatus } from '@models/chat';
 import {
     fetchDetailsAsync,
+    changeChatRoomStatusAsync,
     getDetailsDataSelector,
     getDetailsRequestStatusSelector,
+    // getChangeChatRoomStatusRequestStatusSelector,
     resetDetails as reset,
 } from '@slices/chatRoomsSlice';
+import { getProfileDataSelector } from '@slices/profileSlice';
 
-import { Button, Box, Flex, Textarea, VStack } from '@chakra-ui/react';
+import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
@@ -23,20 +27,37 @@ import Message from './components/Message';
 import Proposal from './components/Proposal';
 
 export const Conversation: React.FC = () => {
+    const [conversationStatus, setConversationStatus] = useState(IChatRoomStatus.IDLE);
+
     const history = useHistory();
     const { pathname } = useLocation();
 
     const chatRoomData = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
+    // const chatRoomStatusRequestStatus = useSelector(getChangeChatRoomStatusRequestStatusSelector);
+    const { id: profileId } = useSelector(getProfileDataSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
+    const changeChatRoomStatus = useDispatch<{ chatRoomId: string; status: IChatRoomStatus }>(
+        changeChatRoomStatusAsync
+    );
     const resetDetails = useDispatch(reset);
 
-    const { proposalAuthor, initiator, initialMessage, proposal, created: initialMessageCreatedTime } = chatRoomData;
+    const {
+        id: chatRoomId,
+        proposalAuthor,
+        initiator,
+        initialMessage,
+        proposal,
+        status,
+        created: initialMessageCreatedTime,
+    } = chatRoomData;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
+
+    const getIsOwnProposal = () => profileId === initiator.id;
 
     useMount(() => {
         const chatRoomId = pathname.split('/').pop();
@@ -45,10 +66,12 @@ export const Conversation: React.FC = () => {
 
     useUnmount(() => resetDetails());
 
-    const ws = useRef<WebSocket>();
-    const [isAccepted, setIsAccepted] = useState(false);
+    useUpdateEffect(() => {
+        setConversationStatus(status);
+    }, [status]);
 
-    // temporary
+    const ws = useRef<WebSocket>();
+
     const [messagesList, setMessagesList] = useState<Array<{ message: string; username: string; created: string }>>([]);
     const [message, setMessage] = useState('');
 
@@ -61,6 +84,24 @@ export const Conversation: React.FC = () => {
                 })
             );
         setMessage('');
+    };
+
+    const handleBack = () => {
+        history.goBack();
+    };
+
+    const handleAccept = () => {
+        const status = IChatRoomStatus.APPROVE;
+
+        changeChatRoomStatus({ chatRoomId, status });
+        setConversationStatus(status);
+    };
+
+    const handleReject = () => {
+        const status = IChatRoomStatus.REJECT;
+
+        changeChatRoomStatus({ chatRoomId, status });
+        setConversationStatus(status);
     };
 
     useMount(() => {
@@ -83,13 +124,6 @@ export const Conversation: React.FC = () => {
             console.error("Can't opent WS connection");
         }
     });
-    // temporary
-
-    const handleBack = () => {
-        history.goBack();
-    };
-
-    const handleAccept = () => setIsAccepted(true);
 
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
@@ -122,41 +156,32 @@ export const Conversation: React.FC = () => {
                     />
 
                     <Box borderTopWidth={1} flexGrow={1} py={8}>
-                        {/* <VStack spacing={8}>
-                            <Message author="Jan Baraban" message="Siema sdsd sd asd" sentTime="14:30 20.12.20" />
-                            <Message message="Siema sdsd sd asd" sentTime="14:30 20.12.2020" />
-                            <Message message="Siema sdsd sd asd" sentTime="14:30 20.12.2020" />
-                            <Message
-                                author="Jan Baraban"
-                                message="Siema sdsdSiema sdsd sdSiema sdsd sd asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadf asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadf sd asdsdsdssd"
-                                sentTime="14:30 20.12.2020"
-                            />
-                            <Message
-                                message="Siema sdsd sd asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadfSiema sdsd sd asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadfSiema sdsd sd asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadfSiema sdsd sd asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadfSiema sdsd sd asd sdsd sdsdadfa dfadfadfadf adf adf adfadf adfadf "
-                                sentTime="14:30 20.12.2020"
-                            />
-                            </VStack> */}
-
-                        {/* For not accepted proposals */}
                         <VStack spacing={8}>
-                            <Message
-                                isAccepted={isAccepted}
-                                onApprove={handleAccept}
-                                onReject={() => {
-                                    return null;
-                                }}
-                                author={getUserName(initiator.firstName, initiator.lastName, initiator.username)}
-                                message={initialMessage}
-                                sentTime={`${toLocaleTimeString(
-                                    initialMessageCreatedTime,
-                                    DEFAULT_LOCALE
-                                )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
-                            />
+                            {getIsOwnProposal() ? (
+                                <Message
+                                    message={initialMessage}
+                                    sentTime={`${toLocaleTimeString(
+                                        initialMessageCreatedTime,
+                                        DEFAULT_LOCALE
+                                    )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
+                                />
+                            ) : (
+                                <Message
+                                    showControls={conversationStatus === IChatRoomStatus.IDLE}
+                                    onApprove={handleAccept}
+                                    onReject={handleReject}
+                                    author={getUserName(initiator.firstName, initiator.lastName, initiator.username)}
+                                    message={initialMessage}
+                                    sentTime={`${toLocaleTimeString(
+                                        initialMessageCreatedTime,
+                                        DEFAULT_LOCALE
+                                    )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
+                                />
+                            )}
 
                             {messagesList.map(({ message, username, created }, index) => (
                                 <Message
                                     key={index}
-                                    isAccepted={isAccepted}
                                     onApprove={handleAccept}
                                     onReject={() => null}
                                     author={username}
@@ -168,58 +193,80 @@ export const Conversation: React.FC = () => {
                                 />
                             ))}
                         </VStack>
-
-                        {/* For not accepted proposals */}
                     </Box>
 
                     <Box>
-                        {isAccepted ? (
-                            <>
-                                <Textarea
-                                    h={40}
-                                    name="surname"
-                                    resize="none"
-                                    type="text"
-                                    mb={8}
-                                    placeholder="Wpisz swoją wiadomość"
-                                    value={message}
-                                    onChange={(event) => setMessage(event.target.value)}
-                                />
-                                <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
-                                    <Button
-                                        onClick={handleBack}
-                                        flexGrow={{ base: 1, md: 0 }}
-                                        mr={4}
-                                        variant="ghost"
-                                        leftIcon={<ChevronLeftIcon />}
-                                    >
-                                        Wróć
-                                    </Button>
-
-                                    <Button
-                                        colorScheme="orange"
-                                        disabled={!message.length}
-                                        flexGrow={{ base: 1, md: 0 }}
-                                        ml={4}
-                                        onClick={handleChange}
-                                    >
-                                        Wyślij
-                                    </Button>
-                                </Flex>
-                            </>
-                        ) : (
-                            <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
-                                <Button
-                                    onClick={handleBack}
-                                    flexGrow={{ base: 1, md: 0 }}
-                                    mr={4}
-                                    variant="ghost"
-                                    leftIcon={<ChevronLeftIcon />}
-                                >
-                                    Wróć
-                                </Button>
-                            </Flex>
+                        {conversationStatus === IChatRoomStatus.APPROVE && (
+                            <Textarea
+                                h={40}
+                                name="surname"
+                                resize="none"
+                                type="text"
+                                mb={8}
+                                placeholder="Wpisz swoją wiadomość"
+                                value={message}
+                                onChange={(event) => setMessage(event.target.value)}
+                            />
                         )}
+
+                        {conversationStatus === IChatRoomStatus.REJECT && (
+                            <>
+                                {getIsOwnProposal() ? (
+                                    <Text
+                                        align="center"
+                                        bgColor="orange.100"
+                                        borderRadius={6}
+                                        fontWeight="light"
+                                        mb={8}
+                                        p={4}
+                                    >
+                                        Musisz poczekać na akceptację od użytkownika &nbsp;
+                                        <strong>
+                                            {getUserName(
+                                                proposalAuthor.firstName,
+                                                proposalAuthor.lastName,
+                                                proposalAuthor.username
+                                            )}
+                                        </strong>
+                                    </Text>
+                                ) : (
+                                    <Text
+                                        align="center"
+                                        bgColor="red.100"
+                                        borderRadius={6}
+                                        fontWeight="light"
+                                        mb={8}
+                                        p={4}
+                                    >
+                                        Ta propozycja została przez Ciebie odrzucona
+                                    </Text>
+                                )}
+                            </>
+                        )}
+
+                        <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
+                            <Button
+                                onClick={handleBack}
+                                flexGrow={{ base: 1, md: 0 }}
+                                mr={4}
+                                variant="ghost"
+                                leftIcon={<ChevronLeftIcon />}
+                            >
+                                Wróć
+                            </Button>
+
+                            {conversationStatus === IChatRoomStatus.APPROVE && (
+                                <Button
+                                    colorScheme="orange"
+                                    disabled={!message.length}
+                                    flexGrow={{ base: 1, md: 0 }}
+                                    ml={4}
+                                    onClick={handleChange}
+                                >
+                                    Wyślij
+                                </Button>
+                            )}
+                        </Flex>
                     </Box>
                 </>
             )}

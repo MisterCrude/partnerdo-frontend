@@ -55,8 +55,14 @@ Main text
 ```
 
 ```jsx
-red.500 // error color
-gray.800 // background color
+// Text colors
+red.500 // error
+
+// Background colors
+gray.800
+red.100 // error
+green.100 // success
+orange.100 // info
 ```
 
 <br/><br/>

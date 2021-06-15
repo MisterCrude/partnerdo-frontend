@@ -2,10 +2,11 @@ import { IProfile } from './profile';
 import { IProposal } from './proposal';
 
 export type IProposalAuthor = Omit<IProfile, 'birthYear' | 'description' | 'gender' | 'email'>;
+
 export enum IChatRoomStatus {
+    APPROVE = 'approve',
     IDLE = 'idle',
-    APPROVED = 'approved',
-    REJECTED = 'rejected',
+    REJECT = 'reject',
 }
 
 export interface IChatRoom {

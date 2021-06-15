@@ -7,13 +7,13 @@ interface IProps {
     message: string;
     sentTime: string;
     author?: string;
-    isAccepted?: boolean;
+    showControls?: boolean;
     onApprove?: () => void;
     onReject?: () => void;
 }
 // TODO extract axxept reject functionality from this component
-const Message: React.FC<IProps> = ({ author, message, sentTime, isAccepted, onApprove, onReject }) => {
-    const showAcceptedControls = onReject && onApprove && !isAccepted;
+const Message: React.FC<IProps> = ({ author, message, sentTime, showControls, onApprove, onReject }) => {
+    const showAcceptedControls = onReject && onApprove && showControls;
 
     return (
         <Box alignSelf={author ? 'flex-start' : 'flex-end'} width="80%">

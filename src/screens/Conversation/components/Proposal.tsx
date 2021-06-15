@@ -19,13 +19,13 @@ interface IProps {
 
 const Proposal: React.FC<IProps> = ({
     address,
-    userAvatarUrl,
-    title,
-    categoryName,
-    categoryColor = 'orange.500',
-    userName,
-    proposalId,
     authorId,
+    categoryColor = 'orange.500',
+    categoryName,
+    proposalId,
+    title,
+    userAvatarUrl,
+    userName,
 }) => (
     <Box mb={{ base: 4, md: 8 }}>
         <Stack direction={{ base: 'column', sm: 'row' }} spacing={4}>

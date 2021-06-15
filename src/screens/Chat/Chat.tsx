@@ -6,6 +6,7 @@ import {
     getCurrentPageChatRoomsSelector,
     getPagesAmountSelector,
 } from '@slices/chatRoomsSlice';
+import { getProfileDataSelector } from '@slices/profileSlice';
 import { getUserName } from '@utils/user';
 import { RequestStatus } from '@models/api';
 import { ROUTES } from '@consts/routes';
@@ -20,7 +21,7 @@ import { Flex, VStack } from '@chakra-ui/react';
 import Main from '@layouts/Main';
 import Pagination from '@components/Pagination';
 import Breadcrumbs from '@components/Breadcrumbs';
-import MessageBox from './components/MessageBox';
+import MessageBox, { Types } from './components/MessageBox';
 import DateTitle from './components/DateTitle';
 
 export const Chat: React.FC = () => {
@@ -30,6 +31,7 @@ export const Chat: React.FC = () => {
     const chatRooms = useSelector(getCurrentPageChatRoomsSelector);
     const pagesAmount = useSelector(getPagesAmountSelector);
     const fetchPage = useDispatch<number>(fetchPageAsync);
+    const { id: profileId } = useSelector(getProfileDataSelector);
 
     const handleUserNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
     const handleTitleClick = (chatRoomId: string) => history.push(`${ROUTES.CHAT}/${chatRoomId}`);
@@ -62,7 +64,20 @@ export const Chat: React.FC = () => {
                                     created,
                                     unreadMessageNumber,
                                     proposal: { title, category, city, cityArea },
-                                    proposalAuthor: { id: authorId, avatar, firstName, lastName, username },
+                                    proposalAuthor: {
+                                        id: authorId,
+                                        avatar: authorAvatar,
+                                        firstName: authorFirstName,
+                                        lastName: authorLastName,
+                                        username: authorUsername,
+                                    },
+                                    initiator: {
+                                        avatar: initiatorAvatar,
+                                        id: initiatorId,
+                                        firstName: initiatorFirstName,
+                                        lastName: initiatorLastName,
+                                        username: initiatorUsername,
+                                    },
                                 },
                                 index
                             ) => (
@@ -72,19 +87,39 @@ export const Chat: React.FC = () => {
                                         currentCreatedDate={created}
                                     />
 
-                                    <MessageBox
-                                        key={id}
-                                        address={`${city.name}, ${cityArea.name}`}
-                                        categoryColor={category.color}
-                                        categoryName={category.name}
-                                        lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                                        newMessagesAmount={unreadMessageNumber}
-                                        onTitleClick={() => handleTitleClick(id)}
-                                        onUserNameClick={() => handleUserNameClick(authorId)}
-                                        title={title}
-                                        userAvatarUrl={avatar}
-                                        userName={getUserName(firstName, lastName, username)}
-                                    />
+                                    {profileId === authorId ? (
+                                        <MessageBox
+                                            type={Types.SECONDARY}
+                                            subtitle="Masz propozycje od"
+                                            address={`${city.name}, ${cityArea.name}`}
+                                            categoryColor={category.color}
+                                            categoryName={category.name}
+                                            lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
+                                            newMessagesAmount={unreadMessageNumber}
+                                            onTitleClick={() => handleTitleClick(id)}
+                                            onUserNameClick={() => handleUserNameClick(initiatorId)}
+                                            title={title}
+                                            userAvatarUrl={initiatorAvatar}
+                                            userName={getUserName(
+                                                initiatorFirstName,
+                                                initiatorLastName,
+                                                initiatorUsername
+                                            )}
+                                        />
+                                    ) : (
+                                        <MessageBox
+                                            address={`${city.name}, ${cityArea.name}`}
+                                            categoryColor={category.color}
+                                            categoryName={category.name}
+                                            lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
+                                            newMessagesAmount={unreadMessageNumber}
+                                            onTitleClick={() => handleTitleClick(id)}
+                                            onUserNameClick={() => handleUserNameClick(authorId)}
+                                            title={title}
+                                            userAvatarUrl={authorAvatar}
+                                            userName={getUserName(authorFirstName, authorLastName, authorUsername)}
+                                        />
+                                    )}
                                 </Fragment>
                             )
                         )}

@@ -7,6 +7,7 @@ import {
     getDetailsRequestStatusSelector,
 } from '@slices/proposalSlice';
 import { getCreateChatRoomRequestStatusSelector, createChatRoomAsync, IChatRoomDetails } from '@slices/chatRoomsSlice';
+import { getProfileDataSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
 import { RequestStatus } from '@models/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';
@@ -51,6 +52,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
     const proposalData = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
     const createChatRoomRequestStatus = useSelector(getCreateChatRoomRequestStatusSelector);
+    const { id: profileId } = useSelector(getProfileDataSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
     const resetDetails = useDispatch(reset);
@@ -67,6 +69,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
 
     const handleMakeOffer = () => {
         onClose();
+        setOfferMessage('');
         createChatRoom({ initialMessage: offerMessage, proposal: proposalData.id });
     };
 
@@ -156,16 +159,20 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                 </Button>
 
                                 {isAuth ? (
-                                    <Button
-                                        onClick={onOpen}
-                                        bgColor="gray.800"
-                                        color="white"
-                                        variant="variant"
-                                        _active={{ bgColor: 'gray.800' }}
-                                        _hover={{ bgColor: 'gray.600' }}
-                                    >
-                                        Złóż ofertę
-                                    </Button>
+                                    <>
+                                        {profileId !== author.id && (
+                                            <Button
+                                                onClick={onOpen}
+                                                bgColor="gray.800"
+                                                color="white"
+                                                variant="variant"
+                                                _active={{ bgColor: 'gray.800' }}
+                                                _hover={{ bgColor: 'gray.600' }}
+                                            >
+                                                Złóż ofertę
+                                            </Button>
+                                        )}
+                                    </>
                                 ) : (
                                     <Button
                                         as={RouterLink}

@@ -1,12 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { DEFAULT_LOCALE } from '@consts/app';
 import { ROUTES } from '@consts/routes';
 import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
+import useChat from '@hooks/useChat';
 import { RequestStatus } from '@models/api';
 import { IChatRoomStatus } from '@models/chat';
 import {
@@ -28,9 +29,11 @@ import Proposal from './components/Proposal';
 
 export const Conversation: React.FC = () => {
     const [conversationStatus, setConversationStatus] = useState(IChatRoomStatus.IDLE);
+    const [message, setMessage] = useState('');
 
+    const { conversationId } = useParams<{ conversationId: string }>();
+    const { messages, sendMessage } = useChat(conversationId);
     const history = useHistory();
-    const { pathname } = useLocation();
 
     const chatRoomData = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
@@ -57,32 +60,18 @@ export const Conversation: React.FC = () => {
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
 
+    const isRejected = conversationStatus === IChatRoomStatus.REJECT;
+    const isApproved = conversationStatus === IChatRoomStatus.APPROVE;
+    const isIdle = conversationStatus === IChatRoomStatus.IDLE;
+
     const getIsOwnProposal = () => profileId === initiator.id;
 
     useMount(() => {
-        const chatRoomId = pathname.split('/').pop();
-        fetchDetails(chatRoomId);
+        fetchDetails(conversationId);
     });
 
-    useUnmount(() => resetDetails());
-
-    useUpdateEffect(() => {
-        setConversationStatus(status);
-    }, [status]);
-
-    const ws = useRef<WebSocket>();
-
-    const [messagesList, setMessagesList] = useState<Array<{ message: string; username: string; created: string }>>([]);
-    const [message, setMessage] = useState('');
-
     const handleChange = () => {
-        ws.current &&
-            ws.current.send(
-                JSON.stringify({
-                    type: 'message',
-                    message,
-                })
-            );
+        sendMessage(message);
         setMessage('');
     };
 
@@ -104,26 +93,11 @@ export const Conversation: React.FC = () => {
         setConversationStatus(status);
     };
 
-    useMount(() => {
-        try {
-            const token = localStorage.getItem('token');
-            ws.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/dadfadfadf/?token=${token}`);
+    useUpdateEffect(() => {
+        setConversationStatus(status);
+    }, [status]);
 
-            ws.current.onopen = () => {
-                console.log('connected');
-            };
-            ws.current.onmessage = (message) => {
-                const dataFromServer = JSON.parse(message.data);
-
-                dataFromServer && setMessagesList((prevData) => [...prevData, dataFromServer]);
-            };
-            ws.current.onclose = ({ type }) => {
-                console.log(type, 'disconnected');
-            };
-        } catch (error) {
-            console.error("Can't opent WS connection");
-        }
-    });
+    useUnmount(() => resetDetails());
 
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
@@ -179,12 +153,16 @@ export const Conversation: React.FC = () => {
                                 />
                             )}
 
-                            {messagesList.map(({ message, username, created }, index) => (
+                            {messages.map(({ message, sender, created }, index) => (
                                 <Message
                                     key={index}
                                     onApprove={handleAccept}
                                     onReject={() => null}
-                                    author={username}
+                                    author={
+                                        profileId !== sender.id
+                                            ? getUserName(sender.firstName, sender.lastName, sender.username)
+                                            : undefined
+                                    }
                                     message={message}
                                     sentTime={`${toLocaleTimeString(created, DEFAULT_LOCALE)}, ${toLocaleDateString(
                                         created,
@@ -196,7 +174,13 @@ export const Conversation: React.FC = () => {
                     </Box>
 
                     <Box>
-                        {conversationStatus === IChatRoomStatus.APPROVE && (
+                        {getIsOwnProposal() && isApproved && (
+                            <Text align="center" bgColor="green.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
+                                Twoja propozycja została zaakceptowana, teraz mozesz napisać do tego użytkownika
+                            </Text>
+                        )}
+
+                        {isApproved && (
                             <Textarea
                                 h={40}
                                 name="surname"
@@ -209,39 +193,22 @@ export const Conversation: React.FC = () => {
                             />
                         )}
 
-                        {conversationStatus === IChatRoomStatus.REJECT && (
-                            <>
-                                {getIsOwnProposal() ? (
-                                    <Text
-                                        align="center"
-                                        bgColor="orange.100"
-                                        borderRadius={6}
-                                        fontWeight="light"
-                                        mb={8}
-                                        p={4}
-                                    >
-                                        Musisz poczekać na akceptację od użytkownika &nbsp;
-                                        <strong>
-                                            {getUserName(
-                                                proposalAuthor.firstName,
-                                                proposalAuthor.lastName,
-                                                proposalAuthor.username
-                                            )}
-                                        </strong>
-                                    </Text>
-                                ) : (
-                                    <Text
-                                        align="center"
-                                        bgColor="red.100"
-                                        borderRadius={6}
-                                        fontWeight="light"
-                                        mb={8}
-                                        p={4}
-                                    >
-                                        Ta propozycja została przez Ciebie odrzucona
-                                    </Text>
-                                )}
-                            </>
+                        {getIsOwnProposal() && isIdle && (
+                            <Text align="center" bgColor="orange.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
+                                Musisz poczekać na akceptację użytkownika &nbsp;
+                            </Text>
+                        )}
+
+                        {getIsOwnProposal() && isRejected && (
+                            <Text align="center" bgColor="red.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
+                                Twoja propozycja została odrzucona
+                            </Text>
+                        )}
+
+                        {!getIsOwnProposal() && isRejected && (
+                            <Text align="center" bgColor="red.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
+                                Ta propozycja została przez Ciebie odrzucona
+                            </Text>
                         )}
 
                         <Flex justifyContent={{ base: 'center', md: 'space-between' }}>
@@ -255,7 +222,7 @@ export const Conversation: React.FC = () => {
                                 Wróć
                             </Button>
 
-                            {conversationStatus === IChatRoomStatus.APPROVE && (
+                            {isApproved && (
                                 <Button
                                     colorScheme="orange"
                                     disabled={!message.length}

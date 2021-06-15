@@ -94,14 +94,10 @@ const chatRoomsSlice = createSlice({
             state.details.data = { ...chatRoomDetails, status: getChatRoomStatus(chatRoomDetails.status) };
         },
         receivePage(state, { payload: { results, count, pageNumber } }: PayloadAction<INormalisedResponse>) {
-            const normalizedResults = results.map((item) => {
-                console.log(item.status, getChatRoomStatus(item.status));
-
-                return {
-                    ...item,
-                    status: getChatRoomStatus(item.status),
-                };
-            });
+            const normalizedResults = results.map((item) => ({
+                ...item,
+                status: getChatRoomStatus(item.status),
+            }));
             const chatRooms = toDict<IChatRoom>(normalizedResults, 'id');
 
             state.chatRooms = chatRooms;

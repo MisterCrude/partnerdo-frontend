@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { toCamelCase } from '@utils/convert';
 import { IProfile } from '@models/profile';
 
 type Sender = Pick<IProfile, 'username' | 'firstName' | 'lastName' | 'id'>;
@@ -11,7 +10,7 @@ interface Message {
     sender: Sender;
 }
 
-const useChat = (conversationId: string) => {
+const useChat = (chatRoomId: string) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const socketRef = useRef<WebSocket>();
 
@@ -19,7 +18,7 @@ const useChat = (conversationId: string) => {
 
     useEffect(() => {
         try {
-            socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/dadfadfadf/?token=${token}`);
+            socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${chatRoomId}/?token=${token}`);
 
             socketRef.current.onopen = () => {
                 console.log('connected');
@@ -39,7 +38,7 @@ const useChat = (conversationId: string) => {
         return () => {
             socketRef.current?.close();
         };
-    }, [conversationId]);
+    }, [chatRoomId]);
 
     const sendMessage = (message: string) => {
         socketRef.current?.send(

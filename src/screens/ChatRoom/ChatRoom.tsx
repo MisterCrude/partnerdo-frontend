@@ -27,15 +27,14 @@ import Main from '@layouts/Main';
 import Message from './components/Message';
 import Proposal from './components/Proposal';
 
-export const Conversation: React.FC = () => {
-    const [conversationStatus, setConversationStatus] = useState(IChatRoomStatus.IDLE);
+export const ChatRoom: React.FC = () => {
+    const [chatRoomStatus, setChatRoomStatus] = useState(IChatRoomStatus.IDLE);
     const [message, setMessage] = useState('');
-
-    const { conversationId } = useParams<{ conversationId: string }>();
-    const { messages, sendMessage } = useChat(conversationId);
+    const { chatRoomId } = useParams<{ chatRoomId: string }>();
+    const { messages, sendMessage } = useChat(chatRoomId);
     const history = useHistory();
 
-    const chatRoomData = useSelector(getDetailsDataSelector);
+    const chatRoomDetails = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
     // const chatRoomStatusRequestStatus = useSelector(getChangeChatRoomStatusRequestStatusSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
@@ -47,27 +46,26 @@ export const Conversation: React.FC = () => {
     const resetDetails = useDispatch(reset);
 
     const {
-        id: chatRoomId,
         proposalAuthor,
         initiator,
         initialMessage,
         proposal,
         status,
         created: initialMessageCreatedTime,
-    } = chatRoomData;
+    } = chatRoomDetails;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
 
-    const isRejected = conversationStatus === IChatRoomStatus.REJECT;
-    const isApproved = conversationStatus === IChatRoomStatus.APPROVE;
-    const isIdle = conversationStatus === IChatRoomStatus.IDLE;
+    const isRejected = chatRoomStatus === IChatRoomStatus.REJECT;
+    const isApproved = chatRoomStatus === IChatRoomStatus.APPROVE;
+    const isIdle = chatRoomStatus === IChatRoomStatus.IDLE;
 
     const getIsOwnProposal = () => profileId === initiator.id;
 
     useMount(() => {
-        fetchDetails(conversationId);
+        fetchDetails(chatRoomId);
     });
 
     const handleChange = () => {
@@ -83,18 +81,18 @@ export const Conversation: React.FC = () => {
         const status = IChatRoomStatus.APPROVE;
 
         changeChatRoomStatus({ chatRoomId, status });
-        setConversationStatus(status);
+        setChatRoomStatus(status);
     };
 
     const handleReject = () => {
         const status = IChatRoomStatus.REJECT;
 
         changeChatRoomStatus({ chatRoomId, status });
-        setConversationStatus(status);
+        setChatRoomStatus(status);
     };
 
     useUpdateEffect(() => {
-        setConversationStatus(status);
+        setChatRoomStatus(status);
     }, [status]);
 
     useUnmount(() => resetDetails());
@@ -141,7 +139,7 @@ export const Conversation: React.FC = () => {
                                 />
                             ) : (
                                 <Message
-                                    showControls={conversationStatus === IChatRoomStatus.IDLE}
+                                    showControls={chatRoomStatus === IChatRoomStatus.IDLE}
                                     onApprove={handleAccept}
                                     onReject={handleReject}
                                     author={getUserName(initiator.firstName, initiator.lastName, initiator.username)}

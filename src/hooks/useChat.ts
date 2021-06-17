@@ -1,14 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { IProfile } from '@models/profile';
-
-type Sender = Pick<IProfile, 'username' | 'firstName' | 'lastName' | 'id'>;
-
-interface Message {
-    created: string;
-    message: string;
-    type: string;
-    sender: Sender;
-}
+import { Message } from '@models/chat';
 
 const useChat = (chatRoomId: string) => {
     const [messages, setMessages] = useState<Message[]>([]);

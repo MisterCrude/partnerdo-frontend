@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -61,12 +61,7 @@ export const ChatRoom: React.FC = () => {
     const isRejected = chatRoomStatus === IChatRoomStatus.REJECT;
     const isApproved = chatRoomStatus === IChatRoomStatus.APPROVE;
     const isIdle = chatRoomStatus === IChatRoomStatus.IDLE;
-
-    const getIsOwnProposal = () => profileId === initiator.id;
-
-    useMount(() => {
-        fetchDetails(chatRoomId);
-    });
+    const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
     const handleChange = () => {
         sendMessage(message);
@@ -91,11 +86,15 @@ export const ChatRoom: React.FC = () => {
         setChatRoomStatus(status);
     };
 
+    useMount(() => {
+        fetchDetails(chatRoomId);
+    });
+
     useUpdateEffect(() => {
         setChatRoomStatus(status);
     }, [status]);
 
-    useUnmount(() => resetDetails());
+    useUnmount(resetDetails);
 
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
@@ -129,7 +128,7 @@ export const ChatRoom: React.FC = () => {
 
                     <Box borderTopWidth={1} flexGrow={1} py={8}>
                         <VStack spacing={8}>
-                            {getIsOwnProposal() ? (
+                            {isOwnProposal ? (
                                 <Message
                                     message={initialMessage}
                                     sentTime={`${toLocaleTimeString(
@@ -172,7 +171,7 @@ export const ChatRoom: React.FC = () => {
                     </Box>
 
                     <Box>
-                        {getIsOwnProposal() && isApproved && (
+                        {isOwnProposal && isApproved && (
                             <Text align="center" bgColor="green.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
                                 Twoja propozycja została zaakceptowana, teraz mozesz napisać do tego użytkownika
                             </Text>
@@ -191,19 +190,19 @@ export const ChatRoom: React.FC = () => {
                             />
                         )}
 
-                        {getIsOwnProposal() && isIdle && (
+                        {isOwnProposal && isIdle && (
                             <Text align="center" bgColor="orange.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
                                 Musisz poczekać na akceptację użytkownika &nbsp;
                             </Text>
                         )}
 
-                        {getIsOwnProposal() && isRejected && (
+                        {isOwnProposal && isRejected && (
                             <Text align="center" bgColor="red.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
                                 Twoja propozycja została odrzucona
                             </Text>
                         )}
 
-                        {!getIsOwnProposal() && isRejected && (
+                        {!isOwnProposal && isRejected && (
                             <Text align="center" bgColor="red.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
                                 Ta propozycja została przez Ciebie odrzucona
                             </Text>

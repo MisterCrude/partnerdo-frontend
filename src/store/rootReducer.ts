@@ -5,10 +5,10 @@ import profileReducer from '@slices/profileSlice';
 import proposalReducer from '@slices/proposalSlice';
 import filtersReducer from '@slices/filtersSlice';
 import userReducer from '@slices/userSlice';
-import chatRoomsReducer from '@slices/chatRoomsSlice';
+import chatroomsReducer from '@slices/chatroomsSlice';
 
 const rootReducer = combineReducers({
-    chatRooms: chatRoomsReducer,
+    chatrooms: chatroomsReducer,
     filters: filtersReducer,
     profile: profileReducer,
     proposal: proposalReducer,

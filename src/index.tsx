@@ -14,6 +14,7 @@ const fetchInitialData = () => {
 };
 
 const render = () => {
+    // eslint-disable-next-line
     const App = require('./App').default;
 
     ReactDOM.render(
@@ -34,6 +35,7 @@ render();
 if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept('./App', render);
     module.hot.accept('@store/rootReducer', () => {
+        // eslint-disable-next-line
         const newRootReducer = require('@store/rootReducer').default;
         store.replaceReducer(newRootReducer);
     });

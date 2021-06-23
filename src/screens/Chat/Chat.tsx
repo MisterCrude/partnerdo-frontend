@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
 import {
     fetchPageAsync,
-    getChatRoomsPageRequestStatusSelector,
-    getCurrentPageChatRoomsSelector,
+    getChatroomsPageRequestStatusSelector,
+    getCurrentPageChatroomsSelector,
     getPagesAmountSelector,
-} from '@slices/chatRoomsSlice';
+} from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
 import { getUserName } from '@utils/user';
-import { RequestStatus } from '@models/api';
+import { RequestStatus } from '@typing/api';
 import { ROUTES } from '@consts/routes';
 import { scrollTop } from '@utils/misc';
 import { toLocaleTimeString } from '@utils/convert';
@@ -27,14 +27,14 @@ import DateTitle from './components/DateTitle';
 export const Chat: React.FC = () => {
     const history = useHistory();
 
-    const requestStatus = useSelector(getChatRoomsPageRequestStatusSelector);
-    const chatRooms = useSelector(getCurrentPageChatRoomsSelector);
+    const requestStatus = useSelector(getChatroomsPageRequestStatusSelector);
+    const chatrooms = useSelector(getCurrentPageChatroomsSelector);
     const pagesAmount = useSelector(getPagesAmountSelector);
     const fetchPage = useDispatch<number>(fetchPageAsync);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const handleUserNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
-    const handleTitleClick = (chatRoomId: string) => history.push(`${ROUTES.CHAT}/${chatRoomId}`);
+    const handleTitleClick = (chatroomId: string) => history.push(`${ROUTES.CHAT}/${chatroomId}`);
 
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
@@ -57,7 +57,7 @@ export const Chat: React.FC = () => {
                 <>
                     {/* TODO move it to Results component like in Browser.tsx */}
                     <VStack align="stretch" spacing={{ base: 4, md: 8 }}>
-                        {chatRooms.map(
+                        {chatrooms.map(
                             (
                                 {
                                     id,
@@ -83,7 +83,7 @@ export const Chat: React.FC = () => {
                             ) => (
                                 <Fragment key={id}>
                                     <DateTitle
-                                        prevCreatedDate={chatRooms[index - 1]?.created}
+                                        prevCreatedDate={chatrooms[index - 1]?.created}
                                         currentCreatedDate={created}
                                     />
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
 import { getUserName } from '@utils/user';
-import { IProposal } from '@models/proposal';
+import { IProposal } from '@typing/proposal';
 import { toLocaleDateString } from '@utils/convert';
 import { truncateStringByWords } from '@utils/misc';
 

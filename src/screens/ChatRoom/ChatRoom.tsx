@@ -8,16 +8,16 @@ import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
 import useChat from '@hooks/useChat';
-import { RequestStatus } from '@models/api';
-import { IChatRoomStatus } from '@models/chat';
+import { RequestStatus } from '@typing/api';
+import { IChatroomStatus } from '@typing/chat';
 import {
     fetchDetailsAsync,
-    changeChatRoomStatusAsync,
+    changeChatroomStatusAsync,
     getDetailsDataSelector,
     getDetailsRequestStatusSelector,
-    // getChangeChatRoomStatusRequestStatusSelector,
+    // getChangeChatroomStatusRequestStatusSelector,
     resetDetails as reset,
-} from '@slices/chatRoomsSlice';
+} from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
 
 import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
@@ -27,23 +27,23 @@ import Main from '@layouts/Main';
 import Message from './components/Message';
 import Proposal from './components/Proposal';
 
-export const ChatRoom: React.FC = () => {
-    const [chatRoomStatus, setChatRoomStatus] = useState(IChatRoomStatus.IDLE);
+export const Chatroom: React.FC = () => {
+    const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
     const [message, setMessage] = useState('');
-    const { chatRoomId } = useParams<{ chatRoomId: string }>();
-    const { messages, sendMessage } = useChat(chatRoomId);
+    const { chatroomId } = useParams<{ chatroomId: string }>();
+    const { messages, sendMessage } = useChat(chatroomId);
     const history = useHistory();
 
-    const chatRoomDetails = useSelector(getDetailsDataSelector);
+    const chatroomDetails = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
-    // const chatRoomStatusRequestStatus = useSelector(getChangeChatRoomStatusRequestStatusSelector);
+    // const chatroomStatusRequestStatus = useSelector(getChangeChatroomStatusRequestStatusSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
-    const changeChatRoomStatus = useDispatch<{ chatRoomId: string; status: IChatRoomStatus }>(
-        changeChatRoomStatusAsync
-    );
     const resetDetails = useDispatch(reset);
+    const changeChatroomStatus = useDispatch<{ chatroomId: string; status: IChatroomStatus }>(
+        changeChatroomStatusAsync
+    );
 
     const {
         proposalAuthor,
@@ -52,15 +52,15 @@ export const ChatRoom: React.FC = () => {
         proposal,
         status,
         created: initialMessageCreatedTime,
-    } = chatRoomDetails;
+    } = chatroomDetails;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
 
-    const isRejected = chatRoomStatus === IChatRoomStatus.REJECT;
-    const isApproved = chatRoomStatus === IChatRoomStatus.APPROVE;
-    const isIdle = chatRoomStatus === IChatRoomStatus.IDLE;
+    const isRejected = chatroomStatus === IChatroomStatus.REJECT;
+    const isApproved = chatroomStatus === IChatroomStatus.APPROVE;
+    const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
     const handleChange = () => {
@@ -73,25 +73,25 @@ export const ChatRoom: React.FC = () => {
     };
 
     const handleAccept = () => {
-        const status = IChatRoomStatus.APPROVE;
+        const status = IChatroomStatus.APPROVE;
 
-        changeChatRoomStatus({ chatRoomId, status });
-        setChatRoomStatus(status);
+        changeChatroomStatus({ chatroomId, status });
+        setChatroomStatus(status);
     };
 
     const handleReject = () => {
-        const status = IChatRoomStatus.REJECT;
+        const status = IChatroomStatus.REJECT;
 
-        changeChatRoomStatus({ chatRoomId, status });
-        setChatRoomStatus(status);
+        changeChatroomStatus({ chatroomId, status });
+        setChatroomStatus(status);
     };
 
     useMount(() => {
-        fetchDetails(chatRoomId);
+        fetchDetails(chatroomId);
     });
 
     useUpdateEffect(() => {
-        setChatRoomStatus(status);
+        setChatroomStatus(status);
     }, [status]);
 
     useUnmount(resetDetails);
@@ -138,7 +138,7 @@ export const ChatRoom: React.FC = () => {
                                 />
                             ) : (
                                 <Message
-                                    showControls={chatRoomStatus === IChatRoomStatus.IDLE}
+                                    showControls={chatroomStatus === IChatroomStatus.IDLE}
                                     onApprove={handleAccept}
                                     onReject={handleReject}
                                     author={getUserName(initiator.firstName, initiator.lastName, initiator.username)}
@@ -149,18 +149,16 @@ export const ChatRoom: React.FC = () => {
                                     )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
                                 />
                             )}
-
-                            {messages.map(({ message, sender, created }, index) => (
+                            {messages.map(({ id, content, author, created }) => (
                                 <Message
-                                    key={index}
+                                    key={id}
                                     onApprove={handleAccept}
-                                    onReject={() => null}
                                     author={
-                                        profileId !== sender.id
-                                            ? getUserName(sender.firstName, sender.lastName, sender.username)
+                                        profileId !== author.id
+                                            ? getUserName(author.firstName, author.lastName, author.username)
                                             : undefined
                                     }
-                                    message={message}
+                                    message={content}
                                     sentTime={`${toLocaleTimeString(created, DEFAULT_LOCALE)}, ${toLocaleDateString(
                                         created,
                                         DEFAULT_LOCALE

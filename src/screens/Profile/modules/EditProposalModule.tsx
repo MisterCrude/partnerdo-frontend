@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
-import { IOption } from '@models/app';
-import { IProposal } from '@models/proposal';
+import { IOption } from '@typing/app';
+import { IProposal } from '@typing/proposal';
 import { toOptions } from '@utils/convert';
 import { updateProfileProposalAsync, getProfileProposalsUpdateRequestStatusSelector } from '@slices/profileSlice';
 import { useMount } from 'react-use';

@@ -76,7 +76,7 @@
             "@consts/(.*)$": "<rootDir>/src/consts/$1",
             "@hooks/(.*)$": "<rootDir>/src/hooks/$1",
             "@layouts/(.*)$": "<rootDir>/src/layouts/$1",
-            "@models/(.*)$": "<rootDir>/src/models/$1",
+            "@typing/(.*)$": "<rootDir>/src/typing/$1",
             "@routing/(.*)$": "<rootDir>/src/routing/$1",
             "@utils/(.*)$": "<rootDir>/src/utils/$1",
             "@slices/(.*)$": "<rootDir>/src/slices/$1",

@@ -8,7 +8,7 @@ module.exports = function override(config) {
         '@consts': path.resolve(__dirname, 'src/consts/'),
         '@hooks': path.resolve(__dirname, 'src/hooks/'),
         '@layouts': path.resolve(__dirname, 'src/layouts/'),
-        '@models': path.resolve(__dirname, 'src/models/'),
+        '@typing': path.resolve(__dirname, 'src/typing/'),
         '@routing': path.resolve(__dirname, 'src/routing/'),
         '@screens': path.resolve(__dirname, 'src/screens/'),
         '@services': path.resolve(__dirname, 'src/services/'),

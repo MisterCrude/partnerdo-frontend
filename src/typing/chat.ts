@@ -3,18 +3,18 @@ import { IProposal } from './proposal';
 
 export type IProposalAuthor = Omit<IProfile, 'birthYear' | 'description' | 'gender' | 'email'>;
 
-export enum IChatRoomStatus {
+export enum IChatroomStatus {
     APPROVE = 'approve',
     IDLE = 'idle',
     REJECT = 'reject',
 }
 
-export interface IChatRoom {
+export interface IChatroom {
     id: string;
     initiator: IProposalAuthor;
     proposalAuthor: IProposalAuthor;
     proposal: Omit<IProposal, 'author'>;
-    status: IChatRoomStatus;
+    status: IChatroomStatus;
     chatroom: string;
     lastMessage: string;
     created: string;
@@ -22,13 +22,14 @@ export interface IChatRoom {
     unreadMessageNumber: string;
 }
 
-export interface Message {
+export interface ChatroomMessage {
+    id: string;
     created: string;
-    message: string;
+    content: string;
     type: string;
-    sender: Pick<IProfile, 'username' | 'firstName' | 'lastName' | 'id'>;
+    author: Pick<IProfile, 'username' | 'firstName' | 'lastName' | 'id'>;
 }
 
-export interface IChatRoomResponse extends Omit<IChatRoom, 'status'> {
+export interface IChatroomResponse extends Omit<IChatroom, 'status'> {
     status: string;
 }

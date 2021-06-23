@@ -1,13 +1,13 @@
-import { IChatRoomStatus } from '@models/chat';
+import { IChatroomStatus } from '@typing/chat';
 
-export const getChatRoomStatus = (status: string) => {
+export const getChatroomStatus = (status: string) => {
     switch (String(status)) {
         case '1':
-            return IChatRoomStatus.APPROVE;
+            return IChatroomStatus.APPROVE;
         case '2':
-            return IChatRoomStatus.REJECT;
+            return IChatroomStatus.REJECT;
         default:
         case '0':
-            return IChatRoomStatus.IDLE;
+            return IChatroomStatus.IDLE;
     }
 };

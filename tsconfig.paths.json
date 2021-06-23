@@ -7,7 +7,7 @@
             "@consts/*": ["./consts/*"],
             "@hooks/*": ["./hooks/*"],
             "@layouts/*": ["./layouts/*"],
-            "@models/*": ["./models/*"],
+            "@typing/*": ["./typing/*"],
             "@routing/*": ["./routing/*"],
             "@screens/*": ["./screens/*"],
             "@services/*": ["./services/*"],

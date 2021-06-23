@@ -15,7 +15,7 @@ module.exports = {
             '@consts': toPath('src/consts/'),
             '@hooks': toPath('src/hooks/'),
             '@layouts': toPath('src/layouts/'),
-            '@models': toPath('src/models/'),
+            '@typing': toPath('src/typing/'),
             '@routing': toPath('src/routing/'),
             '@utils': toPath('src/utils/'),
             '@slices': toPath('src/slices/'),

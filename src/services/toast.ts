@@ -1,4 +1,4 @@
-import { IToast, TPosition } from '@models/app';
+import { IToast, TPosition } from '@typing/app';
 import { createStandaloneToast } from '@chakra-ui/react';
 import { TOAST_DURATION } from '@consts/app';
 

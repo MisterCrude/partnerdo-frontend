@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { IProposal } from '@models/proposal';
+import { IProposal } from '@typing/proposal';
 import { useForm } from 'react-hook-form';
 import { useMount, useUpdateEffect } from 'react-use';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RequestStatus } from '@models/api';
+import { RequestStatus } from '@typing/api';
 import * as yup from 'yup';
 import { isEqual, pick } from 'lodash/fp';
 

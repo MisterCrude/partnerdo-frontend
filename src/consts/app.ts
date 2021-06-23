@@ -1,4 +1,4 @@
-import { IProposalCategoryIcon } from '@models/proposal';
+import { IProposalCategoryIcon } from '@typing/proposal';
 
 import {
     BusinessColoredIcon,

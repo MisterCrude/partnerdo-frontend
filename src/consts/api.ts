@@ -17,8 +17,8 @@ export const BACKEND_ROUTING = {
         CREATE: 'proposals/create',
     },
     CHAT: {
-        CHAT_ROOMS: 'chat-rooms',
-        CREATE_CHAT_ROOM: 'chat-rooms/create',
+        CHATROOMS: 'chat-rooms',
+        CREATE_CHATROOM: 'chat-rooms/create',
     },
     USER: 'user/',
 };

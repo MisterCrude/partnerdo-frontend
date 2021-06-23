@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
 
-import { IOption } from '@models/app';
+import { IOption } from '@typing/app';
 
 import { Button, Box, Checkbox, Menu, MenuButton, MenuItem, MenuList, IconButton, theme } from '@chakra-ui/react';
 import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';

@@ -1,6 +1,6 @@
 import React from 'react';
 import useDispatch from '@hooks/useDispatch';
-import { IProposal } from '@models/proposal';
+import { IProposal } from '@typing/proposal';
 import { IProposalRemove, removeProfileProposalAsync } from '@slices/profileSlice';
 
 import { Button, Flex } from '@chakra-ui/react';

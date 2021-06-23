@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { IOption } from '@models/app';
-import { RecordNamedItem } from '@models/misc';
+import { IOption } from '@typing/app';
+import { RecordNamedItem } from '@typing/misc';
 import { toOptions } from '@utils/convert';
 import { useUpdateEffect, useMount } from 'react-use';
 

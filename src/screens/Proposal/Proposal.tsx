@@ -6,10 +6,10 @@ import {
     getDetailsDataSelector,
     getDetailsRequestStatusSelector,
 } from '@slices/proposalSlice';
-import { getCreateChatRoomRequestStatusSelector, createChatRoomAsync, IChatRoomDetails } from '@slices/chatRoomsSlice';
+import { getCreateChatroomRequestStatusSelector, createChatroomAsync, IChatroomDetails } from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
-import { RequestStatus } from '@models/api';
+import { RequestStatus } from '@typing/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';
 import { useMount, useUnmount } from 'react-use';
 import { toLocaleDateString } from '@utils/convert';
@@ -51,26 +51,26 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
 
     const proposalData = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
-    const createChatRoomRequestStatus = useSelector(getCreateChatRoomRequestStatusSelector);
+    const createChatroomRequestStatus = useSelector(getCreateChatroomRequestStatusSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
     const resetDetails = useDispatch(reset);
-    const createChatRoom = useDispatch<Omit<IChatRoomDetails, 'initiator'>>(createChatRoomAsync);
+    const createChatroom = useDispatch<Omit<IChatroomDetails, 'initiator'>>(createChatroomAsync);
 
     const { author, category, cityArea, city, created, description, title } = proposalData;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
-    const isFetchingCreateChatRoom = createChatRoomRequestStatus === RequestStatus.FETCHING;
+    const isFetchingCreateChatroom = createChatroomRequestStatus === RequestStatus.FETCHING;
 
     const handleBack = () => history.goBack();
 
     const handleMakeOffer = () => {
         onClose();
         setOfferMessage('');
-        createChatRoom({ initialMessage: offerMessage, proposal: proposalData.id });
+        createChatroom({ initialMessage: offerMessage, proposal: proposalData.id });
     };
 
     const handleChageOfferMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setOfferMessage(target.value);
@@ -211,7 +211,7 @@ export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
                                     Zamknij
                                 </Button>
                                 <Button
-                                    isLoading={isFetchingCreateChatRoom}
+                                    isLoading={isFetchingCreateChatroom}
                                     colorScheme="orange"
                                     flexGrow={{ base: 1, md: 0 }}
                                     ml={4}

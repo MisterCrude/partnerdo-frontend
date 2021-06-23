@@ -2,9 +2,9 @@ import { AppThunk, AppDispatch } from '@store/index';
 import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser, IUserResponse, IUserData, IUserProposal } from '@models/user';
+import { IUser, IUserResponse, IUserData, IUserProposal } from '@typing/user';
 import { omit } from 'lodash/fp';
-import { RequestStatus } from '@models/api';
+import { RequestStatus } from '@typing/api';
 import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 

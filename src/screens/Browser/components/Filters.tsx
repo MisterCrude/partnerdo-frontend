@@ -1,8 +1,8 @@
 import React from 'react';
-import { IFiltersData } from '@models/proposal';
+import { IFiltersData } from '@typing/proposal';
 
 import { Grid } from '@chakra-ui/react';
-import { IOption } from '@models/app';
+import { IOption } from '@typing/app';
 import MenuSelect from '@components/MenuSelect';
 import MenuMultiSelect from '@components/MenuMultiSelect';
 

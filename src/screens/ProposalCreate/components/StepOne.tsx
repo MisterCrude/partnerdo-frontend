@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IOption } from '@models/app';
+import { IOption } from '@typing/app';
 import { useMount } from 'react-use';
 
 import { Box, Flex, SimpleGrid, Text, Button, HStack } from '@chakra-ui/react';

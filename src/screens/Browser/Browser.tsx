@@ -13,10 +13,10 @@ import {
 } from '@slices/proposalSlice';
 import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
 import { resetPagination as reset } from '@slices/proposalSlice';
-import { IFiltersData } from '@models/proposal';
-import { IOption } from '@models/app';
+import { IFiltersData } from '@typing/proposal';
+import { IOption } from '@typing/app';
 import { keys, isEqual, omit } from 'lodash/fp';
-import { RequestStatus } from '@models/api';
+import { RequestStatus } from '@typing/api';
 import { scrollTop } from '@utils/misc';
 import { toOptions } from '@utils/convert';
 import useDispatch from '@hooks/useDispatch';

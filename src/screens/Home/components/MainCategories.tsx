@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CATEGORIES_DATA } from '@consts/app';
 import { ROUTES } from '@consts/routes';
-import { IProposalCategoryIcon } from '@models/proposal';
+import { IProposalCategoryIcon } from '@typing/proposal';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';

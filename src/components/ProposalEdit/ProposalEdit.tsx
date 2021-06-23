@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CATEGORIES_DATA } from '@consts/app';
 import { CITIES } from '@consts/filters';
-import { IOption } from '@models/app';
+import { IOption } from '@typing/app';
 
 import { Box, Grid, Input, Textarea } from '@chakra-ui/react';
 import MenuSelect from '@components/MenuSelect';

@@ -1,5 +1,5 @@
-import { IOption } from '@models/app';
-import { RecordNamedItem } from '@models/misc';
+import { IOption } from '@typing/app';
+import { RecordNamedItem } from '@typing/misc';
 import { camelCase, snakeCase, keys, isObject, isArray } from 'lodash/fp';
 
 export const objCaseSwitcher = (caseSwitcher: typeof camelCase | typeof snakeCase, isDeep = true) => {

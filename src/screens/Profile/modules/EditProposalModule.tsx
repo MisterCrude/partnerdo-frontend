@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
 import { IOption } from '@typing/app';
 import { IProposal } from '@typing/proposal';
@@ -15,7 +15,7 @@ interface IProps {
     onClose: () => void;
 }
 
-const EditProposalModule: React.FC<IProps> = ({ proposal, onClose }) => {
+const EditProposalModule = ({ proposal, onClose }: IProps) => {
     const [cityAreaOptions, setCityAreaOptions] = useState<IOption[]>([]);
 
     const submitForm = useDispatch<{ id: string; formData: IInputs }>(updateProfileProposalAsync);

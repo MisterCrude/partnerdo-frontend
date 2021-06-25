@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
 import { IOption } from '@typing/app';
 
@@ -22,7 +22,7 @@ interface IProps {
     onClear?: (name: string) => void;
 }
 
-export const MenuMultiSelect: React.FC<IProps> = ({
+export const MenuMultiSelect = ({
     options,
     palceholder,
     name,
@@ -30,7 +30,7 @@ export const MenuMultiSelect: React.FC<IProps> = ({
     onChange,
     onClear,
     height = '48px',
-}) => {
+}: IProps) => {
     const handleSelect = ({ target }: ChangeEvent<HTMLInputElement>) => {
         const newData = target.checked ? [...selected, target.value] : selected.filter((item) => item !== target.value);
         onChange(name, newData);

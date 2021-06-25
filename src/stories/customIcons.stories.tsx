@@ -1,4 +1,3 @@
-import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 import {
     BusinessColoredIcon,
@@ -55,7 +54,7 @@ export default {
     },
 } as Meta;
 
-export const Outline: React.FC = () => (
+export const Outline = () => (
     <SimpleGrid gap={3} columns={5} fontSize={28}>
         <Box align="center">
             <Text fontSize="xs">ProfileIcon</Text>
@@ -159,7 +158,7 @@ export const Outline: React.FC = () => (
         </Box>
     </SimpleGrid>
 );
-export const Categories: React.FC = () => (
+export const Categories = () => (
     <SimpleGrid gap={5} columns={6} fontSize={68}>
         <Box align="center">
             <Text fontSize="xs">MusicIcon</Text>

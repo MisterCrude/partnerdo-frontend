@@ -1,4 +1,3 @@
-import React from 'react';
 import { Meta } from '@storybook/react/types-6-0';
 
 import { EditIcon, UnpublishIcon, PublishIcon } from '@theme/customIcons';
@@ -10,7 +9,7 @@ export default {
     title: 'Components/CardMenu',
 } as Meta;
 
-export const Default: React.FC = () => (
+export const Default = () => (
     <Container maxW="4xl">
         <CardMenu>
             <MenuItem>

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import {
     resetDetails as reset,
@@ -42,7 +42,7 @@ interface IProps {
     isAuth?: boolean;
 }
 
-export const Proposal: React.FC<IProps> = ({ isAuth = false }) => {
+export const Proposal = ({ isAuth = false }: IProps) => {
     const [offerMessage, setOfferMessage] = useState('');
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 

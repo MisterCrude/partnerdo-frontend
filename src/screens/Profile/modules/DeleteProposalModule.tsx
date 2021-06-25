@@ -1,4 +1,3 @@
-import React from 'react';
 import useDispatch from '@hooks/useDispatch';
 import { IProposal } from '@typing/proposal';
 import { IProposalRemove, removeProfileProposalAsync } from '@slices/profileSlice';
@@ -10,7 +9,7 @@ interface IProps {
     onClose: () => void;
 }
 
-const DeleteProposalModule: React.FC<IProps> = ({ proposal, onClose }) => {
+const DeleteProposalModule = ({ proposal, onClose }: IProps) => {
     const { title, id } = proposal;
 
     const removeProfileProposal = useDispatch<IProposalRemove>(removeProfileProposalAsync);

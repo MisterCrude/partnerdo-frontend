@@ -1,4 +1,3 @@
-import React from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
 import { toLocaleWithDayNameString } from '@utils/convert';
 
@@ -9,7 +8,7 @@ interface IProps {
     prevCreatedDate: string;
 }
 
-const DateTitle: React.FC<IProps> = ({ currentCreatedDate, prevCreatedDate }) => {
+const DateTitle = ({ currentCreatedDate, prevCreatedDate }: IProps) => {
     const newTitle = toLocaleWithDayNameString(currentCreatedDate, DEFAULT_LOCALE);
     const prevTitle = toLocaleWithDayNameString(prevCreatedDate || '', DEFAULT_LOCALE);
 

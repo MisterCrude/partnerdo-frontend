@@ -1,4 +1,3 @@
-import React from 'react';
 import { AVATAR_FALLBACK_URL } from '@consts/app';
 
 import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
@@ -28,7 +27,7 @@ export interface IProps {
     type?: Types;
 }
 
-const MessageBox: React.FC<IProps> = ({
+const MessageBox = ({
     address,
     categoryColor = 'orange.500',
     categoryName,
@@ -41,7 +40,7 @@ const MessageBox: React.FC<IProps> = ({
     type = Types.DEFAULT,
     userAvatarUrl,
     userName,
-}) => {
+}: IProps) => {
     const hasNewMessage = newMessagesAmount > 0;
     const isRejected = type === Types.REJECTED;
     const isSecondary = type === Types.SECONDARY;

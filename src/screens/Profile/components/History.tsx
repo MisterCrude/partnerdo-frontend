@@ -1,10 +1,8 @@
-import React from 'react';
-
 import Card, { Types } from '@components/Card';
 import { VStack, Flex } from '@chakra-ui/react';
 import Pagination from '@components/Pagination';
 
-const History: React.FC = () => {
+const History = () => {
     return (
         <>
             <VStack align="stretch" spacing={{ base: 4, md: 8 }} mb={4}>

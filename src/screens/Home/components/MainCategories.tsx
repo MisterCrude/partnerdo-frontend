@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CATEGORIES_DATA } from '@consts/app';
 import { ROUTES } from '@consts/routes';
 import { IProposalCategoryIcon } from '@typing/proposal';
@@ -7,7 +5,7 @@ import { IProposalCategoryIcon } from '@typing/proposal';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 
-const MainCategories: React.FC = () => (
+const MainCategories = () => (
     <Flex as="section" align="center" flexDir="column" justify="center" mb={{ base: 32, md: 48 }}>
         <Heading py={15} mb={{ base: 8, md: 10 }} align="center" lineHeight={1.2}>
             Kategorie

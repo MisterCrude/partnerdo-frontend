@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Badge, Divider, Flex, Heading, Tag, Text } from '@chakra-ui/react';
 import { CalendarIcon, LocationIcon } from '@theme/customIcons';
 import UserBadge from '@components/UserBadge';

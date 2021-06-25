@@ -1,18 +1,10 @@
-import React from 'react';
 import { render } from '@testing-library/react';
+import { isNull } from 'lodash';
 
 import { ModalFrame } from './ModalFrame';
 
 it('Should render ModalFrame component', () => {
-    render(
-        <ModalFrame
-            modalTriggerButton={<>Some item</>}
-            modalTitle="Zmiana hasła"
-            modalSize="lg"
-            actionTitle="Zapisz hasło"
-            onAction={() => 0}
-        />
-    );
+    render(<ModalFrame isOpen={false} modalTitle="testTitle" onClose={() => null} onClose={() => isNull} />);
 
     expect(true).toBeTruthy();
 });

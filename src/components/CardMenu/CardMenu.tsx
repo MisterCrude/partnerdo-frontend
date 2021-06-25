@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
 import { DotsMenuIcon } from '@theme/customIcons';
 

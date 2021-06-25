@@ -1,4 +1,3 @@
-import React from 'react';
 import { createIcon } from '@chakra-ui/react';
 
 export const ProfileIcon: ReturnType<typeof createIcon> = createIcon({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { isEqual, omit } from 'lodash/fp';
 import { useForm } from 'react-hook-form';
 import { useUpdateEffect, useMount } from 'react-use';
@@ -42,7 +42,7 @@ const validationSchema = yup.object().shape({
     description: yup.string().required('To pole jest wymagane').max(200, 'Maksymala ilość zanków 200'),
 });
 
-const EditProfileForm: React.FC<IProps> = ({ formData, requestStatus, onSubmit }) => {
+const EditProfileForm = ({ formData, requestStatus, onSubmit }: IProps) => {
     const {
         isOpen: isChangePassOpen,
         onOpen: onChangePassOpen,

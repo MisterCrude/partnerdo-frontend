@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 
 import {
     CloseButton,
@@ -18,7 +18,7 @@ export type IProps = PropsWithChildren<{
     onClose: () => void;
 }>;
 
-export const ModalFrame: React.FC<IProps> = ({ isOpen, onClose, children, size = 'md', modalTitle }) => {
+export const ModalFrame: React.FC<IProps> = ({ isOpen, onClose, children, size = 'md', modalTitle }: IProps) => {
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">

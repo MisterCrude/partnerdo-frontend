@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { ACCEPTED_UPLOAD_IMAGE_FORMAT, AVATAR_FALLBACK_URL } from '@consts/app';
 import { useUpdateEffect } from 'react-use';
 
@@ -28,7 +28,7 @@ const avatarFileInit = {
     fileUrl: '',
 };
 
-const AvatarInput: React.FC<IProps> = ({ avatarUrl, onChange }) => {
+const AvatarInput = ({ avatarUrl, onChange }: IProps) => {
     const [avatarFile, setAvatarFile] = useState<IAvatarInput>(avatarFileInit);
 
     const isIdle = avatarFile.state === AvatarState.IDLE;

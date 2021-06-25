@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import { getIsAuthSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';

@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import { useState, forwardRef } from 'react';
 
 import { InputGroup, Input, IconButton, InputProps, InputRightElement } from '@chakra-ui/react';
 import { CrossEyeIcon, EyeIcon } from '@theme/customIcons';

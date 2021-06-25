@@ -1,4 +1,3 @@
-import React from 'react';
 import { RequestStatus } from '@typing/api';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,7 +22,7 @@ const validationSchema = yup.object().shape({
     password: yup.string().required('To pole jest wymagane'),
 });
 
-const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
+const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
     const {
         register,
         handleSubmit,

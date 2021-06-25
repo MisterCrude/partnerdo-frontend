@@ -1,4 +1,3 @@
-import React from 'react';
 import { History } from 'history';
 import { loginProfileAsync, getProfileRequestStatusSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
@@ -16,7 +15,7 @@ interface ILoginProfileParams {
     history: History;
 }
 
-export const Login: React.FC = () => {
+export const Login = () => {
     const history = useHistory();
     const submitForm = useDispatch<ILoginProfileParams>(loginProfileAsync);
     const requestStatus = useSelector(getProfileRequestStatusSelector);

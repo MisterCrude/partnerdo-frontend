@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -25,7 +24,7 @@ const validationSchema = yup.object().shape({
         .oneOf([yup.ref('password1')], 'Hasło się nie zgadza'),
 });
 
-const SetPasswordForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
+const SetPasswordForm = ({ onSubmit, isFetching = false }: IProps) => {
     const {
         register,
         handleSubmit,

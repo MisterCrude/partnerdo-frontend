@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
 import {
     fetchPageAsync,
@@ -24,7 +24,7 @@ import Breadcrumbs from '@components/Breadcrumbs';
 import MessageBox, { Types } from './components/MessageBox';
 import DateTitle from './components/DateTitle';
 
-export const Chat: React.FC = () => {
+export const Chat = () => {
     const history = useHistory();
 
     const requestStatus = useSelector(getChatroomsPageRequestStatusSelector);

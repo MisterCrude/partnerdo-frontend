@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IOption } from '@typing/app';
 import { RecordNamedItem } from '@typing/misc';
 import { toOptions } from '@utils/convert';
@@ -16,7 +16,7 @@ interface IProps {
     onSave: (fieldsData: Record<string, string>) => void;
 }
 
-export const StepThreeForm: React.FC<IProps> = ({ defaultData, citires, cityAreasGetter, onSave, onChangeStep }) => {
+export const StepThreeForm = ({ defaultData, citires, cityAreasGetter, onSave, onChangeStep }: IProps) => {
     const [city, setCity] = useState('');
     const [cityArea, setCityArea] = useState('');
     const [cityAreasOptions, setCityAreasOptions] = useState<IOption[]>([]);

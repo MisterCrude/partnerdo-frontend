@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { getCategoriesSelector } from '@slices/filtersSlice';
 
@@ -8,7 +7,7 @@ import SearchBar from './components/SearchBar';
 import MainCategories from './components/MainCategories';
 import NewProposals from './components/NewProposals';
 
-export const Home: React.FC = () => {
+export const Home = () => {
     const categories = useSelector(getCategoriesSelector);
 
     // TODO remove it

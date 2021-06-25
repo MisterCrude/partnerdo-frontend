@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CITIES } from '@consts/filters';
 import { IOption } from '@typing/app';
 
@@ -9,7 +7,7 @@ import MenuSelect from '@components/MenuSelect';
 
 const cities: IOption[] = CITIES.map((city: string) => ({ value: city, label: city }));
 
-export const SearchBar: React.FC = () => (
+export const SearchBar = () => (
     <Grid
         gap={4}
         mb={{ base: 12, md: 28 }}

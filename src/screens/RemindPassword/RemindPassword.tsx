@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { Heading, Text } from '@chakra-ui/react';
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import Main from '@layouts/Main';
 import RemindForm from './components/RemindForm';
 
-export const RemindPassword: React.FC = () => {
+export const RemindPassword = () => {
     const [isSent, setIsSent] = useState(false);
     const isFetching = false;
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { AVATAR_FALLBACK_URL } from '@consts/app';
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -17,7 +16,7 @@ interface IProps {
     categoryColor?: string;
 }
 
-const Proposal: React.FC<IProps> = ({
+const Proposal = ({
     address,
     authorId,
     categoryColor = 'orange.500',
@@ -26,7 +25,7 @@ const Proposal: React.FC<IProps> = ({
     title,
     userAvatarUrl,
     userName,
-}) => (
+}: IProps) => (
     <Box mb={{ base: 4, md: 8 }}>
         <Stack direction={{ base: 'column', sm: 'row' }} spacing={4}>
             <AspectRatio w={{ base: 220, sm: 110 }} maxW="100%" minW={110} ration={1}>

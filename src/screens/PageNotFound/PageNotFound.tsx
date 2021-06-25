@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ROUTES } from '@consts/routes';
 
 import { Link as RouterLink } from 'react-router-dom';
@@ -11,7 +9,7 @@ interface IProps {
     isAuth?: boolean;
 }
 
-export const PageNotFound: React.FC<IProps> = ({ isAuth = false }) => (
+export const PageNotFound = ({ isAuth = false }: IProps) => (
     <Main alignItems="center" d="flex" justifyContent="center" flexGrow={1} maxW="xl">
         <Box align="center">
             <Heading color="gray.300" mb={8} size="4xl">

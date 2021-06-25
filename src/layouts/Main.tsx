@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
@@ -12,7 +11,7 @@ import ToolsBar from '@components/ToolsBar';
 
 const hasMessages = true;
 
-export const Main: React.FC<BoxProps> = (props) => {
+export const Main = (props: BoxProps) => {
     const history = useHistory();
     const isAuth = useSelector(getIsAuthSelector);
     const logout = useDispatch<History>(logoutProfileAsync);

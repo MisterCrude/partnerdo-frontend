@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IOption } from '@typing/app';
 import { useMount } from 'react-use';
 
@@ -17,7 +17,7 @@ interface IProps {
     onSave: (fieldsData: Record<string, string>) => void;
 }
 
-export const StepOne: React.FC<IProps> = ({ categories, defaultData, onChangeStep, onCancel, onSave }) => {
+export const StepOne = ({ categories, defaultData, onChangeStep, onCancel, onSave }: IProps) => {
     const [category, setCategory] = useState<string>('');
 
     const disableNextButton = !category;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
 import { getUserName } from '@utils/user';
 import { IProposal } from '@typing/proposal';
@@ -15,7 +14,7 @@ interface IProps {
 }
 
 // eslint-disable-next-line
-const Results: React.FC<IProps> = ({ results, onAuthorNameClick, onTitleClick }) => {
+const Results = ({ results, onAuthorNameClick, onTitleClick }: IProps) => {
     return (
         <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
             {results.map(({ id, author, city, cityArea, created, description, category, title }) => (

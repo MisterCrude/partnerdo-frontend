@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import { CloseIcon, TickIcon } from '@theme/customIcons';
 
@@ -12,7 +10,7 @@ interface IProps {
     onReject?: () => void;
 }
 // TODO extract axxept reject functionality from this component
-const Message: React.FC<IProps> = ({ author, message, sentTime, showControls, onApprove, onReject }) => {
+const Message = ({ author, message, sentTime, showControls, onApprove, onReject }: IProps) => {
     const showAcceptedControls = onReject && onApprove && showControls;
 
     return (

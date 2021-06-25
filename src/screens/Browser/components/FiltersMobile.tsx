@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 
 import {
     Box,
@@ -20,9 +20,10 @@ import { FilterIcon } from '@theme/customIcons';
 
 interface IProps {
     selectedFiltersAmount?: number;
+    children: ReactNode;
 }
 
-export const FiltersMobile: React.FC<IProps> = ({ children, selectedFiltersAmount = 0 }) => {
+export const FiltersMobile = ({ children, selectedFiltersAmount = 0 }: IProps) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
     return (

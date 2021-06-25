@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { Heading, IconButton, Flex, Link, SimpleGrid } from '@chakra-ui/react';
 import { BRAND_NAME } from '@consts/app';
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from '@theme/customIcons';
 
-export const Footer: React.FC = () => (
+export const Footer = () => (
     <Flex
         as="footer"
         align="center"

@@ -1,22 +1,14 @@
-import React from 'react';
-
 import { ROUTES } from '@consts/routes';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/react';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
-
-interface IProps {
-    hasMessages: boolean;
-    mobileOnly: boolean;
-    isAuth: boolean;
-}
 
 interface IPropsLoggedinSet {
     hasMessages: boolean;
     mobileOnly: boolean;
 }
 
-export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
+export const LoggedinSet = ({ hasMessages }: IPropsLoggedinSet) => (
     <SimpleGrid templateColumns="repeat(4, 1fr)">
         <Button
             as={RouterLink}
@@ -76,7 +68,7 @@ export const LoggedinSet: React.FC<IPropsLoggedinSet> = ({ hasMessages }) => (
     </SimpleGrid>
 );
 
-export const NotLoggedinSet: React.FC = () => (
+export const NotLoggedinSet = () => (
     <Flex justifyContent="center">
         <Flex alignItems="center" borderRadius={0} justifyContent="flex-end" paddingY={3} marginX={2} variant="link">
             <Button as={RouterLink} to={ROUTES.LOGIN}>
@@ -99,7 +91,13 @@ export const NotLoggedinSet: React.FC = () => (
     </Flex>
 );
 
-export const ToolsBar: React.FC<IProps> = ({ hasMessages, isAuth, mobileOnly }) => (
+interface IToolsBarProps {
+    hasMessages: boolean;
+    mobileOnly: boolean;
+    isAuth: boolean;
+}
+
+export const ToolsBar = ({ hasMessages, isAuth, mobileOnly }: IToolsBarProps) => (
     <Box
         as="section"
         shadow="xs"

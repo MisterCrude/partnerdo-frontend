@@ -1,4 +1,3 @@
-import React from 'react';
 import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT, AVATAR_FALLBACK_URL } from '@consts/app';
 import { fetchUserAsync, getUserSelector } from '@slices/userSlice';
 import { getUserName } from '@utils/user';
@@ -16,7 +15,7 @@ import Breadcrumbs from '@components/Breadcrumbs';
 import Card from '@components/Card';
 import Main from '@layouts/Main';
 
-export const UserProfile: React.FC = () => {
+export const UserProfile = () => {
     const history = useHistory();
     const { pathname } = useLocation();
     const fetchUser = useDispatch(fetchUserAsync);

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useDebounce } from 'react-use';
 
 import { Input, InputGroup, InputLeftElement, InputRightElement, Button } from '@chakra-ui/react';
@@ -12,7 +12,7 @@ interface IProps {
 
 const TYPE_DELAY = 300;
 
-const SearchBar: React.FC<IProps> = ({ showClearButton, onChange, onClear }) => {
+const SearchBar: React.FC<IProps> = ({ showClearButton, onChange, onClear }: IProps) => {
     const [search, setSearch] = useState<string>('');
 
     const handleChangeSearch = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => setSearch(value);

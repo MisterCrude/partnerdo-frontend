@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
 
 import { IOption } from '@typing/app';
@@ -39,15 +39,7 @@ interface IProps {
     onClear?: (name: string) => void;
 }
 
-export const MenuSelect: React.FC<IProps> = ({
-    name,
-    onChange,
-    options,
-    palceholder,
-    selected,
-    onClear,
-    height = '48px',
-}) => {
+export const MenuSelect = ({ name, onChange, options, palceholder, selected, onClear, height = '48px' }: IProps) => {
     const handleSelect = ({ target }: ChangeEvent<HTMLInputElement>) => {
         // const option = options.find(({ value }) => value === target.value) as IOption;
         onChange(name, target.value);

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { RequestStatus } from '@typing/api';
@@ -30,7 +29,7 @@ const validationSchema = yup.object().shape({
         .oneOf([yup.ref('password1')], 'Hasło się nie zgadza'),
 });
 
-export const LoginForm: React.FC<IProps> = ({ onSubmit, requestStatus }) => {
+export const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
     const {
         register,
         handleSubmit,

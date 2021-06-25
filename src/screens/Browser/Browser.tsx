@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { GENDER, AGE_GROUPS } from '@consts/filters';
 import { ROUTES } from '@consts/routes';
 import { useHistory } from 'react-router-dom';
@@ -44,7 +44,7 @@ const initFiltersData: IFiltersData = {
     search: '',
 };
 
-export const Browser: React.FC = () => {
+export const Browser = () => {
     const [cityAreasOptions, setCityAreasOptions] = useState<IOption[]>([]);
     const [filtersData, setFiltersData] = useState<IFiltersData>(initFiltersData);
     const history = useHistory();

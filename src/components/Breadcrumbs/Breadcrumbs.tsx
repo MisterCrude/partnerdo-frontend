@@ -1,4 +1,4 @@
-import React from 'react';
+import { Fragment } from 'react';
 
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BoxProps, Divider } from '@chakra-ui/react';
 import { ChevronRightIcon } from '@chakra-ui/icons';
@@ -10,16 +10,16 @@ interface ICrumb {
     mb?: number;
 }
 
-interface IProps {
+interface IProps extends BoxProps {
     current: string;
     crumbs: Array<ICrumb>;
 }
 
-export const Breadcrumbs: React.FC<IProps & BoxProps> = ({ crumbs, current, mb = 6 }) => (
+export const Breadcrumbs = ({ crumbs, current, mb = 6 }: IProps) => (
     <>
         <Breadcrumb mb={5} fontSize={13}>
             {crumbs.map(({ title, link }, index) => (
-                <React.Fragment key={index}>
+                <Fragment key={index}>
                     <BreadcrumbItem>
                         <BreadcrumbLink as={RouterLink} to={link} color="gray.500">
                             {title}
@@ -28,7 +28,7 @@ export const Breadcrumbs: React.FC<IProps & BoxProps> = ({ crumbs, current, mb =
                     <Box as="span" mx={1}>
                         <ChevronRightIcon color="gray.500" />
                     </Box>
-                </React.Fragment>
+                </Fragment>
             ))}
             <BreadcrumbItem isCurrentPage>
                 <BreadcrumbLink>{current}</BreadcrumbLink>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IProposal } from '@typing/proposal';
 import { useForm } from 'react-hook-form';
 import { useMount, useUpdateEffect } from 'react-use';
@@ -35,7 +35,7 @@ const validationSchema = yup.object().shape({
     description: yup.string().required('To pole jest wymagane').max(800, 'Maksymalna ilość znaków 800'),
 });
 
-const EditProposalForm: React.FC<IProps> = ({
+const EditProposalForm = ({
     requestStatus,
     categoryOptions,
     cityOptions,
@@ -44,7 +44,7 @@ const EditProposalForm: React.FC<IProps> = ({
     onChengeCity,
     onSubmit,
     onClose,
-}) => {
+}: IProps) => {
     const { title, description, category: defaultCategory, city: defaultCity, cityArea: defaultCityArea } = defaultData;
 
     const [category, setCategory] = useState(defaultCategory.id);

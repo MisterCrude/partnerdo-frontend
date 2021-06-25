@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ROUTES } from '@consts/routes';
 
 import Main from '@layouts/Main';
@@ -11,7 +9,7 @@ interface IProps {
     isAuth?: boolean;
 }
 
-export const Faq: React.FC<IProps> = ({ isAuth = false }) => {
+export const Faq = ({ isAuth = false }: IProps) => {
     return (
         <Main mt={{ base: 0, md: 10 }} mb={10} flexGrow={1}>
             <Breadcrumbs

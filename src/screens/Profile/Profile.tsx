@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Link as RouterLink, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMount } from 'react-use';
@@ -47,7 +46,7 @@ const PROFILE_TABS = [
     },
 ];
 
-export const Profile: React.FC = () => {
+export const Profile = () => {
     const userData = useSelector(getProfileDataSelector);
     const requestStatus = useSelector(getProfileRequestStatusSelector);
     const profileProposals = useSelector(getProfileProposalsSelector);

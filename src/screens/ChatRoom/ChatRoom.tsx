@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -27,7 +27,7 @@ import Main from '@layouts/Main';
 import Message from './components/Message';
 import Proposal from './components/Proposal';
 
-export const Chatroom: React.FC = () => {
+export const Chatroom = () => {
     const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
     const [message, setMessage] = useState('');
     const { chatroomId } = useParams<{ chatroomId: string }>();
@@ -40,10 +40,11 @@ export const Chatroom: React.FC = () => {
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
+    const changeChatroomStatus = useDispatch<{
+        chatroomId: string;
+        status: IChatroomStatus;
+    }>(changeChatroomStatusAsync);
     const resetDetails = useDispatch(reset);
-    const changeChatroomStatus = useDispatch<{ chatroomId: string; status: IChatroomStatus }>(
-        changeChatroomStatusAsync
-    );
 
     const {
         proposalAuthor,

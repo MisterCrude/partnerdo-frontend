@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Avatar, Flex, Text, FlexProps } from '@chakra-ui/react';
 
 export interface IProps {
@@ -10,7 +8,7 @@ export interface IProps {
     onClick?: () => void;
 }
 
-export const UserBadge: React.FC<IProps> = ({ avatarUrl, title, subtitle, onClick, styles = {} }) => {
+export const UserBadge = ({ avatarUrl, title, subtitle, onClick, styles = {} }: IProps) => {
     return (
         <Flex {...styles}>
             <Avatar src={avatarUrl} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { merge, some, values } from 'lodash/fp';
 import { useHistory, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -39,7 +39,7 @@ const STEPS = [
  */
 type IProposalFields = Partial<{ [key in keyof IProposal]: string }>;
 
-export const ProposalCreate: React.FC = () => {
+export const ProposalCreate = () => {
     const createProposal = useDispatch(createProposalAsync);
 
     const [currentStep, setCurrentStep] = useState(0);

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FormErrorMessage } from '@components/Form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -26,7 +25,7 @@ const validationSchema = yup.object().shape({
     description: yup.string().max(800, 'Maksymalna ilość znaków 800').required('To pole jest wymagane'),
 });
 
-export const StepTwo: React.FC<IProps> = ({ requestStatus, defaultData, onSubmit, onBack }) => {
+export const StepTwo = ({ requestStatus, defaultData, onSubmit, onBack }: IProps) => {
     const {
         register,
         handleSubmit,

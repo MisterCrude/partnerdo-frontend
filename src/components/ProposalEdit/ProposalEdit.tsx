@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CATEGORIES_DATA } from '@consts/app';
 import { CITIES } from '@consts/filters';
 import { IOption } from '@typing/app';
@@ -11,7 +9,7 @@ import MenuSelect from '@components/MenuSelect';
 const cities: IOption[] = CITIES.map((item) => ({ value: item, label: item }));
 const categories: IOption[] = CATEGORIES_DATA.map(({ name }) => ({ value: name.toLocaleLowerCase(), label: name }));
 
-export const ProposalEdit: React.FC = () => (
+export const ProposalEdit = () => (
     <>
         <Box mb={{ base: 4, md: 8 }}>
             <Input

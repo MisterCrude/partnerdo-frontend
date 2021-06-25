@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT } from '@consts/app';
 import { getUserName } from '@utils/user';
 import { IProposal } from '@typing/proposal';
@@ -20,7 +20,7 @@ interface IProps {
     onProposalClick: (proposalId: string) => void;
 }
 
-const MyProposals: React.FC<IProps> = ({ requestStatus, proposals, onProposalClick }) => {
+const MyProposals = ({ requestStatus, proposals, onProposalClick }: IProps) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose }: UseDisclosureProps = useDisclosure();
     const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose }: UseDisclosureProps = useDisclosure();
 

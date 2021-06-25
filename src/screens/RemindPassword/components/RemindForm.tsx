@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -19,7 +18,7 @@ const validationSchema = yup.object().shape({
     email: yup.string().email('Nie prawidłowy adres email').required('To pole jest wymagane'),
 });
 
-const RemindForm: React.FC<IProps> = ({ onSubmit, isFetching = false }) => {
+const RemindForm = ({ onSubmit, isFetching = false }: IProps) => {
     const {
         register,
         handleSubmit,

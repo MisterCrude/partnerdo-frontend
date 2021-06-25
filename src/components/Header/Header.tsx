@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import {
@@ -40,22 +39,11 @@ import {
 import { BRAND_NAME } from '@consts/app';
 import { ROUTES } from '@consts/routes';
 
-interface IProps {
-    hasMessages: boolean;
-    isAuth: boolean;
+interface ProfileMenuItemProps {
     onLogout: () => void;
 }
 
-interface IPropsMessageMenuItem {
-    hasMessages: boolean;
-}
-
-interface IPropsMobileMenu {
-    isAuth: boolean;
-    onLogout: () => void;
-}
-
-export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }) => (
+export const ProfileMenuItem = ({ onLogout }: ProfileMenuItemProps) => (
     <Box as="span">
         <Menu>
             <MenuButton
@@ -88,7 +76,11 @@ export const ProfileMenuItem: React.FC<{ onLogout: () => void }> = ({ onLogout }
     </Box>
 );
 
-export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }) => (
+interface IPropsMessageMenuItem {
+    hasMessages: boolean;
+}
+
+export const MessageMenuItem = ({ hasMessages }: IPropsMessageMenuItem) => (
     <Box as="span" pos="relative">
         <IconButton
             as={RouterLink}
@@ -103,7 +95,12 @@ export const MessageMenuItem: React.FC<IPropsMessageMenuItem> = ({ hasMessages }
     </Box>
 );
 
-export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => {
+interface IPropsMobileMenu {
+    isAuth: boolean;
+    onLogout: () => void;
+}
+
+export const MobileMenu = ({ isAuth, onLogout }: IPropsMobileMenu) => {
     const { isOpen, onOpen, onClose }: UseDisclosureProps = useDisclosure();
 
     return (
@@ -185,7 +182,13 @@ export const MobileMenu: React.FC<IPropsMobileMenu> = ({ isAuth, onLogout }) => 
     );
 };
 
-export const Header: React.FC<IProps> = ({ hasMessages, isAuth, onLogout }) => (
+interface IHeaderProps {
+    hasMessages: boolean;
+    isAuth: boolean;
+    onLogout: () => void;
+}
+
+export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => (
     <Flex
         as="header"
         alignItems="center"

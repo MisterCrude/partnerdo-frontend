@@ -1,4 +1,3 @@
-import React from 'react';
 import { IFiltersData } from '@typing/proposal';
 
 import { Grid } from '@chakra-ui/react';
@@ -17,7 +16,7 @@ interface IProps {
     onClear?: (name: string) => void;
 }
 
-const Filters: React.FC<IProps> = ({
+const Filters = ({
     ageOptions,
     categoryOptions,
     cityOptions,
@@ -26,7 +25,7 @@ const Filters: React.FC<IProps> = ({
     filtersData,
     onChange,
     onClear,
-}) => {
+}: IProps) => {
     const handleClear = onClear;
     const handleChange = onChange;
 

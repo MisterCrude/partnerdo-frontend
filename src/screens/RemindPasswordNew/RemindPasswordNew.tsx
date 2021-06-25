@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { ROUTES } from '@consts/routes';
 
@@ -7,7 +7,7 @@ import { Box, Button, Heading, Text } from '@chakra-ui/react';
 import Main from '@layouts/Main';
 import SetPasswordForm from './components/SetPasswordForm';
 
-export const RemindPasswordNew: React.FC = () => {
+export const RemindPasswordNew = () => {
     const [isSent, setIsSent] = useState(false);
     const isFetching = false;
 

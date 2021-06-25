@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
@@ -15,7 +14,7 @@ import RegisterFrom, { IInputs } from './components/RegisterForm';
 //     history: History;
 // }
 
-export const Register: React.FC = () => {
+export const Register = () => {
     const submitForm = useDispatch(registerProfileAsync);
     const history = useHistory();
     const requestStatus = useSelector(getProfileRequestStatusSelector);

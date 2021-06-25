@@ -1,12 +1,10 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ChakraProvider } from '@chakra-ui/react';
-
-import customTheme from '@theme/customTheme';
 import store from '@store/index';
 import { fetchProfileAsync } from '@slices/profileSlice';
 import { fetchFiltersAsync } from '@slices/filtersSlice';
+
+import Providers from '@src/Providers';
 
 const fetchInitialData = () => {
     localStorage.getItem('token') && store.dispatch(fetchProfileAsync());
@@ -18,13 +16,11 @@ const render = () => {
     const App = require('./App').default;
 
     ReactDOM.render(
-        <React.StrictMode>
-            <ChakraProvider theme={customTheme}>
-                <Provider store={store}>
-                    <App />
-                </Provider>
-            </ChakraProvider>
-        </React.StrictMode>,
+        <StrictMode>
+            <Providers>
+                <App />
+            </Providers>
+        </StrictMode>,
         document.getElementById('root')
     );
 };

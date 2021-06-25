@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Redirect, Switch, useHistory } from 'react-router-dom';
+import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import { getIsAuthSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
 import { useSelector } from 'react-redux';
@@ -74,11 +74,7 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
 const App: React.FC = () => {
     const isAuth = useSelector(getIsAuthSelector);
 
-    return (
-        <BrowserRouter>
-            <RoutesSwitcher isAuth={isAuth} />
-        </BrowserRouter>
-    );
+    return <RoutesSwitcher isAuth={isAuth} />;
 };
 
 export default App;

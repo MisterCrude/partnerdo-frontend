@@ -1,8 +1,9 @@
 import { AVATAR_FALLBACK_URL } from '@consts/app';
+import { getStaticURL } from '@utils/misc';
 
 import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
 import { DeleteIcon, LocationIcon, SmallDangerIcon } from '@theme/customIcons';
-import CardMenu from '@src/components/CardMenu';
+import CardMenu from '@components/CardMenu';
 
 export enum Types {
     DEFAULT = 'default',
@@ -78,7 +79,7 @@ const MessageBox = ({
                         alt={userName}
                         borderRadius={6}
                         objectFit="cover"
-                        src={userAvatarUrl}
+                        src={getStaticURL(userAvatarUrl)}
                         fallbackSrc={AVATAR_FALLBACK_URL}
                     />
                 </AspectRatio>

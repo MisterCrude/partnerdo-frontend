@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import { ACCEPTED_UPLOAD_IMAGE_FORMAT, AVATAR_FALLBACK_URL } from '@consts/app';
 import { useUpdateEffect } from 'react-use';
+import { getStaticURL } from '@utils/misc';
 
 import { Box, AspectRatio, Image, IconButton, Button, Text, Flex } from '@chakra-ui/react';
 import { DeleteIcon, CloseIcon } from '@theme/customIcons';
@@ -56,7 +57,7 @@ const AvatarInput = ({ avatarUrl, onChange }: IProps) => {
     };
 
     const getAvatarPreview = () => {
-        if (isIdle) return avatarUrl;
+        if (isIdle) return getStaticURL(avatarUrl);
         if (isAdded) return avatarFile.fileUrl;
         return '';
     };

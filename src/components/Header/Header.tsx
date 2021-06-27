@@ -1,5 +1,7 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { WSContext } from '@services/WSContext';
 
+import { Link as RouterLink } from 'react-router-dom';
 import {
     Box,
     Button,
@@ -188,82 +190,88 @@ interface IHeaderProps {
     onLogout: () => void;
 }
 
-export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => (
-    <Flex
-        as="header"
-        alignItems="center"
-        justifyContent="space-between"
-        py={{ base: 6, sm: 8 }}
-        px={{ base: 4, sm: 8 }}
-    >
-        <Heading as={RouterLink} to={isAuth ? ROUTES.PROPOSALS : ROUTES.ROOT}>
-            {BRAND_NAME}
-        </Heading>
+export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => {
+    const context = useContext(WSContext);
 
-        <HStack d={{ base: 'none', md: 'flex' }} spacing={isAuth ? 6 : 4}>
-            <HStack spacing={2}>
-                <IconButton
-                    as={RouterLink}
-                    aria-label="faq"
-                    color="gray"
-                    d="flex"
-                    variant="unstyled"
-                    to={ROUTES.FAQ}
-                    icon={<DangerIcon fontSize={28} />}
-                />
-                <IconButton
-                    as={RouterLink}
-                    aria-label="Wyszukiwarka partnerstw"
-                    color="gray"
-                    d="flex"
-                    icon={<SearchIcon fontSize={28} />}
-                    to={ROUTES.PROPOSALS}
-                    variant="unstyled"
-                />
-                {isAuth && (
-                    <>
-                        <MessageMenuItem hasMessages={hasMessages} />
-                        <ProfileMenuItem onLogout={onLogout} />
-                    </>
-                )}
-            </HStack>
-            <HStack spacing={4}>
-                {isAuth ? (
-                    <Button
+    console.log(context);
+
+    return (
+        <Flex
+            as="header"
+            alignItems="center"
+            justifyContent="space-between"
+            py={{ base: 6, sm: 8 }}
+            px={{ base: 4, sm: 8 }}
+        >
+            <Heading as={RouterLink} to={isAuth ? ROUTES.PROPOSALS : ROUTES.ROOT}>
+                {BRAND_NAME}
+            </Heading>
+
+            <HStack d={{ base: 'none', md: 'flex' }} spacing={isAuth ? 6 : 4}>
+                <HStack spacing={2}>
+                    <IconButton
                         as={RouterLink}
-                        to={ROUTES.PROPOSALS_CREATE}
-                        bgColor="gray.800"
-                        color="white"
-                        variant="solid"
-                        rightIcon={<SmallAddIcon />}
-                        _active={{ bgColor: 'gray.800' }}
-                        _hover={{ bgColor: 'gray.600' }}
-                    >
-                        Dodaj partnerstwo
-                    </Button>
-                ) : (
-                    <>
-                        <Button as={RouterLink} to={ROUTES.LOGIN}>
-                            Zaloguj się
-                        </Button>
+                        aria-label="faq"
+                        color="gray"
+                        d="flex"
+                        variant="unstyled"
+                        to={ROUTES.FAQ}
+                        icon={<DangerIcon fontSize={28} />}
+                    />
+                    <IconButton
+                        as={RouterLink}
+                        aria-label="Wyszukiwarka partnerstw"
+                        color="gray"
+                        d="flex"
+                        icon={<SearchIcon fontSize={28} />}
+                        to={ROUTES.PROPOSALS}
+                        variant="unstyled"
+                    />
+                    {isAuth && (
+                        <>
+                            <MessageMenuItem hasMessages={hasMessages} />
+                            <ProfileMenuItem onLogout={onLogout} />
+                        </>
+                    )}
+                </HStack>
+                <HStack spacing={4}>
+                    {isAuth ? (
                         <Button
                             as={RouterLink}
-                            to={ROUTES.REGISTER}
+                            to={ROUTES.PROPOSALS_CREATE}
                             bgColor="gray.800"
                             color="white"
                             variant="solid"
+                            rightIcon={<SmallAddIcon />}
                             _active={{ bgColor: 'gray.800' }}
                             _hover={{ bgColor: 'gray.600' }}
                         >
-                            Zarejestruj się
+                            Dodaj partnerstwo
                         </Button>
-                    </>
-                )}
+                    ) : (
+                        <>
+                            <Button as={RouterLink} to={ROUTES.LOGIN}>
+                                Zaloguj się
+                            </Button>
+                            <Button
+                                as={RouterLink}
+                                to={ROUTES.REGISTER}
+                                bgColor="gray.800"
+                                color="white"
+                                variant="solid"
+                                _active={{ bgColor: 'gray.800' }}
+                                _hover={{ bgColor: 'gray.600' }}
+                            >
+                                Zarejestruj się
+                            </Button>
+                        </>
+                    )}
+                </HStack>
             </HStack>
-        </HStack>
 
-        <Box display={{ base: 'flex', md: 'none' }} alignItems="center">
-            <MobileMenu isAuth={isAuth} onLogout={onLogout} />
-        </Box>
-    </Flex>
-);
+            <Box display={{ base: 'flex', md: 'none' }} alignItems="center">
+                <MobileMenu isAuth={isAuth} onLogout={onLogout} />
+            </Box>
+        </Flex>
+    );
+};

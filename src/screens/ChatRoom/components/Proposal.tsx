@@ -1,4 +1,5 @@
 import { AVATAR_FALLBACK_URL } from '@consts/app';
+import { getStaticURL } from '@utils/misc';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { AspectRatio, Box, Stack, Image, Flex, Heading, Text, Tag } from '@chakra-ui/react';
@@ -33,7 +34,7 @@ const Proposal = ({
                     alt="Jan Baraban"
                     borderRadius={6}
                     objectFit="cover"
-                    src={userAvatarUrl}
+                    src={getStaticURL(userAvatarUrl)}
                     fallbackSrc={AVATAR_FALLBACK_URL}
                 />
             </AspectRatio>

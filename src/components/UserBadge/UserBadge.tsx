@@ -1,4 +1,5 @@
 import { Avatar, Flex, Text, FlexProps } from '@chakra-ui/react';
+import { getStaticURL } from '@utils/misc';
 
 export interface IProps {
     avatarUrl: string;
@@ -11,7 +12,7 @@ export interface IProps {
 export const UserBadge = ({ avatarUrl, title, subtitle, onClick, styles = {} }: IProps) => {
     return (
         <Flex {...styles}>
-            <Avatar src={avatarUrl} />
+            <Avatar src={getStaticURL(avatarUrl)} />
             <Flex ml="3" justify="center" direction="column">
                 <Text
                     d="inline"

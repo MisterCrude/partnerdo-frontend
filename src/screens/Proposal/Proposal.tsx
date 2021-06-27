@@ -13,6 +13,7 @@ import { RequestStatus } from '@typing/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';
 import { useMount, useUnmount } from 'react-use';
 import { toLocaleDateString } from '@utils/convert';
+import { getStaticURL } from '@utils/misc';
 import { getUserName } from '@utils/user';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
@@ -106,7 +107,7 @@ export const Proposal = ({ isAuth = false }: IProps) => {
                                         alt="Avatar"
                                         borderRadius={6}
                                         objectFit="cover"
-                                        src={author.avatar}
+                                        src={getStaticURL(author.avatar)}
                                         fallbackSrc={AVATAR_FALLBACK_URL}
                                     />
                                 </AspectRatio>

@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { each, keys } from 'lodash/fp';
-import { BACKENTD_BASE_URL } from '@consts/api';
+import { BASE_URL } from '@consts/api';
 import { toCamelCase, toSnakeCase } from '@utils/convert';
 
 const instace = axios.create({
-    baseURL: BACKENTD_BASE_URL,
+    baseURL: BASE_URL,
     transformRequest: (data: Record<string, unknown>) => {
         /**
          * Disable deep converting for @toSnakeCase

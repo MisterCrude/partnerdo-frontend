@@ -3,7 +3,7 @@ import { fetchUserAsync, getUserSelector } from '@slices/userSlice';
 import { getUserName } from '@utils/user';
 import { RequestStatus } from '@typing/api';
 import { ROUTES } from '@consts/routes';
-import { truncateStringByWords } from '@utils/misc';
+import { truncateStringByWords, getStaticURL } from '@utils/misc';
 import { toLocaleDateString } from '@utils/convert';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useMount } from 'react-use';
@@ -51,7 +51,7 @@ export const UserProfile = () => {
                                 alt="Awatar żytkownika"
                                 borderRadius={6}
                                 objectFit="cover"
-                                src={userData.avatar}
+                                src={getStaticURL(userData.avatar)}
                                 fallbackSrc={AVATAR_FALLBACK_URL}
                             />
                         </AspectRatio>

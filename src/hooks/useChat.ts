@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChatroomMessage } from '@typing/chat';
-import { WSMessageTypes, WSResponse, WSRequest } from '@typing/api';
+import { WSMessageTypes, IWSMessage } from '@typing/api';
 import { toCamelCase } from '@utils/convert';
 
 const useChat = (chatroomId: string) => {
@@ -16,7 +16,7 @@ const useChat = (chatroomId: string) => {
                 console.log('connected');
             };
             socketRef.current.onmessage = (message) => {
-                const WSMessage = JSON.parse(message.data) as WSResponse;
+                const WSMessage = JSON.parse(message.data) as IWSMessage<ChatroomMessage[]>;
                 const mormalizedResponse = WSMessage.message.map((item) => toCamelCase(item));
 
                 if (WSMessage.type === WSMessageTypes.SEND_CHATROOM_MESSAGES) {
@@ -38,7 +38,7 @@ const useChat = (chatroomId: string) => {
     }, [chatroomId]);
 
     const sendMessage = (message: string) => {
-        const WSMessage: WSRequest = {
+        const WSMessage: IWSMessage<string> = {
             type: WSMessageTypes.SEND_CHATROOM_MESSAGES,
             message,
         };

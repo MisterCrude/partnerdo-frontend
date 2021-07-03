@@ -193,8 +193,6 @@ interface IHeaderProps {
 export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => {
     const context = useContext(WSContext);
 
-    console.log(context);
-
     return (
         <Flex
             as="header"

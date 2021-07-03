@@ -1,5 +1,3 @@
-import { ChatroomMessage } from '@typing/chat';
-
 export type IPaginationResponse<T> = {
     count: number;
     next: string;
@@ -19,17 +17,13 @@ export interface IGenericRemote<T> {
     requestStatus: RequestStatus;
 }
 
-export interface WSResponse {
-    message: ChatroomMessage[];
-    type: WSMessageTypes;
-}
-
-export interface WSRequest {
-    message: string;
+export interface IWSMessage<T = unknown> {
+    message: T;
     type: WSMessageTypes;
 }
 
 export enum WSMessageTypes {
     SEND_CHATROOM_MESSAGES = 'send_chatroom_messages',
+    SEND_CHATROOM_LIST = 'send_chatroom_list',
     NEW_CHATROOM_MESSAGE = 'new_chatroom_message',
 }

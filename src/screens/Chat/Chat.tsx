@@ -1,51 +1,61 @@
-import { Fragment } from 'react';
+import { Fragment, useContext, useState, useEffect } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
-import {
-    fetchPageAsync,
-    getChatroomsPageRequestStatusSelector,
-    getCurrentPageChatroomsSelector,
-    getPagesAmountSelector,
-} from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
 import { getUserName } from '@utils/user';
-import { RequestStatus } from '@typing/api';
+import { WSContext } from '@services/WSContext';
+import { RequestStatus, WSMessageTypes, IPaginationResponse } from '@typing/api';
+import { IChatroom } from '@typing/chat';
+import { getChatroomStatus } from '@utils/chat';
 import { ROUTES } from '@consts/routes';
-import { scrollTop } from '@utils/misc';
-import { toLocaleTimeString } from '@utils/convert';
+// import { scrollTop } from '@utils/misc';
+import { toLocaleTimeString, toCamelCase } from '@utils/convert';
 import { useHistory } from 'react-router';
-import { useMount } from 'react-use';
 import { useSelector } from 'react-redux';
-import useDispatch from '@hooks/useDispatch';
+// import useDispatch from '@hooks/useDispatch';
 
 import { Flex, VStack } from '@chakra-ui/react';
 import Main from '@layouts/Main';
-import Pagination from '@components/Pagination';
+// import Pagination from '@components/Pagination';
 import Breadcrumbs from '@components/Breadcrumbs';
 import MessageBox, { Types } from './components/MessageBox';
 import DateTitle from './components/DateTitle';
 
+type ChatroomPagination = Omit<IPaginationResponse<IChatroom>, 'previous'>;
+
 export const Chat = () => {
+    const { WSMessage, WSConnectStatus, onSendWSMessage } = useContext(WSContext);
+
+    const [chatrooms, setChatrooms] = useState<IChatroom[]>([]);
+
     const history = useHistory();
 
-    const requestStatus = useSelector(getChatroomsPageRequestStatusSelector);
-    const chatrooms = useSelector(getCurrentPageChatroomsSelector);
-    const pagesAmount = useSelector(getPagesAmountSelector);
-    const fetchPage = useDispatch<number>(fetchPageAsync);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const handleUserNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
     const handleTitleClick = (chatroomId: string) => history.push(`${ROUTES.CHAT}/${chatroomId}`);
 
-    const showError = requestStatus === RequestStatus.ERROR;
-    const showContent = requestStatus === RequestStatus.SUCCESS;
-    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
+    const showError = WSConnectStatus === RequestStatus.ERROR;
+    const showContent = WSConnectStatus === RequestStatus.SUCCESS;
+    const showSkeleton = WSConnectStatus === RequestStatus.FETCHING || WSConnectStatus === RequestStatus.IDLE;
 
-    const handleChangePage = (pageNumber: number) => {
-        scrollTop();
-        fetchPage(pageNumber);
-    };
+    // const handleChangePage = (pageNumber: number) => {
+    //     scrollTop();
+    //     fetchPage(pageNumber);
+    // };
 
-    useMount(fetchPage);
+    useEffect(() => {
+        if (WSMessage?.type === WSMessageTypes.SEND_CHATROOM_LIST) {
+            const message = WSMessage?.message as ChatroomPagination;
+            const chatroomList = message.results;
+
+            setChatrooms(
+                chatroomList.map((item) => ({
+                    ...toCamelCase(item),
+                    status: getChatroomStatus(item.status),
+                }))
+            );
+        }
+    }, [WSMessage]);
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -251,9 +261,9 @@ export const Chat = () => {
                     </VStack>
                 </>
             )}
-            <Flex justify="center" mt={10}>
+            {/* <Flex justify="center" mt={10}>
                 <Pagination isFetching={showSkeleton} onChangePage={handleChangePage} pagesAmount={pagesAmount} />
-            </Flex>
+            </Flex> */}
         </Main>
     );
 };

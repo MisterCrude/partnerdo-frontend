@@ -7,7 +7,6 @@ import { ROUTES } from '@consts/routes';
 import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
-// import useChat from '@hooks/useChat';
 import { RequestStatus } from '@typing/api';
 import { IChatroomStatus } from '@typing/chat';
 import {
@@ -31,7 +30,6 @@ export const Chatroom = () => {
     const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
     const [message, setMessage] = useState('');
     const { chatroomId } = useParams<{ chatroomId: string }>();
-    // const { messages, sendMessage } = useChat(chatroomId);
     const history = useHistory();
 
     const chatroomDetails = useSelector(getDetailsDataSelector);

@@ -3,24 +3,21 @@ import { DEFAULT_LOCALE } from '@consts/app';
 import { getProfileDataSelector } from '@slices/profileSlice';
 import { getUserName } from '@utils/user';
 import { WSContext } from '@services/WSContext';
-import { RequestStatus, WSMessageTypes, IPaginationResponse } from '@typing/api';
+import { RequestStatus, WSMessageTypes } from '@typing/api';
 import { IChatroom } from '@typing/chat';
 import { getChatroomStatus } from '@utils/chat';
 import { ROUTES } from '@consts/routes';
 // import { scrollTop } from '@utils/misc';
-import { toLocaleTimeString, toCamelCase } from '@utils/convert';
+import { toLocaleTimeString } from '@utils/convert';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 // import useDispatch from '@hooks/useDispatch';
 
-import { Flex, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import Main from '@layouts/Main';
-// import Pagination from '@components/Pagination';
 import Breadcrumbs from '@components/Breadcrumbs';
 import MessageBox, { Types } from './components/MessageBox';
 import DateTitle from './components/DateTitle';
-
-type ChatroomPagination = Omit<IPaginationResponse<IChatroom>, 'previous'>;
 
 export const Chat = () => {
     const { WSMessage, WSConnectStatus, onSendWSMessage } = useContext(WSContext);
@@ -38,19 +35,13 @@ export const Chat = () => {
     const showContent = WSConnectStatus === RequestStatus.SUCCESS;
     const showSkeleton = WSConnectStatus === RequestStatus.FETCHING || WSConnectStatus === RequestStatus.IDLE;
 
-    // const handleChangePage = (pageNumber: number) => {
-    //     scrollTop();
-    //     fetchPage(pageNumber);
-    // };
-
     useEffect(() => {
-        if (WSMessage?.type === WSMessageTypes.SEND_CHATROOM_LIST) {
-            const message = WSMessage?.message as ChatroomPagination;
-            const chatroomList = message.results;
+        if (WSMessage?.type === WSMessageTypes.CHATROOM_LIST) {
+            const message = WSMessage?.message as IChatroom[];
 
             setChatrooms(
-                chatroomList.map((item) => ({
-                    ...toCamelCase(item),
+                message.map((item) => ({
+                    ...item,
                     status: getChatroomStatus(item.status),
                 }))
             );
@@ -261,9 +252,6 @@ export const Chat = () => {
                     </VStack>
                 </>
             )}
-            {/* <Flex justify="center" mt={10}>
-                <Pagination isFetching={showSkeleton} onChangePage={handleChangePage} pagesAmount={pagesAmount} />
-            </Flex> */}
         </Main>
     );
 };

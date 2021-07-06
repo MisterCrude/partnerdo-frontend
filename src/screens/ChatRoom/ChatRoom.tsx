@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useContext, ChangeEvent } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -7,17 +7,17 @@ import { ROUTES } from '@consts/routes';
 import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
-import { RequestStatus } from '@typing/api';
+import { RequestStatus, WSMessageTypes } from '@typing/api';
 import { IChatroomStatus } from '@typing/chat';
 import {
     fetchDetailsAsync,
     changeChatroomStatusAsync,
     getDetailsDataSelector,
     getDetailsRequestStatusSelector,
-    // getChangeChatroomStatusRequestStatusSelector,
     resetDetails as reset,
 } from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
+import { WSContext } from '@services/WSContext';
 
 import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
@@ -31,10 +31,10 @@ export const Chatroom = () => {
     const [message, setMessage] = useState('');
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
+    const { WSMessage, onSendWSMessage } = useContext(WSContext);
 
     const chatroomDetails = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
-    // const chatroomStatusRequestStatus = useSelector(getChangeChatroomStatusRequestStatusSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
@@ -62,10 +62,12 @@ export const Chatroom = () => {
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
-    const handleChange = () => {
-        // sendMessage(message);
+    const handleSendMessage = () => {
+        onSendWSMessage?.({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message });
         setMessage('');
     };
+
+    const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
 
     const handleBack = () => {
         history.goBack();
@@ -86,6 +88,8 @@ export const Chatroom = () => {
     };
 
     useMount(() => {
+        onSendWSMessage?.({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId });
+
         fetchDetails(chatroomId);
     });
 
@@ -183,7 +187,7 @@ export const Chatroom = () => {
                                 mb={8}
                                 placeholder="Wpisz swoją wiadomość"
                                 value={message}
-                                onChange={(event) => setMessage(event.target.value)}
+                                onChange={handleChangeMessage}
                             />
                         )}
 
@@ -222,7 +226,7 @@ export const Chatroom = () => {
                                     disabled={!message.length}
                                     flexGrow={{ base: 1, md: 0 }}
                                     ml={4}
-                                    onClick={handleChange}
+                                    onClick={handleSendMessage}
                                 >
                                     Wyślij
                                 </Button>

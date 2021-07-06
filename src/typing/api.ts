@@ -18,12 +18,13 @@ export interface IGenericRemote<T> {
 }
 
 export interface IWSMessage<T = unknown> {
-    message: T;
     type: WSMessageTypes;
+    message?: T;
 }
 
 export enum WSMessageTypes {
-    SEND_CHATROOM_MESSAGES = 'send_chatroom_messages',
-    SEND_CHATROOM_LIST = 'send_chatroom_list',
+    CONNECT_TO_CHATROOM = 'connect_to_chatroom',
     NEW_CHATROOM_MESSAGE = 'new_chatroom_message',
+    CHATROOM_LIST = 'chatroom_list',
+    CHATROOM_MESSAGE_LIST = 'chatroom_message_list',
 }

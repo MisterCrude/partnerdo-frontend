@@ -169,11 +169,11 @@ export const fetchDetailsAsync = (chatroomId: string): AppThunk => async (dispat
     dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
 
     try {
-        const { data: chatroomDetails }: { data: IChatroomResponse } = await apiService.get(
-            `${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}`
-        );
+        // const { data: chatroomDetails }: { data: IChatroomResponse } = await apiService.get(
+        //     `${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}`
+        // );
 
-        dispatch(setDetails(chatroomDetails));
+        // dispatch(setDetails(chatroomDetails));
         dispatch(setDetailsRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         dispatch(resetDetails());

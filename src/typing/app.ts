@@ -1,9 +1,9 @@
-export type TStatuses = 'info' | 'warning' | 'success' | 'error';
+export type ToastStatuses = 'info' | 'warning' | 'success' | 'error';
 
-export type TPosition = 'bottom-right' | 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-left';
+export type ToastPosition = 'bottom-right' | 'top' | 'top-right' | 'top-left' | 'bottom' | 'bottom-left';
 
 export interface IToast {
-    status: TStatuses;
+    status: ToastStatuses;
     title: string;
     message: string;
     timestamp: number;

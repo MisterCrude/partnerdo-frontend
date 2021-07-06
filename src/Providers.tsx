@@ -4,7 +4,6 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 import store from '@store/index';
 import customTheme from '@theme/customTheme';
-import { WSContextProvider } from '@services/WSContext';
 
 interface IProps {
     children: ReactNode;
@@ -14,9 +13,7 @@ const Providers = ({ children }: IProps) => {
     return (
         <ChakraProvider theme={customTheme}>
             <Provider store={store}>
-                <WSContextProvider>
-                    <BrowserRouter>{children}</BrowserRouter>
-                </WSContextProvider>
+                <BrowserRouter>{children}</BrowserRouter>
             </Provider>
         </ChakraProvider>
     );

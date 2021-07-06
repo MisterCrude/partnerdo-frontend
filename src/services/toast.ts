@@ -1,8 +1,8 @@
-import { IToast, TPosition } from '@typing/app';
+import { IToast, ToastPosition } from '@typing/app';
 import { createStandaloneToast } from '@chakra-ui/react';
 import { TOAST_DURATION } from '@consts/app';
 
-const toast = (duration?: number | undefined, position?: TPosition | undefined) => {
+const toast = (duration?: number | undefined, position?: ToastPosition | undefined) => {
     const toast = createStandaloneToast();
 
     return ({ status, title, message }: Omit<IToast, 'timestamp'>) =>

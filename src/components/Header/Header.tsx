@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-import { WSContext } from '@services/WSContext';
-
 import { Link as RouterLink } from 'react-router-dom';
 import {
     Box,
@@ -191,8 +188,6 @@ interface IHeaderProps {
 }
 
 export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => {
-    const context = useContext(WSContext);
-
     return (
         <Flex
             as="header"

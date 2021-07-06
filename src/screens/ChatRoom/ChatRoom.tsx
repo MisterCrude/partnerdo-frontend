@@ -1,4 +1,4 @@
-import { useMemo, useState, useContext, ChangeEvent } from 'react';
+import { useMemo, useState } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { ROUTES } from '@consts/routes';
 import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
-import { RequestStatus, WSMessageTypes } from '@typing/api';
+import { RequestStatus } from '@typing/api';
 import { IChatroomStatus } from '@typing/chat';
 import {
     fetchDetailsAsync,
@@ -17,7 +17,6 @@ import {
     resetDetails as reset,
 } from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
-import { WSContext } from '@services/WSContext';
 
 import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
@@ -31,7 +30,6 @@ export const Chatroom = () => {
     const [message, setMessage] = useState('');
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
-    const { WSMessage, onSendWSMessage } = useContext(WSContext);
 
     const chatroomDetails = useSelector(getDetailsDataSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
@@ -63,11 +61,10 @@ export const Chatroom = () => {
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
     const handleSendMessage = () => {
-        onSendWSMessage?.({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message });
         setMessage('');
     };
 
-    const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
+    const handleChangeMessage = () => null;
 
     const handleBack = () => {
         history.goBack();
@@ -88,8 +85,6 @@ export const Chatroom = () => {
     };
 
     useMount(() => {
-        onSendWSMessage?.({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId });
-
         fetchDetails(chatroomId);
     });
 

@@ -3,7 +3,7 @@ import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
 import { getIsAuthSelector } from '@slices/profileSlice';
 import { ROUTES } from '@consts/routes';
 import { useSelector } from 'react-redux';
-import GuardedRoute from '@services/GuardeRoute';
+import GuardedRoute from '@services/guardeRoute';
 
 import Browser from '@screens/Browser';
 import Chatroom from '@screens/Chatroom';

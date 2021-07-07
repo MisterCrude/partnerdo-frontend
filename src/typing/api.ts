@@ -28,3 +28,10 @@ export enum WSMessageTypes {
     CHATROOM_LIST = 'chatroom_list',
     CHATROOM_MESSAGE_LIST = 'chatroom_message_list',
 }
+
+export enum WSReadyState {
+    CONNECTING,
+    OPEN,
+    CLOSING,
+    CLOSED,
+}

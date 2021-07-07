@@ -1,5 +1,5 @@
-export const BASE_URL = process.env.REACT_APP_BASE_URL;
-export const STATIC_FILTES_URL = process.env.REACT_APP_STATIC_FILTES_URL;
+export const BASE_URL = process.env.REACT_APP_BASE_URL as string;
+export const STATIC_FILTES_URL = process.env.REACT_APP_STATIC_FILTES_URL as string;
 
 export const BACKEND_ROUTING = {
     AUTH: {

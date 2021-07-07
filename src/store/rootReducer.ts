@@ -8,9 +8,9 @@ import userReducer from '@slices/userSlice';
 import chatroomsReducer from '@slices/chatroomsSlice';
 
 const rootReducer = combineReducers({
+    profile: profileReducer,
     chatrooms: chatroomsReducer,
     filters: filtersReducer,
-    profile: profileReducer,
     proposal: proposalReducer,
     user: userReducer,
 });

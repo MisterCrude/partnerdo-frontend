@@ -44,7 +44,7 @@ const profileSlice = createSlice({
          *  Profile
          */
         // TODO fix
-        setProfileRequestStatu(state, { payload }: PayloadAction<RequestStatus>) {
+        setProfileRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.userProfile.requestStatus = payload;
         },
         removeProfile(state) {
@@ -87,7 +87,7 @@ const profileSlice = createSlice({
 export const {
     setProfile,
     removeProfile,
-    setProfileRequestStatu,
+    setProfileRequestStatus,
     setProfileProposalsRequestStatus,
     setProfileProposalsUpdateRequestStatus,
     setProfileProposals,
@@ -140,7 +140,7 @@ export interface IProposalUpdate {
 export const loginProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
 
     try {
         const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
@@ -162,7 +162,7 @@ export const loginProfileAsync = ({ credentials, history }: IProfileParams): App
             title: 'Logowanie',
             message: `${capitalize(profileData.username)}, witamy w naszym serwisie ponownie`,
         });
-        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -172,14 +172,14 @@ export const loginProfileAsync = ({ credentials, history }: IProfileParams): App
         console.error('Login error:', error);
 
         dispatch(removeProfile());
-        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
     }
 };
 
 export const registerProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
     dispatch: AppDispatch
 ) => {
-    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
 
     try {
         const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
@@ -201,7 +201,7 @@ export const registerProfileAsync = ({ credentials, history }: IProfileParams): 
             title: 'Rejestracja',
             message: `${capitalize(profileData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
         });
-        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -210,7 +210,7 @@ export const registerProfileAsync = ({ credentials, history }: IProfileParams): 
         });
 
         dispatch(removeProfile());
-        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
     }
 };
 
@@ -222,13 +222,13 @@ export const logoutProfileAsync = (history: History): AppThunk => (dispatch: App
 };
 
 export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
 
     try {
         const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE);
 
         dispatch(setProfile(profileData));
-        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         localStorage.removeItem('token');
 
@@ -239,7 +239,7 @@ export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) =
         });
 
         dispatch(removeProfile());
-        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
     }
 };
 
@@ -267,7 +267,7 @@ export const fetchProfileProposalsAsync = (authorId: string): AppThunk => async 
 };
 
 export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setProfileRequestStatu(RequestStatus.FETCHING));
+    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
 
     const avatar = get(['avatar'], updatedData);
     const normalizedUpdatedData = omit(['avatar'], updatedData);
@@ -297,7 +297,7 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
             title: 'Profil uzytkownika',
             message: 'Dane zostały zapisane',
         });
-        dispatch(setProfileRequestStatu(RequestStatus.SUCCESS));
+        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
     } catch (error) {
         storeToast({
             status: 'error',
@@ -305,7 +305,7 @@ export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => asy
             message: 'Nie udało się zapisać dane',
         });
 
-        dispatch(setProfileRequestStatu(RequestStatus.ERROR));
+        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
     }
 };
 

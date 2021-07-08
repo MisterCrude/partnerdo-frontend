@@ -1,25 +1,17 @@
 import { Fragment } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
-import {
-    fetchPageAsync,
-    getChatroomsPageRequestStatusSelector,
-    getCurrentPageChatroomsSelector,
-    getPagesAmountSelector,
-} from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
 import { getUserName } from '@utils/user';
 import { RequestStatus } from '@typing/api';
+import { getChatroomListRequestStatusMapSelector, getChatroomListSelector } from '@slices/chatroomsSlice';
 import { ROUTES } from '@consts/routes';
-import { scrollTop } from '@utils/misc';
 import { toLocaleTimeString } from '@utils/convert';
 import { useHistory } from 'react-router';
-import { useMount } from 'react-use';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
 
-import { Flex, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import Main from '@layouts/Main';
-import Pagination from '@components/Pagination';
 import Breadcrumbs from '@components/Breadcrumbs';
 import MessageBox, { Types } from './components/MessageBox';
 import DateTitle from './components/DateTitle';
@@ -27,10 +19,8 @@ import DateTitle from './components/DateTitle';
 export const Chat = () => {
     const history = useHistory();
 
-    const requestStatus = useSelector(getChatroomsPageRequestStatusSelector);
-    const chatrooms = useSelector(getCurrentPageChatroomsSelector);
-    const pagesAmount = useSelector(getPagesAmountSelector);
-    const fetchPage = useDispatch<number>(fetchPageAsync);
+    const requestStatus = useSelector(getChatroomListRequestStatusMapSelector);
+    const chatroomList = useSelector(getChatroomListSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
     const handleUserNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
@@ -39,13 +29,6 @@ export const Chat = () => {
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
-
-    const handleChangePage = (pageNumber: number) => {
-        scrollTop();
-        fetchPage(pageNumber);
-    };
-
-    useMount(fetchPage);
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>
@@ -57,7 +40,7 @@ export const Chat = () => {
                 <>
                     {/* TODO move it to Results component like in Browser.tsx */}
                     <VStack align="stretch" spacing={{ base: 4, md: 8 }}>
-                        {chatrooms.map(
+                        {/* {chatroomList.map(
                             (
                                 {
                                     id,
@@ -83,7 +66,7 @@ export const Chat = () => {
                             ) => (
                                 <Fragment key={id}>
                                     <DateTitle
-                                        prevCreatedDate={chatrooms[index - 1]?.created}
+                                        prevCreatedDate={chatroomList[index - 1]?.created}
                                         currentCreatedDate={created}
                                     />
 
@@ -122,7 +105,7 @@ export const Chat = () => {
                                     )}
                                 </Fragment>
                             )
-                        )}
+                        )} */}
                         {/* <MessageBox
                     address=""
                     lastMessageTime=""
@@ -251,9 +234,6 @@ export const Chat = () => {
                     </VStack>
                 </>
             )}
-            <Flex justify="center" mt={10}>
-                <Pagination isFetching={showSkeleton} onChangePage={handleChangePage} pagesAmount={pagesAmount} />
-            </Flex>
         </Main>
     );
 };

@@ -12,7 +12,7 @@ import { IChatroomStatus } from '@typing/chat';
 import {
     fetchDetailsAsync,
     changeChatroomStatusAsync,
-    getDetailsDataSelector,
+    getDetailsSelector,
     getDetailsRequestStatusSelector,
     resetDetails as reset,
 } from '@slices/chatroomsSlice';
@@ -31,7 +31,7 @@ export const Chatroom = () => {
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
 
-    const chatroomDetails = useSelector(getDetailsDataSelector);
+    const chatroomDetails = useSelector(getDetailsSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
 

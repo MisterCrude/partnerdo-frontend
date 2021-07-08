@@ -11,12 +11,12 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
     return (next) => async (action: AnyAction) => {
         next(action);
 
-        console.log(action);
-
         switch (action.type) {
             case 'profile/setProfile':
                 try {
                     const connectStatus = await socket.connect();
+
+                    socket.on((message: any) => console.log(message));
 
                     // receive chatroom list
 

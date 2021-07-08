@@ -39,12 +39,12 @@ class SocketClient {
         });
     }
 
-    // on(message: IWSMessage) {
-    //     return new Promise((resolve, reject) => {
-    //         console.log(message);
-    //         resolve('');
-    //     });
-    // }
+    on(callback: (message: string) => void) {
+        SocketClient.socket.onmessage = (messageEvent: MessageEvent<string>) => {
+            const message = JSON.parse(messageEvent.data);
+            callback(message);
+        };
+    }
 }
 
 export default SocketClient;

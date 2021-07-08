@@ -11,6 +11,8 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
     return (next) => async (action: AnyAction) => {
         next(action);
 
+        console.log(action);
+
         switch (action.type) {
             case 'profile/setProfile':
                 try {
@@ -32,6 +34,15 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 } catch (error) {
                     console.log('WebSocket disconnection error');
                 }
+                break;
+
+            case 'test_ws':
+                try {
+                    await socket.sendMessage(action.payload);
+                } catch (error) {
+                    console.log('test_ws');
+                }
+                break;
         }
     };
 };

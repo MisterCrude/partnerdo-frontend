@@ -1,4 +1,4 @@
-import { WSMessageTypes } from '@typing/api';
+import { IWSMessage } from '@typing/api';
 
 class SocketClient {
     static socket: WebSocket;
@@ -28,22 +28,23 @@ class SocketClient {
         });
     }
 
-    sendMessage<T>(msg: T) {
+    sendMessage<T extends unknown>(message: IWSMessage<T>) {
         return new Promise((resolve, reject) => {
-            const message = JSON.stringify(msg);
+            const stringifyMsg = JSON.stringify(message);
 
-            SocketClient.socket.send(message);
+            SocketClient.socket.send(stringifyMsg);
 
             SocketClient.socket.onerror = () => reject();
             resolve(message);
         });
     }
 
-    on(messageType: WSMessageTypes, callback: () => void) {
-        return new Promise((resolve, reject) => {
-            resolve('');
-        });
-    }
+    // on(message: IWSMessage) {
+    //     return new Promise((resolve, reject) => {
+    //         console.log(message);
+    //         resolve('');
+    //     });
+    // }
 }
 
 export default SocketClient;

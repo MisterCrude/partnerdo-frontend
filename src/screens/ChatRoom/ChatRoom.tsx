@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { ROUTES } from '@consts/routes';
 import { toLocaleDateString, toLocaleTimeString } from '@utils/convert';
 import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
-import { RequestStatus } from '@typing/api';
+import { RequestStatus, WSMessageTypes, IWSMessage } from '@typing/api';
 import { IChatroomStatus } from '@typing/chat';
 import {
     fetchDetailsAsync,
@@ -60,11 +60,13 @@ export const Chatroom = () => {
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
+    const testDispatch = useDispatch((msg: IWSMessage) => ({ type: 'test_ws', payload: msg }));
     const handleSendMessage = () => {
         setMessage('');
+        testDispatch({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: 'sdsd ' });
     };
 
-    const handleChangeMessage = () => null;
+    const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
 
     const handleBack = () => {
         history.goBack();

@@ -5,10 +5,7 @@ import { getChatroomStatus } from '@utils/chat';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
 import { IChatroomStatus } from '@typing/chat';
-import { keys } from 'lodash/fp';
-import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 import { RootState, storeToast } from '@store/rootReducer';
-import { toDict } from '@utils/convert';
 import apiService from '@services/apiService';
 import { getProfileDataSelector } from './profileSlice';
 

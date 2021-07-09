@@ -1,4 +1,5 @@
 import { IWSMessage } from '@typing/api';
+import { toCamelCase } from '@utils/convert';
 
 class SocketClient {
     static socket: WebSocket;
@@ -42,7 +43,7 @@ class SocketClient {
     on<T>(callback: (message: IWSMessage<T>) => void) {
         SocketClient.socket.onmessage = (messageEvent: MessageEvent<string>) => {
             const message = JSON.parse(messageEvent.data);
-            callback(message);
+            callback(toCamelCase(message));
         };
     }
 }

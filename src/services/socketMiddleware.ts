@@ -1,7 +1,6 @@
 import { Middleware, AnyAction } from 'redux';
 import { RootState } from '@src/store/rootReducer';
-import { WSReadyState, WSMessageTypes, IWSMessage } from '@typing/api';
-import { setChatroomList } from '@slices/chatroomsSlice';
+import { WSReadyState, WSMessageTypes, IWSMessage, RequestStatus } from '@typing/api';
 import { BASE_URL } from '@consts/api';
 
 import SocketClient from '@services/socketClient';
@@ -9,6 +8,7 @@ import { IChatroom } from '@typing/chat';
 
 const socket = new SocketClient(BASE_URL);
 
+// TODO: import all action creators from chatroomSlice
 export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = ({ dispatch }) => {
     return (next) => async (action: AnyAction) => {
         next(action);
@@ -19,9 +19,19 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                     const connectStatus = await socket.connect();
 
                     socket.on<IChatroom[] | unknown>((message: IWSMessage<IChatroom[] | unknown>) => {
+                        dispatch({
+                            type: 'chatrooms/setChatroomListRequestStatus',
+                            payload: RequestStatus.FETCHING,
+                        });
+
                         if (message.type === WSMessageTypes.CHATROOM_LIST) {
-                            dispatch(setChatroomList(message.message as IChatroom[]));
+                            dispatch({ type: 'chatrooms/setChatroomList', payload: message.message as IChatroom[] });
                         }
+
+                        dispatch({
+                            type: 'chatrooms/setChatroomListRequestStatus',
+                            payload: RequestStatus.SUCCESS,
+                        });
                     });
 
                     console.log(WSReadyState[connectStatus as number]);

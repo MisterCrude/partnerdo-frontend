@@ -17,7 +17,7 @@ export interface IGenericRemote<T> {
     requestStatus: RequestStatus;
 }
 
-export interface IWSMessage<T = unknown> {
+export interface IWSMessage<T> {
     type: WSMessageTypes;
     message?: T;
 }

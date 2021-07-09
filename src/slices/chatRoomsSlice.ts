@@ -1,6 +1,6 @@
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getChatroomStatus } from '@utils/chat';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
@@ -46,11 +46,17 @@ const chatroomsSlice = createSlice({
     name: 'chatrooms',
     initialState,
     reducers: {
-        setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
-            state.details.requestStatus = payload;
+        setChatroomList(state, { payload }: PayloadAction<IChatroom[]>) {
+            state.chatroomList.data = payload;
+        },
+        setChatroomListRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.chatroomList.requestStatus = payload;
         },
         setDetails(state, { payload: chatroomDetails }: PayloadAction<IChatroomResponse>) {
             state.details.data = { ...chatroomDetails, status: getChatroomStatus(chatroomDetails.status) };
+        },
+        setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.details.requestStatus = payload;
         },
         resetDetails(state) {
             state.details.data = {} as IChatroom;
@@ -69,6 +75,8 @@ const chatroomsSlice = createSlice({
  * Sync actions
  */
 export const {
+    setChatroomList,
+    setChatroomListRequestStatus,
     resetDetails,
     setDetails,
     setDetailsRequestStatus,

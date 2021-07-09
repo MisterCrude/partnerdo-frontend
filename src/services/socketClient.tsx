@@ -33,13 +33,13 @@ class SocketClient {
             const stringifyMsg = JSON.stringify(message);
 
             SocketClient.socket.send(stringifyMsg);
-
             SocketClient.socket.onerror = () => reject();
+
             resolve(message);
         });
     }
 
-    on(callback: (message: string) => void) {
+    on<T>(callback: (message: IWSMessage<T>) => void) {
         SocketClient.socket.onmessage = (messageEvent: MessageEvent<string>) => {
             const message = JSON.parse(messageEvent.data);
             callback(message);

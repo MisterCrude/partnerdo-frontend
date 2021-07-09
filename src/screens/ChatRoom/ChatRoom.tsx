@@ -60,7 +60,7 @@ export const Chatroom = () => {
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
-    const testDispatch = useDispatch((msg: IWSMessage) => ({ type: 'test_ws', payload: msg }));
+    const testDispatch = useDispatch((message: IWSMessage<unknown>) => ({ type: 'test_ws', payload: message }));
     const handleSendMessage = () => {
         setMessage('');
         testDispatch({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: 'sdsd ' });

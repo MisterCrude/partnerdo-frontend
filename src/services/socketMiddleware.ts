@@ -1,9 +1,11 @@
 import { Middleware, AnyAction } from 'redux';
 import { RootState } from '@src/store/rootReducer';
-import { WSReadyState } from '@typing/api';
+import { WSReadyState, WSMessageTypes, IWSMessage } from '@typing/api';
+import { setChatroomList } from '@slices/chatroomsSlice';
 import { BASE_URL } from '@consts/api';
 
 import SocketClient from '@services/socketClient';
+import { IChatroom } from '@typing/chat';
 
 const socket = new SocketClient(BASE_URL);
 
@@ -16,9 +18,11 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 try {
                     const connectStatus = await socket.connect();
 
-                    socket.on((message: any) => console.log(message));
-
-                    // receive chatroom list
+                    socket.on<IChatroom[] | unknown>((message: IWSMessage<IChatroom[] | unknown>) => {
+                        if (message.type === WSMessageTypes.CHATROOM_LIST) {
+                            dispatch(setChatroomList(message.message as IChatroom[]));
+                        }
+                    });
 
                     console.log(WSReadyState[connectStatus as number]);
                 } catch (error) {

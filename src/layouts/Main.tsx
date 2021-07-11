@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import { getIsAuthSelector, logoutProfileAsync } from '@slices/profileSlice';
+import { getHasNewMessageSelector } from '@slices/chatroomsSlice';
 import useDispatch from '@hooks/useDispatch';
 
 import { BoxProps, Container, Flex } from '@chakra-ui/react';
@@ -9,11 +10,10 @@ import Footer from '@components/Footer';
 import Header from '@components/Header';
 import ToolsBar from '@components/ToolsBar';
 
-const hasMessages = true;
-
 export const Main = (props: BoxProps) => {
     const history = useHistory();
     const isAuth = useSelector(getIsAuthSelector);
+    const hasMessages = useSelector(getHasNewMessageSelector);
     const logout = useDispatch<History>(logoutProfileAsync);
     const children = props.children;
 

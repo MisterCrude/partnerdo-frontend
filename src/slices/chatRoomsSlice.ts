@@ -16,6 +16,7 @@ export interface IChatroomDetails {
 }
 
 export interface IChatroomsState {
+    hasNewMessage: boolean;
     createChatroomRequestStatus: RequestStatus;
     chageChatroomStatusRequestStatus: RequestStatus;
     details: IGenericRemote<IChatroom>;
@@ -23,6 +24,7 @@ export interface IChatroomsState {
 }
 
 const initialState: IChatroomsState = {
+    hasNewMessage: false,
     createChatroomRequestStatus: RequestStatus.IDLE,
     chageChatroomStatusRequestStatus: RequestStatus.IDLE,
     details: {
@@ -65,6 +67,9 @@ const chatroomsSlice = createSlice({
         setChatroomCreateStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.createChatroomRequestStatus = payload;
         },
+        setHasNewMessage(state, { payload }: PayloadAction<boolean>) {
+            state.hasNewMessage = payload;
+        },
     },
 });
 
@@ -72,6 +77,7 @@ const chatroomsSlice = createSlice({
  * Sync actions
  */
 export const {
+    setHasNewMessage,
     setChatroomList,
     setChatroomListRequestStatus,
     resetDetails,
@@ -188,6 +194,8 @@ export const changeChatroomStatusAsync = ({
  */
 export const getChatroomListSelector = (state: RootState) => state.chatrooms.chatroomList.data;
 export const getChatroomListRequestStatusMapSelector = (state: RootState) => state.chatrooms.chatroomList.requestStatus;
+
+export const getHasNewMessageSelector = (state: RootState) => state.chatrooms.hasNewMessage;
 
 export const getDetailsRequestStatusSelector = (state: RootState) => state.chatrooms.details.requestStatus;
 export const getDetailsSelector = (state: RootState) => state.chatrooms.details.data;

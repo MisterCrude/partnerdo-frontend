@@ -60,10 +60,14 @@ export const Chatroom = () => {
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
-    const testDispatch = useDispatch((message: IWSMessage<unknown>) => ({ type: 'test_ws', payload: message }));
+    const sendChatroomMessage = useDispatch((message: IWSMessage<unknown>) => ({
+        type: WSMessageTypes.NEW_CHATROOM_MESSAGE,
+        payload: message,
+    }));
+
     const handleSendMessage = () => {
         setMessage('');
-        testDispatch({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: 'sdsd ' });
+        sendChatroomMessage({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: 'sdsd' });
     };
 
     const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);

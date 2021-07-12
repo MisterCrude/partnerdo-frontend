@@ -26,7 +26,7 @@ export const objCaseSwitcher = (caseSwitcher: typeof camelCase | typeof snakeCas
 };
 
 export const toCamelCase = objCaseSwitcher(camelCase);
-export const toSnakeCase = objCaseSwitcher(snakeCase, false);
+export const toSnakeCase = objCaseSwitcher(snakeCase);
 
 export const toDict = <T extends Record<string, any>>(dict: Array<T>, keyField: string) =>
     dict.reduce((acc: Record<string, T>, curr: T) => ({ ...acc, [curr[keyField]]: curr }), {} as Record<string, T>);

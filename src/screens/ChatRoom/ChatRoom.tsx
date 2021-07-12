@@ -14,7 +14,10 @@ import {
     changeChatroomStatusAsync,
     getDetailsSelector,
     getDetailsRequestStatusSelector,
+    getChatroomMessageListSelector,
+    getChatroomMessageListRequestStatusSelector,
     resetDetails as reset,
+    resetChatroomMessageList as resetMessageList,
 } from '@slices/chatroomsSlice';
 import { getProfileDataSelector } from '@slices/profileSlice';
 
@@ -32,6 +35,8 @@ export const Chatroom = () => {
     const history = useHistory();
 
     const chatroomDetails = useSelector(getDetailsSelector);
+    const messageList = useSelector(getChatroomMessageListSelector);
+    const messageListRequestStatus = useSelector(getChatroomMessageListRequestStatusSelector);
     const requestStatus = useSelector(getDetailsRequestStatusSelector);
     const { id: profileId } = useSelector(getProfileDataSelector);
 
@@ -40,7 +45,16 @@ export const Chatroom = () => {
         chatroomId: string;
         status: IChatroomStatus;
     }>(changeChatroomStatusAsync);
+    const sendChatroomMessage = useDispatch((message: IWSMessage<{ text: string; chatroomId: string }>) => ({
+        type: WSMessageTypes.NEW_CHATROOM_MESSAGE,
+        payload: message,
+    }));
+    const connectToChatroom = useDispatch((message: IWSMessage<string>) => ({
+        type: WSMessageTypes.CONNECT_TO_CHATROOM,
+        payload: message,
+    }));
     const resetDetails = useDispatch(reset);
+    const resetChatroomMessageList = useDispatch(resetMessageList);
 
     const {
         proposalAuthor,
@@ -60,14 +74,14 @@ export const Chatroom = () => {
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
-    const sendChatroomMessage = useDispatch((message: IWSMessage<unknown>) => ({
-        type: WSMessageTypes.NEW_CHATROOM_MESSAGE,
-        payload: message,
-    }));
+    const isMessageListLoading =
+        (messageListRequestStatus === RequestStatus.FETCHING || messageListRequestStatus === RequestStatus.IDLE) &&
+        isApproved;
+    const isMessageListLoaded = messageListRequestStatus === RequestStatus.SUCCESS && isApproved;
 
     const handleSendMessage = () => {
         setMessage('');
-        sendChatroomMessage({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: 'sdsd' });
+        sendChatroomMessage({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: { text: message, chatroomId } });
     };
 
     const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
@@ -92,13 +106,18 @@ export const Chatroom = () => {
 
     useMount(() => {
         fetchDetails(chatroomId);
+        // TODO setTimeout
+        setTimeout(() => connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId }), 1000);
     });
 
     useUpdateEffect(() => {
         setChatroomStatus(status);
     }, [status]);
 
-    useUnmount(resetDetails);
+    useUnmount(() => {
+        resetDetails();
+        resetChatroomMessageList();
+    });
 
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
@@ -153,22 +172,24 @@ export const Chatroom = () => {
                                     )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
                                 />
                             )}
-                            {/* {messages.map(({ id, content, author, created }) => (
-                                <Message
-                                    key={id}
-                                    onApprove={handleAccept}
-                                    author={
-                                        profileId !== author.id
-                                            ? getUserName(author.firstName, author.lastName, author.username)
-                                            : undefined
-                                    }
-                                    message={content}
-                                    sentTime={`${toLocaleTimeString(created, DEFAULT_LOCALE)}, ${toLocaleDateString(
-                                        created,
-                                        DEFAULT_LOCALE
-                                    )}`}
-                                />
-                            ))} */}
+                            {isMessageListLoading && <>Fetching messages list...</>}
+                            {isMessageListLoaded &&
+                                messageList.map(({ id, content, author, created }) => (
+                                    <Message
+                                        key={id}
+                                        onApprove={handleAccept}
+                                        author={
+                                            profileId !== author.id
+                                                ? getUserName(author.firstName, author.lastName, author.username)
+                                                : undefined
+                                        }
+                                        message={content}
+                                        sentTime={`${toLocaleTimeString(created, DEFAULT_LOCALE)}, ${toLocaleDateString(
+                                            created,
+                                            DEFAULT_LOCALE
+                                        )}`}
+                                    />
+                                ))}
                         </VStack>
                     </Box>
 

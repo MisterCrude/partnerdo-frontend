@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getChatroomStatus } from '@utils/chat';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
-import { IChatroomStatus } from '@typing/chat';
+import { IChatroomStatus, ChatroomMessage } from '@typing/chat';
 import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 import { getProfileDataSelector } from './profileSlice';
@@ -20,6 +20,7 @@ export interface IChatroomsState {
     createChatroomRequestStatus: RequestStatus;
     chageChatroomStatusRequestStatus: RequestStatus;
     details: IGenericRemote<IChatroom>;
+    chatroomMessageList: IGenericRemote<ChatroomMessage[]>;
     chatroomList: IGenericRemote<IChatroom[]>;
 }
 
@@ -32,6 +33,10 @@ const initialState: IChatroomsState = {
         data: {} as IChatroom,
     },
     chatroomList: {
+        requestStatus: RequestStatus.IDLE,
+        data: [],
+    },
+    chatroomMessageList: {
         requestStatus: RequestStatus.IDLE,
         data: [],
     },
@@ -61,6 +66,17 @@ const chatroomsSlice = createSlice({
             state.details.data = {} as IChatroom;
             state.details.requestStatus = RequestStatus.IDLE;
         },
+        setChatroomMessageList(state, { payload }: PayloadAction<ChatroomMessage[]>) {
+            state.chatroomMessageList.data = payload;
+            state.chatroomMessageList.requestStatus = RequestStatus.IDLE;
+        },
+        setChatroomMessageListRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
+            state.chatroomMessageList.requestStatus = payload;
+        },
+        resetChatroomMessageList(state) {
+            state.chatroomMessageList.data = [];
+            state.chatroomMessageList.requestStatus = RequestStatus.IDLE;
+        },
         setChangeChatroomStatusRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.chageChatroomStatusRequestStatus = payload;
         },
@@ -77,14 +93,17 @@ const chatroomsSlice = createSlice({
  * Sync actions
  */
 export const {
-    setHasNewMessage,
+    resetChatroomMessageList,
+    resetDetails,
+    setChangeChatroomStatusRequestStatus,
+    setChatroomCreateStatus,
     setChatroomList,
     setChatroomListRequestStatus,
-    resetDetails,
+    setChatroomMessageList,
+    setChatroomMessageListRequestStatus,
     setDetails,
     setDetailsRequestStatus,
-    setChatroomCreateStatus,
-    setChangeChatroomStatusRequestStatus,
+    setHasNewMessage,
 } = chatroomsSlice.actions;
 
 /**
@@ -196,6 +215,10 @@ export const getChatroomListSelector = (state: RootState) => state.chatrooms.cha
 export const getChatroomListRequestStatusMapSelector = (state: RootState) => state.chatrooms.chatroomList.requestStatus;
 
 export const getHasNewMessageSelector = (state: RootState) => state.chatrooms.hasNewMessage;
+
+export const getChatroomMessageListSelector = (state: RootState) => state.chatrooms.chatroomMessageList.data;
+export const getChatroomMessageListRequestStatusSelector = (state: RootState) =>
+    state.chatrooms.chatroomMessageList.requestStatus;
 
 export const getDetailsRequestStatusSelector = (state: RootState) => state.chatrooms.details.requestStatus;
 export const getDetailsSelector = (state: RootState) => state.chatrooms.details.data;

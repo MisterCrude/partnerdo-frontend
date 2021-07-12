@@ -37,6 +37,20 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                         if (message.type === WSMessageTypes.HAS_NEW_MESSAGE) {
                             dispatch({ type: 'chatrooms/setHasNewMessage', payload: true });
                         }
+
+                        if (message.type === WSMessageTypes.CHATROOM_MESSAGE_LIST) {
+                            dispatch({
+                                type: 'chatrooms/setChatroomMessageListRequestStatus',
+                                payload: RequestStatus.FETCHING,
+                            });
+
+                            dispatch({ type: 'chatrooms/setChatroomMessageList', payload: message.message });
+
+                            dispatch({
+                                type: 'chatrooms/setChatroomMessageListRequestStatus',
+                                payload: RequestStatus.SUCCESS,
+                            });
+                        }
                     });
 
                     console.log(WSReadyState[connectStatus as number]);
@@ -62,6 +76,13 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                     console.log(`Error ${WSMessageTypes.NEW_CHATROOM_MESSAGE}`);
                 }
                 break;
+
+            case WSMessageTypes.CONNECT_TO_CHATROOM:
+                try {
+                    await socket.sendMessage(toSnakeCase(action.payload));
+                } catch (error) {
+                    console.log(`Error ${WSMessageTypes.CONNECT_TO_CHATROOM}`, error);
+                }
         }
     };
 };

@@ -68,7 +68,6 @@ const chatroomsSlice = createSlice({
         },
         setChatroomMessageList(state, { payload }: PayloadAction<ChatroomMessage[]>) {
             state.chatroomMessageList.data = payload;
-            state.chatroomMessageList.requestStatus = RequestStatus.IDLE;
         },
         setChatroomMessageListRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.chatroomMessageList.requestStatus = payload;

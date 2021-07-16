@@ -57,10 +57,11 @@ export const Chatroom = () => {
     const resetChatroomMessageList = useDispatch(resetMessageList);
 
     const {
-        proposalAuthor,
-        initiator,
         initialMessage,
+        initiator,
+        messageTotalAmount,
         proposal,
+        proposalAuthor,
         status,
         created: initialMessageCreatedTime,
     } = chatroomDetails;
@@ -194,7 +195,7 @@ export const Chatroom = () => {
                     </Box>
 
                     <Box>
-                        {isOwnProposal && isApproved && (
+                        {isOwnProposal && isApproved && Number(messageTotalAmount) < 1 && (
                             <Text align="center" bgColor="green.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
                                 Twoja propozycja została zaakceptowana, teraz mozesz napisać do tego użytkownika
                             </Text>

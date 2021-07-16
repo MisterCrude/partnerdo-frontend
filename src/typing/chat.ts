@@ -20,6 +20,7 @@ export interface IChatroom {
     created: string;
     initialMessage: string;
     unreadMessageNumber: string;
+    messageTotalAmount: string;
 }
 
 export interface ChatroomMessage {

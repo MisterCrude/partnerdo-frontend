@@ -15,6 +15,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
         next(action);
 
         switch (action.type) {
+            // SET PROFILE
             case 'profile/setProfile':
                 try {
                     const connectStatus = await socket.connect();
@@ -43,7 +44,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                                 type: 'chatrooms/setChatroomMessageListRequestStatus',
                                 payload: RequestStatus.FETCHING,
                             });
-
+                            console.log(111);
                             dispatch({ type: 'chatrooms/setChatroomMessageList', payload: message.message });
 
                             dispatch({
@@ -59,6 +60,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 }
                 break;
 
+            // REMOVE PROFILE
             case 'profile/removeProfile':
                 try {
                     const disconnectStatus = await socket.disconnect();
@@ -77,12 +79,14 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 }
                 break;
 
+            // CREATE CHATROOM
             case WSMessageTypes.CONNECT_TO_CHATROOM:
                 try {
                     await socket.sendMessage(toSnakeCase(action.payload));
                 } catch (error) {
                     console.log(`Error ${WSMessageTypes.CONNECT_TO_CHATROOM}`, error);
                 }
+                break;
         }
     };
 };

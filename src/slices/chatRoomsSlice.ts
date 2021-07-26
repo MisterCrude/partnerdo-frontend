@@ -7,7 +7,7 @@ import { IGenericRemote, RequestStatus } from '@typing/api';
 import { IChatroomStatus, ChatroomMessage } from '@typing/chat';
 import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
-import { getProfileDataSelector } from './profileSlice';
+import { getProfileDataSelector, removeProfile } from './profileSlice';
 
 export interface IChatroomDetails {
     proposal: string;
@@ -85,6 +85,9 @@ const chatroomsSlice = createSlice({
         setHasNewMessage(state, { payload }: PayloadAction<boolean>) {
             state.hasNewMessage = payload;
         },
+    },
+    extraReducers: {
+        [removeProfile.type]: () => initialState,
     },
 });
 

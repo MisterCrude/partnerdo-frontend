@@ -44,7 +44,6 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                                 type: 'chatrooms/setChatroomMessageListRequestStatus',
                                 payload: RequestStatus.FETCHING,
                             });
-                            console.log(111);
                             dispatch({ type: 'chatrooms/setChatroomMessageList', payload: message.message });
 
                             dispatch({

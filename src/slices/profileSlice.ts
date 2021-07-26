@@ -47,9 +47,8 @@ const profileSlice = createSlice({
         setProfileRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.userProfile.requestStatus = payload;
         },
-        removeProfile(state) {
-            state.userProfile.data = {} as IProfile;
-            state.isAuth = false;
+        removeProfile() {
+            return initialState;
         },
         setProfile(state, { payload: profileData }: PayloadAction<IProfile>) {
             state.userProfile.data = profileData;

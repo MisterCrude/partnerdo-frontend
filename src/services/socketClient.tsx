@@ -1,5 +1,5 @@
 import { IWSMessage } from '@typing/api';
-import { toCamelCase } from '@utils/convert';
+import { toCamelCase, toSnakeCase } from '@utils/convert';
 
 class SocketClient {
     static socket: WebSocket;
@@ -31,7 +31,7 @@ class SocketClient {
 
     sendMessage<T extends unknown>(message: IWSMessage<T>) {
         return new Promise((resolve, reject) => {
-            const stringifyMsg = JSON.stringify(message);
+            const stringifyMsg = JSON.stringify(toSnakeCase(message));
 
             SocketClient.socket.send(stringifyMsg);
             SocketClient.socket.onerror = () => reject();

@@ -16,7 +16,7 @@ export interface IChatroomDetails {
 }
 
 export interface IChatroomsState {
-    hasNewMessage: boolean;
+    hasNotification: boolean;
     createChatroomRequestStatus: RequestStatus;
     chageChatroomStatusRequestStatus: RequestStatus;
     details: IGenericRemote<IChatroom>;
@@ -25,7 +25,7 @@ export interface IChatroomsState {
 }
 
 const initialState: IChatroomsState = {
-    hasNewMessage: false,
+    hasNotification: false,
     createChatroomRequestStatus: RequestStatus.IDLE,
     chageChatroomStatusRequestStatus: RequestStatus.IDLE,
     details: {
@@ -82,8 +82,8 @@ const chatroomsSlice = createSlice({
         setChatroomCreateStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.createChatroomRequestStatus = payload;
         },
-        setHasNewMessage(state, { payload }: PayloadAction<boolean>) {
-            state.hasNewMessage = payload;
+        setHasNotification(state, { payload }: PayloadAction<boolean>) {
+            state.hasNotification = payload;
         },
     },
     extraReducers: {
@@ -105,7 +105,7 @@ export const {
     setChatroomMessageListRequestStatus,
     setDetails,
     setDetailsRequestStatus,
-    setHasNewMessage,
+    setHasNotification,
 } = chatroomsSlice.actions;
 
 /**
@@ -216,7 +216,7 @@ export const changeChatroomStatusAsync = ({
 export const getChatroomListSelector = (state: RootState) => state.chatrooms.chatroomList.data;
 export const getChatroomListRequestStatusMapSelector = (state: RootState) => state.chatrooms.chatroomList.requestStatus;
 
-export const getHasNewMessageSelector = (state: RootState) => state.chatrooms.hasNewMessage;
+export const getHasNotificationSelector = (state: RootState) => state.chatrooms.hasNotification;
 
 export const getChatroomMessageListSelector = (state: RootState) => state.chatrooms.chatroomMessageList.data;
 export const getChatroomMessageListRequestStatusSelector = (state: RootState) =>

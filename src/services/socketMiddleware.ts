@@ -20,7 +20,9 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 try {
                     const connectStatus = await socket.connect();
 
+                    // Listenig for income server messages
                     socket.on<IChatroom[] | unknown>((message: IWSMessage<IChatroom[] | unknown>) => {
+                        // CHATROOM LIST
                         if (message.type === WSMessageTypes.CHATROOM_LIST) {
                             dispatch({
                                 type: 'chatrooms/setChatroomListRequestStatus',
@@ -35,10 +37,12 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                             });
                         }
 
-                        if (message.type === WSMessageTypes.HAS_NEW_MESSAGE) {
-                            dispatch({ type: 'chatrooms/setHasNewMessage', payload: true });
+                        // HAS NOTIFICATION
+                        if (message.type === WSMessageTypes.HAS_NOTIFICATION) {
+                            dispatch({ type: 'chatrooms/setHasNotification', payload: true });
                         }
 
+                        // CHATROOM MESSAGE LIST
                         if (message.type === WSMessageTypes.CHATROOM_MESSAGE_LIST) {
                             dispatch({
                                 type: 'chatrooms/setChatroomMessageListRequestStatus',

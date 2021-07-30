@@ -76,10 +76,10 @@ export const ProfileMenuItem = ({ onLogout }: ProfileMenuItemProps) => (
 );
 
 interface IPropsMessageMenuItem {
-    hasMessages: boolean;
+    hasNotification: boolean;
 }
 
-export const MessageMenuItem = ({ hasMessages }: IPropsMessageMenuItem) => (
+export const MessageMenuItem = ({ hasNotification }: IPropsMessageMenuItem) => (
     <Box as="span" pos="relative">
         <IconButton
             as={RouterLink}
@@ -90,7 +90,7 @@ export const MessageMenuItem = ({ hasMessages }: IPropsMessageMenuItem) => (
             to={ROUTES.CHAT}
             variant="unstyled"
         />
-        {hasMessages && <Circle pos="absolute" size={3} bgColor="tomato" color="white" top={2} right={1} />}
+        {hasNotification && <Circle pos="absolute" size={3} bgColor="tomato" color="white" top={2} right={1} />}
     </Box>
 );
 
@@ -182,12 +182,12 @@ export const MobileMenu = ({ isAuth, onLogout }: IPropsMobileMenu) => {
 };
 
 interface IHeaderProps {
-    hasMessages: boolean;
+    hasNotification: boolean;
     isAuth: boolean;
     onLogout: () => void;
 }
 
-export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => {
+export const Header = ({ hasNotification, isAuth, onLogout }: IHeaderProps) => {
     return (
         <Flex
             as="header"
@@ -222,7 +222,7 @@ export const Header = ({ hasMessages, isAuth, onLogout }: IHeaderProps) => {
                     />
                     {isAuth && (
                         <>
-                            <MessageMenuItem hasMessages={hasMessages} />
+                            <MessageMenuItem hasNotification={hasNotification} />
                             <ProfileMenuItem onLogout={onLogout} />
                         </>
                     )}

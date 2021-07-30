@@ -4,11 +4,11 @@ import { Box, Button, Circle, Flex, SimpleGrid } from '@chakra-ui/react';
 import { ChatIcon, ProfileIcon, PlusIcon, SearchIcon } from '@theme/customIcons';
 
 interface IPropsLoggedinSet {
-    hasMessages: boolean;
+    hasNotification: boolean;
     mobileOnly: boolean;
 }
 
-export const LoggedinSet = ({ hasMessages }: IPropsLoggedinSet) => (
+export const LoggedinSet = ({ hasNotification }: IPropsLoggedinSet) => (
     <SimpleGrid templateColumns="repeat(4, 1fr)">
         <Button
             as={RouterLink}
@@ -49,7 +49,7 @@ export const LoggedinSet = ({ hasMessages }: IPropsLoggedinSet) => (
         >
             <Box as="span" pos="relative">
                 <ChatIcon fontSize={30} />
-                {hasMessages && <Circle pos="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
+                {hasNotification && <Circle pos="absolute" size={3} bg="tomato" color="white" top={0} right={0} />}
             </Box>
         </Button>
         <Button
@@ -92,12 +92,12 @@ export const NotLoggedinSet = () => (
 );
 
 interface IToolsBarProps {
-    hasMessages: boolean;
+    hasNotification: boolean;
     mobileOnly: boolean;
     isAuth: boolean;
 }
 
-export const ToolsBar = ({ hasMessages, isAuth, mobileOnly }: IToolsBarProps) => (
+export const ToolsBar = ({ hasNotification, isAuth, mobileOnly }: IToolsBarProps) => (
     <Box
         as="section"
         shadow="xs"
@@ -109,6 +109,6 @@ export const ToolsBar = ({ hasMessages, isAuth, mobileOnly }: IToolsBarProps) =>
         w="100vw"
         zIndex="docked"
     >
-        {isAuth ? <LoggedinSet hasMessages={hasMessages} mobileOnly={mobileOnly} /> : <NotLoggedinSet />}
+        {isAuth ? <LoggedinSet hasNotification={hasNotification} mobileOnly={mobileOnly} /> : <NotLoggedinSet />}
     </Box>
 );

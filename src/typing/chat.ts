@@ -19,8 +19,8 @@ export interface IChatroom {
     lastMessage: string;
     created: string;
     initialMessage: string;
-    unreadMessageNumber: string;
-    messageTotalAmount: string;
+    unreadMessageNumber: number;
+    messageTotalAmount: number;
 }
 
 export interface ChatroomMessage {

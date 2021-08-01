@@ -29,7 +29,14 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                                 payload: RequestStatus.FETCHING,
                             });
 
-                            dispatch({ type: 'chatrooms/setChatroomList', payload: message.message as IChatroom[] });
+                            const chatroomList = message.message as IChatroom[];
+
+                            dispatch({ type: 'chatrooms/setChatroomList', payload: chatroomList });
+                            const hasNotification = chatroomList.some(
+                                ({ unreadMessageNumber }) => unreadMessageNumber > 0
+                            );
+
+                            dispatch({ type: 'chatrooms/setHasNotification', payload: hasNotification });
 
                             dispatch({
                                 type: 'chatrooms/setChatroomListRequestStatus',

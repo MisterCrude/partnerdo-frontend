@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
 import { getUserName } from '@utils/user';
+// import { IChatroom, NotificationType, IChatroomStatus } from '@typing/chat';
 import { IChatroom } from '@typing/chat';
 import { toLocaleTimeString } from '@utils/convert';
 
@@ -15,6 +16,15 @@ interface IProps {
 }
 
 export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitleClick }: IProps) => {
+    // const getMessageBoxType = (type: NotificationType, status: IChatroomStatus) => {
+    //     if (type === NotificationType.NEW_MESSAGE) {
+    //         return Types.DEFAULT;
+    //     } else if (type === NotificationType.CHANGE_STATUS) {
+    //         return status === IChatroomStatus.APPROVE ? Types.APPROVED : Types.REJECTED;
+    //     }
+    //     return Types.DEFAULT;
+    // };
+
     return (
         <>
             {chatroomList.map(

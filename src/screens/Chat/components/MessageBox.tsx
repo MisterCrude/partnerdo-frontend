@@ -2,13 +2,14 @@ import { AVATAR_FALLBACK_URL } from '@consts/app';
 import { getStaticURL } from '@utils/misc';
 
 import { AspectRatio, Box, Circle, Image, Flex, Heading, Stack, Text, Tag, MenuItem } from '@chakra-ui/react';
-import { DeleteIcon, LocationIcon, SmallDangerIcon } from '@theme/customIcons';
+import { DeleteIcon, LocationIcon, SmallDangerIcon, SmallTickIcon } from '@theme/customIcons';
 import CardMenu from '@components/CardMenu';
 
 export enum Types {
     DEFAULT = 'default',
     REJECTED = 'rejected',
     SECONDARY = 'secondary',
+    APPROVED = 'approved',
 }
 
 // TODO create types like in Card, avoiding have isRejected and hasNewMessage in the same time
@@ -45,20 +46,56 @@ const MessageBox = ({
     const hasNewMessage = newMessagesAmount > 0;
     const isRejected = type === Types.REJECTED;
     const isSecondary = type === Types.SECONDARY;
+    const isApproved = type === Types.APPROVED;
+
+    const getCircleIcon = () => {
+        if (isRejected) {
+            return <SmallDangerIcon fontSize={38} />;
+        } else if (isApproved) {
+            return <SmallTickIcon fontSize={38} />;
+        }
+        return newMessagesAmount;
+    };
+
+    // TODO refactor it
+    const messageBoxMap: Record<Types, Record<string, string>> = {
+        [Types.DEFAULT]: {
+            borderColor: 'inherit',
+            backgroundColor: 'white',
+            circleColor: 'orange.500',
+        },
+        [Types.SECONDARY]: {
+            borderColor: 'inherit',
+            backgroundColor: 'white',
+            circleColor: 'orange.500',
+        },
+        [Types.REJECTED]: {
+            borderColor: 'red.100',
+            backgroundColor: 'red.50',
+            circleColor: 'red.600',
+        },
+        [Types.APPROVED]: {
+            borderColor: 'green.100',
+            backgroundColor: 'green.50',
+            circleColor: 'green.600',
+        },
+    };
+
+    const showCircle = hasNewMessage || isRejected || isApproved;
 
     return (
         <Box
-            bgColor={isRejected ? 'red.50' : hasNewMessage ? 'orange.50' : 'white'}
-            borderColor={isRejected ? 'red.100' : 'inherit'}
+            bgColor={messageBoxMap[type].backgroundColor}
+            borderColor={messageBoxMap[type].borderColor}
             borderRadius="lg"
             borderWidth={1}
             d="flex"
             p={4}
             pos="relative"
         >
-            {(hasNewMessage || isRejected) && (
+            {showCircle && (
                 <Circle
-                    bgColor={isRejected ? 'red.600' : 'orange.500'}
+                    bgColor={messageBoxMap[type].circleColor}
                     color="white"
                     fontWeight="bold"
                     left={-3}
@@ -67,9 +104,9 @@ const MessageBox = ({
                     pos="absolute"
                     size={7}
                     top={-4}
-                    width={isRejected ? 7 : 'auto'}
+                    width={isRejected || isApproved ? 7 : 'auto'}
                 >
-                    {isRejected ? <SmallDangerIcon fontSize={38} /> : newMessagesAmount}
+                    {getCircleIcon()}
                 </Circle>
             )}
 

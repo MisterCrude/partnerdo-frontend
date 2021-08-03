@@ -8,7 +8,7 @@ export default {
         type: {
             control: {
                 type: 'select',
-                options: [Types.DEFAULT, Types.SECONDARY, Types.REJECTED],
+                options: [Types.DEFAULT, Types.SECONDARY, Types.REJECTED, Types.APPROVED],
             },
         },
     },
@@ -41,6 +41,11 @@ DefaultWithNewMessages.args = {
 export const Rejected = Template.bind({});
 Rejected.args = {
     type: Types.REJECTED,
+};
+
+export const Approved = Template.bind({});
+Approved.args = {
+    type: Types.APPROVED,
 };
 
 export const SecondaryWithNewMessages = Template.bind({});

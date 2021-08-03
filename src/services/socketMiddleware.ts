@@ -4,7 +4,7 @@ import { WSReadyState, WSMessageTypes, IWSMessage, RequestStatus } from '@typing
 import { BASE_URL } from '@consts/api';
 
 import SocketClient from '@services/socketClient';
-import { IChatroom } from '@typing/chat';
+import { IChatroom, NotificationType } from '@typing/chat';
 import { toSnakeCase } from '@src/utils/convert';
 
 const socket = new SocketClient(BASE_URL);
@@ -29,14 +29,12 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                                 payload: RequestStatus.FETCHING,
                             });
 
-                            const chatroomList = message.message as IChatroom[];
+                            const { chatroomList, hasNotification } = message.message as {
+                                chatroomList: IChatroom[];
+                                hasNotification: boolean;
+                            };
 
-                            dispatch({ type: 'chatrooms/setChatroomList', payload: chatroomList });
-                            const hasNotification = chatroomList.some(
-                                ({ unreadMessageNumber }) => unreadMessageNumber > 0
-                            );
-
-                            dispatch({ type: 'chatrooms/setHasNotification', payload: hasNotification });
+                            dispatch({ type: 'chatrooms/setChatroomList', payload: { chatroomList, hasNotification } });
 
                             dispatch({
                                 type: 'chatrooms/setChatroomListRequestStatus',
@@ -44,13 +42,8 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                             });
                         }
 
-                        // HAS NOTIFICATION
-                        if (message.type === WSMessageTypes.HAS_NOTIFICATION) {
-                            dispatch({ type: 'chatrooms/setHasNotification', payload: true });
-                        }
-
                         // CHATROOM MESSAGE LIST
-                        if (message.type === WSMessageTypes.CHATROOM_MESSAGE_LIST) {
+                        if (message.type === WSMessageTypes.MESSAGE_LIST) {
                             dispatch({
                                 type: 'chatrooms/setChatroomMessageListRequestStatus',
                                 payload: RequestStatus.FETCHING,
@@ -61,6 +54,11 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                                 type: 'chatrooms/setChatroomMessageListRequestStatus',
                                 payload: RequestStatus.SUCCESS,
                             });
+                        }
+
+                        // NOTIFICATION
+                        if (message.type === WSMessageTypes.NOTIFICATION_TYPE) {
+                            dispatch({ type: 'chatrooms/setNotificationType', payload: NotificationType.IDLE });
                         }
                     });
 
@@ -81,11 +79,12 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 }
                 break;
 
-            case WSMessageTypes.NEW_CHATROOM_MESSAGE:
+            // CHATROOM MESSAGE
+            case WSMessageTypes.CHATROOM_MESSAGE:
                 try {
                     await socket.sendMessage(toSnakeCase(action.payload));
                 } catch (error) {
-                    console.log(`Error ${WSMessageTypes.NEW_CHATROOM_MESSAGE}`);
+                    console.log(`Error ${WSMessageTypes.CHATROOM_MESSAGE}`);
                 }
                 break;
 

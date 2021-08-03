@@ -46,7 +46,7 @@ export const Chatroom = () => {
         status: IChatroomStatus;
     }>(changeChatroomStatusAsync);
     const sendChatroomMessage = useDispatch((message: IWSMessage<{ text: string; chatroomId: string }>) => ({
-        type: WSMessageTypes.NEW_CHATROOM_MESSAGE,
+        type: WSMessageTypes.CHATROOM_MESSAGE,
         payload: message,
     }));
     const connectToChatroom = useDispatch((message: IWSMessage<string>) => ({
@@ -82,7 +82,7 @@ export const Chatroom = () => {
 
     const handleSendMessage = () => {
         setMessage('');
-        sendChatroomMessage({ type: WSMessageTypes.NEW_CHATROOM_MESSAGE, message: { text: message, chatroomId } });
+        sendChatroomMessage({ type: WSMessageTypes.CHATROOM_MESSAGE, message: { text: message, chatroomId } });
     };
 
     const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);

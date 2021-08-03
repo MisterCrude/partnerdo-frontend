@@ -23,7 +23,7 @@ const PROFILE_TABS = [
     {
         crumbs: [{ title: 'Strona główna', link: ROUTES.PROPOSALS }],
         title: 'Profil',
-        tabTitle: 'Edycja profilu',
+        tabTitle: 'Profil',
         link: ROUTES.PROFILE,
     },
     {

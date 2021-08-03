@@ -4,10 +4,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getChatroomStatus } from '@utils/chat';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
-import { IChatroomStatus, ChatroomMessage } from '@typing/chat';
+import { IChatroomStatus, ChatroomMessage, NotificationType } from '@typing/chat';
 import { RootState, storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 import { getProfileDataSelector, removeProfile } from './profileSlice';
+
+export interface IChatroomListPayload {
+    chatroomList: IChatroom[];
+    hasNotification: boolean;
+}
 
 export interface IChatroomDetails {
     proposal: string;
@@ -22,10 +27,12 @@ export interface IChatroomsState {
     details: IGenericRemote<IChatroom>;
     chatroomMessageList: IGenericRemote<ChatroomMessage[]>;
     chatroomList: IGenericRemote<IChatroom[]>;
+    notificationType?: NotificationType;
 }
 
 const initialState: IChatroomsState = {
     hasNotification: false,
+    notificationType: NotificationType.IDLE,
     createChatroomRequestStatus: RequestStatus.IDLE,
     chageChatroomStatusRequestStatus: RequestStatus.IDLE,
     details: {
@@ -50,8 +57,9 @@ const chatroomsSlice = createSlice({
     name: 'chatrooms',
     initialState,
     reducers: {
-        setChatroomList(state, { payload }: PayloadAction<IChatroom[]>) {
-            state.chatroomList.data = payload;
+        setChatroomList(state, { payload }: PayloadAction<IChatroomListPayload>) {
+            state.chatroomList.data = payload.chatroomList;
+            state.hasNotification = payload.hasNotification;
         },
         setChatroomListRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.chatroomList.requestStatus = payload;
@@ -82,8 +90,11 @@ const chatroomsSlice = createSlice({
         setChatroomCreateStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.createChatroomRequestStatus = payload;
         },
-        setHasNotification(state, { payload }: PayloadAction<boolean>) {
-            state.hasNotification = payload;
+        setNotificationType(state, { payload }: PayloadAction<NotificationType>) {
+            state.notificationType = payload;
+        },
+        resetNotificationType(state) {
+            state.notificationType = NotificationType.IDLE;
         },
     },
     extraReducers: {
@@ -105,7 +116,8 @@ export const {
     setChatroomMessageListRequestStatus,
     setDetails,
     setDetailsRequestStatus,
-    setHasNotification,
+    setNotificationType,
+    resetNotificationType,
 } = chatroomsSlice.actions;
 
 /**

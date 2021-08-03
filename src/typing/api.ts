@@ -24,10 +24,11 @@ export interface IWSMessage<T> {
 
 export enum WSMessageTypes {
     CHATROOM_LIST = 'chatroom_list',
-    CHATROOM_MESSAGE_LIST = 'chatroom_message_list',
+    MESSAGE_LIST = 'message_list',
     CONNECT_TO_CHATROOM = 'connect_to_chatroom',
-    HAS_NOTIFICATION = 'has_notification',
-    NEW_CHATROOM_MESSAGE = 'new_chatroom_message',
+    CHATROOM_MESSAGE = 'chatroom_message',
+    CHATROOM_STATUS = 'chatroom_status',
+    NOTIFICATION_TYPE = 'notification_type',
 }
 
 export enum WSReadyState {

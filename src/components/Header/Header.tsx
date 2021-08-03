@@ -55,7 +55,7 @@ export const ProfileMenuItem = ({ onLogout }: ProfileMenuItemProps) => (
             <MenuList>
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE}>
                     <SettingsIcon mr={2} fontSize="lg" />
-                    Edycja profilu
+                    Profil
                 </MenuItem>
                 <MenuItem as={RouterLink} to={ROUTES.PROFILE_MY_PROPOSALS}>
                     <ProposalsIcon mr={2} fontSize="lg" />

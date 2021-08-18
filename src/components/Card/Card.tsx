@@ -4,7 +4,7 @@ import UserBadge from '@components/UserBadge';
 
 import CardMenu from '@src/components/CardMenu';
 
-export enum Types {
+export enum Type {
     DEFAULT = 'default',
     EDITABLE = 'editable',
     UNPUBLISH = 'unpublish',
@@ -23,7 +23,7 @@ export interface IProps {
     categoryColor?: string;
     deleteActionButton?: React.ReactElement;
     editActionButton?: React.ReactElement;
-    type?: Types;
+    type?: Type;
     onUserNameClick?: () => void;
     onTitleClick?: () => void;
 }
@@ -40,13 +40,13 @@ export const Card: React.FC<IProps> = ({
     editActionButton,
     deleteActionButton,
     categoryColor = 'orange.500',
-    type = Types.DEFAULT,
+    type = Type.DEFAULT,
     onTitleClick,
     onUserNameClick,
 }) => {
-    const isUnpublish = type === Types.UNPUBLISH;
-    const isDone = type === Types.DONE;
-    const showMenu = type !== Types.DEFAULT;
+    const isUnpublish = type === Type.UNPUBLISH;
+    const isDone = type === Type.DONE;
+    const showMenu = type !== Type.DEFAULT;
 
     return (
         <Box

@@ -1,7 +1,6 @@
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getChatroomStatus } from '@utils/chat';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
 import { IChatroomStatus, ChatroomMessage, NotificationType } from '@typing/chat';
@@ -65,7 +64,7 @@ const chatroomsSlice = createSlice({
             state.chatroomList.requestStatus = payload;
         },
         setDetails(state, { payload: chatroomDetails }: PayloadAction<IChatroomResponse>) {
-            state.details.data = { ...chatroomDetails, status: getChatroomStatus(chatroomDetails.status) };
+            state.details.data = chatroomDetails;
         },
         setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.details.requestStatus = payload;
@@ -199,7 +198,7 @@ export const changeChatroomStatusAsync = ({
     try {
         await apiService.get(`${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}/${status}`);
 
-        const statusName = status === IChatroomStatus.APPROVE ? 'zaakceptowana' : 'odrzucona';
+        const statusName = status === IChatroomStatus.APPROVED ? 'zaakceptowana' : 'odrzucona';
 
         storeToast({
             status: 'success',

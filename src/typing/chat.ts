@@ -9,11 +9,10 @@ export enum NotificationType {
     CHANGE_STATUS,
 }
 
-// TODO refactor remove  value after =
 export enum IChatroomStatus {
-    APPROVE = 'approve',
-    IDLE = 'idle',
-    REJECT = 'reject',
+    APPROVED = 'AP',
+    IDLE = 'ID',
+    REJECTED = 'RJ',
 }
 
 export enum IChatroomNotificationType {
@@ -46,6 +45,4 @@ export interface ChatroomMessage {
     author: Pick<IProfile, 'username' | 'firstName' | 'lastName' | 'id'>;
 }
 
-export interface IChatroomResponse extends Omit<IChatroom, 'status'> {
-    status: string;
-}
+export type IChatroomResponse = IChatroom;

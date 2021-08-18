@@ -2,14 +2,14 @@ import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { Container } from '@chakra-ui/react';
 import { withRouterDecorator } from '@services/storybookDecorators';
-import { Card, IProps, Types } from './Card';
+import { Card, IProps, Type } from './Card';
 
 export default {
     argTypes: {
         type: {
             control: {
                 type: 'select',
-                options: [Types.DEFAULT, Types.EDITABLE, Types.DONE, Types.UNPUBLISH],
+                options: [Type.DEFAULT, Type.EDITABLE, Type.DONE, Type.UNPUBLISH],
             },
         },
     },
@@ -37,20 +37,20 @@ const Template: Story<IProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-    type: Types.DEFAULT,
+    type: Type.DEFAULT,
 };
 
 export const Editable = Template.bind({});
 Editable.args = {
-    type: Types.EDITABLE,
+    type: Type.EDITABLE,
 };
 
 export const Done = Template.bind({});
 Done.args = {
-    type: Types.DONE,
+    type: Type.DONE,
 };
 
 export const Unpublish = Template.bind({});
 Unpublish.args = {
-    type: Types.UNPUBLISH,
+    type: Type.UNPUBLISH,
 };

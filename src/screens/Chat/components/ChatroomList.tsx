@@ -1,11 +1,10 @@
 import { Fragment } from 'react';
 import { DEFAULT_LOCALE } from '@consts/app';
 import { getUserName } from '@utils/user';
-// import { IChatroom, NotificationType, IChatroomStatus } from '@typing/chat';
-import { IChatroom } from '@typing/chat';
+import { IChatroom, IChatroomNotificationType, IChatroomStatus } from '@typing/chat';
 import { toLocaleTimeString } from '@utils/convert';
 
-import MessageBox, { Types } from './MessageBox';
+import MessageBox, { Type } from './MessageBox';
 import DateTitle from './DateTitle';
 
 interface IProps {
@@ -16,14 +15,22 @@ interface IProps {
 }
 
 export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitleClick }: IProps) => {
-    // const getMessageBoxType = (type: NotificationType, status: IChatroomStatus) => {
-    //     if (type === NotificationType.NEW_MESSAGE) {
-    //         return Types.DEFAULT;
-    //     } else if (type === NotificationType.CHANGE_STATUS) {
-    //         return status === IChatroomStatus.APPROVE ? Types.APPROVED : Types.REJECTED;
-    //     }
-    //     return Types.DEFAULT;
-    // };
+    const getMessageBoxType = (notificationType: IChatroomNotificationType, status: IChatroomStatus) => {
+        console.log(notificationType, status);
+        // DEFAULT = 'default',
+        // REJECTED = 'rejected',
+        // APPROVED = 'approved',
+        //
+        //
+        // IDLE = 'ID',
+        // NEW_MESSAGE = 'NM',
+        // CHANGE_STATUS = 'CS',
+        // CREATE_CHATROOM = 'CM',
+
+        if (status === IChatroomStatus.REJECTED) return Type.REJECTED;
+        if (status === IChatroomStatus.APPROVED) return Type.APPROVED;
+        return Type.DEFAULT;
+    };
 
     return (
         <>
@@ -32,8 +39,9 @@ export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitle
                     {
                         id,
                         created,
-                        unreadMessageNumber,
+                        unreadMessageNumber: unreadMessagesAmount,
                         proposal: { title, category, city, cityArea },
+                        notificationType,
                         proposalAuthor: {
                             id: authorId,
                             avatar: authorAvatar,
@@ -41,6 +49,7 @@ export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitle
                             lastName: authorLastName,
                             username: authorUsername,
                         },
+                        status,
                         initiator: {
                             avatar: initiatorAvatar,
                             id: initiatorId,
@@ -55,27 +64,29 @@ export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitle
                         <DateTitle prevCreatedDate={chatroomList[index - 1]?.created} currentCreatedDate={created} />
 
                         {profileId === authorId ? (
-                            <MessageBox
-                                type={Types.SECONDARY}
-                                subtitle="Masz propozycje od"
-                                address={`${city.name}, ${cityArea.name}`}
-                                categoryColor={category.color}
-                                categoryName={category.name}
-                                lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                                newMessagesAmount={unreadMessageNumber}
-                                onTitleClick={() => onTitleClick(id)}
-                                onUserNameClick={() => onUsernameCkick(initiatorId)}
-                                title={title}
-                                userAvatarUrl={initiatorAvatar}
-                                userName={getUserName(initiatorFirstName, initiatorLastName, initiatorUsername)}
-                            />
+                            <>sss</>
                         ) : (
+                            // <MessageBox
+                            //     type={Type.SECONDARY}
+                            //     subtitle="Masz propozycje od"
+                            //     address={`${city.name}, ${cityArea.name}`}
+                            //     categoryColor={category.color}
+                            //     categoryName={category.name}
+                            //     lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
+                            //     unreadMessagesAmount={unreadMessagesAmount}
+                            //     onTitleClick={() => onTitleClick(id)}
+                            //     onUserNameClick={() => onUsernameCkick(initiatorId)}
+                            //     title={title}
+                            //     userAvatarUrl={initiatorAvatar}
+                            //     userName={getUserName(initiatorFirstName, initiatorLastName, initiatorUsername)}
+                            // />
                             <MessageBox
+                                type={getMessageBoxType(notificationType, status)}
                                 address={`${city.name}, ${cityArea.name}`}
                                 categoryColor={category.color}
                                 categoryName={category.name}
                                 lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                                newMessagesAmount={unreadMessageNumber}
+                                unreadMessagesAmount={unreadMessagesAmount}
                                 onTitleClick={() => onTitleClick(id)}
                                 onUserNameClick={() => onUsernameCkick(authorId)}
                                 title={title}

@@ -1,4 +1,4 @@
-import Card, { Types } from '@components/Card';
+import Card, { Type } from '@components/Card';
 import { VStack, Flex } from '@chakra-ui/react';
 import Pagination from '@components/Pagination';
 
@@ -12,7 +12,7 @@ const History = () => {
                     content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                     publishDate="01.10.2020"
                     title="Poszukuję partnera do głębokiego lenistwa"
-                    type={Types.DONE}
+                    type={Type.DONE}
                     shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
@@ -26,7 +26,7 @@ const History = () => {
                     content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                     publishDate="01.10.2020"
                     title="Poszukuję partnera do głębokiego lenistwa"
-                    type={Types.DONE}
+                    type={Type.DONE}
                     shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"
@@ -40,7 +40,7 @@ const History = () => {
                     content="Jak w tytule, szukam partnera do głębokiego lenistwa zukuję partnerłębokiego lenistwa oszukuję partnera do głębokiego lenistwa Poszuk partnera ..."
                     publishDate="01.10.2020"
                     title="Poszukuję partnera do głębokiego lenistwa"
-                    type={Types.DONE}
+                    type={Type.DONE}
                     shortUserDesc="Jak w tytule, szukam partnera do głęboki..."
                     userAvatarUrl="https://bit.ly/sage-adebayo"
                     userName="Jan Baraban"

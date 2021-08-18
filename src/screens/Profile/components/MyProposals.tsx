@@ -6,7 +6,7 @@ import { RequestStatus } from '@typing/api';
 import { toLocaleDateString } from '@utils/convert';
 import { truncateStringByWords } from '@utils/misc';
 
-import Card, { Types } from '@components/Card';
+import Card, { Type } from '@components/Card';
 import { VStack } from '@chakra-ui/react';
 import DeleteProposalModule from '../modules/DeleteProposalModule';
 import EditProposalModule from '../modules/EditProposalModule';
@@ -75,7 +75,7 @@ const MyProposals = ({ requestStatus, proposals, onProposalClick }: IProps) => {
                                             SHORT_DESC_WORDS_AMOUT
                                         )}
                                         title={title}
-                                        type={Types.EDITABLE}
+                                        type={Type.EDITABLE}
                                         userAvatarUrl={author.avatar}
                                         userName={getUserName(author.firstName, author.lastName, author.username)}
                                         onTitleClick={() => onProposalClick(id)}

@@ -70,8 +70,8 @@ export const Chatroom = () => {
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
 
-    const isRejected = chatroomStatus === IChatroomStatus.REJECT;
-    const isApproved = chatroomStatus === IChatroomStatus.APPROVE;
+    const isRejected = chatroomStatus === IChatroomStatus.REJECTED;
+    const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
 
@@ -92,14 +92,14 @@ export const Chatroom = () => {
     };
 
     const handleAccept = () => {
-        const status = IChatroomStatus.APPROVE;
+        const status = IChatroomStatus.APPROVED;
 
         changeChatroomStatus({ chatroomId, status });
         setChatroomStatus(status);
     };
 
     const handleReject = () => {
-        const status = IChatroomStatus.REJECT;
+        const status = IChatroomStatus.REJECTED;
 
         changeChatroomStatus({ chatroomId, status });
         setChatroomStatus(status);

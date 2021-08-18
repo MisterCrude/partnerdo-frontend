@@ -1,14 +1,14 @@
 import { Meta, Story } from '@storybook/react/types-6-0';
 
 import { withRouterDecorator } from '@services/storybookDecorators';
-import MessageBox, { IProps, Types } from './MessageBox';
+import MessageBox, { IProps, Type } from './MessageBox';
 
 export default {
-    argTypes: {
+    argType: {
         type: {
             control: {
                 type: 'select',
-                options: [Types.DEFAULT, Types.SECONDARY, Types.REJECTED, Types.APPROVED],
+                options: [Type.DEFAULT, Type.REJECTED, Type.APPROVED],
             },
         },
     },
@@ -29,27 +29,27 @@ const Template: Story<IProps> = (args) => <MessageBox {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    type: Types.DEFAULT,
+    type: Type.DEFAULT,
 };
 
 export const DefaultWithNewMessages = Template.bind({});
 DefaultWithNewMessages.args = {
-    type: Types.DEFAULT,
-    newMessagesAmount: 10,
+    type: Type.DEFAULT,
+    unreadMessagesAmount: 10,
 };
 
 export const Rejected = Template.bind({});
 Rejected.args = {
-    type: Types.REJECTED,
+    type: Type.REJECTED,
 };
 
 export const Approved = Template.bind({});
 Approved.args = {
-    type: Types.APPROVED,
+    type: Type.APPROVED,
 };
 
-export const SecondaryWithNewMessages = Template.bind({});
-SecondaryWithNewMessages.args = {
-    type: Types.SECONDARY,
-    newMessagesAmount: 2,
-};
+// export const SecondaryWithNewMessages = Template.bind({});
+// SecondaryWithNewMessages.args = {
+//     type: Type.SECONDARY,
+//     unreadMessagesAmount: 2,
+// };

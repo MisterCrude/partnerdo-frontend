@@ -14,9 +14,8 @@ interface IProps {
     onUsernameCkick: (authorId: string) => void;
 }
 
-export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitleClick }: IProps) => {
+export const ChatroomList = ({ chatroomList, onUsernameCkick, onTitleClick }: IProps) => {
     const getMessageBoxType = (notificationType: IChatroomNotificationType, status: IChatroomStatus) => {
-        console.log(notificationType, status);
         // DEFAULT = 'default',
         // REJECTED = 'rejected',
         // APPROVED = 'approved',
@@ -27,8 +26,12 @@ export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitle
         // CHANGE_STATUS = 'CS',
         // CREATE_CHATROOM = 'CM',
 
-        if (status === IChatroomStatus.REJECTED) return Type.REJECTED;
-        if (status === IChatroomStatus.APPROVED) return Type.APPROVED;
+        if (status === IChatroomStatus.REJECTED && IChatroomNotificationType.CHANGE_STATUS === notificationType) {
+            return Type.REJECTED;
+        }
+        if (status === IChatroomStatus.APPROVED && IChatroomNotificationType.CHANGE_STATUS === notificationType) {
+            return Type.APPROVED;
+        }
         return Type.DEFAULT;
     };
 
@@ -37,63 +40,32 @@ export const ChatroomList = ({ chatroomList, profileId, onUsernameCkick, onTitle
             {chatroomList.map(
                 (
                     {
-                        id,
+                        companion: { id: companionId, avatar, firstName, lastName, username },
                         created,
-                        unreadMessageNumber: unreadMessagesAmount,
-                        proposal: { title, category, city, cityArea },
+                        id,
                         notificationType,
-                        proposalAuthor: {
-                            id: authorId,
-                            avatar: authorAvatar,
-                            firstName: authorFirstName,
-                            lastName: authorLastName,
-                            username: authorUsername,
-                        },
+                        proposal: { title, category, city, cityArea },
                         status,
-                        initiator: {
-                            avatar: initiatorAvatar,
-                            id: initiatorId,
-                            firstName: initiatorFirstName,
-                            lastName: initiatorLastName,
-                            username: initiatorUsername,
-                        },
+                        unreadMessageAmount,
                     },
                     index
                 ) => (
                     <Fragment key={id}>
                         <DateTitle prevCreatedDate={chatroomList[index - 1]?.created} currentCreatedDate={created} />
 
-                        {profileId === authorId ? (
-                            <>sss</>
-                        ) : (
-                            // <MessageBox
-                            //     type={Type.SECONDARY}
-                            //     subtitle="Masz propozycje od"
-                            //     address={`${city.name}, ${cityArea.name}`}
-                            //     categoryColor={category.color}
-                            //     categoryName={category.name}
-                            //     lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                            //     unreadMessagesAmount={unreadMessagesAmount}
-                            //     onTitleClick={() => onTitleClick(id)}
-                            //     onUserNameClick={() => onUsernameCkick(initiatorId)}
-                            //     title={title}
-                            //     userAvatarUrl={initiatorAvatar}
-                            //     userName={getUserName(initiatorFirstName, initiatorLastName, initiatorUsername)}
-                            // />
-                            <MessageBox
-                                type={getMessageBoxType(notificationType, status)}
-                                address={`${city.name}, ${cityArea.name}`}
-                                categoryColor={category.color}
-                                categoryName={category.name}
-                                lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                                unreadMessagesAmount={unreadMessagesAmount}
-                                onTitleClick={() => onTitleClick(id)}
-                                onUserNameClick={() => onUsernameCkick(authorId)}
-                                title={title}
-                                userAvatarUrl={authorAvatar}
-                                userName={getUserName(authorFirstName, authorLastName, authorUsername)}
-                            />
-                        )}
+                        <MessageBox
+                            address={`${city.name}, ${cityArea.name}`}
+                            categoryColor={category.color}
+                            categoryName={category.name}
+                            lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
+                            title={title}
+                            type={getMessageBoxType(notificationType, status)}
+                            unreadMessageAmount={unreadMessageAmount}
+                            userAvatarUrl={avatar}
+                            userName={getUserName(firstName, lastName, username)}
+                            onTitleClick={() => onTitleClick(id)}
+                            onUserNameClick={() => onUsernameCkick(companionId)}
+                        />
                     </Fragment>
                 )
             )}

@@ -1,7 +1,7 @@
 import { IProfile } from './profile';
 import { IProposal } from './proposal';
 
-export type IProposalAuthor = Omit<IProfile, 'birthYear' | 'description' | 'gender' | 'email'>;
+type ICompanion = Omit<IProfile, 'birthYear' | 'description' | 'gender' | 'email'>;
 
 export enum NotificationType {
     IDLE,
@@ -24,17 +24,16 @@ export enum IChatroomNotificationType {
 
 export interface IChatroom {
     chatroom: string;
-    created: string;
+    companion: ICompanion;
+    proposal: Omit<IProposal, 'created'>;
     id: string;
     initialMessage: string;
-    initiator: IProposalAuthor;
     lastMessage: string;
     messageTotalAmount: number;
     notificationType: IChatroomNotificationType;
-    proposal: Omit<IProposal, 'author'>;
-    proposalAuthor: IProposalAuthor;
     status: IChatroomStatus;
-    unreadMessageNumber: number;
+    unreadMessageAmount: number;
+    created: string;
 }
 
 export interface ChatroomMessage {

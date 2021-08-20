@@ -58,10 +58,9 @@ export const Chatroom = () => {
 
     const {
         initialMessage,
-        initiator,
+        companion,
         messageTotalAmount,
         proposal,
-        proposalAuthor,
         status,
         created: initialMessageCreatedTime,
     } = chatroomDetails;
@@ -73,7 +72,7 @@ export const Chatroom = () => {
     const isRejected = chatroomStatus === IChatroomStatus.REJECTED;
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
     const isIdle = chatroomStatus === IChatroomStatus.IDLE;
-    const isOwnProposal = useMemo(() => profileId === initiator?.id, [initiator]);
+    const isOwnProposal = useMemo(() => profileId === proposal?.author.id, [companion]);
 
     const isMessageListLoading =
         (messageListRequestStatus === RequestStatus.FETCHING || messageListRequestStatus === RequestStatus.IDLE) &&
@@ -138,13 +137,13 @@ export const Chatroom = () => {
                     <Proposal
                         title={proposal.title}
                         proposalId={proposal.id}
-                        authorId={proposalAuthor.id}
+                        authorId={companion.id}
                         address={`${proposal.city.name}, ${proposal.cityArea.name}`}
-                        userAvatarUrl={proposalAuthor.avatar}
+                        userAvatarUrl={companion.avatar}
                         userName={getUserName(
-                            proposalAuthor.firstName,
-                            proposalAuthor.lastName,
-                            proposalAuthor.username
+                            proposal.author.firstName,
+                            proposal.author.lastName,
+                            proposal.author.username
                         )}
                         categoryName={proposal.category.name}
                         categoryColor={proposal.category.color}
@@ -165,7 +164,7 @@ export const Chatroom = () => {
                                     showControls={chatroomStatus === IChatroomStatus.IDLE}
                                     onApprove={handleAccept}
                                     onReject={handleReject}
-                                    author={getUserName(initiator.firstName, initiator.lastName, initiator.username)}
+                                    author={getUserName(companion.firstName, companion.lastName, companion.username)}
                                     message={initialMessage}
                                     sentTime={`${toLocaleTimeString(
                                         initialMessageCreatedTime,

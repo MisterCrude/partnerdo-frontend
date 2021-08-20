@@ -22,7 +22,9 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
 
                     // Listenig for income server messages
                     socket.on<IChatroom[] | unknown>((message: IWSMessage<IChatroom[] | unknown>) => {
-                        // CHATROOM LIST
+                        /**
+                         * CHATROOM LIST
+                         */
                         if (message.type === WSMessageTypes.CHATROOM_LIST) {
                             dispatch({
                                 type: 'chatrooms/setChatroomListRequestStatus',
@@ -42,7 +44,9 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                             });
                         }
 
-                        // CHATROOM MESSAGE LIST
+                        /**
+                         * CHATROOM MESSAGE LIST
+                         */
                         if (message.type === WSMessageTypes.MESSAGE_LIST) {
                             dispatch({
                                 type: 'chatrooms/setChatroomMessageListRequestStatus',
@@ -56,7 +60,9 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                             });
                         }
 
-                        // NOTIFICATION
+                        /**
+                         * NOTIFICATION
+                         */
                         if (message.type === WSMessageTypes.NOTIFICATION_TYPE) {
                             dispatch({ type: 'chatrooms/setNotificationType', payload: NotificationType.IDLE });
                         }

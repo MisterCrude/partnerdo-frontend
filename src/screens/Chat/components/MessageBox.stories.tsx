@@ -35,7 +35,7 @@ Default.args = {
 export const DefaultWithNewMessages = Template.bind({});
 DefaultWithNewMessages.args = {
     type: Type.DEFAULT,
-    unreadMessagesAmount: 10,
+    unreadMessageAmount: 10,
 };
 
 export const Rejected = Template.bind({});
@@ -51,5 +51,5 @@ Approved.args = {
 // export const SecondaryWithNewMessages = Template.bind({});
 // SecondaryWithNewMessages.args = {
 //     type: Type.SECONDARY,
-//     unreadMessagesAmount: 2,
+//     unreadMessageAmount: 2,
 // };

@@ -162,7 +162,8 @@ export const createChatroomAsync = ({
         };
 
         /**
-         * This method return new chatroom object
+         * @returns new chatroom object
+         * @description did't user response fron this function
          */
         await apiService.post(BACKEND_ROUTING.CHAT.CREATE_CHATROOM, chatroomDetails);
 

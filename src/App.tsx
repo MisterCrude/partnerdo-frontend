@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
-import { getIsAuthSelector } from '@slices/profileSlice';
+import { getIsAuthSelector } from '@selectors/profileSelectors';
 import { ROUTES } from '@consts/routes';
 import { useSelector } from 'react-redux';
 import GuardedRoute from '@services/guardeRoute';

@@ -8,7 +8,7 @@ import { History } from 'history';
 import { IPaginationResponse, IGenericRemote, RequestStatus } from '@typing/api';
 import { IProfile, IAuthTokenResponse, IProfileResponse } from '@typing/profile';
 import { IProposal } from '@typing/proposal';
-import { RootState, storeToast } from '@store/rootReducer';
+import { storeToast } from '@store/rootReducer';
 import { ROUTES } from '@consts/routes';
 import apiService from '@services/apiService';
 
@@ -355,17 +355,5 @@ export const updateProfileProposalAsync = ({ id, formData }: IProposalUpdate): A
         console.error('Delete proposal error:', error);
     }
 };
-
-/**
- * Selectors
- */
-export const getIsAuthSelector = (state: RootState) => state.profile.isAuth;
-export const getProfileDataSelector = (state: RootState) => state.profile.userProfile.data;
-export const getProfileRequestStatusSelector = (state: RootState) => state.profile.userProfile.requestStatus;
-
-export const getProfileProposalsSelector = (state: RootState) => state.profile.proposals.data;
-export const getProfileProposalsRequestStatusSelector = (state: RootState) => state.profile.proposals.requestStatus;
-export const getProfileProposalsUpdateRequestStatusSelector = (state: RootState) =>
-    state.profile.proposals.updateRequestStatus;
 
 export default profileSlice.reducer;

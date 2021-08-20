@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
+import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@selectors/filterSelectors';
 import { IOption } from '@typing/app';
 import { IProposal } from '@typing/proposal';
 import { toOptions } from '@utils/convert';
-import { updateProfileProposalAsync, getProfileProposalsUpdateRequestStatusSelector } from '@slices/profileSlice';
+import { updateProfileProposalAsync } from '@slices/profileSlice';
+import { getProfileProposalsUpdateRequestStatusSelector } from '@selectors/profileSelectors';
 import { useMount } from 'react-use';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';

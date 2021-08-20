@@ -1,5 +1,6 @@
 import { DEFAULT_LOCALE, SHORT_CONTENT_WORDS_AMOUNT, SHORT_DESC_WORDS_AMOUT, AVATAR_FALLBACK_URL } from '@consts/app';
-import { fetchUserAsync, getUserSelector } from '@slices/userSlice';
+import { fetchUserAsync } from '@slices/userSlice';
+import { getUserSelector } from '@selectors/userSelectors';
 import { getUserName } from '@utils/user';
 import { RequestStatus } from '@typing/api';
 import { ROUTES } from '@consts/routes';

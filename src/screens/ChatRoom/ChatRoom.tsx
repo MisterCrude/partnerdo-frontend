@@ -12,14 +12,17 @@ import { IChatroomStatus } from '@typing/chat';
 import {
     fetchDetailsAsync,
     changeChatroomStatusAsync,
+    resetDetails as reset,
+    resetChatroomMessageList as resetMessageList,
+    // getChangeChatroomStatusRequestStatusSelector,
+} from '@slices/chatroomSlice';
+import {
     getDetailsSelector,
     getDetailsRequestStatusSelector,
     getChatroomMessageListSelector,
     getChatroomMessageListRequestStatusSelector,
-    resetDetails as reset,
-    resetChatroomMessageList as resetMessageList,
-} from '@slices/chatroomsSlice';
-import { getProfileDataSelector } from '@slices/profileSlice';
+} from '@selectors/chatroomSelectors';
+import { getProfileDataSelector } from '@selectors/profileSelectors';
 
 import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
@@ -49,6 +52,7 @@ export const Chatroom = () => {
         type: WSMessageTypes.CHATROOM_MESSAGE,
         payload: message,
     }));
+    // const changeChatroomStatusRequestStatus = useSelector(getChangeChatroomStatusRequestStatusSelector);
     const connectToChatroom = useDispatch((message: IWSMessage<string>) => ({
         type: WSMessageTypes.CONNECT_TO_CHATROOM,
         payload: message,
@@ -91,26 +95,23 @@ export const Chatroom = () => {
     };
 
     const handleAccept = () => {
-        const status = IChatroomStatus.APPROVED;
-
-        changeChatroomStatus({ chatroomId, status });
-        setChatroomStatus(status);
+        changeChatroomStatus({ chatroomId, status: IChatroomStatus.APPROVED });
+        setChatroomStatus(IChatroomStatus.APPROVED);
     };
 
     const handleReject = () => {
-        const status = IChatroomStatus.REJECTED;
-
-        changeChatroomStatus({ chatroomId, status });
-        setChatroomStatus(status);
+        changeChatroomStatus({ chatroomId, status: IChatroomStatus.REJECTED });
+        setChatroomStatus(IChatroomStatus.REJECTED);
     };
 
     useMount(() => {
         fetchDetails(chatroomId);
-        // TODO setTimeout
+        // TODO refactor and remove setTimeout
         setTimeout(() => connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId }), 1000);
     });
 
     useUpdateEffect(() => {
+        console.log('status');
         setChatroomStatus(status);
     }, [status]);
 

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getCategoriesSelector } from '@slices/filtersSlice';
+import { getCategoriesSelector } from '@selectors/filterSelectors';
 
 import { Center, Heading } from '@chakra-ui/react';
 import Main from '@layouts/Main';

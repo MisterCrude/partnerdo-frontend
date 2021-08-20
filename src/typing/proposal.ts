@@ -28,7 +28,7 @@ export interface IProposal {
     title: string;
 }
 
-export interface IFiltersData {
+export interface IFilterData {
     age: string[];
     categories: string[];
     city: string;
@@ -42,12 +42,12 @@ export interface ICityWithAreas extends ICity {
     cityAreas: ICityArea[];
 }
 
-export interface IFilters {
+export interface IFilter {
     categories: ICategory[];
     cities: Record<string, ICityWithAreas>;
 }
 
-export interface IFiltersResponse {
+export interface IFilterResponse {
     categories: ICategory[];
     cities: ICityWithAreas[];
 }

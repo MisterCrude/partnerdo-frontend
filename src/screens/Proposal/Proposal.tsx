@@ -1,13 +1,10 @@
 import { useState, ChangeEvent } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
-import {
-    resetDetails as reset,
-    fetchDetailsAsync,
-    getDetailsDataSelector,
-    getDetailsRequestStatusSelector,
-} from '@slices/proposalSlice';
-import { getCreateChatroomRequestStatusSelector, createChatroomAsync, IChatroomDetails } from '@slices/chatroomsSlice';
-import { getProfileDataSelector } from '@slices/profileSlice';
+import { resetDetails as reset, fetchDetailsAsync } from '@slices/proposalSlice';
+import { getDetailsDataSelector, getDetailsRequestStatusSelector } from '@selectors/proposalSelectors';
+import { createChatroomAsync, IChatroomDetails } from '@slices/chatroomSlice';
+import { getCreateChatroomRequestStatusSelector } from '@selectors/chatroomSelectors';
+import { getProfileDataSelector } from '@selectors/profileSelectors';
 import { ROUTES } from '@consts/routes';
 import { RequestStatus } from '@typing/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';

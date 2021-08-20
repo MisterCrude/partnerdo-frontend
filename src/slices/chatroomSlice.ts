@@ -4,9 +4,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
 import { IChatroomStatus, ChatroomMessage, NotificationType } from '@typing/chat';
-import { RootState, storeToast } from '@store/rootReducer';
+import { storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
-import { getProfileDataSelector, removeProfile } from './profileSlice';
+import { removeProfile } from './profileSlice';
+import { getProfileDataSelector } from '@selectors/profileSelectors';
 
 export interface IChatroomListPayload {
     chatroomList: IChatroom[];
@@ -52,7 +53,7 @@ const initialState: IChatroomsState = {
  * Slice
  */
 // TODO: split to paginate slice and proposal slice
-const chatroomsSlice = createSlice({
+const chatroomSlice = createSlice({
     name: 'chatrooms',
     initialState,
     reducers: {
@@ -117,7 +118,7 @@ export const {
     setDetailsRequestStatus,
     setNotificationType,
     resetNotificationType,
-} = chatroomsSlice.actions;
+} = chatroomSlice.actions;
 
 /**
  * Async actions
@@ -222,23 +223,4 @@ export const changeChatroomStatusAsync = ({
     setTimeout(() => dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.IDLE)), 100);
 };
 
-/**
- * Selectors
- */
-export const getChatroomListSelector = (state: RootState) => state.chatrooms.chatroomList.data;
-export const getChatroomListRequestStatusMapSelector = (state: RootState) => state.chatrooms.chatroomList.requestStatus;
-
-export const getHasNotificationSelector = (state: RootState) => state.chatrooms.hasNotification;
-
-export const getChatroomMessageListSelector = (state: RootState) => state.chatrooms.chatroomMessageList.data;
-export const getChatroomMessageListRequestStatusSelector = (state: RootState) =>
-    state.chatrooms.chatroomMessageList.requestStatus;
-
-export const getDetailsRequestStatusSelector = (state: RootState) => state.chatrooms.details.requestStatus;
-export const getDetailsSelector = (state: RootState) => state.chatrooms.details.data;
-
-export const getCreateChatroomRequestStatusSelector = (state: RootState) => state.chatrooms.createChatroomRequestStatus;
-export const getChangeChatroomStatusRequestStatusSelector = (state: RootState) =>
-    state.chatrooms.chageChatroomStatusRequestStatus;
-
-export default chatroomsSlice.reducer;
+export default chatroomSlice.reducer;

@@ -12,6 +12,7 @@
             "@screens/*": ["./screens/*"],
             "@services/*": ["./services/*"],
             "@slices/*": ["./slices/*"],
+            "@selectors/*": ["./selectors/*"],
             "@src/*": ["./*"],
             "@store/*": ["./store/*"],
             "@theme/*": ["./theme/*"],

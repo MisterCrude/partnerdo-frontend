@@ -1,12 +1,12 @@
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
-import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getQueryParamsString, countOffset } from '@src/utils/pagination';
-import { IFiltersData, IProposal, IProposalResponse } from '@typing/proposal';
+import { IFilterData, IProposal, IProposalResponse } from '@typing/proposal';
 import { IPaginationResponse, RequestStatus, IGenericRemote } from '@typing/api';
 import { keys } from 'lodash/fp';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
-import { RootState, storeToast } from '@store/rootReducer';
+import { storeToast } from '@store/rootReducer';
 import { toDict } from '@utils/convert';
 import apiService from '@services/apiService';
 
@@ -51,7 +51,7 @@ const initialState: IProposalState = {
     },
 };
 
-export const getQueryParams = ({ age, pageNumber, city, categories, cityAreas, gender, search }: IFiltersData) =>
+export const getQueryParams = ({ age, pageNumber, city, categories, cityAreas, gender, search }: IFilterData) =>
     getQueryParamsString({
         limit: String(PAGINATION_ITEMS_LIMIT),
         offset: String(countOffset(pageNumber || 1, PAGINATION_ITEMS_LIMIT)),
@@ -122,7 +122,7 @@ export const {
 /**
  * Async actions
  */
-export const fetchPageAsync = (filtersData: IFiltersData): AppThunk => async (dispatch: AppDispatch) => {
+export const fetchPageAsync = (filtersData: IFilterData): AppThunk => async (dispatch: AppDispatch) => {
     const isInitialFetch = !filtersData.pageNumber;
     if (isInitialFetch) dispatch(setPaginationRequestStatus(RequestStatus.FETCHING));
 
@@ -205,32 +205,5 @@ export const createProposalAsync = (proposalsData: Partial<{ [key in keyof IProp
     }
     setTimeout(() => dispatch(setCreateProposalRequestStatus(RequestStatus.IDLE)), 100);
 };
-
-/**
- * Selectors
- */
-export const getProposalsPageRequestStatusSelector = (state: RootState) =>
-    state.proposal.pagination.proposals.requestStatus;
-
-export const getProposalCountSelector = (state: RootState) => state.proposal.pagination.proposals.count;
-export const getPagesAmountSelector = createSelector(getProposalCountSelector, (count) =>
-    Math.ceil(count / PAGINATION_ITEMS_LIMIT)
-);
-
-export const getCurrentPageNumberSelector = (state: RootState) => state.proposal.pagination.proposals.currentPage;
-export const getPagesSelector = (state: RootState) => state.proposal.pagination.proposals.pages;
-export const getProposalsSelector = (state: RootState) => state.proposal.proposals;
-export const getCurrentPageProposalsSelector = createSelector(
-    getCurrentPageNumberSelector,
-    getPagesSelector,
-    getProposalsSelector,
-    (currentPageNumber, pages, proposals) =>
-        pages[currentPageNumber] ? pages[currentPageNumber].map((id) => proposals[id]) : []
-);
-
-export const getDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;
-export const getDetailsDataSelector = (state: RootState) => state.proposal.details.data;
-
-export const getCreateRequestStatusSelector = (state: RootState) => state.proposal.createProposalRequestStatus;
 
 export default proposalSlice.reducer;

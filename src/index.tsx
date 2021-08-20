@@ -2,13 +2,13 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import store from '@store/index';
 import { fetchProfileAsync } from '@slices/profileSlice';
-import { fetchFiltersAsync } from '@slices/filtersSlice';
+import { fetchFilterAsync } from '@slices/filterSlice';
 
 import Providers from '@src/Providers';
 
 const fetchInitialData = () => {
     localStorage.getItem('token') && store.dispatch(fetchProfileAsync());
-    store.dispatch(fetchFiltersAsync());
+    store.dispatch(fetchFilterAsync());
 };
 
 const render = () => {

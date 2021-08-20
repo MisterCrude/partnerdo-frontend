@@ -1,5 +1,6 @@
 import { History } from 'history';
-import { loginProfileAsync, getProfileRequestStatusSelector } from '@slices/profileSlice';
+import { loginProfileAsync } from '@slices/profileSlice';
+import { getProfileRequestStatusSelector } from '@selectors/profileSelectors';
 import { ROUTES } from '@consts/routes';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';

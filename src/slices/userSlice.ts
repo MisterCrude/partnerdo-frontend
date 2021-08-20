@@ -1,11 +1,10 @@
 import { AppThunk, AppDispatch } from '@store/index';
-import { toDict } from '@utils/convert';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser, IUserResponse, IUserData, IUserProposal } from '@typing/user';
+import { IUser, IUserResponse, IUserData } from '@typing/user';
 import { omit } from 'lodash/fp';
 import { RequestStatus } from '@typing/api';
-import { RootState, storeToast } from '@store/rootReducer';
+import { storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 
 export interface IUserState extends IUser {
@@ -69,11 +68,5 @@ export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: App
         dispatch(setRequestStatus(RequestStatus.ERROR));
     }
 };
-
-/**
- * Selectors
- */
-export const getUserSelector = (state: RootState) => state.user;
-export const getUserProposalsSelector = (state: RootState) => toDict<IUserProposal>(state.user.proposals, 'id');
 
 export default userSlice.reducer;

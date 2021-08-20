@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
-import { getIsAuthSelector, logoutProfileAsync } from '@slices/profileSlice';
-import { getHasNotificationSelector } from '@slices/chatroomsSlice';
+import { logoutProfileAsync } from '@slices/profileSlice';
+import { getIsAuthSelector } from '@selectors/profileSelectors';
+import { getHasNotificationSelector } from '@selectors/chatroomSelectors';
 import useDispatch from '@hooks/useDispatch';
 
 import { BoxProps, Container, Flex } from '@chakra-ui/react';

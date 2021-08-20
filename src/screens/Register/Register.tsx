@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
-import { registerProfileAsync, getProfileRequestStatusSelector } from '@slices/profileSlice';
+import { registerProfileAsync } from '@slices/profileSlice';
+import { getProfileRequestStatusSelector } from '@selectors/profileSelectors';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';

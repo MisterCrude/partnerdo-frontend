@@ -1,6 +1,6 @@
-import { getProfileDataSelector } from '@slices/profileSlice';
+import { getProfileDataSelector } from '@selectors/profileSelectors';
 import { RequestStatus } from '@typing/api';
-import { getChatroomListRequestStatusMapSelector, getChatroomListSelector } from '@slices/chatroomsSlice';
+import { getChatroomListRequestStatusMapSelector, getChatroomListSelector } from '@selectors/chatroomSelectors';
 import { ROUTES } from '@consts/routes';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';

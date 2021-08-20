@@ -19,6 +19,7 @@ module.exports = {
             '@routing': toPath('src/routing/'),
             '@utils': toPath('src/utils/'),
             '@slices': toPath('src/slices/'),
+            '@selectors': toPath('src/selectors/'),
             '@store': toPath('src/store/'),
             '@screens': toPath('src/screens/'),
             '@services': toPath('src/services/'),

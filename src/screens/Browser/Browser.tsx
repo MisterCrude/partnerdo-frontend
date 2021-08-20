@@ -4,16 +4,16 @@ import { ROUTES } from '@consts/routes';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useUnmount, useUpdateEffect } from 'react-use';
+import { fetchPageAsync } from '@slices/proposalSlice';
 import {
-    fetchPageAsync,
     getCurrentPageProposalsSelector,
     getPagesAmountSelector,
     getProposalCountSelector,
     getProposalsPageRequestStatusSelector,
-} from '@slices/proposalSlice';
-import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@slices/filtersSlice';
+} from '@selectors/proposalSelectors';
+import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@selectors/filterSelectors';
 import { resetPagination as reset } from '@slices/proposalSlice';
-import { IFiltersData } from '@typing/proposal';
+import { IFilterData } from '@typing/proposal';
 import { IOption } from '@typing/app';
 import { keys, isEqual, omit } from 'lodash/fp';
 import { RequestStatus } from '@typing/api';
@@ -34,7 +34,7 @@ const ageOptions: IOption[] = keys(AGE_GROUPS)
     .map((item) => ({ value: item, label: AGE_GROUPS[item] }));
 const genderOptions: IOption[] = keys(GENDER).map((item) => ({ value: item, label: GENDER[item] }));
 
-const initFiltersData: IFiltersData = {
+const initFilterData: IFilterData = {
     age: [],
     categories: [],
     city: '',
@@ -46,10 +46,10 @@ const initFiltersData: IFiltersData = {
 
 export const Browser = () => {
     const [cityAreasOptions, setCityAreasOptions] = useState<IOption[]>([]);
-    const [filtersData, setFiltersData] = useState<IFiltersData>(initFiltersData);
+    const [filtersData, setFiltersData] = useState<IFilterData>(initFilterData);
     const history = useHistory();
 
-    const fetchPage = useDispatch<IFiltersData>(fetchPageAsync);
+    const fetchPage = useDispatch<IFilterData>(fetchPageAsync);
     const resetPagination = useDispatch(reset);
     const pagesAmount = useSelector(getPagesAmountSelector);
     const proposalsCount = useSelector(getProposalCountSelector);
@@ -61,7 +61,7 @@ export const Browser = () => {
 
     const categoryOptions = toOptions(categories);
     const cityOptions = toOptions(cities);
-    const isShowClearButton = !isEqual(omit('pageNumber', initFiltersData), omit('pageNumber', filtersData));
+    const isShowClearButton = !isEqual(omit('pageNumber', initFilterData), omit('pageNumber', filtersData));
 
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
@@ -79,10 +79,10 @@ export const Browser = () => {
             name
                 ? {
                       ...prevState,
-                      [name]: initFiltersData[name as keyof IFiltersData],
+                      [name]: initFilterData[name as keyof IFilterData],
                       pageNumber: 0,
                   }
-                : initFiltersData
+                : initFilterData
         );
     };
     const handleAuthorNameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);

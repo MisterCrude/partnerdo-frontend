@@ -1,4 +1,4 @@
-import { IFiltersData } from '@typing/proposal';
+import { IFilterData } from '@typing/proposal';
 
 import { Grid } from '@chakra-ui/react';
 import { IOption } from '@typing/app';
@@ -11,7 +11,7 @@ interface IProps {
     cityOptions: IOption[];
     cityAreaOptions: IOption[];
     genderOptions: IOption[];
-    filtersData: IFiltersData;
+    filtersData: IFilterData;
     onChange: (name: string, data: string | Array<string>) => void;
     onClear?: (name: string) => void;
 }

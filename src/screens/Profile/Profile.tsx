@@ -3,14 +3,13 @@ import { useSelector } from 'react-redux';
 import { useMount } from 'react-use';
 import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
+import { updateProfileAsync, fetchProfileProposalsAsync } from '@slices/profileSlice';
 import {
-    getProfileDataSelector,
-    getProfileRequestStatusSelector,
-    updateProfileAsync,
-    fetchProfileProposalsAsync,
     getProfileProposalsSelector,
     getProfileProposalsRequestStatusSelector,
-} from '@slices/profileSlice';
+    getProfileDataSelector,
+    getProfileRequestStatusSelector,
+} from '@selectors/profileSelectors';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
 import Main from '@layouts/Main';

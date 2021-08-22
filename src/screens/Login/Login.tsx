@@ -1,6 +1,6 @@
 import { History } from 'history';
 import { loginProfileAsync } from '@slices/profileSlice';
-import { getProfileRequestStatusSelector } from '@selectors/profileSelectors';
+import { profileRequestStatusSelector } from '@selectors/profileSelectors';
 import { ROUTES } from '@consts/routes';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -19,7 +19,7 @@ interface ILoginProfileParams {
 export const Login = () => {
     const history = useHistory();
     const submitForm = useDispatch<ILoginProfileParams>(loginProfileAsync);
-    const requestStatus = useSelector(getProfileRequestStatusSelector);
+    const requestStatus = useSelector(profileRequestStatusSelector);
 
     const handleSubmitForm = (credentials: IInputs) => submitForm({ credentials, history });
 

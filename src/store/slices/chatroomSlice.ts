@@ -7,7 +7,7 @@ import { IChatroomStatus, ChatroomMessage, NotificationType } from '@typing/chat
 import { storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 import { removeProfile } from './profileSlice';
-import { getProfileDataSelector } from '@selectors/profileSelectors';
+import { profileSelector } from '@selectors/profileSelectors';
 
 export interface IChatroomListPayload {
     chatroomList: IChatroom[];
@@ -155,7 +155,7 @@ export const createChatroomAsync = ({
 
     try {
         const state = getState();
-        const initiator = getProfileDataSelector(state).id;
+        const initiator = profileSelector(state).id;
         const chatroomDetails = {
             initialMessage,
             proposal,

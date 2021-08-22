@@ -2,26 +2,26 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '@store/rootReducer';
 import { PAGINATION_ITEMS_LIMIT } from '@consts/app';
 
-export const getProposalsPageRequestStatusSelector = (state: RootState) =>
-    state.proposal.pagination.proposals.requestStatus;
-
-export const getProposalCountSelector = (state: RootState) => state.proposal.pagination.proposals.count;
-export const getPagesAmountSelector = createSelector(getProposalCountSelector, (count) =>
+export const proposalCountSelector = (state: RootState) => state.proposal.pagination.proposals.count;
+export const getPagesAmountSelector = createSelector(proposalCountSelector, (count) =>
     Math.ceil(count / PAGINATION_ITEMS_LIMIT)
 );
-
-export const getCurrentPageNumberSelector = (state: RootState) => state.proposal.pagination.proposals.currentPage;
-export const getPagesSelector = (state: RootState) => state.proposal.pagination.proposals.pages;
-export const getProposalsSelector = (state: RootState) => state.proposal.proposals;
-export const getCurrentPageProposalsSelector = createSelector(
-    getCurrentPageNumberSelector,
-    getPagesSelector,
-    getProposalsSelector,
+export const currentPageNumberSelector = (state: RootState) => state.proposal.pagination.proposals.currentPage;
+export const proposalPageListSelector = (state: RootState) => state.proposal.pagination.proposals.pages;
+export const proposalListSelector = (state: RootState) => state.proposal.proposals;
+export const currentPageProposalListSelector = createSelector(
+    currentPageNumberSelector,
+    proposalPageListSelector,
+    proposalListSelector,
     (currentPageNumber, pages, proposals) =>
         pages[currentPageNumber] ? pages[currentPageNumber].map((id) => proposals[id]) : []
 );
+export const proposalDetailsSelector = (state: RootState) => state.proposal.details.data;
 
-export const getDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;
-export const getDetailsDataSelector = (state: RootState) => state.proposal.details.data;
-
-export const getCreateRequestStatusSelector = (state: RootState) => state.proposal.createProposalRequestStatus;
+/**
+ * Request status
+ */
+export const proposalListRequestStatusSelector = (state: RootState) =>
+    state.proposal.pagination.proposals.requestStatus;
+export const proposalDetailsRequestStatusSelector = (state: RootState) => state.proposal.details.requestStatus;
+export const proposalCreateRequestStatusSelector = (state: RootState) => state.proposal.createProposalRequestStatus;

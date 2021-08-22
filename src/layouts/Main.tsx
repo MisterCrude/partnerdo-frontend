@@ -2,8 +2,8 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { History } from 'history';
 import { logoutProfileAsync } from '@slices/profileSlice';
-import { getIsAuthSelector } from '@selectors/profileSelectors';
-import { getHasNotificationSelector } from '@selectors/chatroomSelectors';
+import { isAuthSelector } from '@selectors/profileSelectors';
+import { hasNotificationSelector } from '@selectors/chatroomSelectors';
 import useDispatch from '@hooks/useDispatch';
 
 import { BoxProps, Container, Flex } from '@chakra-ui/react';
@@ -13,8 +13,8 @@ import ToolsBar from '@components/ToolsBar';
 
 export const Main = (props: BoxProps) => {
     const history = useHistory();
-    const isAuth = useSelector(getIsAuthSelector);
-    const hasNotification = useSelector(getHasNotificationSelector);
+    const isAuth = useSelector(isAuthSelector);
+    const hasNotification = useSelector(hasNotificationSelector);
     const logout = useDispatch<History>(logoutProfileAsync);
     const children = props.children;
 

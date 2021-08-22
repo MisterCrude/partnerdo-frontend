@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
 import { registerProfileAsync } from '@slices/profileSlice';
-import { getProfileRequestStatusSelector } from '@selectors/profileSelectors';
+import { profileRequestStatusSelector } from '@selectors/profileSelectors';
 
 import { Button, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import { FacebookIcon } from '@theme/customIcons';
@@ -18,7 +18,7 @@ import RegisterFrom, { IInputs } from './components/RegisterForm';
 export const Register = () => {
     const submitForm = useDispatch(registerProfileAsync);
     const history = useHistory();
-    const requestStatus = useSelector(getProfileRequestStatusSelector);
+    const requestStatus = useSelector(profileRequestStatusSelector);
 
     const handleSubmitForm = (credentials: IInputs) => submitForm({ credentials, history });
 

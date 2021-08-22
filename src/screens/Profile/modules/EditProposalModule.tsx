@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@selectors/filterSelectors';
+import { categoryListSelector, cityListSelector, cityAreaListSelector } from '@selectors/filterSelectors';
 import { IOption } from '@typing/app';
 import { IProposal } from '@typing/proposal';
 import { toOptions } from '@utils/convert';
 import { updateProfileProposalAsync } from '@slices/profileSlice';
-import { getProfileProposalsUpdateRequestStatusSelector } from '@selectors/profileSelectors';
+import { profileProposalListUpdateRequestStatusSelector } from '@selectors/profileSelectors';
 import { useMount } from 'react-use';
 import { useSelector } from 'react-redux';
 import useDispatch from '@hooks/useDispatch';
@@ -20,16 +20,16 @@ const EditProposalModule = ({ proposal, onClose }: IProps) => {
     const [cityAreaOptions, setCityAreaOptions] = useState<IOption[]>([]);
 
     const submitForm = useDispatch<{ id: string; formData: IInputs }>(updateProfileProposalAsync);
-    const categories = useSelector(getCategoriesSelector);
-    const cities = useSelector(getCitiesSelector);
-    const profileProposalsUpdateRequestStatus = useSelector(getProfileProposalsUpdateRequestStatusSelector);
-    const getCityAreas = useSelector(getCityAreasSelector);
+    const categoryList = useSelector(categoryListSelector);
+    const cityList = useSelector(cityListSelector);
+    const profileProposalListUpdateRequestStatus = useSelector(profileProposalListUpdateRequestStatusSelector);
+    const getCityAreaList = useSelector(cityAreaListSelector);
 
-    const categoryOptions = toOptions(categories);
-    const cityOptions = toOptions(cities);
+    const categoryOptions = toOptions(categoryList);
+    const cityOptions = toOptions(cityList);
 
     const handleChangeCity = (cityId: string) => {
-        const cityAreas = getCityAreas(cityId);
+        const cityAreas = getCityAreaList(cityId);
         setCityAreaOptions(toOptions(cityAreas));
     };
 
@@ -38,14 +38,14 @@ const EditProposalModule = ({ proposal, onClose }: IProps) => {
     };
 
     useMount(() => {
-        const cityAreas = getCityAreas(proposal.city.id);
-        setCityAreaOptions(toOptions(cityAreas));
+        const cityAreaList = getCityAreaList(proposal.city.id);
+        setCityAreaOptions(toOptions(cityAreaList));
     });
 
     return (
         <>
             <EditProposalForm
-                requestStatus={profileProposalsUpdateRequestStatus}
+                requestStatus={profileProposalListUpdateRequestStatus}
                 defaultData={proposal}
                 categoryOptions={categoryOptions}
                 cityOptions={cityOptions}

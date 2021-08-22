@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getCategoriesSelector } from '@selectors/filterSelectors';
+import { categoryListSelector } from '@selectors/filterSelectors';
 
 import { Center, Heading } from '@chakra-ui/react';
 import Main from '@layouts/Main';
@@ -8,10 +8,10 @@ import MainCategories from './components/MainCategories';
 import NewProposals from './components/NewProposals';
 
 export const Home = () => {
-    const categories = useSelector(getCategoriesSelector);
+    const categoryList = useSelector(categoryListSelector);
 
     // TODO remove it
-    console.log('Home ', categories);
+    console.log('Home ', categoryList);
 
     return (
         <Main>

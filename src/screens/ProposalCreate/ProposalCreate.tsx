@@ -4,8 +4,8 @@ import { useHistory, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMount, useUpdateEffect } from 'react-use';
 import { createProposalAsync } from '@slices/proposalSlice';
-import { getCitiesSelector, getCityAreasSelector, getCategoriesSelector } from '@selectors/filterSelectors';
-import { getCreateRequestStatusSelector } from '@selectors/proposalSelectors';
+import { cityListSelector, cityAreaListSelector, categoryListSelector } from '@selectors/filterSelectors';
+import { proposalCreateRequestStatusSelector } from '@selectors/proposalSelectors';
 import { IProposal } from '@typing/proposal';
 import { RequestStatus } from '@typing/api';
 import { ROUTES } from '@consts/routes';
@@ -51,15 +51,15 @@ export const ProposalCreate = () => {
         description: '',
     });
 
-    const categories = useSelector(getCategoriesSelector);
-    const getCityAreas = useSelector(getCityAreasSelector);
-    const cities = useSelector(getCitiesSelector);
-    const createRequestStatus = useSelector(getCreateRequestStatusSelector);
+    const categoryList = useSelector(categoryListSelector);
+    const getCityAreaList = useSelector(cityAreaListSelector);
+    const cityList = useSelector(cityListSelector);
+    const proposalCreateRequestStatus = useSelector(proposalCreateRequestStatusSelector);
 
     const history = useHistory();
 
-    const cityOptions = toOptions(cities);
-    const categoryOptions = toOptions(categories);
+    const cityOptions = toOptions(cityList);
+    const categoryOptions = toOptions(categoryList);
 
     const handleCancel = () => history.push(ROUTES.PROPOSALS);
     const handleGoNextStep = (step: number) => {
@@ -79,8 +79,8 @@ export const ProposalCreate = () => {
     useMount(() => history.push(STEPS[0].path));
 
     useUpdateEffect(() => {
-        createRequestStatus === RequestStatus.SUCCESS && history.push(ROUTES.PROPOSALS);
-    }, [createRequestStatus]);
+        proposalCreateRequestStatus === RequestStatus.SUCCESS && history.push(ROUTES.PROPOSALS);
+    }, [proposalCreateRequestStatus]);
 
     return (
         <Main d="flex" flexDir="column" flexGrow={1} maxW="3xl" mt={{ base: 0, md: 10 }} mb={10}>
@@ -107,7 +107,7 @@ export const ProposalCreate = () => {
                     <StepTwo
                         citires={cityOptions}
                         defaultData={proposalFields as Record<string, string>}
-                        cityAreasGetter={getCityAreas}
+                        cityAreasGetter={getCityAreaList}
                         onChangeStep={handleGoNextStep}
                         onSave={handleSaveFields}
                     />
@@ -115,7 +115,7 @@ export const ProposalCreate = () => {
                 <Route exact path={STEPS[2].path}>
                     <StepThreeForm
                         defaultData={proposalFields as Record<string, string>}
-                        requestStatus={createRequestStatus}
+                        requestStatus={proposalCreateRequestStatus}
                         onSubmit={handleSubmitForm}
                         onBack={handleGoNextStep}
                     />

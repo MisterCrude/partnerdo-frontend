@@ -14,15 +14,15 @@ import {
     changeChatroomStatusAsync,
     resetDetails as reset,
     resetChatroomMessageList as resetMessageList,
-    // getChangeChatroomStatusRequestStatusSelector,
+    // changeChatroomStatusRequestStatusSelector,
 } from '@slices/chatroomSlice';
 import {
-    getDetailsSelector,
-    getDetailsRequestStatusSelector,
-    getChatroomMessageListSelector,
-    getChatroomMessageListRequestStatusSelector,
+    detailsSelector,
+    detailsRequestStatusSelector,
+    messageListSelector,
+    chatroomMessageListRequestStatusSelector,
 } from '@selectors/chatroomSelectors';
-import { getProfileDataSelector } from '@selectors/profileSelectors';
+import { profileSelector } from '@selectors/profileSelectors';
 
 import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
@@ -37,11 +37,11 @@ export const Chatroom = () => {
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
 
-    const chatroomDetails = useSelector(getDetailsSelector);
-    const messageList = useSelector(getChatroomMessageListSelector);
-    const messageListRequestStatus = useSelector(getChatroomMessageListRequestStatusSelector);
-    const requestStatus = useSelector(getDetailsRequestStatusSelector);
-    const { id: profileId } = useSelector(getProfileDataSelector);
+    const chatroomDetails = useSelector(detailsSelector);
+    const messageList = useSelector(messageListSelector);
+    const messageListRequestStatus = useSelector(chatroomMessageListRequestStatusSelector);
+    const requestStatus = useSelector(detailsRequestStatusSelector);
+    const { id: profileId } = useSelector(profileSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
     const changeChatroomStatus = useDispatch<{
@@ -52,7 +52,7 @@ export const Chatroom = () => {
         type: WSMessageTypes.CHATROOM_MESSAGE,
         payload: message,
     }));
-    // const changeChatroomStatusRequestStatus = useSelector(getChangeChatroomStatusRequestStatusSelector);
+    // const changeChatroomStatusRequestStatus = useSelector(changeChatroomStatusRequestStatusSelector);
     const connectToChatroom = useDispatch((message: IWSMessage<string>) => ({
         type: WSMessageTypes.CONNECT_TO_CHATROOM,
         payload: message,

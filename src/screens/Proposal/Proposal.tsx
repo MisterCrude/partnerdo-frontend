@@ -1,10 +1,10 @@
 import { useState, ChangeEvent } from 'react';
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom';
 import { resetDetails as reset, fetchDetailsAsync } from '@slices/proposalSlice';
-import { getDetailsDataSelector, getDetailsRequestStatusSelector } from '@selectors/proposalSelectors';
+import { proposalDetailsSelector, proposalDetailsRequestStatusSelector } from '@selectors/proposalSelectors';
 import { createChatroomAsync, IChatroomDetails } from '@slices/chatroomSlice';
-import { getCreateChatroomRequestStatusSelector } from '@selectors/chatroomSelectors';
-import { getProfileDataSelector } from '@selectors/profileSelectors';
+import { createChatroomRequestStatusSelector } from '@selectors/chatroomSelectors';
+import { profileSelector } from '@selectors/profileSelectors';
 import { ROUTES } from '@consts/routes';
 import { RequestStatus } from '@typing/api';
 import { DEFAULT_LOCALE, AVATAR_FALLBACK_URL } from '@consts/app';
@@ -47,20 +47,21 @@ export const Proposal = ({ isAuth = false }: IProps) => {
     const history = useHistory();
     const { pathname } = useLocation();
 
-    const proposalData = useSelector(getDetailsDataSelector);
-    const requestStatus = useSelector(getDetailsRequestStatusSelector);
-    const createChatroomRequestStatus = useSelector(getCreateChatroomRequestStatusSelector);
-    const { id: profileId } = useSelector(getProfileDataSelector);
+    const proposalDetails = useSelector(proposalDetailsSelector);
+    const proposalDetailsRequestStatus = useSelector(proposalDetailsRequestStatusSelector);
+    const createChatroomRequestStatus = useSelector(createChatroomRequestStatusSelector);
+    const { id: profileId } = useSelector(profileSelector);
 
     const fetchDetails = useDispatch<string>(fetchDetailsAsync);
     const resetDetails = useDispatch(reset);
     const createChatroom = useDispatch<Omit<IChatroomDetails, 'initiator'>>(createChatroomAsync);
 
-    const { author, category, cityArea, city, created, description, title } = proposalData;
+    const { author, category, cityArea, city, created, description, title } = proposalDetails;
 
-    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
-    const showError = requestStatus === RequestStatus.ERROR;
-    const showContent = requestStatus === RequestStatus.SUCCESS;
+    const showSkeleton =
+        proposalDetailsRequestStatus === RequestStatus.FETCHING || proposalDetailsRequestStatus === RequestStatus.IDLE;
+    const showError = proposalDetailsRequestStatus === RequestStatus.ERROR;
+    const showContent = proposalDetailsRequestStatus === RequestStatus.SUCCESS;
     const isFetchingCreateChatroom = createChatroomRequestStatus === RequestStatus.FETCHING;
 
     const handleBack = () => history.goBack();
@@ -68,7 +69,7 @@ export const Proposal = ({ isAuth = false }: IProps) => {
     const handleMakeOffer = () => {
         onClose();
         setOfferMessage('');
-        createChatroom({ initialMessage: offerMessage, proposal: proposalData.id });
+        createChatroom({ initialMessage: offerMessage, proposal: proposalDetails.id });
     };
 
     const handleChageOfferMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setOfferMessage(target.value);

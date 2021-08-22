@@ -1,6 +1,6 @@
-import { getProfileDataSelector } from '@selectors/profileSelectors';
+import { profileSelector } from '@selectors/profileSelectors';
 import { RequestStatus } from '@typing/api';
-import { getChatroomListRequestStatusMapSelector, getChatroomListSelector } from '@selectors/chatroomSelectors';
+import { chatroomListRequestStatusSelector, chatroomListSelector } from '@selectors/chatroomSelectors';
 import { ROUTES } from '@consts/routes';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -13,16 +13,17 @@ import ChatroomList from './components/ChatroomList';
 export const Chat = () => {
     const history = useHistory();
 
-    const requestStatus = useSelector(getChatroomListRequestStatusMapSelector);
-    const chatroomList = useSelector(getChatroomListSelector);
-    const { id: profileId } = useSelector(getProfileDataSelector);
+    const chatroomListRequestStatus = useSelector(chatroomListRequestStatusSelector);
+    const chatroomList = useSelector(chatroomListSelector);
+    const { id: profileId } = useSelector(profileSelector);
 
     const handleUsernameClick = (authorId: string) => history.push(`${ROUTES.USER_PROFILE}/${authorId}`);
     const handleTitleClick = (chatroomId: string) => history.push(`${ROUTES.CHAT}/${chatroomId}`);
 
-    const showError = requestStatus === RequestStatus.ERROR;
-    const showContent = requestStatus === RequestStatus.SUCCESS;
-    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
+    const showError = chatroomListRequestStatus === RequestStatus.ERROR;
+    const showContent = chatroomListRequestStatus === RequestStatus.SUCCESS;
+    const showSkeleton =
+        chatroomListRequestStatus === RequestStatus.FETCHING || chatroomListRequestStatus === RequestStatus.IDLE;
 
     return (
         <Main flexGrow={1} mt={{ base: 0, md: 10 }} mb={10}>

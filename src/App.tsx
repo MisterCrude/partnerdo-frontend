@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Redirect, Switch, useHistory } from 'react-router-dom';
-import { getIsAuthSelector } from '@selectors/profileSelectors';
+import { isAuthSelector } from '@selectors/profileSelectors';
 import { ROUTES } from '@consts/routes';
 import { useSelector } from 'react-redux';
 import GuardedRoute from '@services/guardeRoute';
@@ -72,7 +72,7 @@ const RoutesSwitcher: React.FC<IProps> = ({ isAuth }) => {
 };
 
 const App: React.FC = () => {
-    const isAuth = useSelector(getIsAuthSelector);
+    const isAuth = useSelector(isAuthSelector);
 
     return <RoutesSwitcher isAuth={isAuth} />;
 };

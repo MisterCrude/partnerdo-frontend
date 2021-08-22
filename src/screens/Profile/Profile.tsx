@@ -5,10 +5,10 @@ import { ROUTES } from '@consts/routes';
 import useDispatch from '@hooks/useDispatch';
 import { updateProfileAsync, fetchProfileProposalsAsync } from '@slices/profileSlice';
 import {
-    getProfileProposalsSelector,
-    getProfileProposalsRequestStatusSelector,
-    getProfileDataSelector,
-    getProfileRequestStatusSelector,
+    profileProposalListSelector,
+    profileProposalListRequestStatusSelector,
+    profileSelector,
+    profileRequestStatusSelector,
 } from '@selectors/profileSelectors';
 
 import { Box, Flex, Link } from '@chakra-ui/react';
@@ -46,10 +46,10 @@ const PROFILE_TABS = [
 ];
 
 export const Profile = () => {
-    const userData = useSelector(getProfileDataSelector);
-    const requestStatus = useSelector(getProfileRequestStatusSelector);
-    const profileProposals = useSelector(getProfileProposalsSelector);
-    const profileProposalsRequestStatus = useSelector(getProfileProposalsRequestStatusSelector);
+    const userData = useSelector(profileSelector);
+    const requestStatus = useSelector(profileRequestStatusSelector);
+    const profileProposalList = useSelector(profileProposalListSelector);
+    const profileProposalListRequestStatus = useSelector(profileProposalListRequestStatusSelector);
 
     const fetchProfileProposals = useDispatch<string>(fetchProfileProposalsAsync);
     const submitForm = useDispatch<IInputs>(updateProfileAsync);
@@ -104,8 +104,8 @@ export const Profile = () => {
                     </Route>
                     <Route exact path={ROUTES.PROFILE_MY_PROPOSALS}>
                         <MyProposals
-                            requestStatus={profileProposalsRequestStatus}
-                            proposals={profileProposals}
+                            requestStatus={profileProposalListRequestStatus}
+                            proposals={profileProposalList}
                             onProposalClick={handleProposalClick}
                         />
                     </Route>

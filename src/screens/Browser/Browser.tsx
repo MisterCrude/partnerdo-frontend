@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux';
 import { useUnmount, useUpdateEffect } from 'react-use';
 import { fetchPageAsync } from '@slices/proposalSlice';
 import {
-    getCurrentPageProposalsSelector,
+    currentPageProposalListSelector,
     getPagesAmountSelector,
-    getProposalCountSelector,
-    getProposalsPageRequestStatusSelector,
+    proposalCountSelector,
+    proposalListRequestStatusSelector,
 } from '@selectors/proposalSelectors';
-import { getCategoriesSelector, getCitiesSelector, getCityAreasSelector } from '@selectors/filterSelectors';
+import { categoryListSelector, cityListSelector, cityAreaListSelector } from '@selectors/filterSelectors';
 import { resetPagination as reset } from '@slices/proposalSlice';
 import { IFilterData } from '@typing/proposal';
 import { IOption } from '@typing/app';
@@ -52,20 +52,21 @@ export const Browser = () => {
     const fetchPage = useDispatch<IFilterData>(fetchPageAsync);
     const resetPagination = useDispatch(reset);
     const pagesAmount = useSelector(getPagesAmountSelector);
-    const proposalsCount = useSelector(getProposalCountSelector);
-    const proposals = useSelector(getCurrentPageProposalsSelector);
-    const categories = useSelector(getCategoriesSelector);
-    const cities = useSelector(getCitiesSelector);
-    const requestStatus = useSelector(getProposalsPageRequestStatusSelector);
-    const getCityAreas = useSelector(getCityAreasSelector);
+    const proposalsCount = useSelector(proposalCountSelector);
+    const currentPageProposalList = useSelector(currentPageProposalListSelector);
+    const categoryList = useSelector(categoryListSelector);
+    const cityList = useSelector(cityListSelector);
+    const proposalListRequestStatus = useSelector(proposalListRequestStatusSelector);
+    const getCityAreaList = useSelector(cityAreaListSelector);
 
-    const categoryOptions = toOptions(categories);
-    const cityOptions = toOptions(cities);
+    const categoryOptions = toOptions(categoryList);
+    const cityOptions = toOptions(cityList);
     const isShowClearButton = !isEqual(omit('pageNumber', initFilterData), omit('pageNumber', filtersData));
 
-    const showError = requestStatus === RequestStatus.ERROR;
-    const showContent = requestStatus === RequestStatus.SUCCESS;
-    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
+    const showError = proposalListRequestStatus === RequestStatus.ERROR;
+    const showContent = proposalListRequestStatus === RequestStatus.SUCCESS;
+    const showSkeleton =
+        proposalListRequestStatus === RequestStatus.FETCHING || proposalListRequestStatus === RequestStatus.IDLE;
 
     const handleChangePage = (pageNumber: number) => {
         scrollTop();
@@ -89,7 +90,7 @@ export const Browser = () => {
     const handleTitleClick = (proposalId: string) => history.push(`${ROUTES.PROPOSALS}/${proposalId}`);
 
     useUpdateEffect(() => {
-        setCityAreasOptions(filtersData.city ? toOptions(getCityAreas(filtersData.city)) : []);
+        setCityAreasOptions(filtersData.city ? toOptions(getCityAreaList(filtersData.city)) : []);
         /**
          * Initial proposals fetch doing here.
          * After fetchin filters useUpdateEffect triggered and fetch proposals list.
@@ -140,7 +141,7 @@ export const Browser = () => {
                     <Results
                         onAuthorNameClick={handleAuthorNameClick}
                         onTitleClick={handleTitleClick}
-                        results={proposals}
+                        results={currentPageProposalList}
                     />
                 </>
             )}

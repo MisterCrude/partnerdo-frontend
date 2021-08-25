@@ -3,12 +3,6 @@ import { IProposal } from './proposal';
 
 type ICompanion = Omit<IProfile, 'birthYear' | 'description' | 'gender' | 'email'>;
 
-export enum NotificationType {
-    IDLE,
-    NEW_MESSAGE,
-    CHANGE_STATUS,
-}
-
 export enum IChatroomStatus {
     APPROVED = 'AP',
     IDLE = 'ID',

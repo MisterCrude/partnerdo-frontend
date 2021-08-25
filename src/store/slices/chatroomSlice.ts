@@ -3,7 +3,7 @@ import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IChatroom, IChatroomResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
-import { IChatroomStatus, ChatroomMessage, NotificationType } from '@typing/chat';
+import { IChatroomStatus, ChatroomMessage } from '@typing/chat';
 import { storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 import { removeProfile } from './profileSlice';
@@ -27,12 +27,10 @@ export interface IChatroomsState {
     details: IGenericRemote<IChatroom>;
     chatroomMessageList: IGenericRemote<ChatroomMessage[]>;
     chatroomList: IGenericRemote<IChatroom[]>;
-    notificationType?: NotificationType;
 }
 
 const initialState: IChatroomsState = {
     hasNotification: false,
-    notificationType: NotificationType.IDLE,
     createChatroomRequestStatus: RequestStatus.IDLE,
     chageChatroomStatusRequestStatus: RequestStatus.IDLE,
     details: {
@@ -90,12 +88,6 @@ const chatroomSlice = createSlice({
         setChatroomCreateStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.createChatroomRequestStatus = payload;
         },
-        setNotificationType(state, { payload }: PayloadAction<NotificationType>) {
-            state.notificationType = payload;
-        },
-        resetNotificationType(state) {
-            state.notificationType = NotificationType.IDLE;
-        },
     },
     extraReducers: {
         [removeProfile.type]: () => initialState,
@@ -116,8 +108,6 @@ export const {
     setChatroomMessageListRequestStatus,
     setDetails,
     setDetailsRequestStatus,
-    setNotificationType,
-    resetNotificationType,
 } = chatroomSlice.actions;
 
 /**

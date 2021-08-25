@@ -154,6 +154,10 @@ export const Chatroom = () => {
                         <VStack spacing={8}>
                             {isOwnProposal ? (
                                 <Message
+                                    showControls={chatroomStatus === IChatroomStatus.IDLE}
+                                    onApprove={handleAccept}
+                                    onReject={handleReject}
+                                    author={getUserName(companion.firstName, companion.lastName, companion.username)}
                                     message={initialMessage}
                                     sentTime={`${toLocaleTimeString(
                                         initialMessageCreatedTime,
@@ -162,10 +166,6 @@ export const Chatroom = () => {
                                 />
                             ) : (
                                 <Message
-                                    showControls={chatroomStatus === IChatroomStatus.IDLE}
-                                    onApprove={handleAccept}
-                                    onReject={handleReject}
-                                    author={getUserName(companion.firstName, companion.lastName, companion.username)}
                                     message={initialMessage}
                                     sentTime={`${toLocaleTimeString(
                                         initialMessageCreatedTime,

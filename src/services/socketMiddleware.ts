@@ -4,7 +4,7 @@ import { WSReadyState, WSMessageTypes, IWSMessage, RequestStatus } from '@typing
 import { BASE_URL } from '@consts/api';
 
 import SocketClient from '@services/socketClient';
-import { IChatroom, NotificationType } from '@typing/chat';
+import { IChatroom, IChatroomNotificationType } from '@typing/chat';
 import { toSnakeCase } from '@src/utils/convert';
 
 const socket = new SocketClient(BASE_URL);
@@ -64,7 +64,10 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                          * NOTIFICATION
                          */
                         if (message.type === WSMessageTypes.NOTIFICATION_TYPE) {
-                            dispatch({ type: 'chatrooms/setNotificationType', payload: NotificationType.IDLE });
+                            dispatch({
+                                type: 'chatrooms/setNotificationType',
+                                payload: IChatroomNotificationType.IDLE,
+                            });
                         }
                     });
 

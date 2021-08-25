@@ -13,7 +13,7 @@ export enum IChatroomNotificationType {
     IDLE = 'ID',
     NEW_MESSAGE = 'NM',
     CHANGE_STATUS = 'CS',
-    CREATE_CHATROOM = 'CM',
+    CREATE_CHATROOM = 'CC',
 }
 
 export interface IChatroom {

@@ -16,16 +16,6 @@ interface IProps {
 
 export const ChatroomList = ({ chatroomList, onUsernameCkick, onTitleClick }: IProps) => {
     const getMessageBoxType = (notificationType: IChatroomNotificationType, status: IChatroomStatus) => {
-        // DEFAULT = 'default',
-        // REJECTED = 'rejected',
-        // APPROVED = 'approved',
-        //
-        //
-        // IDLE = 'ID',
-        // NEW_MESSAGE = 'NM',
-        // CHANGE_STATUS = 'CS',
-        // CREATE_CHATROOM = 'CM',
-
         if (status === IChatroomStatus.REJECTED && IChatroomNotificationType.CHANGE_STATUS === notificationType) {
             return Type.REJECTED;
         }
@@ -35,40 +25,46 @@ export const ChatroomList = ({ chatroomList, onUsernameCkick, onTitleClick }: IP
         return Type.DEFAULT;
     };
 
+    const getUnreadMessageAmount = (notificationType: IChatroomNotificationType, unreadMessageAmount: number) =>
+        notificationType === IChatroomNotificationType.CREATE_CHATROOM ? 1 : unreadMessageAmount;
+
     return (
         <>
-            {chatroomList.map(
-                (
-                    {
-                        companion: { id: companionId, avatar, firstName, lastName, username },
-                        created,
-                        id,
-                        notificationType,
-                        proposal: { title, category, city, cityArea },
-                        status,
-                        unreadMessageAmount,
-                    },
-                    index
-                ) => (
+            {chatroomList.map((chatroom, index) => {
+                const { companion, created, id, notificationType, proposal, status } = chatroom;
+
+                const prevCreatedDate = chatroomList[index - 1]?.created;
+                const address = `${proposal.city.name}, ${proposal.cityArea.name}`;
+                const lastMessageTime = toLocaleTimeString(chatroom.created, DEFAULT_LOCALE);
+                const type = getMessageBoxType(notificationType, status);
+                const unreadMessageAmount = getUnreadMessageAmount(
+                    chatroom.notificationType,
+                    chatroom.unreadMessageAmount
+                );
+                const userName = getUserName(companion.firstName, companion.lastName, companion.username);
+                const handleTitleClick = () => onTitleClick(id);
+                const handleUserNameClick = () => onUsernameCkick(chatroom.companion.id);
+
+                return (
                     <Fragment key={id}>
-                        <DateTitle prevCreatedDate={chatroomList[index - 1]?.created} currentCreatedDate={created} />
+                        <DateTitle prevCreatedDate={prevCreatedDate} currentCreatedDate={created} />
 
                         <MessageBox
-                            address={`${city.name}, ${cityArea.name}`}
-                            categoryColor={category.color}
-                            categoryName={category.name}
-                            lastMessageTime={toLocaleTimeString(created, DEFAULT_LOCALE)}
-                            title={title}
-                            type={getMessageBoxType(notificationType, status)}
+                            address={address}
+                            categoryColor={proposal.category.color}
+                            categoryName={proposal.category.name}
+                            lastMessageTime={lastMessageTime}
+                            title={proposal.title}
+                            type={type}
                             unreadMessageAmount={unreadMessageAmount}
-                            userAvatarUrl={avatar}
-                            userName={getUserName(firstName, lastName, username)}
-                            onTitleClick={() => onTitleClick(id)}
-                            onUserNameClick={() => onUsernameCkick(companionId)}
+                            userAvatarUrl={companion.avatar}
+                            userName={userName}
+                            onTitleClick={handleTitleClick}
+                            onUserNameClick={handleUserNameClick}
                         />
                     </Fragment>
-                )
-            )}
+                );
+            })}
         </>
     );
 };

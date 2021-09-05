@@ -200,6 +200,10 @@ export const changeChatroomStatusAsync = ({
 
         dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.FETCHING));
     } catch (error) {
+        /**
+         * Don't dispatch setChangeChatroomStatusRequestStatus with RequestStatus.ERROR payload
+         * because immediately after the change need to switch back to RequestStatus.ERROR
+         */
         dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.ERROR));
 
         storeToast({

@@ -14,13 +14,13 @@ import {
     changeChatroomStatusAsync,
     resetDetails as reset,
     resetChatroomMessageList as resetMessageList,
-    // changeChatroomStatusRequestStatusSelector,
 } from '@slices/chatroomSlice';
 import {
     detailsSelector,
     detailsRequestStatusSelector,
     messageListSelector,
     chatroomMessageListRequestStatusSelector,
+    changeChatroomStatusRequestStatusSelector,
 } from '@selectors/chatroomSelectors';
 import { profileSelector } from '@selectors/profileSelectors';
 
@@ -34,6 +34,7 @@ import Notification from './components/Notification';
 
 export const Chatroom = () => {
     const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
+    const [actionButtonVariantLoading, setActionButtonVariantLoading] = useState<'approve' | 'reject' | undefined>();
     const [message, setMessage] = useState('');
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
@@ -41,6 +42,7 @@ export const Chatroom = () => {
     const chatroomDetails = useSelector(detailsSelector);
     const messageList = useSelector(messageListSelector);
     const messageListRequestStatus = useSelector(chatroomMessageListRequestStatusSelector);
+    const changeChatroomStatusRequestStatus = useSelector(changeChatroomStatusRequestStatusSelector);
     const requestStatus = useSelector(detailsRequestStatusSelector);
     const { id: profileId } = useSelector(profileSelector);
 
@@ -53,7 +55,7 @@ export const Chatroom = () => {
         type: WSMessageTypes.CHATROOM_MESSAGE,
         payload: message,
     }));
-    // const changeChatroomStatusRequestStatus = useSelector(changeChatroomStatusRequestStatusSelector);
+
     const connectToChatroom = useDispatch((message: IWSMessage<string>) => ({
         type: WSMessageTypes.CONNECT_TO_CHATROOM,
         payload: message,
@@ -84,26 +86,27 @@ export const Chatroom = () => {
 
     const handleBack = () => history.goBack();
 
-    const handleAccept = () => {
+    const handleApprove = () => {
+        setActionButtonVariantLoading('approve');
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.APPROVED });
-        setChatroomStatus(IChatroomStatus.APPROVED);
     };
 
     const handleReject = () => {
+        setActionButtonVariantLoading('reject');
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.REJECTED });
-        setChatroomStatus(IChatroomStatus.REJECTED);
     };
 
-    useMount(() => {
-        fetchDetails(chatroomId);
-        // TODO refactor and remove setTimeout
-        setTimeout(() => connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId }), 1000);
-    });
+    useMount(() => fetchDetails(chatroomId));
+
+    useUpdateEffect(() => setChatroomStatus(status), [status]);
 
     useUpdateEffect(() => {
-        console.log('status');
-        setChatroomStatus(status);
-    }, [status]);
+        if (changeChatroomStatusRequestStatus === RequestStatus.SUCCESS) {
+            setChatroomStatus(IChatroomStatus.APPROVED);
+        }
+        // TODO move it up, inside to if
+        connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId });
+    }, [changeChatroomStatusRequestStatus]);
 
     useUnmount(() => {
         resetDetails();
@@ -145,8 +148,16 @@ export const Chatroom = () => {
                             {isOwnProposal ? (
                                 <Message
                                     showControls={chatroomStatus === IChatroomStatus.IDLE}
-                                    onApprove={handleAccept}
+                                    onApprove={handleApprove}
                                     onReject={handleReject}
+                                    isRejectLoading={
+                                        changeChatroomStatusRequestStatus === RequestStatus.FETCHING &&
+                                        actionButtonVariantLoading === 'reject'
+                                    }
+                                    isApproveLoading={
+                                        changeChatroomStatusRequestStatus === RequestStatus.FETCHING &&
+                                        actionButtonVariantLoading === 'approve'
+                                    }
                                     author={getUserName(companion.firstName, companion.lastName, companion.username)}
                                     message={initialMessage}
                                     sentTime={`${toLocaleTimeString(
@@ -168,7 +179,7 @@ export const Chatroom = () => {
                                 messageList.map(({ id, content, author, created }) => (
                                     <Message
                                         key={id}
-                                        onApprove={handleAccept}
+                                        onApprove={handleApprove}
                                         author={
                                             profileId !== author.id
                                                 ? getUserName(author.firstName, author.lastName, author.username)

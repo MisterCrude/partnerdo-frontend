@@ -6,12 +6,23 @@ interface IProps {
     sentTime: string;
     author?: string;
     showControls?: boolean;
+    isRejectLoading?: boolean;
+    isApproveLoading?: boolean;
     onApprove?: () => void;
     onReject?: () => void;
 }
-// TODO extract axxept reject functionality from this component
-const Message = ({ author, message, sentTime, showControls, onApprove, onReject }: IProps) => {
-    const showAcceptedControls = onReject && onApprove && showControls;
+// TODO extract accept reject functionality from this component
+const Message = ({
+    author,
+    message,
+    sentTime,
+    showControls,
+    onApprove,
+    onReject,
+    isRejectLoading = false,
+    isApproveLoading = false,
+}: IProps) => {
+    const showApprovedControls = onReject && onApprove && showControls;
 
     return (
         <Box alignSelf={author ? 'flex-start' : 'flex-end'} width="80%">
@@ -24,12 +35,24 @@ const Message = ({ author, message, sentTime, showControls, onApprove, onReject 
             <Box bgColor={author ? 'orange.50' : 'gray.50'} borderWidth={1} borderRadius="lg" px={4} py={2}>
                 <Text>{message}</Text>
 
-                {showAcceptedControls && (
+                {showApprovedControls && (
                     <Flex justifyContent="space-between" mt={4} mb={2}>
-                        <Button colorScheme="red" rightIcon={<CloseIcon />} onClick={onReject}>
+                        <Button
+                            isDisabled={isRejectLoading || isApproveLoading}
+                            isLoading={isRejectLoading}
+                            colorScheme="red"
+                            rightIcon={<CloseIcon />}
+                            onClick={onReject}
+                        >
                             Odrzuć
                         </Button>
-                        <Button colorScheme="orange" rightIcon={<TickIcon />} onClick={onApprove}>
+                        <Button
+                            isDisabled={isRejectLoading || isApproveLoading}
+                            isLoading={isApproveLoading}
+                            colorScheme="orange"
+                            rightIcon={<TickIcon />}
+                            onClick={onApprove}
+                        >
                             Zaakceptuj
                         </Button>
                     </Flex>

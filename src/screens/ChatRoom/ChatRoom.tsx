@@ -24,12 +24,13 @@ import {
 } from '@selectors/chatroomSelectors';
 import { profileSelector } from '@selectors/profileSelectors';
 
-import { Button, Box, Flex, Textarea, VStack, Text } from '@chakra-ui/react';
+import { Button, Box, Flex, Textarea, VStack } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
 import Message from './components/Message';
 import Proposal from './components/Proposal';
+import Notification from './components/Notification';
 
 export const Chatroom = () => {
     const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
@@ -60,22 +61,13 @@ export const Chatroom = () => {
     const resetDetails = useDispatch(reset);
     const resetChatroomMessageList = useDispatch(resetMessageList);
 
-    const {
-        initialMessage,
-        companion,
-        messageTotalAmount,
-        proposal,
-        status,
-        created: initialMessageCreatedTime,
-    } = chatroomDetails;
+    const { initialMessage, companion, proposal, status, created: initialMessageCreatedTime } = chatroomDetails;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
     const showContent = requestStatus === RequestStatus.SUCCESS;
 
-    const isRejected = chatroomStatus === IChatroomStatus.REJECTED;
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
-    const isIdle = chatroomStatus === IChatroomStatus.IDLE;
     const isOwnProposal = useMemo(() => profileId === proposal?.author.id, [companion]);
 
     const isMessageListLoading =
@@ -90,9 +82,7 @@ export const Chatroom = () => {
 
     const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
 
-    const handleBack = () => {
-        history.goBack();
-    };
+    const handleBack = () => history.goBack();
 
     const handleAccept = () => {
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.APPROVED });
@@ -140,7 +130,7 @@ export const Chatroom = () => {
                         proposalId={proposal.id}
                         authorId={companion.id}
                         address={`${proposal.city.name}, ${proposal.cityArea.name}`}
-                        userAvatarUrl={companion.avatar}
+                        userAvatarUrl={proposal.author.avatar}
                         userName={getUserName(
                             proposal.author.firstName,
                             proposal.author.lastName,
@@ -195,11 +185,7 @@ export const Chatroom = () => {
                     </Box>
 
                     <Box>
-                        {isOwnProposal && isApproved && Number(messageTotalAmount) < 1 && (
-                            <Text align="center" bgColor="green.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
-                                Twoja propozycja została zaakceptowana, teraz mozesz napisać do tego użytkownika
-                            </Text>
-                        )}
+                        <Notification isOwn={isOwnProposal} status={chatroomStatus} />
 
                         {isApproved && (
                             <Textarea
@@ -212,24 +198,6 @@ export const Chatroom = () => {
                                 value={message}
                                 onChange={handleChangeMessage}
                             />
-                        )}
-
-                        {isOwnProposal && isIdle && (
-                            <Text align="center" bgColor="orange.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
-                                Musisz poczekać na akceptację użytkownika &nbsp;
-                            </Text>
-                        )}
-
-                        {isOwnProposal && isRejected && (
-                            <Text align="center" bgColor="red.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
-                                Twoja propozycja została odrzucona
-                            </Text>
-                        )}
-
-                        {!isOwnProposal && isRejected && (
-                            <Text align="center" bgColor="red.100" borderRadius={6} fontWeight="light" mb={8} p={4}>
-                                Ta propozycja została przez Ciebie odrzucona
-                            </Text>
                         )}
 
                         <Flex justifyContent={{ base: 'center', md: 'space-between' }}>

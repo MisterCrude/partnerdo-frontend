@@ -29,6 +29,7 @@ import { ChevronLeftIcon } from '@chakra-ui/icons';
 import Breadcrumbs from '@components/Breadcrumbs';
 import Main from '@layouts/Main';
 import Message from './components/Message';
+import InitialMessage from './components/InitialMessage';
 import Proposal from './components/Proposal';
 import Notification from './components/Notification';
 
@@ -63,7 +64,14 @@ export const Chatroom = () => {
     const resetDetails = useDispatch(reset);
     const resetChatroomMessageList = useDispatch(resetMessageList);
 
-    const { initialMessage, companion, proposal, status, created: initialMessageCreatedTime } = chatroomDetails;
+    const {
+        initialMessage,
+        companion,
+        proposal,
+        status,
+        created: initialMessageCreatedTime,
+        messageTotalAmount,
+    } = chatroomDetails;
 
     const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
     const showError = requestStatus === RequestStatus.ERROR;
@@ -72,9 +80,7 @@ export const Chatroom = () => {
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
     const isOwnProposal = useMemo(() => profileId === proposal?.author.id, [companion]);
 
-    const isMessageListLoading =
-        (messageListRequestStatus === RequestStatus.FETCHING || messageListRequestStatus === RequestStatus.IDLE) &&
-        isApproved;
+    const isMessageListLoading = messageListRequestStatus === RequestStatus.FETCHING && isApproved;
     const isMessageListLoaded = messageListRequestStatus === RequestStatus.SUCCESS && isApproved;
 
     const handleSendMessage = () => {
@@ -107,6 +113,14 @@ export const Chatroom = () => {
         // TODO move it up, inside to if
         connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId });
     }, [changeChatroomStatusRequestStatus]);
+
+    useUpdateEffect(() => {
+        if (chatroomStatus === IChatroomStatus.APPROVED)
+            setTimeout(
+                () => connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId }),
+                1000
+            );
+    }, [chatroomStatus]);
 
     useUnmount(() => {
         resetDetails();
@@ -146,7 +160,7 @@ export const Chatroom = () => {
                     <Box borderTopWidth={1} flexGrow={1} py={8}>
                         <VStack spacing={8}>
                             {isOwnProposal ? (
-                                <Message
+                                <InitialMessage
                                     showControls={chatroomStatus === IChatroomStatus.IDLE}
                                     onApprove={handleApprove}
                                     onReject={handleReject}
@@ -179,7 +193,6 @@ export const Chatroom = () => {
                                 messageList.map(({ id, content, author, created }) => (
                                     <Message
                                         key={id}
-                                        onApprove={handleApprove}
                                         author={
                                             profileId !== author.id
                                                 ? getUserName(author.firstName, author.lastName, author.username)
@@ -196,7 +209,7 @@ export const Chatroom = () => {
                     </Box>
 
                     <Box>
-                        <Notification isOwn={isOwnProposal} status={chatroomStatus} />
+                        {!messageTotalAmount && <Notification isOwn={isOwnProposal} status={chatroomStatus} />}
 
                         {isApproved && (
                             <Textarea

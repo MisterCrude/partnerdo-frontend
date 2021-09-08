@@ -27,7 +27,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                          */
                         if (message.type === WSMessageTypes.CHATROOM_LIST) {
                             dispatch({
-                                type: 'chatrooms/setChatroomListRequestStatus',
+                                type: 'chatroom/setChatroomListRequestStatus',
                                 payload: RequestStatus.FETCHING,
                             });
 
@@ -36,10 +36,10 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                                 hasNotification: boolean;
                             };
 
-                            dispatch({ type: 'chatrooms/setChatroomList', payload: { chatroomList, hasNotification } });
+                            dispatch({ type: 'chatroom/setChatroomList', payload: { chatroomList, hasNotification } });
 
                             dispatch({
-                                type: 'chatrooms/setChatroomListRequestStatus',
+                                type: 'chatroom/setChatroomListRequestStatus',
                                 payload: RequestStatus.SUCCESS,
                             });
                         }
@@ -47,15 +47,17 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                         /**
                          * CHATROOM MESSAGE LIST
                          */
+                        console.log(message.type);
                         if (message.type === WSMessageTypes.MESSAGE_LIST) {
                             dispatch({
-                                type: 'chatrooms/setChatroomMessageListRequestStatus',
+                                type: 'chatroom/setChatroomMessageListRequestStatus',
                                 payload: RequestStatus.FETCHING,
                             });
-                            dispatch({ type: 'chatrooms/setChatroomMessageList', payload: message.message });
+
+                            dispatch({ type: 'chatroom/setChatroomMessageList', payload: message.message });
 
                             dispatch({
-                                type: 'chatrooms/setChatroomMessageListRequestStatus',
+                                type: 'chatroom/setChatroomMessageListRequestStatus',
                                 payload: RequestStatus.SUCCESS,
                             });
                         }
@@ -65,7 +67,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                          */
                         if (message.type === WSMessageTypes.NOTIFICATION_TYPE) {
                             dispatch({
-                                type: 'chatrooms/setNotificationType',
+                                type: 'chatroom/setNotificationType',
                                 payload: IChatroomNotificationType.IDLE,
                             });
                         }

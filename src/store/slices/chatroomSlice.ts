@@ -52,7 +52,7 @@ const initialState: IChatroomsState = {
  */
 // TODO: split to paginate slice and proposal slice
 const chatroomSlice = createSlice({
-    name: 'chatrooms',
+    name: 'chatroom',
     initialState,
     reducers: {
         setChatroomList(state, { payload }: PayloadAction<IChatroomListPayload>) {

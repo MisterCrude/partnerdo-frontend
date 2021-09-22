@@ -37,6 +37,7 @@ export const Chatroom = () => {
     const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
     const [actionButtonVariantLoading, setActionButtonVariantLoading] = useState<'approve' | 'reject' | undefined>();
     const [message, setMessage] = useState('');
+    const [isSendingMessage, setIsSendingMessage] = useState(false);
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
 
@@ -85,27 +86,22 @@ export const Chatroom = () => {
 
     const handleSendMessage = () => {
         setMessage('');
+        setIsSendingMessage(true);
         sendChatroomMessage({ type: WSMessageTypes.CHATROOM_MESSAGE, message: { text: message, chatroomId } });
     };
-
     const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
-
     const handleBack = () => history.goBack();
-
     const handleApprove = () => {
         setActionButtonVariantLoading('approve');
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.APPROVED });
     };
-
     const handleReject = () => {
         setActionButtonVariantLoading('reject');
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.REJECTED });
     };
 
     useMount(() => fetchDetails(chatroomId));
-
     useUpdateEffect(() => setChatroomStatus(status), [status]);
-
     useUpdateEffect(() => {
         if (changeChatroomStatusRequestStatus === RequestStatus.SUCCESS) {
             setChatroomStatus(IChatroomStatus.APPROVED);
@@ -113,7 +109,6 @@ export const Chatroom = () => {
         // TODO move it up, inside to if
         connectToChatroom({ type: WSMessageTypes.CONNECT_TO_CHATROOM, message: chatroomId });
     }, [changeChatroomStatusRequestStatus]);
-
     useUpdateEffect(() => {
         if (chatroomStatus === IChatroomStatus.APPROVED)
             setTimeout(
@@ -121,7 +116,9 @@ export const Chatroom = () => {
                 1000
             );
     }, [chatroomStatus]);
-
+    useUpdateEffect(() => {
+        if (messageListRequestStatus !== RequestStatus.FETCHING) setIsSendingMessage(false);
+    }, [messageListRequestStatus]);
     useUnmount(() => {
         resetDetails();
         resetChatroomMessageList();
@@ -239,6 +236,7 @@ export const Chatroom = () => {
                                 <Button
                                     colorScheme="orange"
                                     disabled={!message.length}
+                                    isLoading={isSendingMessage}
                                     flexGrow={{ base: 1, md: 0 }}
                                     ml={4}
                                     onClick={handleSendMessage}

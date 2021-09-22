@@ -1,5 +1,6 @@
 import { ChangeEvent, useMemo, useState } from 'react';
 import { useMount, useUnmount, useUpdateEffect } from 'react-use';
+import { camelCase } from 'lodash/fp';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { DEFAULT_LOCALE } from '@consts/app';
@@ -53,13 +54,17 @@ export const Chatroom = () => {
         chatroomId: string;
         status: IChatroomStatus;
     }>(changeChatroomStatusAsync);
+
+    // TODO refactor sendChatroomMessage and connectToChatroom
     const sendChatroomMessage = useDispatch((message: IWSMessage<{ text: string; chatroomId: string }>) => ({
-        type: WSMessageTypes.CHATROOM_MESSAGE,
+        // TODO remove `chatroom/${camelCase(WSMessageTypes.CHATROOM_MESSAGE)}`, from here and from WebsocketMeddleware
+        type: `chatroom/${camelCase(WSMessageTypes.CHATROOM_MESSAGE)}`,
         payload: message,
     }));
-
+    // TODO refactor sendChatroomMessage and connectToChatroom
     const connectToChatroom = useDispatch((message: IWSMessage<string>) => ({
-        type: WSMessageTypes.CONNECT_TO_CHATROOM,
+        // TODO remove `chatroom/${toCamelCase(WSMessageTypes.CONNECT_TO_CHATROOM)}`, from here and from WebsocketMeddleware
+        type: `chatroom/${camelCase(WSMessageTypes.CONNECT_TO_CHATROOM)}`,
         payload: message,
     }));
     const resetDetails = useDispatch(reset);
@@ -81,12 +86,15 @@ export const Chatroom = () => {
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
     const isOwnProposal = useMemo(() => profileId === proposal?.author.id, [companion]);
 
-    const isMessageListLoading = messageListRequestStatus === RequestStatus.FETCHING && isApproved;
+    const isMessageListLoading =
+        (messageListRequestStatus === RequestStatus.FETCHING || messageListRequestStatus === RequestStatus.IDLE) &&
+        isApproved;
     const isMessageListLoaded = messageListRequestStatus === RequestStatus.SUCCESS && isApproved;
 
     const handleSendMessage = () => {
         setMessage('');
         setIsSendingMessage(true);
+        // TODO
         sendChatroomMessage({ type: WSMessageTypes.CHATROOM_MESSAGE, message: { text: message, chatroomId } });
     };
     const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
@@ -185,7 +193,7 @@ export const Chatroom = () => {
                                     )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
                                 />
                             )}
-                            {isMessageListLoading && <>Fetching messages list...</>}
+                            {isMessageListLoading && messageTotalAmount !== 0 && <>Fetching messages list...</>}
                             {isMessageListLoaded &&
                                 messageList.map(({ id, content, author, created }) => (
                                     <Message
@@ -206,7 +214,7 @@ export const Chatroom = () => {
                     </Box>
 
                     <Box>
-                        {!messageTotalAmount && <Notification isOwn={isOwnProposal} status={chatroomStatus} />}
+                        <Notification isOwn={isOwnProposal} status={chatroomStatus} isShow={messageTotalAmount === 0} />
 
                         {isApproved && (
                             <Textarea

@@ -1,9 +1,9 @@
 import { AppThunk, AppDispatch } from '@store/index';
 import { BACKEND_ROUTING } from '@consts/api';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IChatroom, IChatroomResponse } from '@typing/chat';
+import { IChatroom, IChatroomDetailsResponse } from '@typing/chat';
 import { IGenericRemote, RequestStatus } from '@typing/api';
-import { IChatroomStatus, ChatroomMessage } from '@typing/chat';
+import { IChatroomStatus, ChatroomMessage, ChatroomStatusResponse } from '@typing/chat';
 import { storeToast } from '@store/rootReducer';
 import apiService from '@services/apiService';
 import { removeProfile } from './profileSlice';
@@ -62,7 +62,7 @@ const chatroomSlice = createSlice({
         setChatroomListRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
             state.chatroomList.requestStatus = payload;
         },
-        setDetails(state, { payload: chatroomDetails }: PayloadAction<IChatroomResponse>) {
+        setDetails(state, { payload: chatroomDetails }: PayloadAction<IChatroomDetailsResponse>) {
             state.details.data = chatroomDetails;
         },
         setDetailsRequestStatus(state, { payload }: PayloadAction<RequestStatus>) {
@@ -117,7 +117,7 @@ export const fetchDetailsAsync = (chatroomId: string): AppThunk => async (dispat
     dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
 
     try {
-        const { data: chatroomDetails }: { data: IChatroomResponse } = await apiService.get(
+        const { data: chatroomDetails }: { data: IChatroomDetailsResponse } = await apiService.get(
             `${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}`
         );
 
@@ -184,11 +184,27 @@ export const changeChatroomStatusAsync = ({
 }: {
     chatroomId: string;
     status: IChatroomStatus;
-}): AppThunk => async (dispatch: AppDispatch) => {
+}): AppThunk => async (dispatch: AppDispatch, getState) => {
     dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.FETCHING));
 
     try {
-        await apiService.get(`${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}/${status}`);
+        const { data: chatroomStatus }: { data: ChatroomStatusResponse } = await apiService.get(
+            `${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}/${status}`
+        );
+
+        /**
+         * Update status (approve / reject) in current (openend) chatroom
+         */
+        const {
+            chatroom: { details: chatroomDetails },
+        } = getState();
+
+        dispatch(
+            setDetails({
+                ...chatroomDetails.data,
+                status: chatroomStatus.status,
+            })
+        );
 
         const statusName = status === IChatroomStatus.APPROVED ? 'zaakceptowana' : 'odrzucona';
 
@@ -199,11 +215,9 @@ export const changeChatroomStatusAsync = ({
         });
 
         dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.FETCHING));
+
+        // change status
     } catch (error) {
-        /**
-         * Don't dispatch setChangeChatroomStatusRequestStatus with RequestStatus.ERROR payload
-         * because immediately after the change need to switch back to RequestStatus.ERROR
-         */
         dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.ERROR));
 
         storeToast({

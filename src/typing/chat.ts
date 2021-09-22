@@ -38,4 +38,18 @@ export interface ChatroomMessage {
     author: Pick<IProfile, 'username' | 'firstName' | 'lastName' | 'id'>;
 }
 
-export type IChatroomResponse = IChatroom;
+export type IChatroomDetailsResponse = IChatroom;
+
+export interface ChatroomStatusResponse {
+    created: string;
+    id: string;
+    initialMessage: string;
+    initiator: string;
+    initiatorNotificationType: IChatroomNotificationType;
+    // isStatusChanged: boolean;
+    lastMessage: string;
+    proposal: string;
+    proposalAuthor: string;
+    proposalAuthorNotificationType: IChatroomNotificationType;
+    status: IChatroomStatus;
+}

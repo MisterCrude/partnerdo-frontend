@@ -1,4 +1,5 @@
 import { Middleware, AnyAction } from 'redux';
+import { camelCase } from 'lodash/fp';
 import { RootState } from '@src/store/rootReducer';
 import { WSReadyState, WSMessageTypes, IWSMessage, RequestStatus } from '@typing/api';
 import { BASE_URL } from '@consts/api';
@@ -47,7 +48,6 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                         /**
                          * CHATROOM MESSAGE LIST
                          */
-                        console.log(message.type);
                         if (message.type === WSMessageTypes.MESSAGE_LIST) {
                             dispatch({
                                 type: 'chatroom/setChatroomMessageListRequestStatus',
@@ -91,7 +91,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 break;
 
             // CHATROOM MESSAGE
-            case WSMessageTypes.CHATROOM_MESSAGE:
+            case `chatroom/${camelCase(WSMessageTypes.CHATROOM_MESSAGE)}`:
                 try {
                     await socket.sendMessage(toSnakeCase(action.payload));
                 } catch (error) {
@@ -100,7 +100,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                 break;
 
             // CREATE CHATROOM
-            case WSMessageTypes.CONNECT_TO_CHATROOM:
+            case `chatroom/${camelCase(WSMessageTypes.CONNECT_TO_CHATROOM)}`:
                 try {
                     await socket.sendMessage(toSnakeCase(action.payload));
                 } catch (error) {

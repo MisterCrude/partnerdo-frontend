@@ -1,5 +1,5 @@
 import { ChangeEvent, useMemo, useState } from 'react';
-import { useMount, useUnmount, useUpdateEffect } from 'react-use';
+import { useUnmount, useUpdateEffect } from 'react-use';
 import { camelCase } from 'lodash/fp';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -10,18 +10,13 @@ import { getUserName } from '@utils/user';
 import useDispatch from '@hooks/useDispatch';
 import { RequestStatus, WSMessageTypes, IWSMessage } from '@typing/api';
 import { IChatroomStatus } from '@typing/chat';
-import {
-    fetchDetailsAsync,
-    changeChatroomStatusAsync,
-    resetDetails as reset,
-    resetChatroomMessageList as resetMessageList,
-} from '@slices/chatroomSlice';
+import { changeChatroomStatusAsync, resetChatroomMessageList as resetMessageList } from '@slices/chatroomSlice';
 import {
     detailsSelector,
-    detailsRequestStatusSelector,
     messageListSelector,
     chatroomMessageListRequestStatusSelector,
     changeChatroomStatusRequestStatusSelector,
+    chatroomListRequestStatusSelector,
 } from '@selectors/chatroomSelectors';
 import { profileSelector } from '@selectors/profileSelectors';
 
@@ -37,19 +32,18 @@ import Notification from './components/Notification';
 export const Chatroom = () => {
     const [chatroomStatus, setChatroomStatus] = useState(IChatroomStatus.IDLE);
     const [actionButtonVariantLoading, setActionButtonVariantLoading] = useState<'approve' | 'reject' | undefined>();
-    const [message, setMessage] = useState('');
+    const [newMessage, setNewMessage] = useState('');
     const [isSendingMessage, setIsSendingMessage] = useState(false);
     const { chatroomId } = useParams<{ chatroomId: string }>();
     const history = useHistory();
 
-    const chatroomDetails = useSelector(detailsSelector);
+    const chatroomDetails = useSelector(detailsSelector(chatroomId));
     const messageList = useSelector(messageListSelector);
     const messageListRequestStatus = useSelector(chatroomMessageListRequestStatusSelector);
+    const chatroomListRequestStatus = useSelector(chatroomListRequestStatusSelector);
     const changeChatroomStatusRequestStatus = useSelector(changeChatroomStatusRequestStatusSelector);
-    const requestStatus = useSelector(detailsRequestStatusSelector);
     const { id: profileId } = useSelector(profileSelector);
 
-    const fetchDetails = useDispatch<string>(fetchDetailsAsync);
     const changeChatroomStatus = useDispatch<{
         chatroomId: string;
         status: IChatroomStatus;
@@ -67,24 +61,17 @@ export const Chatroom = () => {
         type: `chatroom/${camelCase(WSMessageTypes.CONNECT_TO_CHATROOM)}`,
         payload: message,
     }));
-    const resetDetails = useDispatch(reset);
     const resetChatroomMessageList = useDispatch(resetMessageList);
 
-    const {
-        initialMessage,
-        companion,
-        proposal,
-        status,
-        created: initialMessageCreatedTime,
-        messageTotalAmount,
-    } = chatroomDetails;
-
-    const showSkeleton = requestStatus === RequestStatus.FETCHING || requestStatus === RequestStatus.IDLE;
-    const showError = requestStatus === RequestStatus.ERROR;
-    const showContent = requestStatus === RequestStatus.SUCCESS;
+    const showSkeleton =
+        chatroomListRequestStatus === RequestStatus.FETCHING || chatroomListRequestStatus === RequestStatus.IDLE;
+    const showError = chatroomListRequestStatus === RequestStatus.ERROR;
+    const showContent = chatroomListRequestStatus === RequestStatus.SUCCESS;
 
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
-    const isOwnProposal = useMemo(() => profileId === proposal?.author.id, [companion]);
+    const isOwnProposal = useMemo(() => profileId === chatroomDetails?.proposal.author.id, [
+        chatroomDetails?.companion,
+    ]);
 
     const isMessageListLoading =
         (messageListRequestStatus === RequestStatus.FETCHING || messageListRequestStatus === RequestStatus.IDLE) &&
@@ -92,12 +79,11 @@ export const Chatroom = () => {
     const isMessageListLoaded = messageListRequestStatus === RequestStatus.SUCCESS && isApproved;
 
     const handleSendMessage = () => {
-        setMessage('');
+        setNewMessage('');
         setIsSendingMessage(true);
-        // TODO
-        sendChatroomMessage({ type: WSMessageTypes.CHATROOM_MESSAGE, message: { text: message, chatroomId } });
+        sendChatroomMessage({ type: WSMessageTypes.CHATROOM_MESSAGE, message: { text: newMessage, chatroomId } });
     };
-    const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setMessage(target.value);
+    const handleChangeMessage = ({ target }: ChangeEvent<HTMLTextAreaElement>) => setNewMessage(target.value);
     const handleBack = () => history.goBack();
     const handleApprove = () => {
         setActionButtonVariantLoading('approve');
@@ -108,8 +94,7 @@ export const Chatroom = () => {
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.REJECTED });
     };
 
-    useMount(() => fetchDetails(chatroomId));
-    useUpdateEffect(() => setChatroomStatus(status), [status]);
+    useUpdateEffect(() => setChatroomStatus(chatroomDetails?.status), [chatroomDetails?.status]);
     useUpdateEffect(() => {
         if (changeChatroomStatusRequestStatus === RequestStatus.SUCCESS) {
             setChatroomStatus(IChatroomStatus.APPROVED);
@@ -127,10 +112,7 @@ export const Chatroom = () => {
     useUpdateEffect(() => {
         if (messageListRequestStatus !== RequestStatus.FETCHING) setIsSendingMessage(false);
     }, [messageListRequestStatus]);
-    useUnmount(() => {
-        resetDetails();
-        resetChatroomMessageList();
-    });
+    useUnmount(resetChatroomMessageList);
 
     return (
         <Main d="flex" flexGrow={1} flexDir="column" mt={{ base: 0, md: 10 }} mb={10}>
@@ -148,18 +130,18 @@ export const Chatroom = () => {
             {showContent && (
                 <>
                     <Proposal
-                        title={proposal.title}
-                        proposalId={proposal.id}
-                        authorId={companion.id}
-                        address={`${proposal.city.name}, ${proposal.cityArea.name}`}
-                        userAvatarUrl={proposal.author.avatar}
+                        title={chatroomDetails.proposal.title}
+                        proposalId={chatroomDetails.proposal.id}
+                        authorId={chatroomDetails.companion.id}
+                        address={`${chatroomDetails.proposal.city.name}, ${chatroomDetails.proposal.cityArea.name}`}
+                        userAvatarUrl={chatroomDetails.proposal.author.avatar}
                         userName={getUserName(
-                            proposal.author.firstName,
-                            proposal.author.lastName,
-                            proposal.author.username
+                            chatroomDetails.proposal.author.firstName,
+                            chatroomDetails.proposal.author.lastName,
+                            chatroomDetails.proposal.author.username
                         )}
-                        categoryName={proposal.category.name}
-                        categoryColor={proposal.category.color}
+                        categoryName={chatroomDetails.proposal.category.name}
+                        categoryColor={chatroomDetails.proposal.category.color}
                     />
 
                     <Box borderTopWidth={1} flexGrow={1} py={8}>
@@ -177,23 +159,29 @@ export const Chatroom = () => {
                                         changeChatroomStatusRequestStatus === RequestStatus.FETCHING &&
                                         actionButtonVariantLoading === 'approve'
                                     }
-                                    author={getUserName(companion.firstName, companion.lastName, companion.username)}
-                                    message={initialMessage}
+                                    author={getUserName(
+                                        chatroomDetails.companion.firstName,
+                                        chatroomDetails.companion.lastName,
+                                        chatroomDetails.companion.username
+                                    )}
+                                    message={chatroomDetails.initialMessage}
                                     sentTime={`${toLocaleTimeString(
-                                        initialMessageCreatedTime,
+                                        chatroomDetails.created,
                                         DEFAULT_LOCALE
-                                    )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
+                                    )}, ${toLocaleDateString(chatroomDetails.created, DEFAULT_LOCALE)}`}
                                 />
                             ) : (
                                 <Message
-                                    message={initialMessage}
+                                    message={chatroomDetails.initialMessage}
                                     sentTime={`${toLocaleTimeString(
-                                        initialMessageCreatedTime,
+                                        chatroomDetails.created,
                                         DEFAULT_LOCALE
-                                    )}, ${toLocaleDateString(initialMessageCreatedTime, DEFAULT_LOCALE)}`}
+                                    )}, ${toLocaleDateString(chatroomDetails.created, DEFAULT_LOCALE)}`}
                                 />
                             )}
-                            {isMessageListLoading && messageTotalAmount !== 0 && <>Fetching messages list...</>}
+                            {isMessageListLoading && chatroomDetails.messageTotalAmount !== 0 && (
+                                <>Fetching messages list...</>
+                            )}
                             {isMessageListLoaded &&
                                 messageList.map(({ id, content, author, created }) => (
                                     <Message
@@ -214,7 +202,11 @@ export const Chatroom = () => {
                     </Box>
 
                     <Box>
-                        <Notification isOwn={isOwnProposal} status={chatroomStatus} isShow={messageTotalAmount === 0} />
+                        <Notification
+                            isOwn={isOwnProposal}
+                            status={chatroomStatus}
+                            isShow={chatroomDetails.messageTotalAmount === 0}
+                        />
 
                         {isApproved && (
                             <Textarea
@@ -224,7 +216,7 @@ export const Chatroom = () => {
                                 type="text"
                                 mb={8}
                                 placeholder="Wpisz swoją wiadomość"
-                                value={message}
+                                value={newMessage}
                                 onChange={handleChangeMessage}
                             />
                         )}
@@ -243,7 +235,7 @@ export const Chatroom = () => {
                             {isApproved && (
                                 <Button
                                     colorScheme="orange"
-                                    disabled={!message.length}
+                                    disabled={!newMessage.length}
                                     isLoading={isSendingMessage}
                                     flexGrow={{ base: 1, md: 0 }}
                                     ml={4}

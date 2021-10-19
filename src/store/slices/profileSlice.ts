@@ -20,7 +20,7 @@ export interface IProfileState {
 }
 
 const initialState: IProfileState = {
-    isAuth: !!localStorage.getItem('token') ?? false,
+    isAuth: Boolean(localStorage.getItem('token')),
     userProfile: {
         data: {} as IProfile,
         requestStatus: RequestStatus.IDLE,
@@ -48,7 +48,7 @@ const profileSlice = createSlice({
             state.userProfile.requestStatus = payload;
         },
         removeProfile() {
-            return initialState;
+            return { ...initialState, isAuth: false };
         },
         setProfile(state, { payload: profileData }: PayloadAction<IProfile>) {
             state.userProfile.data = profileData;

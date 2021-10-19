@@ -73,7 +73,7 @@ export const socketMiddleware: Middleware<Record<string, unknown>, RootState> = 
                         }
                     });
 
-                    console.log(WSReadyState[connectStatus as number]);
+                    console.log(`WevSocket connection status: ${WSReadyState[connectStatus as number]}`);
                 } catch (error) {
                     console.log('WebSocket connection error');
                 }

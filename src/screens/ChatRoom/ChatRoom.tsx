@@ -1,5 +1,5 @@
 import { ChangeEvent, useMemo, useState } from 'react';
-import { useUnmount, useUpdateEffect } from 'react-use';
+import { useMount, useUnmount, useUpdateEffect } from 'react-use';
 import { camelCase } from 'lodash/fp';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -70,7 +70,7 @@ export const Chatroom = () => {
 
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
     const isOwnProposal = useMemo(() => profileId === chatroomDetails?.proposal.author.id, [
-        chatroomDetails?.companion,
+        chatroomDetails?.proposal.author,
     ]);
 
     const isMessageListLoading =
@@ -94,6 +94,7 @@ export const Chatroom = () => {
         changeChatroomStatus({ chatroomId, status: IChatroomStatus.REJECTED });
     };
 
+    useMount(() => setChatroomStatus(chatroomDetails?.status));
     useUpdateEffect(() => setChatroomStatus(chatroomDetails?.status), [chatroomDetails?.status]);
     useUpdateEffect(() => {
         if (changeChatroomStatusRequestStatus === RequestStatus.SUCCESS) {

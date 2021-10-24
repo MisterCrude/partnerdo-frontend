@@ -10,7 +10,7 @@
 /cypress/videos
 
 # production
-# /build - used for deploy to render.com propose
+/build
 
 # misc
 .eslintcache

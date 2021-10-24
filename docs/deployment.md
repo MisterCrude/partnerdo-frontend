@@ -8,4 +8,4 @@
 
 _Pushing to master automaticaly trigger deploy to Render.com_
 
--   `$ git push origin master`
+-   `$ git push origin develop`

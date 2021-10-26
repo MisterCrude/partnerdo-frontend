@@ -95,84 +95,79 @@ export const {
 /**
  * Async actions
  */
-export const createChatroomAsync = ({
-    initialMessage,
-    proposal,
-}: Omit<IChatroomDetails, 'initiator'>): AppThunk => async (dispatch: AppDispatch, getState) => {
-    dispatch(setChatroomCreateStatus(RequestStatus.FETCHING));
+export const createChatroomAsync =
+    ({ initialMessage, proposal }: Omit<IChatroomDetails, 'initiator'>): AppThunk =>
+    async (dispatch: AppDispatch, getState) => {
+        dispatch(setChatroomCreateStatus(RequestStatus.FETCHING));
 
-    try {
-        const state = getState();
-        const initiator = profileSelector(state).id;
-        const chatroomDetails = {
-            initialMessage,
-            proposal,
-            initiator,
-        };
+        try {
+            const state = getState();
+            const initiator = profileSelector(state).id;
+            const chatroomDetails = {
+                initialMessage,
+                proposal,
+                initiator,
+            };
 
-        /**
-         * @returns new chatroom object
-         */
-        await apiService.post(BACKEND_ROUTING.CHAT.CREATE_CHATROOM, chatroomDetails);
+            /**
+             * @returns new chatroom object
+             */
+            await apiService.post(BACKEND_ROUTING.CHAT.CREATE_CHATROOM, chatroomDetails);
 
-        storeToast({
-            status: 'success',
-            title: 'Partnerstwo',
-            message: 'Propozycja została pomyślnie wysłana',
-        });
+            storeToast({
+                status: 'success',
+                title: 'Partnerstwo',
+                message: 'Propozycja została pomyślnie wysłana',
+            });
 
-        dispatch(setChatroomCreateStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        dispatch(setChatroomCreateStatus(RequestStatus.ERROR));
-        storeToast({
-            status: 'error',
-            title: 'Partnerstwo',
-            message: 'Nie udało się wysłać proposycji',
-        });
+            dispatch(setChatroomCreateStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            dispatch(setChatroomCreateStatus(RequestStatus.ERROR));
+            storeToast({
+                status: 'error',
+                title: 'Partnerstwo',
+                message: 'Nie udało się wysłać proposycji',
+            });
 
-        console.error('Create chat room error:', error);
-    }
-    setTimeout(() => dispatch(setChatroomCreateStatus(RequestStatus.IDLE)), 100);
-};
+            console.error('Create chat room error:', error);
+        }
+        setTimeout(() => dispatch(setChatroomCreateStatus(RequestStatus.IDLE)), 100);
+    };
 
-export const changeChatroomStatusAsync = ({
-    chatroomId,
-    status,
-}: {
-    chatroomId: string;
-    status: IChatroomStatus;
-}): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.FETCHING));
-
-    try {
-        /**
-         * @returns new chatroom object
-         */
-        await apiService.get(`${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}/${status}`);
-
-        const statusName = status === IChatroomStatus.APPROVED ? 'zaakceptowana' : 'odrzucona';
-
-        storeToast({
-            status: 'success',
-            title: 'Chat',
-            message: `Propozycja została ${statusName}`,
-        });
-
+export const changeChatroomStatusAsync =
+    ({ chatroomId, status }: { chatroomId: string; status: IChatroomStatus }): AppThunk =>
+    async (dispatch: AppDispatch) => {
         dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.FETCHING));
 
-        // change status
-    } catch (error) {
-        dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.ERROR));
+        try {
+            /**
+             * @returns new chatroom object
+             */
+            await apiService.get(`${BACKEND_ROUTING.CHAT.CHATROOMS}/${chatroomId}/${status}`);
 
-        storeToast({
-            status: 'error',
-            title: 'Chat',
-            message: 'Nie udało się zaakceptować / odrzucić propozycję',
-        });
+            const statusName = status === IChatroomStatus.APPROVED ? 'zaakceptowana' : 'odrzucona';
 
-        console.error('Change chat room status:', error);
-    }
-    setTimeout(() => dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.IDLE)), 100);
-};
+            storeToast({
+                status: 'success',
+                title: 'Chat',
+                message: `Propozycja została ${statusName}`,
+            });
+
+            dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.FETCHING));
+
+            // change status
+        } catch (error) {
+            dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.ERROR));
+
+            storeToast({
+                status: 'error',
+                title: 'Chat',
+                message: 'Nie udało się zaakceptować / odrzucić propozycję',
+            });
+
+            console.error('Change chat room status:', error);
+        }
+        setTimeout(() => dispatch(setChangeChatroomStatusRequestStatus(RequestStatus.IDLE)), 100);
+    };
 
 export default chatroomSlice.reducer;

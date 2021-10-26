@@ -45,11 +45,10 @@ export const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    name="username"
-                    ref={register}
                     type="text"
                     placeholder="Nazwa użytkownika"
                     size="lg"
+                    {...register('username')}
                 />
                 <FormErrorMessage name="username" errors={errors} />
             </Box>
@@ -57,11 +56,10 @@ export const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <Input
                     borderColor={errors.email ? 'tomato' : 'gray.200'}
-                    name="email"
-                    ref={register}
                     type="text"
                     placeholder="Email"
                     size="lg"
+                    {...register('email')}
                 />
                 <FormErrorMessage name="email" errors={errors} />
             </Box>
@@ -69,10 +67,9 @@ export const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
                     borderColor={errors.password1 ? 'tomato' : 'gray.200'}
-                    name="password1"
-                    ref={register}
                     placeholder="Hasło"
                     size="lg"
+                    {...register('password1')}
                 />
                 <FormErrorMessage name="password1" errors={errors} />
             </Box>
@@ -80,10 +77,9 @@ export const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
                     borderColor={errors.password2 ? 'tomato' : 'gray.200'}
-                    name="password2"
-                    ref={register}
                     placeholder="Powtórz hasło"
                     size="lg"
+                    {...register('password2')}
                 />
                 <FormErrorMessage name="password2" errors={errors} />
             </Box>

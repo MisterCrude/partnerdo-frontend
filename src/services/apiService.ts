@@ -31,10 +31,19 @@ const instace = axios.create({
 
 instace.interceptors.request.use((config: AxiosRequestConfig) => {
     const token = localStorage.getItem('token');
+    let newConfig = { ...config };
 
-    if (token) config.headers.Authorization = `token ${token}`;
+    if (token) {
+        newConfig = {
+            ...newConfig,
+            headers: {
+                ...newConfig.headers,
+                Authorization: `token ${token}`,
+            },
+        };
+    }
 
-    return config;
+    return newConfig;
 });
 
 export default instace;

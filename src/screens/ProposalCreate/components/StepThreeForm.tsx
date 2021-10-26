@@ -53,11 +53,10 @@ export const StepTwo = ({ requestStatus, defaultData, onSubmit, onBack }: IProps
                     <Box mb={{ base: 4, md: 8 }}>
                         <Input
                             borderColor={errors.title ? 'tomato' : 'gray.200'}
-                            name="title"
                             placeholder="Tytuł partnerstwa"
-                            ref={register}
                             size="lg"
                             type="text"
+                            {...register('title')}
                         />
                         <FormErrorMessage name="title" errors={errors} />
                     </Box>
@@ -65,12 +64,11 @@ export const StepTwo = ({ requestStatus, defaultData, onSubmit, onBack }: IProps
                         <Textarea
                             borderColor={errors.description ? 'tomato' : 'gray.200'}
                             h={40}
-                            name="description"
                             placeholder="Opis partnerstwa"
-                            ref={register}
                             resize="none"
                             size="lg"
                             type="text"
+                            {...register('description')}
                         />
                         <FormErrorMessage name="description" errors={errors} />
                     </Box>

@@ -10,7 +10,7 @@ export const PasswordField = forwardRef<HTMLInputElement, InputProps>((props, re
 
     return (
         <InputGroup>
-            <Input type={isShown ? 'text' : 'password'} ref={ref} {...props} />
+            <Input type={isShown ? 'text' : 'password'} {...props} ref={ref} />
             <InputRightElement h="100%">
                 <IconButton
                     aria-label="Password"

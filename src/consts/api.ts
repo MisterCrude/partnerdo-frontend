@@ -1,6 +1,8 @@
 export const BASE_URL = process.env.REACT_APP_BASE_URL as string;
 export const STATIC_FILTES_URL = process.env.REACT_APP_STATIC_FILTES_URL as string;
 
+console.log(BASE_URL);
+
 export const BACKEND_ROUTING = {
     AUTH: {
         LOGIN: 'auth/login/',

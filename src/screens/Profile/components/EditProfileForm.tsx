@@ -149,12 +149,10 @@ const EditProfileForm = ({ formData, requestStatus, onSubmit }: IProps) => {
                                 bgColor="white"
                                 borderColor={errors.username ? 'tomato' : 'gray.200'}
                                 defaultValue={username}
-                                name="username"
                                 placeholder="Nazwa użytkownika"
-                                ref={register}
                                 size="lg"
                                 type="text"
-                                onChange={handleChange}
+                                {...register('username', { onChange: handleChange })}
                             />
                             <FormErrorMessage name="username" errors={errors} />
                         </Box>
@@ -166,12 +164,10 @@ const EditProfileForm = ({ formData, requestStatus, onSubmit }: IProps) => {
                             <Input
                                 borderColor={errors.birthYear ? 'tomato' : 'gray.200'}
                                 defaultValue={birthYear}
-                                name="birthYear"
                                 placeholder="Rok urodzenia"
-                                ref={register}
                                 size="lg"
                                 type="number"
-                                onChange={handleChange}
+                                {...register('birthYear', { onChange: handleChange })}
                             />
                             <FormErrorMessage name="birthYear" errors={errors} />
                         </Box>
@@ -179,12 +175,10 @@ const EditProfileForm = ({ formData, requestStatus, onSubmit }: IProps) => {
                             <Input
                                 borderColor={errors.firstName ? 'tomato' : 'gray.200'}
                                 defaultValue={firstName}
-                                name="firstName"
                                 placeholder="Imię"
-                                ref={register}
                                 size="lg"
                                 type="text"
-                                onChange={handleChange}
+                                {...register('firstName')}
                             />
                             <FormErrorMessage name="firstName" errors={errors} />
                         </Box>
@@ -192,12 +186,10 @@ const EditProfileForm = ({ formData, requestStatus, onSubmit }: IProps) => {
                             <Input
                                 borderColor={errors.lastName ? 'tomato' : 'gray.200'}
                                 defaultValue={lastName}
-                                name="lastName"
                                 placeholder="Nazwisko"
-                                ref={register}
                                 size="lg"
                                 type="text"
-                                onChange={handleChange}
+                                {...register('lastName', { onChange: handleChange })}
                             />
                             <FormErrorMessage name="lastName" errors={errors} />
                         </Box>
@@ -206,13 +198,11 @@ const EditProfileForm = ({ formData, requestStatus, onSubmit }: IProps) => {
                                 borderColor={errors.description ? 'tomato' : 'gray.200'}
                                 defaultValue={description}
                                 h={40}
-                                name="description"
                                 placeholder="O mnie"
-                                ref={register}
                                 resize="none"
                                 size="lg"
                                 type="text"
-                                onChange={handleChange}
+                                {...register('description', { onChange: handleChange })}
                             />
                             <FormErrorMessage name="description" errors={errors} />
                         </Box>

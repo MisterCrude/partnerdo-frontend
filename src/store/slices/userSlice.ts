@@ -46,27 +46,31 @@ export const { removeUser, setUser, setRequestStatus } = userSlice.actions;
 /**
  * Async actions
  */
-export const fetchUserAsync = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setRequestStatus(RequestStatus.FETCHING));
+export const fetchUserAsync =
+    (userId: string): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setRequestStatus(RequestStatus.FETCHING));
 
-    try {
-        const { data: userData }: { data: IUserResponse } = await apiService.get(`${BACKEND_ROUTING.USER}${userId}`);
+        try {
+            const { data: userData }: { data: IUserResponse } = await apiService.get(
+                `${BACKEND_ROUTING.USER}${userId}`
+            );
 
-        const proposals = userData.proposals;
-        const data = omit(['proposals'], userData);
+            const proposals = userData.proposals;
+            const data = omit(['proposals'], userData);
 
-        dispatch(setUser({ data, proposals }));
-        dispatch(setRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Profile uzytkownika',
-            message: 'Nie udało się pobrać dane tego uzytkownika',
-        });
-        console.error('User error:', error);
-        dispatch(removeUser());
-        dispatch(setRequestStatus(RequestStatus.ERROR));
-    }
-};
+            dispatch(setUser({ data, proposals }));
+            dispatch(setRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Profile uzytkownika',
+                message: 'Nie udało się pobrać dane tego uzytkownika',
+            });
+            console.error('User error:', error);
+            dispatch(removeUser());
+            dispatch(setRequestStatus(RequestStatus.ERROR));
+        }
+    };
 
 export default userSlice.reducer;

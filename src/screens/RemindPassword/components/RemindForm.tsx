@@ -33,11 +33,10 @@ const RemindForm = ({ onSubmit, isFetching = false }: IProps) => {
                 <Input
                     borderColor={errors.email ? 'tomato' : 'gray.200'}
                     bgColor="white"
-                    name="email"
-                    ref={register}
                     type="text"
                     size="lg"
                     placeholder="Email"
+                    {...register('email')}
                 />
                 <FormErrorMessage name="email" errors={errors} />
             </Box>

@@ -136,89 +136,97 @@ export interface IProposalUpdate {
     };
 }
 
-export const loginProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
-    dispatch: AppDispatch
-) => {
-    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
+export const loginProfileAsync =
+    ({ credentials, history }: IProfileParams): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
 
-    try {
-        const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
-            BACKEND_ROUTING.AUTH.LOGIN,
-            credentials
-        );
-        const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE, {
-            headers: {
-                Authorization: `token ${token.key}`,
-            },
-        });
+        try {
+            const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
+                BACKEND_ROUTING.AUTH.LOGIN,
+                credentials
+            );
+            const { data: profileData }: { data: IProfileResponse } = await apiService.get(
+                BACKEND_ROUTING.AUTH.PROFILE,
+                {
+                    headers: {
+                        Authorization: `token ${token.key}`,
+                    },
+                }
+            );
 
-        localStorage.setItem('token', token.key);
-        history.push(ROUTES.PROPOSALS);
+            localStorage.setItem('token', token.key);
+            history.push(ROUTES.PROPOSALS);
 
-        dispatch(setProfile(profileData));
-        storeToast({
-            status: 'success',
-            title: 'Logowanie',
-            message: `${capitalize(profileData.username)}, witamy w naszym serwisie ponownie`,
-        });
-        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Logowanie',
-            message: 'Coś poszło nie tak spróbuj ponownie',
-        });
-        console.error('Login error:', error);
+            dispatch(setProfile(profileData));
+            storeToast({
+                status: 'success',
+                title: 'Logowanie',
+                message: `${capitalize(profileData.username)}, witamy w naszym serwisie ponownie`,
+            });
+            dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Logowanie',
+                message: 'Coś poszło nie tak spróbuj ponownie',
+            });
+            console.error('Login error:', error);
+
+            dispatch(removeProfile());
+            dispatch(setProfileRequestStatus(RequestStatus.ERROR));
+        }
+    };
+
+export const registerProfileAsync =
+    ({ credentials, history }: IProfileParams): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
+
+        try {
+            const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
+                BACKEND_ROUTING.AUTH.REGISTER,
+                credentials
+            );
+            const { data: profileData }: { data: IProfileResponse } = await apiService.get(
+                BACKEND_ROUTING.AUTH.PROFILE,
+                {
+                    headers: {
+                        Authorization: `token ${token.key}`,
+                    },
+                }
+            );
+
+            localStorage.setItem('token', token.key);
+            history.push(ROUTES.PROPOSALS);
+
+            dispatch(setProfile(profileData));
+            storeToast({
+                status: 'success',
+                title: 'Rejestracja',
+                message: `${capitalize(profileData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
+            });
+            dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Rejestracja',
+                message: 'Kurde, rejestracja jebnęła',
+            });
+
+            dispatch(removeProfile());
+            dispatch(setProfileRequestStatus(RequestStatus.ERROR));
+        }
+    };
+
+export const logoutProfileAsync =
+    (history: History): AppThunk =>
+    (dispatch: AppDispatch) => {
+        localStorage.removeItem('token');
+        history.push(ROUTES.ROOT);
 
         dispatch(removeProfile());
-        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
-    }
-};
-
-export const registerProfileAsync = ({ credentials, history }: IProfileParams): AppThunk => async (
-    dispatch: AppDispatch
-) => {
-    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
-
-    try {
-        const { data: token }: { data: IAuthTokenResponse } = await apiService.post(
-            BACKEND_ROUTING.AUTH.REGISTER,
-            credentials
-        );
-        const { data: profileData }: { data: IProfileResponse } = await apiService.get(BACKEND_ROUTING.AUTH.PROFILE, {
-            headers: {
-                Authorization: `token ${token.key}`,
-            },
-        });
-
-        localStorage.setItem('token', token.key);
-        history.push(ROUTES.PROPOSALS);
-
-        dispatch(setProfile(profileData));
-        storeToast({
-            status: 'success',
-            title: 'Rejestracja',
-            message: `${capitalize(profileData.username)}, witamy Cię po raz pierwszy w naszym serwisie`,
-        });
-        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Rejestracja',
-            message: 'Kurde, rejestracja jebnęła',
-        });
-
-        dispatch(removeProfile());
-        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
-    }
-};
-
-export const logoutProfileAsync = (history: History): AppThunk => (dispatch: AppDispatch) => {
-    localStorage.removeItem('token');
-    history.push(ROUTES.ROOT);
-
-    dispatch(removeProfile());
-};
+    };
 
 export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) => {
     dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
@@ -242,118 +250,128 @@ export const fetchProfileAsync = (): AppThunk => async (dispatch: AppDispatch) =
     }
 };
 
-export const fetchProfileProposalsAsync = (authorId: string): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setProfileProposalsRequestStatus(RequestStatus.FETCHING));
+export const fetchProfileProposalsAsync =
+    (authorId: string): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setProfileProposalsRequestStatus(RequestStatus.FETCHING));
 
-    try {
-        const { data: profileProposalsPagination }: { data: IPaginationResponse<IProposal> } = await apiService.get(
-            `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParamsString({ author: authorId })}`
-        );
+        try {
+            const { data: profileProposalsPagination }: { data: IPaginationResponse<IProposal> } = await apiService.get(
+                `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParamsString({ author: authorId })}`
+            );
 
-        const profileProposals = profileProposalsPagination['results'];
+            const profileProposals = profileProposalsPagination['results'];
 
-        dispatch(setProfileProposals(profileProposals));
-        dispatch(setProfileProposalsRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Profil',
-            message: 'Nie udało się pobrać twoich partnerstw',
-        });
-        dispatch(removeProfileProposals());
-        dispatch(setProfileProposalsRequestStatus(RequestStatus.ERROR));
-    }
-};
-
-export const updateProfileAsync = (updatedData: IProfileInputs): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
-
-    const avatar = get(['avatar'], updatedData);
-    const normalizedUpdatedData = omit(['avatar'], updatedData);
-
-    try {
-        if (avatar?.state === AvatarState.ADDED) {
-            await apiService.post(BACKEND_ROUTING.AUTH.PROFILE_AVATAR, {
-                image: avatar.file,
+            dispatch(setProfileProposals(profileProposals));
+            dispatch(setProfileProposalsRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Profil',
+                message: 'Nie udało się pobrać twoich partnerstw',
             });
+            dispatch(removeProfileProposals());
+            dispatch(setProfileProposalsRequestStatus(RequestStatus.ERROR));
         }
+    };
 
-        if (avatar?.state === AvatarState.DELETED) {
-            await apiService.delete(BACKEND_ROUTING.AUTH.PROFILE_AVATAR);
+export const updateProfileAsync =
+    (updatedData: IProfileInputs): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setProfileRequestStatus(RequestStatus.FETCHING));
+
+        const avatar = get(['avatar'], updatedData);
+        const normalizedUpdatedData = omit(['avatar'], updatedData);
+
+        try {
+            if (avatar?.state === AvatarState.ADDED) {
+                await apiService.post(BACKEND_ROUTING.AUTH.PROFILE_AVATAR, {
+                    image: avatar.file,
+                });
+            }
+
+            if (avatar?.state === AvatarState.DELETED) {
+                await apiService.delete(BACKEND_ROUTING.AUTH.PROFILE_AVATAR);
+            }
+
+            const { data: profileData }: { data: IProfileResponse } = await apiService.patch(
+                BACKEND_ROUTING.AUTH.PROFILE,
+                {
+                    ...normalizedUpdatedData,
+                }
+            );
+
+            /**
+             * Get MyProposals list after changing profile data
+             */
+            dispatch(fetchProfileProposalsAsync(profileData.id));
+            dispatch(setProfile(profileData));
+            storeToast({
+                status: 'success',
+                title: 'Profil uzytkownika',
+                message: 'Dane zostały zapisane',
+            });
+            dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Profil uzytkownika',
+                message: 'Nie udało się zapisać dane',
+            });
+
+            dispatch(setProfileRequestStatus(RequestStatus.ERROR));
         }
+    };
 
-        const { data: profileData }: { data: IProfileResponse } = await apiService.patch(BACKEND_ROUTING.AUTH.PROFILE, {
-            ...normalizedUpdatedData,
-        });
+export const removeProfileProposalAsync =
+    ({ id, name }: IProposalRemove): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        try {
+            await apiService.delete(`${BACKEND_ROUTING.PROPOSAL.LIST}${id}`);
+            dispatch(removeOneProfileProposal(id));
 
-        /**
-         * Get MyProposals list after changing profile data
-         */
-        dispatch(fetchProfileProposalsAsync(profileData.id));
-        dispatch(setProfile(profileData));
-        storeToast({
-            status: 'success',
-            title: 'Profil uzytkownika',
-            message: 'Dane zostały zapisane',
-        });
-        dispatch(setProfileRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Profil uzytkownika',
-            message: 'Nie udało się zapisać dane',
-        });
+            storeToast({
+                status: 'success',
+                title: 'Profil',
+                message: `Partnerstwo "${name}" zostało usunięte`,
+            });
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Profil',
+                message: `Nie udało się usunąć "${name}" partnerstwo`,
+            });
 
-        dispatch(setProfileRequestStatus(RequestStatus.ERROR));
-    }
-};
+            console.error('Delete proposal error:', error);
+        }
+    };
 
-export const removeProfileProposalAsync = ({ id, name }: IProposalRemove): AppThunk => async (
-    dispatch: AppDispatch
-) => {
-    try {
-        await apiService.delete(`${BACKEND_ROUTING.PROPOSAL.LIST}${id}`);
-        dispatch(removeOneProfileProposal(id));
+export const updateProfileProposalAsync =
+    ({ id, formData }: IProposalUpdate): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.FETCHING));
+        try {
+            const { data: proposal } = await apiService.patch<IProposal>(
+                `${BACKEND_ROUTING.PROPOSAL.LIST}${id}`,
+                formData
+            );
+            dispatch(updateProfileProposal(proposal));
 
-        storeToast({
-            status: 'success',
-            title: 'Profil',
-            message: `Partnerstwo "${name}" zostało usunięte`,
-        });
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Profil',
-            message: `Nie udało się usunąć "${name}" partnerstwo`,
-        });
-
-        console.error('Delete proposal error:', error);
-    }
-};
-
-export const updateProfileProposalAsync = ({ id, formData }: IProposalUpdate): AppThunk => async (
-    dispatch: AppDispatch
-) => {
-    dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.FETCHING));
-    try {
-        const { data: proposal } = await apiService.patch(`${BACKEND_ROUTING.PROPOSAL.LIST}${id}`, formData);
-        dispatch(updateProfileProposal(proposal));
-
-        storeToast({
-            status: 'success',
-            title: 'Profil',
-            message: `Partnerstwo "${formData.title}" zostało zedytowane`,
-        });
-        dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        storeToast({
-            status: 'error',
-            title: 'Profil',
-            message: `Nie udało się zedytować partnerstwo "${formData.title}"`,
-        });
-        dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.ERROR));
-        console.error('Delete proposal error:', error);
-    }
-};
+            storeToast({
+                status: 'success',
+                title: 'Profil',
+                message: `Partnerstwo "${formData.title}" zostało zedytowane`,
+            });
+            dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            storeToast({
+                status: 'error',
+                title: 'Profil',
+                message: `Nie udało się zedytować partnerstwo "${formData.title}"`,
+            });
+            dispatch(setProfileProposalsUpdateRequestStatus(RequestStatus.ERROR));
+            console.error('Delete proposal error:', error);
+        }
+    };
 
 export default profileSlice.reducer;

@@ -39,11 +39,10 @@ const SetPasswordForm = ({ onSubmit, isFetching = false }: IProps) => {
                 <PasswordField
                     borderColor={errors.password1 ? 'tomato' : 'gray.200'}
                     borderWidth={errors.password1 ? 1 : 0}
-                    name="password1"
-                    ref={register}
                     placeholder="Hasło"
                     size="lg"
                     shadow="base"
+                    {...register('password1')}
                 />
                 <FormErrorMessage name="password1" errors={errors} />
             </Box>
@@ -52,11 +51,10 @@ const SetPasswordForm = ({ onSubmit, isFetching = false }: IProps) => {
                 <PasswordField
                     borderColor={errors.password2 ? 'tomato' : 'gray.200'}
                     borderWidth={errors.password2 ? 1 : 0}
-                    name="password2"
-                    ref={register}
                     placeholder="Powtórz hasło"
                     size="lg"
                     shadow="base"
+                    {...register('password2')}
                 />
                 <FormErrorMessage name="password2" errors={errors} />
             </Box>

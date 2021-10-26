@@ -39,11 +39,10 @@ const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
                 <Input
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
                     bgColor="white"
-                    name="username"
-                    ref={register}
                     type="text"
                     size="lg"
                     placeholder="Nazwa użytkownika"
+                    {...register('username')}
                 />
                 <FormErrorMessage name="username" errors={errors} />
             </Box>
@@ -51,10 +50,9 @@ const LoginForm = ({ onSubmit, requestStatus }: IProps) => {
             <Box mb={{ base: 4, md: 8 }}>
                 <PasswordField
                     borderColor={errors.username ? 'tomato' : 'gray.200'}
-                    name="password"
-                    ref={register}
                     size="lg"
                     placeholder="Hasło"
+                    {...register('password')}
                 />
                 <FormErrorMessage name="password" errors={errors} />
             </Box>

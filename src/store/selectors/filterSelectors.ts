@@ -8,6 +8,7 @@ export const cityDictSelector = (state: RootState) => state.filter.cities;
 export const cityListSelector = createSelector(cityDictSelector, (cities) =>
     values(cities).map(({ name, id }: ICityWithAreas) => ({ name, id }))
 );
-export const cityAreaListSelector = createSelector(cityDictSelector, (cities) => (cityId: string) =>
-    cities[cityId].cityAreas
+export const cityAreaListSelector = createSelector(
+    cityDictSelector,
+    (cities) => (cityId: string) => cities[cityId].cityAreas
 );

@@ -122,88 +122,92 @@ export const {
 /**
  * Async actions
  */
-export const fetchPageAsync = (filtersData: IFilterData): AppThunk => async (dispatch: AppDispatch) => {
-    const isInitialFetch = !filtersData.pageNumber;
-    if (isInitialFetch) dispatch(setPaginationRequestStatus(RequestStatus.FETCHING));
+export const fetchPageAsync =
+    (filtersData: IFilterData): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        const isInitialFetch = !filtersData.pageNumber;
+        if (isInitialFetch) dispatch(setPaginationRequestStatus(RequestStatus.FETCHING));
 
-    try {
-        dispatch(setPage(filtersData.pageNumber || 1));
+        try {
+            dispatch(setPage(filtersData.pageNumber || 1));
 
-        const {
-            data: { results, count },
-        }: { data: IPaginationResponse<IProposal> } = await apiService.get(
-            `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParams(filtersData)}`
-        );
+            const {
+                data: { results, count },
+            }: { data: IPaginationResponse<IProposal> } = await apiService.get(
+                `${BACKEND_ROUTING.PROPOSAL.LIST}?${getQueryParams(filtersData)}`
+            );
 
-        dispatch(receivePage({ results, count, pageNumber: filtersData.pageNumber || 1 }));
-        dispatch(setPaginationRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        dispatch(resetPagination());
-        dispatch(setPaginationRequestStatus(RequestStatus.ERROR));
+            dispatch(receivePage({ results, count, pageNumber: filtersData.pageNumber || 1 }));
+            dispatch(setPaginationRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            dispatch(resetPagination());
+            dispatch(setPaginationRequestStatus(RequestStatus.ERROR));
 
-        storeToast({
-            status: 'error',
-            title: 'Partnerstwa',
-            message: `Nie udało się pobrać partnerstwa`,
-        });
+            storeToast({
+                status: 'error',
+                title: 'Partnerstwa',
+                message: `Nie udało się pobrać partnerstwa`,
+            });
 
-        console.error('Fetch pagination page error:', error);
-    }
-};
+            console.error('Fetch pagination page error:', error);
+        }
+    };
 
-export const fetchDetailsAsync = (proposalId: string): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
+export const fetchDetailsAsync =
+    (proposalId: string): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setDetailsRequestStatus(RequestStatus.FETCHING));
 
-    try {
-        const { data: proposalDetails }: { data: IProposalResponse } = await apiService.get(
-            `${BACKEND_ROUTING.PROPOSAL.LIST}${proposalId}`
-        );
+        try {
+            const { data: proposalDetails }: { data: IProposalResponse } = await apiService.get(
+                `${BACKEND_ROUTING.PROPOSAL.LIST}${proposalId}`
+            );
 
-        dispatch(setDetails(proposalDetails));
-        dispatch(setDetailsRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        dispatch(resetDetails());
-        dispatch(setDetailsRequestStatus(RequestStatus.ERROR));
+            dispatch(setDetails(proposalDetails));
+            dispatch(setDetailsRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            dispatch(resetDetails());
+            dispatch(setDetailsRequestStatus(RequestStatus.ERROR));
 
-        storeToast({
-            status: 'error',
-            title: 'Partnerstwo',
-            message: 'Nie udało się pobrać danie tego partnerstwa',
-        });
+            storeToast({
+                status: 'error',
+                title: 'Partnerstwo',
+                message: 'Nie udało się pobrać danie tego partnerstwa',
+            });
 
-        console.error('Fetch proposal details error:', error);
-    }
-};
+            console.error('Fetch proposal details error:', error);
+        }
+    };
 
-export const createProposalAsync = (proposalsData: Partial<{ [key in keyof IProposal]: string }>): AppThunk => async (
-    dispatch: AppDispatch
-) => {
-    dispatch(setCreateProposalRequestStatus(RequestStatus.FETCHING));
+export const createProposalAsync =
+    (proposalsData: Partial<{ [key in keyof IProposal]: string }>): AppThunk =>
+    async (dispatch: AppDispatch) => {
+        dispatch(setCreateProposalRequestStatus(RequestStatus.FETCHING));
 
-    try {
-        /**
-         * This method return new proposal object
-         */
-        await apiService.post(BACKEND_ROUTING.PROPOSAL.CREATE, proposalsData);
+        try {
+            /**
+             * This method return new proposal object
+             */
+            await apiService.post(BACKEND_ROUTING.PROPOSAL.CREATE, proposalsData);
 
-        storeToast({
-            status: 'success',
-            title: 'Partnerstwo',
-            message: 'Partnerstwo zostało stworzone',
-        });
+            storeToast({
+                status: 'success',
+                title: 'Partnerstwo',
+                message: 'Partnerstwo zostało stworzone',
+            });
 
-        dispatch(setCreateProposalRequestStatus(RequestStatus.SUCCESS));
-    } catch (error) {
-        dispatch(setCreateProposalRequestStatus(RequestStatus.ERROR));
-        storeToast({
-            status: 'error',
-            title: 'Partnerstwo',
-            message: 'Nie udało się swtorzyć nowego partnerstwa',
-        });
+            dispatch(setCreateProposalRequestStatus(RequestStatus.SUCCESS));
+        } catch (error) {
+            dispatch(setCreateProposalRequestStatus(RequestStatus.ERROR));
+            storeToast({
+                status: 'error',
+                title: 'Partnerstwo',
+                message: 'Nie udało się swtorzyć nowego partnerstwa',
+            });
 
-        console.error('Fetch proposal details error:', error);
-    }
-    setTimeout(() => dispatch(setCreateProposalRequestStatus(RequestStatus.IDLE)), 100);
-};
+            console.error('Fetch proposal details error:', error);
+        }
+        setTimeout(() => dispatch(setCreateProposalRequestStatus(RequestStatus.IDLE)), 100);
+    };
 
 export default proposalSlice.reducer;

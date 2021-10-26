@@ -5,8 +5,9 @@
 #### _Update packages_
 
 -   `$ yarn cache clean`
--   `$ rm -R node_modules && rm -R yarn.lock`
--   `$ yarn update --latest`
+-   `$ sudo rm -R node_modules && rm yarn.lock`
+-   `$ yarn upgrade --latest`
+-   `$ yarn install`
 
 <br/><br/>
 

@@ -117,12 +117,10 @@ const EditProposalForm = ({
                 <Input
                     borderColor={errors.title ? 'tomato' : 'gray.200'}
                     defaultValue={title}
-                    name="title"
                     placeholder="Tytuł partnerstwa"
-                    ref={register}
                     size="lg"
                     type="text"
-                    onChange={handleChange}
+                    {...register('title', { onChange: handleChange })}
                 />
                 <FormErrorMessage name="title" errors={errors} />
             </Box>
@@ -158,13 +156,11 @@ const EditProposalForm = ({
                     borderColor={errors.description ? 'tomato' : 'gray.200'}
                     defaultValue={description}
                     h={40}
-                    name="description"
                     placeholder="Opis partnerstwa"
-                    ref={register}
                     resize="none"
                     size="lg"
                     type="text"
-                    onChange={handleChange}
+                    {...register('description', { onChange: handleChange })}
                 />
                 <FormErrorMessage name="description" errors={errors} />
             </Box>

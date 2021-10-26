@@ -69,9 +69,10 @@ export const Chatroom = () => {
     const showContent = chatroomListRequestStatus === RequestStatus.SUCCESS;
 
     const isApproved = chatroomStatus === IChatroomStatus.APPROVED;
-    const isOwnProposal = useMemo(() => profileId === chatroomDetails?.proposal.author.id, [
-        chatroomDetails?.proposal.author,
-    ]);
+    const isOwnProposal = useMemo(
+        () => profileId === chatroomDetails?.proposal.author.id,
+        [chatroomDetails?.proposal.author]
+    );
 
     const isMessageListLoading =
         (messageListRequestStatus === RequestStatus.FETCHING || messageListRequestStatus === RequestStatus.IDLE) &&

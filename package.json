@@ -15,6 +15,7 @@
         "@testing-library/user-event": "^13.5.0",
         "@types/react-router-dom": "^5.3.1",
         "axios": "^0.23.0",
+        "craco-alias": "^3.0.1",
         "framer-motion": "^4.1.17",
         "lodash": "^4.17.21",
         "react": "^17.0.2",
@@ -31,6 +32,7 @@
     "devDependencies": {
         "@commitlint/cli": "^13.2.1",
         "@commitlint/config-conventional": "^13.2.0",
+        "@craco/craco": "^6.4.0",
         "@storybook/addon-actions": "^6.3.12",
         "@storybook/addon-essentials": "^6.3.12",
         "@storybook/addon-links": "^6.3.12",
@@ -47,47 +49,31 @@
         "@types/yup": "^0.29.13",
         "@typescript-eslint/eslint-plugin": "^5.1.0",
         "@typescript-eslint/parser": "^5.1.0",
+        "babel-loader": "8.1.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
-        "babel-loader": "8.1.0",
         "husky": "^7.0.4",
         "postcss-cli": "^9.0.1",
         "prettier": "^2.4.1",
-        "pretty-quick": "^3.1.1",
-        "react-app-rewired": "^2.1.8"
+        "pretty-quick": "^3.1.1"
     },
     "scripts": {
-        "start": "react-app-rewired start",
-        "build": "react-app-rewired build",
+        "start": "craco start",
+        "build": "craco build",
+        "test": "craco test",
         "build:prod": "yarn lint && yarn test --watchAll=false && yarn build",
         "eject": "react-scripts eject",
         "format": "pretty-quick --staged",
         "lint": "eslint src/ --ext .ts,.tsx,.js",
-        "test": "react-app-rewired test",
         "storybook": "start-storybook -p 6006 -s public",
-        "build-storybook": "build-storybook -s public"
+        "build-storybook": "build-storybook -s public",
+        "set:commitlint": "echo \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js",
+        "set:commit-msg": "yarn husky add .husky/commit-msg 'npx --no-install commitlint --edit \"$1\"'",
+        "set:pre-commit": "yarn husky add .husky/pre-commit 'yarn format && yarn lint'",
+        "setup": "yarn install && yarn husky install && yarn set:commitlint && yarn set:commit-msg && yarn set:pre-commit"
     },
     "eslintConfig": {
         "extends": "react-app"
-    },
-    "jest": {
-        "moduleNameMapper": {
-            "@assets/(.*)$": "<rootDir>/src/assets/$1",
-            "@components/(.*)$": "<rootDir>/src/components/$1",
-            "@consts/(.*)$": "<rootDir>/src/consts/$1",
-            "@hooks/(.*)$": "<rootDir>/src/hooks/$1",
-            "@layouts/(.*)$": "<rootDir>/src/layouts/$1",
-            "@typing/(.*)$": "<rootDir>/src/typing/$1",
-            "@routing/(.*)$": "<rootDir>/src/routing/$1",
-            "@utils/(.*)$": "<rootDir>/src/utils/$1",
-            "@slices/(.*)$": "<rootDir>/src/store/slices/$1",
-            "@selectors/(.*)$": "<rootDir>/src/store/selectors/$1",
-            "@store/(.*)$": "<rootDir>/src/store/$1",
-            "@screens/(.*)$": "<rootDir>/src/screens/$1",
-            "@services/(.*)$": "<rootDir>/src/services/$1",
-            "@src/(.*)$": "<rootDir>/src/$1",
-            "@theme/(.*)$": "<rootDir>/src/theme/$1"
-        }
     },
     "browserslist": {
         "production": [
@@ -100,11 +86,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn format && yarn lint",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
     }
 }

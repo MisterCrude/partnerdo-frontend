@@ -2,6 +2,16 @@
 
 ## Commands
 
+#### _Setup script_
+
+-   `$ yarn setup`  
+    _Run next commands_
+    -   `$ yarn install`
+    -   `$ yarn set:commitlint` // create commitlint.config.js
+    -   `$ yarn install husky`
+    -   `$ yarn set:commit-msg`
+    -   `$ yarn set:pre-commit`
+
 #### _Update packages_
 
 -   `$ yarn cache clean`

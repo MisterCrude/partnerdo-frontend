@@ -57,6 +57,10 @@
         "react-app-rewired": "^2.1.8"
     },
     "scripts": {
+        "set:commitlint": "echo \"module.exports = {extends: ['@commitlint/config-conventional']}\" > commitlint.config.js",
+        "set:commit-msg": "yarn husky add .husky/commit-msg 'npx --no-install commitlint --edit \"$1\"'",
+        "set:pre-commit": "yarn husky add .husky/pre-commit 'yarn format && yarn lint'",
+        "setup": "yarn husky install && yarn set:commitlint && yarn set:commit-msg && yarn set:pre-commit",
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
         "build:prod": "yarn lint && yarn test --watchAll=false && yarn build",
@@ -100,11 +104,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn format && yarn lint",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
     }
 }

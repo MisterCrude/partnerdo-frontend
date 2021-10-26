@@ -29,7 +29,7 @@ class SocketClient {
         });
     }
 
-    sendMessage<T extends unknown>(message: IWSMessage<T>) {
+    sendMessage<T>(message: IWSMessage<T>) {
         return new Promise((resolve, reject) => {
             const stringifyMsg = JSON.stringify(toSnakeCase(message));
 
